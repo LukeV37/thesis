@@ -1,6 +1,10 @@
 \documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\graphicspath{ {figures/} }
+  \graphicspath{ {figures/} {chapters/pileup/figures/} }
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amsfonts}
 
 \title{
   {Standard Model of Particle Physics\\ and Machine Learning}\\
@@ -9,7 +13,7 @@
   {\includegraphics[width=0.2\textwidth]{Oklahoma_State_University_seal.png}}
 }
 \author{Luke Martin Vaughan}
-\date{Expected Completion: December 2025}
+\date{Expected Completion: Fall 2025 or Spring 2026}
 
 \begin{document}
 
@@ -17,7 +21,26 @@
 
 \tableofcontents
 
+%\chapter*{Abstract}
+%\input{chapters/abstract.tex}
+
+%\chapter*{Dedication}
+%\input{chapters/dedication.tex}
+
+%\chapter*{Declaration}
+%\input{chapters/declaration.tex}
+
+%\chapter*{Acknowledgements}
+%\input{chapters/acknowledgements.tex}
+
 \chapter{Introduction}
-\input{chapters/Introduction.tex}
+\input{chapters/introduction.tex}
+
+\appendix
+\chapter{Pileup Studies}
+\input{chapters/appendix-A.tex}
+
+\chapter{More Appendix}
+\input{chapters/appendix-B.tex}
 
 \end{document}
