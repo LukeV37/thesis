@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 -m http.server > server.log 2>&1 &
+python3 -m http.server > ./tmp/server.log 2>&1 &
