@@ -1,7 +1,7 @@
-main: thesis.tex
-	@pdflatex -output-directory=./tmp thesis.tex
+main: main.tex
+	@pdflatex -output-directory=./tmp main.tex
 	@echo ""
-	@echo "http://localhost:8000/tmp/thesis.pdf"
+	@echo "http://localhost:${SERVER_PORT}/tmp/thesis.pdf"
 	@echo ""
 
 clean:
