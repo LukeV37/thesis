@@ -1,0 +1,774 @@
+- Region: CCSR1
+  Samples:
+    - Sample: multijet
+      Yield: 523.8952534874122
+      Error: 24.29731448546551
+    - Sample: vbfhbb
+      Yield: 0.15787521879201205
+      Error: 0.10399643981934868
+    - Sample: vbfhcc
+      Yield: 6.67130113471769
+      Error: 4.916530669602168
+    - Sample: ggfhbb
+      Yield: 0.003236773132369215
+      Error: 0.007661625723376157
+    - Sample: ggfhcc
+      Yield: 0.07979406239715742
+      Error: 0.2564893954510075
+    - Sample: ttbar
+      Yield: 0.1845480523692086
+      Error: 0.10116527085877151
+    - Sample: vbfz
+      Yield: 2.440770647142015
+      Error: 1.5071594588334345
+    - Sample: qcdz
+      Yield: 0.17320734526930026
+      Error: 0.24081982548038583
+    - Sample: qcdw
+      Yield: 0.5437860629750771
+      Error: 0.6120832235787362
+    - Sample: vbfw
+      Yield: 1.3275572244698082
+      Error: 0.9013761496205884
+    - Sample: bias_18
+      Yield: -3.6907528684856876
+      Error: 4.2684645414923965
+    - Sample: bias_2223
+      Yield: 0
+      Error: 0
+    - Sample: Total
+      Yield: 531.7865771401912
+      Error: 23.16333441226819
+    - Data: data
+      Yield: 532
+- Region: CCSR2
+  Samples:
+    - Sample: multijet
+      Yield: 3338.393798538053
+      Error: 62.95271163335561
+    - Sample: vbfhbb
+      Yield: 0.5613164878017467
+      Error: 0.30562437522552915
+    - Sample: vbfhcc
+      Yield: 20.163725197374625
+      Error: 14.84128901193861
+    - Sample: ggfhbb
+      Yield: 0.025323395165190842
+      Error: 0.03371023680560456
+    - Sample: ggfhcc
+      Yield: 0.7074131968019154
+      Error: 0.661093236312701
+    - Sample: ttbar
+      Yield: 0.18772368402268497
+      Error: 0.1270630337687604
+    - Sample: vbfz
+      Yield: 8.435414558208636
+      Error: 4.685920446893141
+    - Sample: qcdz
+      Yield: 3.642841718450567
+      Error: 2.325105130075469
+    - Sample: qcdw
+      Yield: 3.7596838855553294
+      Error: 2.60237424744648
+    - Sample: vbfw
+      Yield: 5.087024247525169
+      Error: 2.8296509481202006
+    - Sample: bias_18
+      Yield: -9.72357991161492
+      Error: 13.136609652495281
+    - Sample: bias_2223
+      Yield: 0
+      Error: 0
+    - Sample: Total
+      Yield: 3371.240684997344
+      Error: 58.53743529316172
+    - Data: data
+      Yield: 3371
+- Region: CCSR3
+  Samples:
+    - Sample: multijet
+      Yield: 3390.4195997111574
+      Error: 61.1310320468346
+    - Sample: vbfhbb
+      Yield: 0.5467631135205362
+      Error: 0.30231989694599776
+    - Sample: vbfhcc
+      Yield: 13.334636795276804
+      Error: 9.880440602862638
+    - Sample: ggfhbb
+      Yield: 0.038214074518441936
+      Error: 0.03597447754389789
+    - Sample: ggfhcc
+      Yield: 0.4521827614034834
+      Error: 0.46580270931125617
+    - Sample: ttbar
+      Yield: 0.3948880590340062
+      Error: 0.20981867236123597
+    - Sample: vbfz
+      Yield: 7.112534376311477
+      Error: 3.9069698581878356
+    - Sample: qcdz
+      Yield: 3.671165952106393
+      Error: 2.530061663664707
+    - Sample: qcdw
+      Yield: 3.4922588087316893
+      Error: 2.6721018108064274
+    - Sample: vbfw
+      Yield: 3.5119693532749814
+      Error: 2.196408359157211
+    - Sample: bias_18
+      Yield: -7.053197304246231
+      Error: 8.67659703516018
+    - Sample: bias_2223
+      Yield: 0
+      Error: 0
+    - Sample: Total
+      Yield: 3415.921015701089
+      Error: 58.67743848790933
+    - Data: data
+      Yield: 3416
+- Region: CCSR4
+  Samples:
+    - Sample: multijet
+      Yield: 7645.430542251554
+      Error: 93.21473714091046
+    - Sample: vbfhbb
+      Yield: 0.8971316404681595
+      Error: 0.4896335908308322
+    - Sample: vbfhcc
+      Yield: 20.895337072193534
+      Error: 15.404651329373317
+    - Sample: ggfhbb
+      Yield: 0.05947613576810214
+      Error: 0.06175450494409737
+    - Sample: ggfhcc
+      Yield: 1.2433771603228818
+      Error: 1.1545993384219462
+    - Sample: ttbar
+      Yield: 2.775253849750258
+      Error: 1.4123102296943917
+    - Sample: vbfz
+      Yield: 9.71701753304126
+      Error: 5.514058507987914
+    - Sample: qcdz
+      Yield: 6.935520911621732
+      Error: 4.827599006881664
+    - Sample: qcdw
+      Yield: 9.92804966101029
+      Error: 5.70817922416343
+    - Sample: vbfw
+      Yield: 9.162607802828479
+      Error: 4.816657769761751
+    - Sample: bias_18
+      Yield: -0.7840311039398556
+      Error: 17.70786345133967
+    - Sample: bias_2223
+      Yield: 0
+      Error: 0
+    - Sample: Total
+      Yield: 7706.260282914618
+      Error: 87.99512674471704
+    - Data: data
+      Yield: 7706
+- Region: CCSR5
+  Samples:
+    - Sample: multijet
+      Yield: 12341.4974221852
+      Error: 118.24037594565837
+    - Sample: vbfhbb
+      Yield: 1.0437812673716849
+      Error: 0.5803547030408085
+    - Sample: vbfhcc
+      Yield: 20.950669966938868
+      Error: 15.47495632969286
+    - Sample: ggfhbb
+      Yield: 0.10720078068776477
+      Error: 0.0798001277007107
+    - Sample: ggfhcc
+      Yield: 1.8644418547807158
+      Error: 1.651498012463298
+    - Sample: ttbar
+      Yield: 4.962719460932427
+      Error: 2.5049014538160033
+    - Sample: vbfz
+      Yield: 13.689264971430411
+      Error: 7.125756924512516
+    - Sample: qcdz
+      Yield: 14.18213112196575
+      Error: 8.12334892187858
+    - Sample: qcdw
+      Yield: 18.508888944600926
+      Error: 10.399398317655907
+    - Sample: vbfw
+      Yield: 11.208960984072258
+      Error: 6.253250830966345
+    - Sample: bias_18
+      Yield: -5.7022756567904285
+      Error: 16.2653592329922
+    - Sample: bias_2223
+      Yield: 0
+      Error: 0
+    - Sample: Total
+      Yield: 12422.313205881192
+      Error: 112.03934488855703
+    - Data: data
+      Yield: 12422
+- Region: CCSR6
+  Samples:
+    - Sample: multijet
+      Yield: 239176.74961242804
+      Error: 774.4495775433126
+    - Sample: vbfhbb
+      Yield: 4.665646202103423
+      Error: 2.505718736460201
+    - Sample: vbfhcc
+      Yield: 57.433923902928946
+      Error: 42.70710232630075
+    - Sample: ggfhbb
+      Yield: 2.620486311904899
+      Error: 1.4337761338013597
+    - Sample: ggfhcc
+      Yield: 24.528052497014883
+      Error: 18.336103933177014
+    - Sample: ttbar
+      Yield: 842.7865301940844
+      Error: 405.57645372390454
+    - Sample: vbfz
+      Yield: 52.91770979946152
+      Error: 26.172719189374256
+    - Sample: qcdz
+      Yield: 378.9085533764685
+      Error: 187.10113380995128
+    - Sample: qcdw
+      Yield: 663.7021074793375
+      Error: 332.88123702157446
+    - Sample: vbfw
+      Yield: 67.08490308531944
+      Error: 33.66729222187377
+    - Sample: bias_18
+      Yield: 3.5032645661605883
+      Error: 51.926838600410065
+    - Sample: bias_2223
+      Yield: 0
+      Error: 0
+    - Sample: Total
+      Yield: 241274.90078984282
+      Error: 491.3886819272938
+    - Data: data
+      Yield: 241275
+- Region: BBSR1_run3
+  Samples:
+    - Sample: multijet
+      Yield: 1346.9983582228665
+      Error: 40.66896544756616
+    - Sample: vbfhbb
+      Yield: 26.298734216528082
+      Error: 13.470413553965335
+    - Sample: vbfhcc
+      Yield: 0.12341435268749368
+      Error: 0.10577994092102808
+    - Sample: ggfhbb
+      Yield: 0.32664973446441603
+      Error: 0.24794100394785762
+    - Sample: ggfhcc
+      Yield: 0.0036562078591814685
+      Error: 0.0036834995553087376
+    - Sample: ttbar
+      Yield: 0.6634950282370066
+      Error: 0.3497100181012226
+    - Sample: vbfz
+      Yield: 11.51755014112468
+      Error: 5.698531716608277
+    - Sample: qcdz
+      Yield: 1.5036532713354944
+      Error: 1.153318258103635
+    - Sample: qcdw
+      Yield: 0.18989418921434098
+      Error: 0.4238194977894399
+    - Sample: vbfw
+      Yield: 0.0498067962286062
+      Error: 0.027356429135602885
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: -2.560245517607825
+      Error: 7.870882038556976
+    - Sample: Total
+      Yield: 1385.114966642938
+      Error: 37.484082555041645
+    - Data: data
+      Yield: 1385
+- Region: BBSR2_run3
+  Samples:
+    - Sample: multijet
+      Yield: 7418.143131566608
+      Error: 101.0417218097457
+    - Sample: vbfhbb
+      Yield: 79.67403845393957
+      Error: 40.494855198018854
+    - Sample: vbfhcc
+      Yield: 0.38211232766573955
+      Error: 0.3009625895417902
+    - Sample: ggfhbb
+      Yield: 3.2833637187175135
+      Error: 1.8179554484935474
+    - Sample: ggfhcc
+      Yield: 0.009549067537175509
+      Error: 0.007628458684391789
+    - Sample: ttbar
+      Yield: 3.623394529893582
+      Error: 1.8429698343083556
+    - Sample: vbfz
+      Yield: 52.783181852704786
+      Error: 25.7721571123604
+    - Sample: qcdz
+      Yield: 14.119689661840221
+      Error: 7.7828776841482235
+    - Sample: qcdw
+      Yield: 1.3539054239362731
+      Error: 1.0907292574112164
+    - Sample: vbfw
+      Yield: 0.2059789167277983
+      Error: 0.10707017451832156
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 6.3428122560519204
+      Error: 27.21252554203344
+    - Sample: Total
+      Yield: 7579.921157775623
+      Error: 87.27782657685226
+    - Data: data
+      Yield: 7582
+- Region: BBSR3_run3
+  Samples:
+    - Sample: multijet
+      Yield: 7298.686088964854
+      Error: 92.99290998231405
+    - Sample: vbfhbb
+      Yield: 51.57329188901075
+      Error: 26.313091327685928
+    - Sample: vbfhcc
+      Yield: 0.2648077923848906
+      Error: 0.22088883408164517
+    - Sample: ggfhbb
+      Yield: 2.1345295360331704
+      Error: 1.5077904300154237
+    - Sample: ggfhcc
+      Yield: 0.013450941757636704
+      Error: 0.011744722794518813
+    - Sample: ttbar
+      Yield: 1.5232745255771418
+      Error: 0.7792551208572385
+    - Sample: vbfz
+      Yield: 30.295263121075394
+      Error: 14.381610760676573
+    - Sample: qcdz
+      Yield: 10.726279271961289
+      Error: 5.678082616047438
+    - Sample: qcdw
+      Yield: 2.8941560025178363
+      Error: 2.882051539689756
+    - Sample: vbfw
+      Yield: 0.13779345741409307
+      Error: 0.09859970100251426
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 7.03200594116886
+      Error: 18.549685711552733
+    - Sample: Total
+      Yield: 7405.280941443755
+      Error: 86.25321382652942
+    - Data: data
+      Yield: 7407
+- Region: BBSR4_run3
+  Samples:
+    - Sample: multijet
+      Yield: 15409.992147575571
+      Error: 137.3450484191402
+    - Sample: vbfhbb
+      Yield: 78.83986596343344
+      Error: 40.30139622592475
+    - Sample: vbfhcc
+      Yield: 0.4073015863940149
+      Error: 0.32586081460339766
+    - Sample: ggfhbb
+      Yield: 4.524940802392534
+      Error: 2.622030818759668
+    - Sample: ggfhcc
+      Yield: 0.02985190604315573
+      Error: 0.02354351703708623
+    - Sample: ttbar
+      Yield: 6.246159771765533
+      Error: 3.1060673324725796
+    - Sample: vbfz
+      Yield: 53.19276676565873
+      Error: 23.681856340167446
+    - Sample: qcdz
+      Yield: 28.841255925303145
+      Error: 13.909977284062247
+    - Sample: qcdw
+      Yield: 3.864015679724916
+      Error: 2.663006226280392
+    - Sample: vbfw
+      Yield: 0.8252843969724828
+      Error: 0.5283124645914409
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 7.7049226253048895
+      Error: 27.693931917495853
+    - Sample: Total
+      Yield: 15594.468512998565
+      Error: 125.05065355268727
+    - Data: data
+      Yield: 15596
+- Region: BBSR5_run3
+  Samples:
+    - Sample: multijet
+      Yield: 24493.550929701716
+      Error: 170.3532418334653
+    - Sample: vbfhbb
+      Yield: 77.32958381818855
+      Error: 39.550810651579056
+    - Sample: vbfhcc
+      Yield: 0.40567067424092096
+      Error: 0.3095588705724159
+    - Sample: ggfhbb
+      Yield: 6.428856579933258
+      Error: 3.824225570699258
+    - Sample: ggfhcc
+      Yield: 0.04836303640593896
+      Error: 0.041190327468317835
+    - Sample: ttbar
+      Yield: 12.135243373003503
+      Error: 6.293712692443524
+    - Sample: vbfz
+      Yield: 46.16281990362243
+      Error: 24.93961234540774
+    - Sample: qcdz
+      Yield: 31.409237398660707
+      Error: 17.097408197591875
+    - Sample: qcdw
+      Yield: 5.95167706274905
+      Error: 4.2061184976399675
+    - Sample: vbfw
+      Yield: 0.32141428262238225
+      Error: 0.172761852377515
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: -25.512455966446332
+      Error: 10.98812345853474
+    - Sample: Total
+      Yield: 24648.231339864695
+      Error: 157.21349481253898
+    - Data: data
+      Yield: 24646
+- Region: BBSR6_run3
+  Samples:
+    - Sample: multijet
+      Yield: 432106.2267033298
+      Error: 1627.8616087337227
+    - Sample: vbfhbb
+      Yield: 209.81289813349412
+      Error: 107.39404718853993
+    - Sample: vbfhcc
+      Yield: 1.2111946094661774
+      Error: 0.9246791470257257
+    - Sample: ggfhbb
+      Yield: 107.46875611663458
+      Error: 57.675457286762956
+    - Sample: ggfhcc
+      Yield: 1.765255903026719
+      Error: 1.3524823329135949
+    - Sample: ttbar
+      Yield: 2793.736218138636
+      Error: 1325.009732662614
+    - Sample: vbfz
+      Yield: 169.81666419128823
+      Error: 87.8175440510974
+    - Sample: qcdz
+      Yield: 922.8200204628664
+      Error: 482.77775825001356
+    - Sample: qcdw
+      Yield: 330.26655489047647
+      Error: 172.58164827000303
+    - Sample: vbfw
+      Yield: 4.837425228664179
+      Error: 2.555623167587569
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 7.863471684620391
+      Error: 77.05474322948706
+    - Sample: Total
+      Yield: 436655.825162689
+      Error: 667.1743436011112
+    - Data: data
+      Yield: 436656
+- Region: CCSR1_run3
+  Samples:
+    - Sample: multijet
+      Yield: 741.1392890114985
+      Error: 29.27896443759668
+    - Sample: vbfhbb
+      Yield: 0.2289047410576223
+      Error: 0.12790051049861975
+    - Sample: vbfhcc
+      Yield: 10.44893912707554
+      Error: 8.08863477277595
+    - Sample: ggfhbb
+      Yield: 0.0013457008334448893
+      Error: 0.00566233282408816
+    - Sample: ggfhcc
+      Yield: 0.16618583622749417
+      Error: 0.2591814152327734
+    - Sample: ttbar
+      Yield: 2.9985412559252055e-05
+      Error: 2.8202999870782074e-06
+    - Sample: vbfz
+      Yield: 3.3744460611889084
+      Error: 2.0109342238967343
+    - Sample: qcdz
+      Yield: 0.5700835405228954
+      Error: 0.8412514606147129
+    - Sample: qcdw
+      Yield: 0.6663175281352994
+      Error: 0.6285546350882936
+    - Sample: vbfw
+      Yield: 1.0344967447085711
+      Error: 0.8375594200094378
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 0.5172734537168615
+      Error: 6.429841428194717
+    - Sample: Total
+      Yield: 758.1473117303777
+      Error: 27.53410607733954
+    - Data: data
+      Yield: 758
+- Region: CCSR2_run3
+  Samples:
+    - Sample: multijet
+      Yield: 4688.767686160193
+      Error: 76.1917915400165
+    - Sample: vbfhbb
+      Yield: 0.9084458700693566
+      Error: 0.4832955969058166
+    - Sample: vbfhcc
+      Yield: 33.62219060477333
+      Error: 25.676976086609976
+    - Sample: ggfhbb
+      Yield: 0.049726761792450766
+      Error: 0.07052926728359621
+    - Sample: ggfhcc
+      Yield: 0.8338073575733098
+      Error: 0.8976612331703702
+    - Sample: ttbar
+      Yield: 0.592081030895843
+      Error: 0.2978147142436946
+    - Sample: vbfz
+      Yield: 15.230867843951646
+      Error: 7.732996871066472
+    - Sample: qcdz
+      Yield: 5.30192562441619
+      Error: 3.9656380912472162
+    - Sample: qcdw
+      Yield: 5.421252272568597
+      Error: 3.614625906019778
+    - Sample: vbfw
+      Yield: 7.205450467662799
+      Error: 4.063335263044407
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 1.4772873337077976
+      Error: 20.0090433931352
+    - Sample: Total
+      Yield: 4759.410721327604
+      Error: 69.03315242792009
+    - Data: data
+      Yield: 4760
+- Region: CCSR3_run3
+  Samples:
+    - Sample: multijet
+      Yield: 5041.528935720799
+      Error: 75.72657149962905
+    - Sample: vbfhbb
+      Yield: 0.8508662560107253
+      Error: 0.45797530952373455
+    - Sample: vbfhcc
+      Yield: 22.95868544145448
+      Error: 17.448961141821794
+    - Sample: ggfhbb
+      Yield: 0.061493036049921006
+      Error: 0.08054728979653794
+    - Sample: ggfhcc
+      Yield: 0.757500701876925
+      Error: 1.0035057286205493
+    - Sample: ttbar
+      Yield: 0.8550430319688975
+      Error: 0.43427952521673313
+    - Sample: vbfz
+      Yield: 9.080566393836516
+      Error: 5.219227888375
+    - Sample: qcdz
+      Yield: 4.6318734178147665
+      Error: 3.0737193037685704
+    - Sample: qcdw
+      Yield: 6.03549502981866
+      Error: 3.928947927398062
+    - Sample: vbfw
+      Yield: 5.745629640422686
+      Error: 3.5289813784266095
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 1.9238500255152875
+      Error: 14.508385826717983
+    - Sample: Total
+      Yield: 5094.429938695569
+      Error: 71.38358949078517
+    - Data: data
+      Yield: 5094
+- Region: CCSR4_run3
+  Samples:
+    - Sample: multijet
+      Yield: 11470.46609292002
+      Error: 115.38466549361203
+    - Sample: vbfhbb
+      Yield: 1.6071383219469009
+      Error: 0.8558900131259457
+    - Sample: vbfhcc
+      Yield: 35.56295339451643
+      Error: 27.068106210154653
+    - Sample: ggfhbb
+      Yield: 0.10223957769698742
+      Error: 0.09733461327889859
+    - Sample: ggfhcc
+      Yield: 2.2312940364380007
+      Error: 2.081759445456988
+    - Sample: ttbar
+      Yield: 2.1464991649128997
+      Error: 1.0758511090382978
+    - Sample: vbfz
+      Yield: 14.81080602445052
+      Error: 8.509302286176037
+    - Sample: qcdz
+      Yield: 9.909047058180063
+      Error: 6.100808225898368
+    - Sample: qcdw
+      Yield: 16.539048608039344
+      Error: 9.524873093688823
+    - Sample: vbfw
+      Yield: 12.737790823320436
+      Error: 6.828833270828109
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 5.050885780218147
+      Error: 22.412825221654096
+    - Sample: Total
+      Yield: 11571.16379570974
+      Error: 107.63018279144036
+    - Data: data
+      Yield: 11571
+- Region: CCSR5_run3
+  Samples:
+    - Sample: multijet
+      Yield: 19370.076002440917
+      Error: 148.84778654363777
+    - Sample: vbfhbb
+      Yield: 2.006343698478333
+      Error: 1.0379776128130094
+    - Sample: vbfhcc
+      Yield: 36.281005146973236
+      Error: 27.718829693077613
+    - Sample: ggfhbb
+      Yield: 0.1552216524086382
+      Error: 0.10890620810333591
+    - Sample: ggfhcc
+      Yield: 2.50770572715769
+      Error: 2.358039062223729
+    - Sample: ttbar
+      Yield: 5.001500663624125
+      Error: 2.514571066720429
+    - Sample: vbfz
+      Yield: 19.94269124801938
+      Error: 10.708418690733858
+    - Sample: qcdz
+      Yield: 19.686049296831243
+      Error: 11.44108405622292
+    - Sample: qcdw
+      Yield: 27.76830089462298
+      Error: 15.373738228841614
+    - Sample: vbfw
+      Yield: 17.302063547905146
+      Error: 9.381130843748782
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: 5.135922458834001
+      Error: 23.203532551716023
+    - Sample: Total
+      Yield: 19505.86280677577
+      Error: 139.71372282799817
+    - Data: data
+      Yield: 19506
+- Region: CCSR6_run3
+  Samples:
+    - Sample: multijet
+      Yield: 409210.8934645143
+      Error: 1277.7469961237018
+    - Sample: vbfhbb
+      Yield: 7.429922858371413
+      Error: 3.797683206273476
+    - Sample: vbfhcc
+      Yield: 103.54082839781312
+      Error: 80.07087494793879
+    - Sample: ggfhbb
+      Yield: 4.430415702837861
+      Error: 2.387695879753814
+    - Sample: ggfhcc
+      Yield: 48.15131107722721
+      Error: 36.9577085680191
+    - Sample: ttbar
+      Yield: 1414.7881901522906
+      Error: 711.449187263102
+    - Sample: vbfz
+      Yield: 89.63908275083821
+      Error: 43.6289668396941
+    - Sample: qcdz
+      Yield: 717.546932673419
+      Error: 351.93371007560137
+    - Sample: qcdw
+      Yield: 1249.2161589771245
+      Error: 618.7646443929661
+    - Sample: vbfw
+      Yield: 111.63164059210108
+      Error: 54.459457711217865
+    - Sample: bias_18
+      Yield: 0
+      Error: 0
+    - Sample: bias_2223
+      Yield: -4.129690089021894
+      Error: 64.64738967730118
+    - Sample: Total
+      Yield: 412953.1382576073
+      Error: 646.5443795649675
+    - Data: data
+      Yield: 412954
