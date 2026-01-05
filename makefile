@@ -1,4 +1,5 @@
 main: main.tex
+	@mkdir -p tmp
 	@pdflatex -output-directory=./tmp main.tex
 	@mv ./tmp/main.pdf ./tmp/${PDF_NAME}.pdf
 	@echo ""
