@@ -1,6 +1,6 @@
-main: dissertation_main.tex
+main: main.tex
 	@mkdir -p tmp
-	@pdflatex -output-directory=./tmp dissertation_main.tex
+	@pdflatex -output-directory=./tmp main.tex
 
 clean:
 	@rm -rf ./tmp/*
