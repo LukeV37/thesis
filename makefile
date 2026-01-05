@@ -1,11 +1,6 @@
-main: main.tex
+main: dissertation_main.tex
 	@mkdir -p tmp
-	@pdflatex -output-directory=./tmp main.tex
-	@mv ./tmp/main.pdf ./tmp/${PDF_NAME}.pdf
-	@echo ""
-	@echo "http://localhost:${SERVER_PORT}/tmp/${PDF_NAME}.pdf"
-	@echo ""
+	@pdflatex -output-directory=./tmp dissertation_main.tex
 
 clean:
 	@rm -rf ./tmp/*
-

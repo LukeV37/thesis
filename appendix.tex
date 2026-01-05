@@ -1,0 +1,23 @@
+\appendix
+%\include{chapter-appendix}
+
+\begingroup
+\clearpage% Manually insert \clearpage
+\let\clearpage\relax% Remove \clearpage functionality
+\vspace*{-16pt}% Insert needed vertical retraction
+\chapter*{\centerline{APPENDICES}}
+\endgroup
+
+% \begin{center}
+% {\bfseries Title of Appendix (Not Numbered)}
+% \end{center}
+
+\section*{Title of Appendix (Not Numbered)}
+\addcontentsline{toc}{chapter}{APPENDICES}
+\renewcommand{\thechapter}{A}
+\numberwithin{equation}{chapter}
+\setcounter{equation}{0}
+%\setcounter{theorem}{0}
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam finibus venenatis dui, a accumsan dui elementum non. Suspendisse suscipit diam sed dapibus mollis. Quisque id congue nisl, auctor elementum turpis. Sed mattis at leo non rhoncus. Donec at rhoncus velit, at dignissim risus. Sed in quam a felis pulvinar bibendum a eget mi. Aliquam ac ligula nec urna pharetra interdum. Nam varius quis dui non finibus. Proin ullamcorper blandit ipsum nec feugiat.

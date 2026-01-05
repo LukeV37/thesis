@@ -1,0 +1,29 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{1}
+\interlinepenalty=10000
+
+\bibitem{ApostolAnalyticBook}
+Tom~M. Apostol, \emph{Introduction to analytic number theory}, Springer-Verlag,
+  New York, 1976, Undergraduate Texts in Mathematics. \MR{0434929 (55 \#7892)}
+
+\bibitem{Gouvea}
+Fernando~Q. Gouv{\^e}a, \emph{{$p$}-adic numbers}, second ed., Universitext,
+  Springer-Verlag, Berlin, 1997, An introduction. \MR{1488696}
+
+\bibitem{K1}
+A.~Ya. Khinchin, \emph{Continued fractions}, russian ed., Dover Publications,
+  Inc., Mineola, NY, 1997, With a preface by B. V. Gnedenko, Reprint of the
+  1964 translation. \MR{1451873 (98c:11008)}
+
+\bibitem{LiCai}
+Yingjie Li and Yingchun Cai, \emph{On a {W}aring-{G}oldbach problem for mixed
+  powers}, Rocky Mountain J. Math. \textbf{47} (2017), no.~6, 1947--1961.
+  \MR{3725251}
+
+\end{thebibliography}
