@@ -1,4 +1,4 @@
-# Oklahoma State University Dissertation
+# Luke's Dissertation
 
 This repository contains a LaTeX document to compile Luke's disseration at Oklahoma State University. It includes all necessary files and configurations to create a properly formatted academic document following OSU guidelines.
 
