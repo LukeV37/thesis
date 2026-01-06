@@ -224,6 +224,7 @@
 \def\degreeone#1{\gdef\@degreeone{#1}}
 \def\degreetwo#1{\gdef\@degreetwo{#1}\@onedegreefalse}
 \def\degreethree#1{\gdef\@degreethree{#1}\@onedegreefalse}
+\def\degreefour#1{\gdef\@degreefour{#1}\@onedegreefalse}
 
 % Commands for proof environment (adapted from amsgen.sty & amsthm.sty)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareRobustCommand{\qed}{%
@@ -325,7 +326,8 @@
        \@author \linebreak\linebreak %
        \@degreeone \linebreak\linebreak %
        \@degreetwo \linebreak\linebreak %
-       \@degreethree}
+       \@degreethree \linebreak\linebreak %
+       \@degreefour}
      \fi
      \par\vfill\par
      Submitted to the Faculty of the\\
