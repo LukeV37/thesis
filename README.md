@@ -1,4 +1,4 @@
-# Luke's Dissertation
+# Luke's Physics PhD Dissertation
 
 This repository contains a LaTeX document to compile Luke's disseration at Oklahoma State University. It includes all necessary files and configurations to create a properly formatted academic document following OSU guidelines.
 
@@ -39,3 +39,4 @@ To customize the thesis:
 4. Add figures to `figures/` directory and reference them in chapters
 
 The template is designed to follow Oklahoma State University's thesis formatting requirements.
+
