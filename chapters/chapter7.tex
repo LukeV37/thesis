@@ -2,13 +2,262 @@
 \clearpage% Manually insert \clearpage
 \let\clearpage\relax% Remove \clearpage functionality
 \vspace*{-16pt}% Insert needed vertical retraction
-\chapter[TOP POLARIMETRY]{TOP POLARIMETRY}
+\chapter[PILEUP MITIGATION AT THE HL-LHC]{PILEUP MITIGATION AT THE HL-LHC}
 \endgroup
 
 \section{Outline}
 
 \begin{itemize}
-  \item Top polarimetry motivation and results
+  \item HL-LHC shutdown
+  \item Next 3 years detector will undergo huge transformation
+  \item Huge amount of pileup
+  \item This work benefits entire experiment. Not for a specific analysis.
+  \item Important to address pileup to maximize the discovery potential of the ATLAS detector at HL-LHC conditions.
 \end{itemize}
 
+\section{Pileup at the Current and Upgraded LHC}
 
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=0.8\linewidth]{figures/chapter7/Pileup_Graphic.png}
+  \caption{The interactions from crossing proton bunches in a single event. The hard scatter, HS, originates from the primary vertex forming a correlated set of particles while other interactions stochastically produce pileup, PU.}
+\label{fig:PileupJets}
+\end{figure}
+
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{.32\textwidth}
+    \centering
+    \textbf{\tiny{Event at $\left\langle \mu \right\rangle$=60}}
+    \includegraphics[width=1\textwidth]{figures/chapter7/Event_mu60.png}
+    \caption{}
+    \label{fig:sub1}
+  \end{subfigure}%
+  \begin{subfigure}{.32\textwidth}
+    \centering
+    \textbf{\tiny{Event at $\left\langle \mu \right\rangle$=200}}
+    \includegraphics[width=1\linewidth]{figures/chapter7/Event_mu200.png}
+    \caption{}
+    \label{fig:sub2}
+  \end{subfigure}
+  \begin{subfigure}{.32\textwidth}
+    %\textbf{\tiny{Dependence of Min Jet $p_{\rm T}$ on $\mu$}}
+    \includegraphics[width=1\linewidth]{figures/chapter7/njet_vs_ptcut.png} 
+    \caption{}
+    \label{fig:njets}
+  \end{subfigure}
+  \caption{Simulated events with jets depicted as large, circular clusters of energy. At $\left\langle \mu \right\rangle=200$, the gray pileup particles begin to dominate the event and significantly distort the energy and mass of hard scatter jets. (c) As $\left\langle \mu \right\rangle$ increases, the minimum jet $p_{\rm T}$ parameter must increase to keep jets per event constant. }
+  \label{fig:HLLHC}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu60.png}
+      \caption{}
+      \label{fig:Efrac1d_mu60}
+    \end{subfigure}\hfill
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu200.png}
+      \caption{}
+      \label{fig:Efrac2d_mu60}
+    \end{subfigure}\hfill
+    \caption{A Phoenix Event Display\cite{phoenix} depicting an event in the ATLAS inner tracking system. Signal (blue) and background (red) particles are displayed with transverse momentum greater than 1.8 GeV. There is a dramatic increase in pileup background between the current LHC conditions at $\langle\mu\rangle=60$ (left) and the HL-LHC conditions at $\langle\mu\rangle=200$ (right).}
+    \label{fig:EventDisplay}
+\end{figure}
+
+
+\section{Pileup Mitigation using Graph and Attention Models}
+
+\begin{figure}[t]
+\centering
+  \includegraphics[width=1\linewidth]{figures/chapter7/PAKDD25-architecture.png}
+\caption{Architecture of the proposed attention-based neural network method. Our method extracts two versions of track features to combine with jet features. The proposed multi-head cross-attention block correlates jets with respect to all tracks to enable learning of jet features based on an entire event.}
+\label{fig:Model}
+\end{figure}
+
+\begin{figure}[ht!]
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Efrac1D_mu60.png}
+  \caption{}
+  \label{fig:Efrac1d_mu60}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Efrac2d_mu60.png}
+  \caption{}
+  \label{fig:Efrac2d_mu60}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Mfrac1D_mu60.png}
+  \caption{}
+  \label{fig:Mfrac1d_mu60}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Mfrac2D_mu60.png}
+  \caption{}
+  \label{fig:Mfrac2d_mu60}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Efrac1D_mu200.png}
+  \caption{}
+  \label{fig:Efrac1d_mu200}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Efrac2d_mu200.png}
+  \caption{}
+  \label{fig:Efrac2d_mu200}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Mfrac1D_mu200.png}
+  \caption{}
+  \label{fig:Mfrac1d_mu200}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Mfrac2D_mu200.png}
+  \caption{}
+  \label{fig:Mfrac2d_mu200}
+\end{subfigure}
+\caption{At $\left \langle \mu \right \rangle=60$ (top row) and $\left \langle \mu \right \rangle=200$ (bottom row), the predicted energy (left) and mass (right) fraction of jets shown as 1D and 2D histograms.}
+\label{fig:RegressionResults}
+\end{figure}
+
+\section{Physics Analysis}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \textbf{\tiny{Raw Mass $\left \langle \mu \right \rangle=200$}}
+  \includegraphics[width=1\linewidth]{figures/chapter7/mass_peak_nocut.png}
+  \caption{}
+  \label{fig:Raw}
+\end{subfigure}
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \textbf{\tiny{Uncorrected Mass $\left \langle \mu \right \rangle=200$}}
+  \includegraphics[width=1\linewidth]{figures/chapter7/mass_peak_uncorrected.png}
+  \caption{}
+  \label{fig:Uncorrected}
+\end{subfigure}
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \textbf{\tiny{Corrected Mass $\left \langle \mu \right \rangle=200$}}
+  \includegraphics[width=1\linewidth]{figures/chapter7/mass_peak_corrected.png}
+  \caption{}
+  \label{fig:Corrected}
+\end{subfigure}
+\caption{The reconstructed Higgs boson mass when looking at (a) all jets with no cuts on $E_{frac}$ and no corrections, (b) uncorrected jets with cut at true $E_{frac}>0.2$, and (c) corrected jets (according to model predictions) with cut at predicted $E_{frac}>0.2$. (a) Shows no signs of mass peak due to pileup contamination. (b) Shows a mass peak that is heavily smeared due to pileup. (c) Shows the expected narrow narrow peak near $m_{\rm H}\approx 125$~GeV with corrections applied.}
+\label{fig:MassPeak}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{.55\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Analysis_ROC.png}
+  \caption{}
+  \label{fig:ROC}
+\end{subfigure}%
+\begin{subfigure}{.43\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter7/Analysis_Scores.png}
+  \caption{}
+  \label{fig:Scores}
+\end{subfigure}
+\caption{For the purposes of physics analysis, the learning objective is modified to perform direct binary classification of di-Higgs vs 4b. $E_{frac}$ and $M_{frac}$ improve performance of the classifier.}
+\label{fig:Analysis}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/Top_Mass_Reco_mu60.png}
+      \caption{}
+      \label{fig:TopReco60}
+    \end{subfigure}\hfill
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/Top_Mass_Reco_mu200.png}
+      \caption{}
+      \label{fig:TopReco200}
+    \end{subfigure}\hfill
+    \caption{Mass Reconstruction after PhyGHT correction}
+\end{figure}
+
+\section{Standard Benchmarks}
+
+\subsection{ATLAS Jet Vertex Tagger}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter7/JVT_Benchmark_mu60.png}
+  \caption{}
+  \label{fig:Benchmark:sub1}
+\end{subfigure}%
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter7/JVT_Benchmark_mu200.png}
+  \caption{}
+  \label{fig:Benchmark:sub2}
+\end{subfigure}
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter7/ROC_Comparison_wtracks.png}
+  \caption{}
+  \label{fig:Benchmark:sub3}
+\end{subfigure}
+\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
+\label{fig:Benchmark}
+\end{figure}
+
+
+\subsection{PUPPI Validation}
+To implement the PUPPI algorithm on our dataset, we first initialize Lorentz 4-vectors of each track using $[p_T,\eta,\phi,m]$ where $m\approx0$ and has charge $q$. Tracks with $p_T< 1GeV$, $\eta>4.0$, and $q=0$ are cut from the dataset. Using awkward library in python, we find all possible pairs of tracks, $[T_i,T_j]$, and cut all pairs of tracks with $\Delta R(T_i,T_j)>0.3$ and $\Delta R(T_i,T_j)<0.02$. For each $T_i$ in all passing pairs, an $\epsilon$ parameter is calculated where $\epsilon_{ij}=\frac{p_{T}(T_j)}{\Delta R(T_i,T_j)}$. Then for all $T_i$, we calculate the local shape parameter $\alpha_i$, using the following equation on pairs that pass the $\Delta R$ cut.
+
+\begin{equation}
+\alpha_i = log \left( \sum_{i} \epsilon_{ij} \right)
+\end{equation}
+
+Then we select the $\alpha_i$ originating from pileup using truth labels, and calculate the median, $\alpha_{PU}^{median}$, and RMS, $\sigma_{PU}^{^2}$  originating from pileup. We then construct a $\chi^2$ metric using the following equation where $\mathcal{H}$ is the Heavyside function:
+
+\begin{equation}
+\chi^2=\mathcal{H}(\alpha_i-\alpha_{PU}^{median})\frac{(\alpha_i-\alpha_{PU}^{median})^2}{\sigma_{PU}^{^2}}
+\end{equation}
+
+A PUPPI Weight is then constructed using using $F_{\chi^2}$, the cumulative distribution function of the $\chi^2$ distribution with a single degree of freedom:
+
+\begin{equation}
+    w_i=F_{\chi^2,NDF=1}(\chi^2_i).
+\end{equation}
+
+After each track is assigned a PUPPI weight, we reweight each constituent of each jet accordingly. When can sum over the weighted 4-vectors of the set of tracks to calculate the predicted energy and mass fraction of each jet according to PUPPI weights. Since some particles were cut from the dataset with $p_T<1 GeV$, we also recalculate the energy and mass fractions using true pileup labels for the remaining constituents. From these recalculated values, we can derived an $R^2$ score and ROC curve. Note: at $\langle\mu\rangle=200$ the same cuts were used for PUPPI weights, but the performance sharply dropped as shown in the Figure \ref{fig:PUPPI_valdiation}. Since we do not apply a generator level filter to hard scatter events, our hard scatter appears more pileup-like than the original PUPPI paper at $\langle\mu\rangle=60$.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{.23\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/alpha_i_mu60.png}
+      \label{fig:alpha_i_mu60}
+    \end{subfigure}\hfill
+    \begin{subfigure}{.23\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/PUPPI_weights_mu60.png}
+      \label{fig:PUPPI_weights_mu60}
+    \end{subfigure}\hfill
+    \begin{subfigure}{.23\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/alpha_i_mu200.png}
+      \label{fig:alpha_i_mu200}
+    \end{subfigure}\hfill
+    \begin{subfigure}{.23\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/PUPPI_weights_mu200.png}
+      \label{fig:PUPPI_weights_mu200}
+    \end{subfigure}\hfill
+    \caption{Validation Plots for implementation of the PUPPI algorithm}
+    \label{fig:PUPPI_valdiation}
+\end{figure}
