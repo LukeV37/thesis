@@ -8,24 +8,46 @@
 \section{Outline}
 
 \begin{itemize}
-  \item HL-LHC shutdown
-  \item Next 3 years detector will undergo huge transformation
-  \item Huge amount of pileup
-  \item This work benefits entire experiment. Not for a specific analysis.
-  \item Important to address pileup to maximize the discovery potential of the ATLAS detector at HL-LHC conditions.
+  \item Pileup is a byproduct of increasing luminosity at the LHC. Pileup contaminates hard scatter events.
+  \item At the HL-LHC, pileup will begin to dominate the event, and we investigate machine learning methods for the task of pileup mitigation.
+  \item Contributions to Pileup Mitigation benefit the entire experiment.
+  \item Mitigating pileup will maximize the discovery potential of the ATLAS detector at HL-LHC conditions.
 \end{itemize}
 
 \section{Pileup at the Current and Upgraded LHC}
 
-\begin{figure}[ht]
+\begin{figure}[t]
 \centering
   \includegraphics[width=0.8\linewidth]{figures/chapter7/Pileup_Graphic.png}
   \caption{The interactions from crossing proton bunches in a single event. The hard scatter, HS, originates from the primary vertex forming a correlated set of particles while other interactions stochastically produce pileup, PU.}
-\label{fig:PileupJets}
+\label{fig:PileupSchematic}
 \end{figure}
 
+To increase recorded luminosity at the detectors, the LHC collides protons in bunches, were each bunch contains order $10^{11}$ protons. However, only a fraction of these protons collide and produce particle showers. The mean number of collisions per bunch crossing is referred to as $\langle\mu\rangle$. Current LHC conditions operate around $\langle\mu\rangle=60$ but HL-LHC operations will increase luminosity thereby increasing interatctions to $\langle\mu\rangle=200$. Only collissions that pass an online trigger are saved for reconstruction, and typlically there exists one hard scatter vertex surrounded by many other pileup verticies, although in HL-LHC conditions, there could exist more than one hard scatter vertex. A schematic of a typical event is shown in Figure \ref{fig:PileupSchematic} and Figure \ref{fig:PhoenixDisplay}.
 
-\begin{figure}
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu60.png}
+      \caption{}
+      \label{fig:Efrac1d_mu60}
+    \end{subfigure}\hfill
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu200.png}
+      \caption{}
+      \label{fig:Efrac2d_mu60}
+    \end{subfigure}\hfill
+    \caption{A Phoenix Event Display\cite{phoenix} depicting an event in the ATLAS inner tracking system in the HL-LHC conditions at $\langle\mu\rangle=60$ (left) and $\langle\mu\rangle=200$ (right) for signal (blue) and background (red) particles with $p_T>1.0$ GeV.}
+    \label{fig:PhoenixDisplay}
+\end{figure}
+
+The signal process is chosen to be top quark pair production decaying semi-leptonically, ($pp\to t\bar{t}, t \to q\bar{q}'b, \bar{t} \to \ell\nu\bar{b}$), and is generated using \textit{MadGraph5\_aMC@NLO} \cite{madgraph}. \textit{Pythia 8} \cite{pythia} with ATLAS A14 central tune\cite{atlas_tune,nnpdf} is used for parton showering which results in stable, final state particles which can be observed by the detectors. To mimic both standard LHC conditions and the high pileup ones of HL-LHC, soft Quantum Chromodynamics (QCD) pileup interactions were overlaid by sampling from a Poisson distribution with mean $\langle\mu\rangle = 60$ and $\langle\mu\rangle = 200$, respectively. The primary and pileup vertices were spatially smeared using Gaussian distributions with widths $\sigma_{xy} = 0.3$ mm and $\sigma_{z} = 50$ mm. Stable, final state particles are clustered using \textit{FastJet} \cite{fastjet} with the anti-$k_t$ algorithm \cite{antikt} using a cone size parameter of $R=0.4$ and the minimum transverse momentum threshold $p_T^{min}>25GeV$. Lastly to model detector acceptance, we removed neutral particles and charged particles with $p_T < 400$ MeV.
+
+Particles in the detector are described using a standard 3D coordinate system defined by their transverse momentum ($p_T$), pseudorapidity ($\eta$), and azimuthal angle ($\phi$)\footnote{$\phi$ is azimuthal angle, $\eta=-\ln\left[ \tan\left( \frac{\theta}{2} \right) \right]$ where $\theta$ is polar angle, and $p_{\rm T}=|\overrightarrow{p}|\sin\theta$ in the spherical coordinate system where the $z$ axis is directed along the beam.}. Each charged particle track is represented by a feature vector $\mathbf{x}^{track} = [p_T, \eta, \phi, q, d_0, z_0]$. Here, $q$ is the charge, and $d_0$ and $z_0$ denote the transverse and longitudinal impact parameters, respectively. These impact parameters are calculated by extrapolating the track to the beam line \cite{beamline}. Each jet is described by a vector $\mathbf{x}^{jet} = [p_T, \eta, \phi, m]$ where $m$ is the mass. These features of the jet represent the aggregated kinematics of the charged and neutral constituents of each clustered set of particles.
+
+\begin{figure}[t]
   \centering
   \begin{subfigure}{.32\textwidth}
     \centering
@@ -51,24 +73,13 @@
   \label{fig:HLLHC}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}{.49\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu60.png}
-      \caption{}
-      \label{fig:Efrac1d_mu60}
-    \end{subfigure}\hfill
-    \begin{subfigure}{.49\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu200.png}
-      \caption{}
-      \label{fig:Efrac2d_mu60}
-    \end{subfigure}\hfill
-    \caption{A Phoenix Event Display\cite{phoenix} depicting an event in the ATLAS inner tracking system. Signal (blue) and background (red) particles are displayed with transverse momentum greater than 1.8 GeV. There is a dramatic increase in pileup background between the current LHC conditions at $\langle\mu\rangle=60$ (left) and the HL-LHC conditions at $\langle\mu\rangle=200$ (right).}
-    \label{fig:EventDisplay}
-\end{figure}
-
+\subsection{Truth Label Definition}
+Each jet and track are described as a Lorentz 4-vector which is defined by energy and momentum: $(E, \vec{p})$. The mass of an object can be calculated using the relativistic energy-momentum relation as $m=\sqrt{E^2-|\vec{p}|^2}$. Each jet is constructed by summing the 4-vectors over a set of tracks. Each track is assigned a binary label $y^{label} \in \{0, 1\}$. We assign a value of 1 to tracks originating from the signal vertex and 0 to those originating from pileup vertices, which are used as an auxillary task during training. For each jet, we can calculate truth level energy correction factor $y_{E, k}$ and mass correction factor $y_{M, k}$ for the $k$-th jet as the ratio of the contributions from HS tracks to the total contributions from all tracks:
+\begin{equation}
+    y_{E, k} = \frac{E_{HS, k}}{E_{raw, k}}, \quad y_{M, k} = \frac{M_{HS, k}}{M_{raw, k}}
+    \label{eq:truth_labels}
+\end{equation}
+where $E_{raw, k}$ and $M_{raw, k}$ represent the total jet energy and mass clustered from the hard scatter signal and the pileup background.
 
 \section{Pileup Mitigation using Graph and Attention Models}
 
@@ -78,6 +89,46 @@
 \caption{Architecture of the proposed attention-based neural network method. Our method extracts two versions of track features to combine with jet features. The proposed multi-head cross-attention block correlates jets with respect to all tracks to enable learning of jet features based on an entire event.}
 \label{fig:Model}
 \end{figure}
+
+Four transformer encoder stacks are used to enrich each tensor -- $\mathbb{J},\mathbb{T}_{jet},\mathbb{T}_{jet}$ -- with context from the event. Each encoder follows the NormFormer [*] architecture by (... et al). NormFormers consists of LayerNorms, LN(), multi-head attention, MHA(), skip connections, + operator, feed-forward network, FFN, which consists of a linear layer and a GELU activation function. These layers are the components of each encoder block.
+
+
+First, each jet is enriched with associated tracks. Since each jet only carries four features, $p_T, \eta, \phi, m$, tracks within a radius of $\Delta R = 0.4$ are used in the first encoder stack to achieve a rich representation of each jet.
+
+\begin{align}
+    \mathbb{T}_{context} &= \mathbb{T}_{jet} + LN(MHA(LN(\mathbb{T}_{jet}), LN(\mathbb{T}_{jet}), LN(\mathbb{T}_{jet}))) \\
+    \mathbb{T}_{embed} &= \mathbb{T}_{context} + FFN (\mathbb{T}_{context}) \\
+    \mathbb{T}_{aggregated} &= \sum_{dim=1} \mathbb{T}_{embed} \\
+    \mathbb{J}_{enriched} &= FFN(\mathbb{J} \mathop{\oplus}_{dim=1} \mathbb{T}_{aggregated})
+\end{align}
+$\mathbb{T}_{jet}$, $\mathbb{T}_{context}$, and $\mathbb{T}_{embed}$ all have shape $N_{jet} \times N_{trk} \times E_{dim}$. Then the summation operator reduces the $N_{trk}$ dimension which will then match the dimension of $\mathbb{J}$ with shape $N_{jet} \times E_{dim}$. The jet and aggregated track tensors are concatenated along the embedding dimension, and the FFN has input $N_{jet} \times 2\cdot E_{dim}$ and outputs $\mathbb{J}$ of shape $N_{jet} \times E_{dim}$. This encoder block can be interpreted physically as learning to enrich the jet in the context of associated particles. %For example, if there is are particles that resemble b-hadron decay, this encoder block might enrich this jet as a b-jet in the latent space.
+
+Second, $\mathbb{T}_{event}$ with shape $N_{trk} \times E_{dim}$ are enriched using an encoder block using self-attention:
+\begin{align}
+    \mathbb{T}_{context} &= \mathbb{T}_{event} + LN(MHA(LN(\mathbb{T}_{event}), LN(\mathbb{T}_{event}), LN(\mathbb{T}_{event}))) \\
+    \mathbb{T}_{embed} &= \mathbb{T}_{context} + FFN (\mathbb{T}_{context})
+\end{align}
+The purpose of this encoder is to update all tracks in the context of the event and initialize them for cross attention with jets.
+
+Third, cross attention between $\mathbb{J}_{enriched}$ and $\mathbb{T}_{embed}$ is performed to update the jets in the context of all tracks of the event.
+
+\begin{align}
+    \mathbb{J}_{context} &= \mathbb{J}_{enriched} + LN(MHA(LN(\mathbb{J}_{enriched}), LN(\mathbb{T}_{event}), LN(\mathbb{T}_{event}))) \\
+    \mathbb{J}_{embed} &= \mathbb{J}_{context} + FFN (\mathbb{J}_{context})
+\end{align}
+
+%This encoder allows tracks to update the jet embedding in the context of an event. For example, if we consier $t \rightarrow Wb \rightarrow l\nu b$, this encoder allows the high energy lepton, l, to update the context of the b-jet.
+
+Fourth and finally, $\mathbb{J}_{embed}$ with shape $N_{jet} \times E_{dim}$ is enriched using a encoder block using self attention:
+
+\begin{align}
+    \mathbb{J}_{context} &= \mathbb{J}_{embed} + LN(MHA(LN(\mathbb{J}_{embed}), LN(\mathbb{J}_{embed}), LN(\mathbb{J}_{embed}))) \\
+    \mathbb{J}_{embed} &= \mathbb{J}_{context} + FFN (\mathbb{J}_{context})
+\end{align}
+
+This encoder is performed last because at this stage the jets have achieved a rich representation after passing through the previous encoders. This last encoder allows jets to update their representation in the context of an event. This encoder can be interpreted physically as allowing jets to update representations according to conservation of momentum or other properties that might be shared between jets.
+
+Lastly, the embedded jet vectors are passed through a final classification layer to predict the continuous Efrac and Mfrac label.
 
 \begin{figure}[ht!]
 \begin{subfigure}{.25\textwidth}
@@ -124,6 +175,10 @@
 \label{fig:RegressionResults}
 \end{figure}
 
+We deploy PUMiNet with each encoder block stacked three times to achieve a deeper representation of jets. We schedule the learning rate to decay by a factor of 0.1 after the $25^{th}$ epoch which noticeably helped descend the noisy loss landscape in model training. The \emph{AdamW} optimizer is used to prevent overtraining using weight decay and we use $R^2$ as an evaluation metric. The model converged after training 50 epochs on an NVIDIA RTX 3090.
+
+PUMiNet was evaluated on a sample of 20k di-Higgs events simulated specifically for testing. At $\left \langle \mu \right \rangle=60$, the model achieves $R^2=0.916$ for $E_{frac}$, as shown in Figure~\ref{fig:Efrac1d_mu60}, and $R^2=0.757$ for $M_{frac}$, as shown in Figure~\ref{fig:Mfrac1d_mu60}. At $\left \langle \mu \right \rangle=200$, the model achieves $R^2=0.912$ for $E_{frac}$, as shown in Figure \ref{fig:Efrac1d_mu200}, and $R^2=0.720$ for $M_{frac}$, as shown in Figure \ref{fig:Mfrac1d_mu200}. The 2D predicted vs truth values, plotted with a log z color scale, shown in Figure [\ref{fig:Efrac2d_mu60},\ref{fig:Mfrac2d_mu60}] at $\left \langle \mu \right \rangle=60$ and in Figure \ref{fig:Efrac2d_mu200} \ref{fig:Mfrac2d_mu200} at $\left \langle \mu \right \rangle=200$, show that there is good diagonal trend between the predictions and the truth. Overall, the transformer encoder architecture provides a highly parallelizable algorithm that is computationally feasible at high pileup conditions, and the plots in Figure~\ref{fig:RegressionResults} show that PUMiNet learns the hard scatter contributions without significant degradation to the $R^2$ value at high pileup conditions of the HL-LHC.
+
 \section{Physics Analysis}
 
 \begin{figure}[ht]
@@ -169,6 +224,16 @@
 \label{fig:Analysis}
 \end{figure}
 
+To demonstrate that the model is able to provide useful insight into a practical physics analysis, we attempt to reconstruct the Higgs boson mass from the simulated di-Higgs dataset along with a non-resonant multijet background sample (denoted 4b).
+
+The background sample was generated as the MadGraph process\newline\texttt{p p > b b\~{} b b\~{}} with the minimum $p_{\rm T}$ of the $b$-quarks set to 60~GeV to ensure the same kinematics of both samples, so that the only visible difference between the samples is the resonant mass peak that appears in the di-Higgs sample. Figure \ref{fig:MassPeak} shows the reconstructed mass of all possible pairs of jets in each event, and we expect to find a resonance mass peak near $m_{\rm H}\approx 125$~GeV with a narrow width. Figure \ref{fig:Raw} shows the uncorrected jets with no cut applied to $E_{frac}$ and the background and signal are indistinguishable. Figure \ref{fig:Uncorrected} shows that a cut at truth level $E_{frac}>0.2$ shows a resonant mass peak with uncorrected jets, however, the mean and the width of the mass peak has been significantly inflated due to the effects of pileup. Figure \ref{fig:Corrected} shows that a cut a prediction level $E_{frac}>0.2$ on corrected jets shows a mass peak near the expected value of 125~GeV with a narrow width which shows that the use of $E_{frac}$ and $M_{frac}$ to correct jets successfully mitigates the effects of pileup and restores physical quantities to their expected values.
+
+Lastly, we would like to show that one can slightly modify the learning objective of the model to directly classify an event as signal or background through a binary classification task, which circumvents the need for computationally costly combinatorics. To demonstrate this effect, a self-encoder module between jets is trained on a binary classification task, di-Higgs vs 4b, for three different cases where jets are represented by the following features: (1) $[p_{\rm T},\eta,\phi,m]$, (2) $[p_{\rm T},\eta,\phi,m,E_{frac}^{pred}, M_{frac}^{pred}]$, and (3) $[p_{\rm T},\eta,\phi,m,E_{frac}^{true}, M_{frac}^{true}]$. Through learning the proper attention weights between jets, the model is able to perceive the mass peak and directly classify the event as di-Higgs signal or 4b background. Figure \ref{fig:ROC} shows the background rejection, the reciprocal of false positive rate, vs the signal efficiency, the true positive rate.
+
+For the case (1) PUMiNet is able to successfully distinguish between di-Higgs and 4b physics processes despite having quite similar kinematic features. When predicted and truth $E_{frac}$ and $M_{frac}$ are provided in case (2) and (3), respectively, PUMiNet has a noticeable increase in background rejection. This improvement is elucidated in Figure \ref{fig:Scores} where the dashed line represents case (1) and the solid lines represent case (2). Here one can see a dramatic improvement in the lowest bin, background-like, and highest bin, signal-like which proves the the predicted $E_{frac}$ and $M_{frac}$ of the model can be used directly to perform event level classification.
+
+
+
 \begin{figure}
     \centering
     \begin{subfigure}{.49\textwidth}
@@ -189,6 +254,9 @@
 \section{Standard Benchmarks}
 
 \subsection{ATLAS Jet Vertex Tagger}
+\textbf{Classic JVT Benchmark:} In order to benchmark the performance of the model against existing JVT algorithm, only a subset of the model is used to maintain consistency across input features. For a fair comparison, only jet features are considered: \{$p_T,\eta,\phi,m,R_{p_T},corrJVF$\} where $R_{p_T}$ and $corrJVT$ are defined in. This exercise attempts to show that the attention architecture over jet features (AttnJVT) alone brings noticeable improvements when jets are processed in the context of an event. These results can be further improved when jets are compounded with track features.
+
+Using the di-Higgs dataset, the following models were created: (1) a replica of ATLAS JVT kNN model described in (2) a baseline deep neural network, and (3) a single MHA encoder between jets, AttnJVT.\footnote{A small number of learnable parameters are used, 21k, for AttnJVT and the baseline deep NN.} Since JVT is a binary classifier, the continuous labels are converted to binary using a cut at $E_{frac}=0.3$. The JVT algorithm and deep NN process inputs on a per jet basis, but AttnJVT processes an entire set of jets in the context of an event which allows the model to capture correlations between hard scatter jets. The baseline deep NN and AttnJVT are trained using the Binary Cross Entropy loss function, and converges after 60 epochs on 50k events. The benchmarked false positive rates against the true positive rates are shown in Figure Figure \ref{fig:Benchmark:sub1} \& \ref{fig:Benchmark:sub2} which shows that AttnJVT can significantly lower the false positive rate. We also show that PUMiNet brings further improvements over AttnJVT using both jet and track features to capture event-wide correlations in the regression setup, as shown in Figure \ref{fig:Benchmark:sub3}.
 
 \begin{figure}[ht]
 \centering
