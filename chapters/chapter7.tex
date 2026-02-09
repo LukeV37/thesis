@@ -5,7 +5,7 @@
 \chapter[PILEUP MITIGATION AT THE HL-LHC]{PILEUP MITIGATION AT THE HL-LHC}
 \endgroup
 
-\section{Outline}
+\section{Key Points}
 
 \begin{itemize}
   \item Pileup is a byproduct of increasing luminosity at the LHC. Pileup contaminates hard scatter events.
@@ -72,6 +72,30 @@ Particles in the detector are described using a standard 3D coordinate system de
   \caption{Simulated events with jets depicted as large, circular clusters of energy. At $\left\langle \mu \right\rangle=200$, the gray pileup particles begin to dominate the event and significantly distort the energy and mass of hard scatter jets. (c) As $\left\langle \mu \right\rangle$ increases, the minimum jet $p_{\rm T}$ parameter must increase to keep jets per event constant. }
   \label{fig:HLLHC}
 \end{figure}
+
+\section{Simulated Dataset}\label{Dataset}\hfill
+
+Jets and tracks measured by the ATLAS and CMS detectors are described using a 3D detector coordinate system with their transverse momentum, $p_{\rm T}$, and angular components, $\eta$, and $\phi$.\footnote{$\phi$ is azimuthal angle, $\eta=-\ln\left[ \tan\left( \frac{\theta}{2} \right) \right]$ where $\theta$ is polar angle, and $p_{\rm T}=|\overrightarrow{p}|\sin\theta$ in the spherical coordinate system where the $z$ axis is directed along the beam.}
+As $\left\langle \mu \right\rangle$ increases, the pileup tracks form more jets, leading to a much higher number of jets per event at the same $p_{\rm T}$. Jet features include: $[p_{\rm T},\eta,\phi,m]$, and track features include: $[p_{\rm T},\eta,\phi,q,d_0,z_0]$, where $d_0$ and $z_0$ are transverse and longitudinal distance to primary vertex when track is extrapolated to beam line using parameterized estimation described in~\cite{ATLAS:2021yvc}.
+
+To evaluate the performance of PUMiNet, a specific physics process is chosen: the simultaneous production of two Higgs bosons decaying into a $b$-anti $b$ quark pair. This process is of high interest for HEP and is one of the key components for the HL-LHC physics program~\cite{Dainese:2019rgk}. Each Higgs boson gives rise to a pair of jets $\overrightarrow{J}_i$, $\overrightarrow{J}_j$, described by a combined 4-vector $\overrightarrow{J}_{ij}$. When paired through the proper combinatorics, the distribution of the $\overrightarrow{J}_{ij}$ mass forms a resonance peak near the expected Higgs mass, $m_{\rm H}\approx125$~GeV, but pileup contamination will shift and widen the peak.
+
+A sample of 50k di-Higgs events is generated using MadGraph interfaced with Pythia \footnote{The process \texttt{p p > h h, h > b b\~{}} generated with MadGraph5\_aMC@NLO v3.5.5~\cite{madgraph} interfaced to Pythia 8.312~\cite{pythia}.}. Samples are simulated at $\left\langle \mu \right\rangle = 60$ for the LHC pileup conditions and at $\left\langle \mu \right\rangle = 200$ for the HL-LHC pileup conditions. Pileup processes\footnote{The process \texttt{SoftQCD:inelastic} generated with Pythia using the A14 central tune~\cite{TheATLAScollaboration:2014rfk} and NNPDF2.3LO~\cite{BALL2013244}.} are overlaid according to a Poisson distribution with mean of $\left<\mu\right>$. The position of each hard scatter and pileup vertex in the event is independently smeared according to a Gaussian distribution with $\sigma_{x,y}=0.3$~mm in transverse plane and $\sigma_z=50$~mm along the direction of the proton beam to mimic the actual LHC conditions. Stable particles are then passed to FastJet~\cite{Cacciari_2012} to be clustered into jets using anti-$k_t$ algorithm~\cite{Cacciari_2008} with the cone size $R=0.4$ \footnote{$R = \sqrt{( \eta_{jet} - \eta_{track})^2 + ( \phi_{jet} - \phi_{track})^2}$, where the $\phi$ difference is taken modulo $2\pi$.} and minimum jet $p_{\rm T}$ of 25~GeV. To incorporate detector limitations, neutral particles and particles with $p_{\rm T}$ below 400~MeV are removed from the dataset.
+
+\section{Jet Label Definitions}\label{JetLabels}\hfill
+
+Both jets and tracks are characterized by Lorentz 4-vectors $\overrightarrow{J}$ and $\overrightarrow{T}$, respectively. A Lorentz 4-vector is defined as $(E,\overrightarrow{p})$, where E is energy and $\overrightarrow{p}=(p_x,p_y,p_z)$ is the momentum in 3D space. The mass of an object described by a Lorentz 4-vector is defined as $m=\sqrt{E^2-|\overrightarrow{p}|^2}$.\footnote{In Natural Units} Each event, $\mathcal{E}$, is composed of a variable number of jets and each jet is formed by a variable number of associated tracks. Therefore, the fundamental data structure of an event, $\mathcal{E}$, can be interpreted as nested sets. The relationship between jet 4-vector $\overrightarrow{J}$ and the associated track 4-vectors, $\overrightarrow{T}$, is:
+
+\begin{equation}
+  \overrightarrow{J}_i = \sum\limits_{j \in \overrightarrow{J}_i} \overrightarrow{T}_{ij}
+\end{equation}
+
+Most of the time, jets have contributions from both hard scatter and pileup, and the goal is to purely recover the hard scatter component. However, the actual measured quantities of total energy, $E_{jet}$, and total mass, $m_{jet}$, of each jet contain pileup contamination. To mitigate the effects of pileup, we propose the use of continuous fractions, $E_{frac}$ and $M_{frac}$,\footnote{$E_{frac}$ and $M_{frac}$ can be considered scalar and vector corrections to $\overrightarrow{J}$, respectively. Pileup's stochastic directions affects the vector corrections significantly more than scalar corrections.} to be directly applied to each jet, as ratios, in order to recover only the hard scatter energy, $E_{HS}$, and mass, $m_{HS}$. Therefore, truth labels can be constructed from the 4-vectors of each jet, $\overrightarrow{J}$, by defining:
+\begin{equation}
+  E_{frac}=\frac{E_{HS}}{E_{jet}} \phantom{.......} M_{frac}=\frac{m_{HS}}{m_{jet}}.
+\end{equation}
+
+For the first time, this article proposes to simplify the pileup mitigation strategy by directly applying $E_{frac}$ and $M_{frac}$ labels to simultaneously identify pileup and apply corrections to hard scatter jets through the use of attention neural networks. This approach uses all available information from an event, including the correlations manifesting in hard scatter processes, to get a more accurate representation of the underlying physics process. Using a simulated dataset, the proposed approach outperforms traditional pileup mitigation strategies and assists with physics analysis.
 
 \subsection{Truth Label Definition}
 Each jet and track are described as a Lorentz 4-vector which is defined by energy and momentum: $(E, \vec{p})$. The mass of an object can be calculated using the relativistic energy-momentum relation as $m=\sqrt{E^2-|\vec{p}|^2}$. Each jet is constructed by summing the 4-vectors over a set of tracks. Each track is assigned a binary label $y^{label} \in \{0, 1\}$. We assign a value of 1 to tracks originating from the signal vertex and 0 to those originating from pileup vertices, which are used as an auxillary task during training. For each jet, we can calculate truth level energy correction factor $y_{E, k}$ and mass correction factor $y_{M, k}$ for the $k$-th jet as the ratio of the contributions from HS tracks to the total contributions from all tracks:
@@ -329,3 +353,27 @@ After each track is assigned a PUPPI weight, we reweight each constituent of eac
     \caption{Validation Plots for implementation of the PUPPI algorithm}
     \label{fig:PUPPI_valdiation}
 \end{figure}
+
+\begin{table}
+\centering
+\caption{Performance Comparison on the Test Set. We report the Coefficient of Determination ($R^2$) for the energy ($\hat{y}_E$) and mass ($\hat{y}_M$) correction factors across two pileup scenarios: $\langle\mu\rangle \in \{60, 200\}$.}
+\label{tab:main_results}
+\resizebox{0.78\linewidth}{!}{%
+\begin{tabular}{c|c|cccccccc|c}
+\toprule
+\multirow{2}{*}{$\bm{\langle\mu\rangle}$} & \multirow{2}{*}{\textbf{Target}} & \multicolumn{8}{c|}{\textit{Baselines}}                                                                                                       & \textit{Ours}    \\
+                                          &                                  & \textbf{Transformer} & \textbf{GNN} & \textbf{HGNN} & \textbf{GAT} & \textbf{HGAT} & \textbf{PUPPI} & \textbf{ParticleNet} & \textbf{PUMINet} & \textbf{PhyGHT}  \\
+\cmidrule(lr){1-11}
+\multirow{2}{*}{60}                       & \textit{Energy}                  & 0.812                & 0.841        & 0.821         & 0.839        & 0.792         & 0.769             & 0.869                & \uline{0.934}            & \textbf{0.943}   \\
+                                          & \textit{Mass}                    & 0.634                & 0.694        & 0.662         & 0.683        & 0.621         & 0.549             & 0.748                & \uline{0.838}            & \textbf{0.869}   \\
+\cmidrule(lr){1-11}
+\multirow{2}{*}{200}                      & \textit{Energy}                  & 0.778                & 0.837        & 0.798         & 0.792        & 0.756         & 0.348          & 0.853                & \uline{0.926}            & \textbf{0.932}   \\
+                                          & \textit{Mass}                    & 0.567                & 0.643        & 0.587         & 0.591        & 0.595         & 0.114          & 0.693                & \uline{0.805}            & \textbf{0.836}   \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\section{Conclusion}\hfill
+
+We suggest a novel model, PUMiNet, to address the effect of the pileup interactions on physics studies at current and future LHC conditions. The model makes use of a stack of transformer encoders with self- and cross-attention using track and jet parameters in the event. The proposed architecture allows the model to learn kinematic correlations arising from physics processes which enables PUMiNet to directly predict the fractions of jet energy and jet mass due to pileup in order to recover physically significant observables. The model was trained and tested using simulated di-Higgs datasets. It was shown that the model is capable of recovering the value and resolution of the Higgs boson mass in high-pileup conditions, where initially the Higgs boson mass peak is not possible to observe. PUMiNet:g provides a computationally efficient algorithm to model pileup at the event level and scales well with the expected increase of the pileup level at the LHC and HL-LHC. The OSU high-energy physics group, a member of the ATLAS Collaboration at the LHC, plans to integrate PUMiNet into ATLAS software and evaluate its performance with real LHC data.
