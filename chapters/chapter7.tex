@@ -25,27 +25,11 @@
 
 To increase recorded luminosity at the detectors, the LHC collides protons in bunches, were each bunch contains order $10^{11}$ protons. However, only a fraction of these protons collide and produce particle showers. The mean number of collisions per bunch crossing is referred to as $\langle\mu\rangle$. Current LHC conditions operate around $\langle\mu\rangle=60$ but HL-LHC operations will increase luminosity thereby increasing interatctions to $\langle\mu\rangle=200$. Only collissions that pass an online trigger are saved for reconstruction, and typlically there exists one hard scatter vertex surrounded by many other pileup verticies, although in HL-LHC conditions, there could exist more than one hard scatter vertex. A schematic of a typical event is shown in Figure \ref{fig:PileupSchematic} and Figure \ref{fig:PhoenixDisplay}.
 
-\begin{figure}[t]
-    \centering
-    \begin{subfigure}{.49\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu60.png}
-      \caption{}
-      \label{fig:Efrac1d_mu60}
-    \end{subfigure}\hfill
-    \begin{subfigure}{.49\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{figures/chapter7/Event_30_mu200.png}
-      \caption{}
-      \label{fig:Efrac2d_mu60}
-    \end{subfigure}\hfill
-    \caption{A Phoenix Event Display\cite{phoenix} depicting an event in the ATLAS inner tracking system in the HL-LHC conditions at $\langle\mu\rangle=60$ (left) and $\langle\mu\rangle=200$ (right) for signal (blue) and background (red) particles with $p_T>1.0$ GeV.}
-    \label{fig:PhoenixDisplay}
-\end{figure}
-
-The signal process is chosen to be top quark pair production decaying semi-leptonically, ($pp\to t\bar{t}, t \to q\bar{q}'b, \bar{t} \to \ell\nu\bar{b}$), and is generated using \textit{MadGraph5\_aMC@NLO} \cite{madgraph}. \textit{Pythia 8} \cite{pythia} with ATLAS A14 central tune\cite{atlas_tune,nnpdf} is used for parton showering which results in stable, final state particles which can be observed by the detectors. To mimic both standard LHC conditions and the high pileup ones of HL-LHC, soft Quantum Chromodynamics (QCD) pileup interactions were overlaid by sampling from a Poisson distribution with mean $\langle\mu\rangle = 60$ and $\langle\mu\rangle = 200$, respectively. The primary and pileup vertices were spatially smeared using Gaussian distributions with widths $\sigma_{xy} = 0.3$ mm and $\sigma_{z} = 50$ mm. Stable, final state particles are clustered using \textit{FastJet} \cite{fastjet} with the anti-$k_t$ algorithm \cite{antikt} using a cone size parameter of $R=0.4$ and the minimum transverse momentum threshold $p_T^{min}>25GeV$. Lastly to model detector acceptance, we removed neutral particles and charged particles with $p_T < 400$ MeV.
-
 Particles in the detector are described using a standard 3D coordinate system defined by their transverse momentum ($p_T$), pseudorapidity ($\eta$), and azimuthal angle ($\phi$)\footnote{$\phi$ is azimuthal angle, $\eta=-\ln\left[ \tan\left( \frac{\theta}{2} \right) \right]$ where $\theta$ is polar angle, and $p_{\rm T}=|\overrightarrow{p}|\sin\theta$ in the spherical coordinate system where the $z$ axis is directed along the beam.}. Each charged particle track is represented by a feature vector $\mathbf{x}^{track} = [p_T, \eta, \phi, q, d_0, z_0]$. Here, $q$ is the charge, and $d_0$ and $z_0$ denote the transverse and longitudinal impact parameters, respectively. These impact parameters are calculated by extrapolating the track to the beam line \cite{beamline}. Each jet is described by a vector $\mathbf{x}^{jet} = [p_T, \eta, \phi, m]$ where $m$ is the mass. These features of the jet represent the aggregated kinematics of the charged and neutral constituents of each clustered set of particles.
+
+A sample of 50k di-Higgs and 10k semi-leptonic top quark pair production events are generated using MadGraph interfaced with Pythia \footnote{The process \texttt{p p > h h, h > b b\~{}} and ($pp\to t\bar{t}, t \to q\bar{q}'b, \bar{t} \to \ell\nu\bar{b}$) are generated with MadGraph5\_aMC@NLO v3.5.5~\cite{madgraph} interfaced to Pythia 8.312~\cite{pythia}.}. Samples are simulated at $\left\langle \mu \right\rangle = 60$ for the LHC pileup conditions and at $\left\langle \mu \right\rangle = 200$ for the HL-LHC pileup conditions. Pileup processes\footnote{The process \texttt{SoftQCD:inelastic} generated with Pythia using the A14 central tune~\cite{TheATLAScollaboration:2014rfk} and NNPDF2.3LO~\cite{BALL2013244}.} are overlaid according to a Poisson distribution with mean of $\left<\mu\right>$. The position of each hard scatter and pileup vertex in the event is independently smeared according to a Gaussian distribution with $\sigma_{x,y}=0.3$~mm in transverse plane and $\sigma_z=50$~mm along the direction of the proton beam to mimic the actual LHC conditions. Stable particles are then passed to FastJet~\cite{Cacciari_2012} to be clustered into jets using anti-$k_t$ algorithm~\cite{Cacciari_2008} with the cone size $R=0.4$ \footnote{$R = \sqrt{( \eta_{jet} - \eta_{track})^2 + ( \phi_{jet} - \phi_{track})^2}$, where the $\phi$ difference is taken modulo $2\pi$.} and minimum jet $p_{\rm T}$ of 25~GeV. To incorporate detector limitations, neutral particles and particles with $p_{\rm T}$ below 400~MeV are removed from the dataset.
+
+To evaluate the performance of PUMiNet, a specific physics process is chosen: the simultaneous production of two Higgs bosons decaying into a $b$-anti $b$ quark pair. This process is of high interest for HEP and is one of the key components for the HL-LHC physics program~\cite{Dainese:2019rgk}. Each Higgs boson gives rise to a pair of jets $\overrightarrow{J}_i$, $\overrightarrow{J}_j$, described by a combined 4-vector $\overrightarrow{J}_{ij}$. When paired through the proper combinatorics, the distribution of the $\overrightarrow{J}_{ij}$ mass forms a resonance peak near the expected Higgs mass, $m_{\rm H}\approx125$~GeV, but pileup contamination will shift and widen the peak.
 
 \begin{figure}[t]
   \centering
@@ -73,15 +57,6 @@ Particles in the detector are described using a standard 3D coordinate system de
   \label{fig:HLLHC}
 \end{figure}
 
-\section{Simulated Dataset}\label{Dataset}\hfill
-
-Jets and tracks measured by the ATLAS and CMS detectors are described using a 3D detector coordinate system with their transverse momentum, $p_{\rm T}$, and angular components, $\eta$, and $\phi$.\footnote{$\phi$ is azimuthal angle, $\eta=-\ln\left[ \tan\left( \frac{\theta}{2} \right) \right]$ where $\theta$ is polar angle, and $p_{\rm T}=|\overrightarrow{p}|\sin\theta$ in the spherical coordinate system where the $z$ axis is directed along the beam.}
-As $\left\langle \mu \right\rangle$ increases, the pileup tracks form more jets, leading to a much higher number of jets per event at the same $p_{\rm T}$. Jet features include: $[p_{\rm T},\eta,\phi,m]$, and track features include: $[p_{\rm T},\eta,\phi,q,d_0,z_0]$, where $d_0$ and $z_0$ are transverse and longitudinal distance to primary vertex when track is extrapolated to beam line using parameterized estimation described in~\cite{ATLAS:2021yvc}.
-
-To evaluate the performance of PUMiNet, a specific physics process is chosen: the simultaneous production of two Higgs bosons decaying into a $b$-anti $b$ quark pair. This process is of high interest for HEP and is one of the key components for the HL-LHC physics program~\cite{Dainese:2019rgk}. Each Higgs boson gives rise to a pair of jets $\overrightarrow{J}_i$, $\overrightarrow{J}_j$, described by a combined 4-vector $\overrightarrow{J}_{ij}$. When paired through the proper combinatorics, the distribution of the $\overrightarrow{J}_{ij}$ mass forms a resonance peak near the expected Higgs mass, $m_{\rm H}\approx125$~GeV, but pileup contamination will shift and widen the peak.
-
-A sample of 50k di-Higgs events is generated using MadGraph interfaced with Pythia \footnote{The process \texttt{p p > h h, h > b b\~{}} generated with MadGraph5\_aMC@NLO v3.5.5~\cite{madgraph} interfaced to Pythia 8.312~\cite{pythia}.}. Samples are simulated at $\left\langle \mu \right\rangle = 60$ for the LHC pileup conditions and at $\left\langle \mu \right\rangle = 200$ for the HL-LHC pileup conditions. Pileup processes\footnote{The process \texttt{SoftQCD:inelastic} generated with Pythia using the A14 central tune~\cite{TheATLAScollaboration:2014rfk} and NNPDF2.3LO~\cite{BALL2013244}.} are overlaid according to a Poisson distribution with mean of $\left<\mu\right>$. The position of each hard scatter and pileup vertex in the event is independently smeared according to a Gaussian distribution with $\sigma_{x,y}=0.3$~mm in transverse plane and $\sigma_z=50$~mm along the direction of the proton beam to mimic the actual LHC conditions. Stable particles are then passed to FastJet~\cite{Cacciari_2012} to be clustered into jets using anti-$k_t$ algorithm~\cite{Cacciari_2008} with the cone size $R=0.4$ \footnote{$R = \sqrt{( \eta_{jet} - \eta_{track})^2 + ( \phi_{jet} - \phi_{track})^2}$, where the $\phi$ difference is taken modulo $2\pi$.} and minimum jet $p_{\rm T}$ of 25~GeV. To incorporate detector limitations, neutral particles and particles with $p_{\rm T}$ below 400~MeV are removed from the dataset.
-
 \section{Jet Label Definitions}\label{JetLabels}\hfill
 
 Both jets and tracks are characterized by Lorentz 4-vectors $\overrightarrow{J}$ and $\overrightarrow{T}$, respectively. A Lorentz 4-vector is defined as $(E,\overrightarrow{p})$, where E is energy and $\overrightarrow{p}=(p_x,p_y,p_z)$ is the momentum in 3D space. The mass of an object described by a Lorentz 4-vector is defined as $m=\sqrt{E^2-|\overrightarrow{p}|^2}$.\footnote{In Natural Units} Each event, $\mathcal{E}$, is composed of a variable number of jets and each jet is formed by a variable number of associated tracks. Therefore, the fundamental data structure of an event, $\mathcal{E}$, can be interpreted as nested sets. The relationship between jet 4-vector $\overrightarrow{J}$ and the associated track 4-vectors, $\overrightarrow{T}$, is:
@@ -92,18 +67,22 @@ Both jets and tracks are characterized by Lorentz 4-vectors $\overrightarrow{J}$
 
 Most of the time, jets have contributions from both hard scatter and pileup, and the goal is to purely recover the hard scatter component. However, the actual measured quantities of total energy, $E_{jet}$, and total mass, $m_{jet}$, of each jet contain pileup contamination. To mitigate the effects of pileup, we propose the use of continuous fractions, $E_{frac}$ and $M_{frac}$,\footnote{$E_{frac}$ and $M_{frac}$ can be considered scalar and vector corrections to $\overrightarrow{J}$, respectively. Pileup's stochastic directions affects the vector corrections significantly more than scalar corrections.} to be directly applied to each jet, as ratios, in order to recover only the hard scatter energy, $E_{HS}$, and mass, $m_{HS}$. Therefore, truth labels can be constructed from the 4-vectors of each jet, $\overrightarrow{J}$, by defining:
 \begin{equation}
-  E_{frac}=\frac{E_{HS}}{E_{jet}} \phantom{.......} M_{frac}=\frac{m_{HS}}{m_{jet}}.
+  E_{frac}^{true}=\frac{E_{HS}^{true}}{E_{jet}^{raw}} \phantom{.......} M_{frac}^{true}=\frac{m_{HS}^{true}}{m_{jet}^{raw}}.
+\end{equation}
+
+To correct the jets, we can simply apply the preditions of the model to the raw jet observables.
+
+\begin{equation}
+  E_{HS}^{pred}=E_{frac}^{pred} \times E_{jet}^{raw} \phantom{.......} M_{HS}^{pred}= m_{frac}^{pred} \times m_{jet}^{raw}.
+\end{equation}
+
+Using a mean squared error loss function, we can train a model to minimize the loss between the true and predicted energy and mass fractions for the N samples in our training dataset.
+
+\begin{equation}
+\mathcal{L} = \frac{1}{N} \sum_{i=1}^N \left ( \left( E_{frac,i}^{true} - E_{frac,i}^{pred} \right)^2 + \left( M_{frac,i}^{true} - M_{frac,i}^{pred} \right)^2 \right)
 \end{equation}
 
 For the first time, this article proposes to simplify the pileup mitigation strategy by directly applying $E_{frac}$ and $M_{frac}$ labels to simultaneously identify pileup and apply corrections to hard scatter jets through the use of attention neural networks. This approach uses all available information from an event, including the correlations manifesting in hard scatter processes, to get a more accurate representation of the underlying physics process. Using a simulated dataset, the proposed approach outperforms traditional pileup mitigation strategies and assists with physics analysis.
-
-\subsection{Truth Label Definition}
-Each jet and track are described as a Lorentz 4-vector which is defined by energy and momentum: $(E, \vec{p})$. The mass of an object can be calculated using the relativistic energy-momentum relation as $m=\sqrt{E^2-|\vec{p}|^2}$. Each jet is constructed by summing the 4-vectors over a set of tracks. Each track is assigned a binary label $y^{label} \in \{0, 1\}$. We assign a value of 1 to tracks originating from the signal vertex and 0 to those originating from pileup vertices, which are used as an auxillary task during training. For each jet, we can calculate truth level energy correction factor $y_{E, k}$ and mass correction factor $y_{M, k}$ for the $k$-th jet as the ratio of the contributions from HS tracks to the total contributions from all tracks:
-\begin{equation}
-    y_{E, k} = \frac{E_{HS, k}}{E_{raw, k}}, \quad y_{M, k} = \frac{M_{HS, k}}{M_{raw, k}}
-    \label{eq:truth_labels}
-\end{equation}
-where $E_{raw, k}$ and $M_{raw, k}$ represent the total jet energy and mass clustered from the hard scatter signal and the pileup background.
 
 \section{Pileup Mitigation using Graph and Attention Models}
 
