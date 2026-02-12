@@ -259,7 +259,64 @@ Using truth labels, we trace the parton shower history via a depth-first search 
 
 \subsection{W Boson Analysis on Simulated ATLAS Data}
 
-We reconstruct W mass from December ATLAS presentation.
+ATLAS simulation is much more sophisticated as it contains GEANT 4 detector simulation. Therefore, we would like to demonstrate the effectiveness of $E_{frac}$ and $M_{frac}$ on ATLAS data. We start with an upgrade sample at the AOD level that contains specific information about pileup vertices.
+
+{\footnotesize
+	\begin{equation*}
+		mc21\_14TeV.601229.PhPy8EG\_A14\_ttbar\_hdamp258p75\_SingleLep.merge.AOD.e8481\_s4149\_r14701\_r14702
+	\end{equation*}
+}
+
+Specifically, this sample contains semi-leptonic ttbar events with access to the following containers: (1) xAOD::TruthEventContainer "TruthEvents" (2) xAOD::TruthPileupEventContainer "TruthPileupEvents" (3) xAOD::TrackParicleContainer "InDetTrackParticles". The TrackParticles have an auxData element called "truthParticleLink" that allows us to associate tracks to particles. Using this information we have full access to the origins of each particle, HS or PU, as well as associations between reconstructed tracks and truth level particles. This allows us to calculate $E_{frac}$ and $M_{frac}$ and track jets.
+
+There are three types of jets used in this study (1) Particle Jets, (2) Track Jets, and (3) Calorimeter Jets. Paricles jets are made of all MC truth particles (exluding neutrinos). Track jets are made of reconstructed tracks (no neutrals). Particle and Track jets are clustered using anti-kt R=0.4 algorithm. Calorimeter jets come directly from the DAOD container, and are matched to the nearest track jet.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/W_mass_raw.png}
+		\caption{}
+		\label{fig:Wmass:sub1}
+	\end{subfigure}\hfill
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/W_mass_stripped.png}
+		\caption{}
+		\label{fig:WMass:sub2}
+	\end{subfigure}\hfill
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter7/Direction_Corrections.png}
+		\caption{}
+		\label{fig:Wmass:sub3}
+	\end{subfigure}
+	\caption{Mass Reconstruction after PhyGHT correction}
+\end{figure}
+
+As a figure of merit, we reconstruct the W boson mass originating from the hadronic top quark. Particle jets are considred to originate from W if at least 2 particles can be traced back to W using MC truth history. If more than 2 candidates, the leading two jets are selected. As shown in Figure \ref{fig:Wmass:sub1} the reconstructed W mass is heavily inflated due to pileup. However, after applying truth level $E_{frac}$ and $M_{frac}$, we can see the W boson mass restored near 80 GeV in Figure \ref{fig:WMass:sub2}.
+
+Although $E_{frac}$ and $M_{frac}$ restore the W mass, they are not a complete set of corrections. As shown in Figure \ref{fig:Wmass:sub3}, the direction of the jet axis itself is distorted due to pileup requiring the need for $\eta$ and $\phi$ corrections. Shown in red is the true $M_{jj}$ mass clustered with HS particles only which represents the true jet axis. The blue shows corrected particle jets but raw jet direction. The green shows corrected track jets but raw jet direction. Therefore, $E_{frac}$ and $M_{frac}$ are not a complete description of pileup corrections as pileup affects the jet axis.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter7/W_mass_jet_types.png}
+		\caption{}
+		\label{fig:Benchmark:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter7/W_mass_deltaR_matching.png}
+		\caption{}
+		\label{fig:Benchmark:sub2}
+	\end{subfigure}
+	\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
+	\label{fig:Benchmark}
+\end{figure}
+
+In order to extrapolate these correction derived on track jets to calorimeter jets, we implement a matching scheme in $\Delta R$. We find W candidates from clustered track jets and then match each candidate to the closest calorimeter jet. Using the DAOD\_FTAG1 derivation, we can see the reconstructed W boson mass on 4 collections (1) PFlow, (2) EMTopo, (3) Truth, and (4) DressedWZ. Without applying $E_{frac}$ and $M_{frac}$ corrections, we can see the reconstructed W mass is near its truth value, which shows that pileup mitigation is already happening during the derivation procedure. Therefore, to implement our approach within ATLAS, we will need to replace the existing pileup mitigation techniques in order to not double count pileup corrections.
 
 \section{Standard Benchmarks}
 
