@@ -5,18 +5,16 @@
 \chapter[PILEUP MITIGATION AT THE HL-LHC]{PILEUP MITIGATION AT THE HL-LHC}
 \endgroup
 
-\section{Key Points}
+\section{Key Contributions}
 
 \begin{itemize}
-  \item Pileup is a byproduct of increasing luminosity at the LHC. Pileup contaminates hard scatter events.
-  \item At the HL-LHC, pileup will begin to dominate the event, and we investigate machine learning methods for the task of pileup mitigation.
-  \item Contributions to Pileup Mitigation benefit the entire experiment.
-  \item Mitigating pileup will maximize the discovery potential of the ATLAS detector at HL-LHC conditions.
+  \item At the HL-LHC, pileup will begin to dominate the event, and we investigate machine learning methods for the task of pileup mitigation. 
+  \item Mitigating pileup will maximize the discovery potential of the ATLAS detector at HL-LHC conditions and benefit the entire experiment.
+  \item An open source simulated dataset is created to foster interdisciplinary collaboration between computer science and experimental HEP.
+  \item We define a novel regression task to predict the energy and mass fractions of each jet in the event, and we demonstrate the effectiveness of this approach by reconstructing the mass of Higgs Boson, Top Quark, and W Boson.
 \end{itemize}
 
-\section{Formulating a New Approach to Pileup at the HL-LHC}
-
-\subsection{Introduction to Pileup at the Current and Upgraded LHC}
+\section{A New Approach to Pileup Mitigation at the Current and Upgraded LHC}
 
 \begin{figure}[t]
 \centering
@@ -25,9 +23,9 @@
 \label{fig:PileupSchematic}
 \end{figure}
 
-To increase recorded luminosity at the detectors, the LHC collides protons in bunches, were each bunch contains order $10^{11}$ protons. However, only a fraction of these protons collide and produce particle showers. The mean number of collisions per bunch crossing is referred to as $\langle\mu\rangle$. Current LHC conditions operate around $\langle\mu\rangle=60$ but HL-LHC operations will increase luminosity thereby increasing interatctions to $\langle\mu\rangle=200$. Only collissions that pass an online trigger are saved for reconstruction, and typlically there exists one hard scatter vertex surrounded by many other pileup verticies, although in HL-LHC conditions, there could exist more than one hard scatter vertex. A schematic of a typical event is shown in Figure \ref{fig:PileupSchematic}.
+To increase recorded luminosity at the detectors, the LHC collides protons in bunches, where each bunch contains order $10^{11}$ protons. However, only a fraction of these protons collide and produce particle showers. The mean number of collisions per bunch crossing is referred to as $\langle\mu\rangle$. Current LHC conditions operate around $\langle\mu\rangle=60$ but HL-LHC operations will increase luminosity thereby increasing interactions to $\langle\mu\rangle=200$. Only collisions that pass an online trigger are saved for reconstruction, and typically there exists one hard scatter vertex surrounded by many other pileup vertices, although in HL-LHC conditions, there could exist more than one hard scatter vertex. A schematic of a typical single HS event is shown in Figure \ref{fig:PileupSchematic}.
 
-To study the problem of pileup at the HL-LHC, we produced a novel, open-source dataset that fills a critical need at the intersection of machine learning and high-energy physics. While functionally similar to proprietary datasets used by the ATLAS collaboration~\cite{ANA-FTAG-2024-06}, our dataset offers three key advantages. First, it provides truth labels for pileup characterization. This enables precise separation of signal and background noise under HL-LHC conditions. Second, it is fully public. This provides open access to realistic particle physics data that is typically restricted to collaboration members. Third, it supports reproducibility and scalability. This allows the broader computer science community to comprehensively evaluate state-of-the-art machine learning architectures on complex particle physics analysis tasks. By simulating the extreme pileup conditions ($\langle\mu\rangle=200$) expected at the HL-LHC, we provide a benchmark that allows researchers to build and test systems ready for the next generation of particle physics experiments.
+To study the problem of pileup at the HL-LHC, we produced a novel, open-source dataset that fills a critical need at the intersection of machine learning and high-energy physics. While functionally similar to proprietary datasets used by the ATLAS collaboration~\cite{ANA-FTAG-2024-06}, our dataset offers three key advantages. First, it provides truth labels for detailed pileup vertex classification. This enables precise separation of signal and background noise under HL-LHC conditions. Second, it is fully public. This provides open access to realistic particle physics data that is typically restricted to collaboration members. Third, it supports reproducibility and scalability. This allows the broader computer science community to comprehensively evaluate state-of-the-art machine learning architectures on complex particle physics analysis tasks. By simulating the extreme pileup conditions ($\langle\mu\rangle=200$) expected at the HL-LHC, we provide a benchmark that allows researchers to build and test models ready for the next generation of particle physics experiments.
 
 \subsection{Simulated Dataset}
 
@@ -63,7 +61,7 @@ Particles in the detector are described using a standard 3D coordinate system de
 
 \subsection{Pileup Mitigation using Regression}\label{JetLabels}\hfill
 
-Both jets and tracks are characterized by Lorentz 4-vectors $\overrightarrow{J}$ and $\overrightarrow{T}$, respectively. A Lorentz 4-vector is defined as $(E,\overrightarrow{p})$, where E is energy and $\overrightarrow{p}=(p_x,p_y,p_z)$ is the momentum in 3D space. The mass of an object described by a Lorentz 4-vector is defined as $m=\sqrt{E^2-|\overrightarrow{p}|^2}$.\footnote{In Natural Units} Each event, $\mathcal{E}$, is composed of a variable number of jets and each jet is formed by a variable number of associated tracks. Therefore, the fundamental data structure of an event, $\mathcal{E}$, can be interpreted as nested sets. The relationship between jet 4-vector $\overrightarrow{J}$ and the associated track 4-vectors, $\overrightarrow{T}$, is:
+Both jets and tracks are characterized by Lorentz 4-vectors $\overrightarrow{J}$ and $\overrightarrow{T}$, respectively. A Lorentz 4-vector is defined as $(E,\overrightarrow{p})$, where E is energy and $\overrightarrow{p}=(p_x,p_y,p_z)$ is the momentum in 3D space. The mass of an object described by a Lorentz 4-vector is defined as $m=\sqrt{E^2-|\overrightarrow{p}|^2}$.\footnote{In Natural Units} Each event is composed of a variable number of jets and each jet is formed by a variable number of associated tracks. Therefore, the fundamental data structure of an event can be interpreted as nested sets. The relationship between jet 4-vector $\overrightarrow{J}$ and the associated track 4-vectors, $\overrightarrow{T}$, is:
 
 \begin{equation}
   \overrightarrow{J}_i = \sum\limits_{j \in \overrightarrow{J}_i} \overrightarrow{T}_{ij}
@@ -86,9 +84,9 @@ Using a mean squared error loss function, we can train a model to minimize the l
 \mathcal{L} = \frac{1}{N} \sum_{i=1}^N \left ( \left( E_{frac,i}^{true} - E_{frac,i}^{pred} \right)^2 + \left( M_{frac,i}^{true} - M_{frac,i}^{pred} \right)^2 \right)
 \end{equation}
 
-For the first time, this article proposes to simplify the pileup mitigation strategy by directly applying $E_{frac}$ and $M_{frac}$ labels to simultaneously identify pileup and apply corrections to hard scatter jets through the use of attention neural networks. This approach uses all available information from an event, including the correlations manifesting in hard scatter processes, to get a more accurate representation of the underlying physics process. Using a simulated dataset, the proposed approach outperforms traditional pileup mitigation strategies and assists with physics analysis.
-
 \section{Pileup Mitigation using Graph and Attention Models}
+
+This work introduces a novel pileup mitigation strategy that directly applies $E_{frac}$ and $M_{frac}$ to jet 4-vectors to simultaneously identify pileup contributions and correct hard-scatter jets using attention- and graph-based neural networks. This approach leverages all available information from an event, including the correlations existing among hard scatter processes, to embed an accurate representation of the underlying physics process. Using a simulated dataset, the proposed approach outperforms traditional pileup mitigation strategies and assists with physics analysis.
 
 \subsection{Transformers Architecture for Pileup Mitigation}
 
@@ -124,7 +122,7 @@ $ Concat(Attention_1,\ldots,Attention_h)$, where $h$ is the total number of atte
 
 \textbf{Learning Global Jet Features}: To model diverse event-wide correlations between jets $\hat{\mathcal{J}}$ and independent tracks $\hat{t}$, we apply encoder with cross-attention as $\mathcal{J}_{\text{cross}} = \text{Cross-Encoder}(\hat{\mathcal{J}},\hat{t},\hat{t})$. These encoded jet representations are based on the global context given by independent track representations that are present both within and outside the jets. Such unique representations allow the model to capture all possible correlations present in hard-scatter processes and give importance to learning jet features at the event-level. We further enrich these jet representations using $\mathcal{J}_{\text{final}} = \text{Self-Encoder}(\mathcal{J}_{\text{cross}},\mathcal{J}_{\text{cross}},\mathcal{J}_{\text{cross}})$.
 
-\subsection{Energy and Mass Regression Results}
+\subsection{Energy and Mass Regression Results of PUMiNet}
 
 To evaluate the performance of PUMiNet, a specific physics process is chosen: the simultaneous production of two Higgs bosons decaying into a $b$-anti $b$ quark pair. This process is of high interest for HEP and is one of the key components for the HL-LHC physics program~\cite{Dainese:2019rgk}. Each Higgs boson gives rise to a pair of jets $\overrightarrow{J}_i$, $\overrightarrow{J}_j$, described by a combined 4-vector $\overrightarrow{J}_{ij}$. When paired through the proper combinatorics, the distribution of the $\overrightarrow{J}_{ij}$ mass forms a resonance peak near the expected Higgs mass, $m_{\rm H}\approx125$~GeV, but pileup contamination will shift and widen the peak.
 
@@ -176,6 +174,80 @@ To evaluate the performance of PUMiNet, a specific physics process is chosen: th
 We deploy PUMiNet with each encoder block stacked three times to achieve a deeper representation of jets. We schedule the learning rate to decay by a factor of 0.1 after the $25^{th}$ epoch which noticeably helped descend the noisy loss landscape in model training. The \emph{AdamW} optimizer is used to prevent overtraining using weight decay and we use $R^2$ as an evaluation metric. The model converged after training 50 epochs on an NVIDIA RTX 3090.
 
 PUMiNet was evaluated on a sample of 20k di-Higgs events simulated specifically for testing. At $\left \langle \mu \right \rangle=60$, the model achieves $R^2=0.916$ for $E_{frac}$, as shown in Figure~\ref{fig:Efrac1d_mu60}, and $R^2=0.757$ for $M_{frac}$, as shown in Figure~\ref{fig:Mfrac1d_mu60}. At $\left \langle \mu \right \rangle=200$, the model achieves $R^2=0.912$ for $E_{frac}$, as shown in Figure \ref{fig:Efrac1d_mu200}, and $R^2=0.720$ for $M_{frac}$, as shown in Figure \ref{fig:Mfrac1d_mu200}. The 2D predicted vs truth values, plotted with a log z color scale, shown in Figure [\ref{fig:Efrac2d_mu60},\ref{fig:Mfrac2d_mu60}] at $\left \langle \mu \right \rangle=60$ and in Figure \ref{fig:Efrac2d_mu200} \ref{fig:Mfrac2d_mu200} at $\left \langle \mu \right \rangle=200$, show that there is good diagonal trend between the predictions and the truth. Overall, the transformer encoder architecture provides a highly parallelizable algorithm that is computationally feasible at high pileup conditions, and the plots in Figure~\ref{fig:RegressionResults} show that PUMiNet learns the hard scatter contributions without significant degradation to the $R^2$ value at high pileup conditions of the HL-LHC.
+
+\subsection{HyperGraph Transformer Architecture for Pileup Mitigation}
+
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=0.73\textwidth]{figures/chapter7/PhyGHTv2.png}
+	\caption{Overview of PhyGHT. It takes a heterogeneous graph of Tracks and Jets as input. It processes tracks through the Local Geometric (DA-GAT) block, followed by the Global Context block. The fused representations are filtered by the Pileup Suppression Gate (PSG) before being aggregated into the Jet representation via Hypergraph Attention for final regression.}
+	\label{fig:PhyGHTarchitecture}
+\end{figure*}
+
+Figure~\ref{fig:PhyGHTarchitecture} illustrates our PhyGHT architecture, a hierarchical graph neural network designed to mitigate pileup-induced distortion in physical jet observables such as mass and energy. PhyGHT takes as input raw event-level information, specifically jets and tracks. It then employs a \textit{four-stage} sequential feature refinement strategy to purify jets from pileup. First, the \textit{Local Geometric Block} uses a Distance-Aware Graph Attention Network (DA-GAT) to encode spatial correlations, effectively capturing the local topology of signal particles against stochastic pileup. Then the \textit{Global Context Block} employs a Transformer encoder to model event-wide constraints like pileup density and momentum conservation. Next, the \textit{Pileup Suppression Gate (PSG)} applies a learnable, differentiable mask to down-weight pileup tracks, serving as an analogue to traditional algorithms such as PUPPI. Finally, the \textit{Hypergraph Attention Block} dynamically aggregates purified tracks and fuses them with raw jet features via bipartite message passing, enabling precise regression of energy and mass correction factors.
+
+In addition to integrating local and global event context, we introduce the Pileup Suppression Gate (PSG), a learnable mechanism inspired by the phenomenological PUPPI algorithm~\cite{puppi}. While standard attention mechanisms implicitly suppress noisy features by assigning lower weights, they do not explicitly distinguish pileup contributions. The PSG acts as a learnable binary classifier, explicitly predicting the probability that a track originates from the hard-scatter vertex. To purify jets, we aggregate filtered constituent tracks using a hypergraph attention mechanism. This approach dynamically weights tracks based on their relevance to the specific jet cluster, in contrast to static global pooling operations that apply uniform weights to all constituents. The hypergraph structure is constructed by establishing shared connections between each jet and a variable number of tracks, enabling the model to adaptively encode complex topological relationships while maintaining computational efficiency.
+
+\subsection{Energy and Mass Regression Results of PhyGHT}
+
+On a test set of 1k semi-leptonic ttbar events, Table \ref{tab:PhyGHT:main_results} shows that the $R^2$ coefficient of PhyGHT is higher than other benchmarks, including PUMiNet. All results from the table were conducted on a single NVIDIA A10 GPU. To ensure a fair comparison, all models were trained for 200 epochs using the AdamW optimizer with a learning rate of $3 \times 10^{-4}$. We utilized a batch size of 16 for $\langle \mu \rangle = 60$, and 4 for $\langle \mu \rangle = 200$.
+
+\begin{table}[t]
+	\centering
+	\caption{Performance Comparison on the Test Set. We report the Coefficient of Determination ($R^2$) for the energy ($E_{frac}$) and mass ($M_{frac}$) correction factors across two pileup scenarios: $\langle\mu\rangle \in \{60, 200\}$.}
+	\label{tab:PhyGHT:main_results}
+	\resizebox{0.78\linewidth}{!}{%
+		\begin{tabular}{c|c|cccccccc|c}
+			\toprule
+			\multirow{2}{*}{$\bm{\langle\mu\rangle}$} & \multirow{2}{*}{\textbf{Target}} & \multicolumn{8}{c|}{\textit{Baselines}}                                                                                                       & \textit{Ours}    \\
+			&                                  & \textbf{Transformer} & \textbf{GNN} & \textbf{HGNN} & \textbf{GAT} & \textbf{HGAT} & \textbf{PUPPI} & \textbf{ParticleNet} & \textbf{PUMINet} & \textbf{PhyGHT}  \\
+			\cmidrule(lr){1-11}
+			\multirow{2}{*}{60}                       & \textit{Energy}                  & 0.812                & 0.841        & 0.821         & 0.839        & 0.792         & 0.769             & 0.869                & \uline{0.934}            & \textbf{0.943}   \\
+			& \textit{Mass}                    & 0.634                & 0.694        & 0.662         & 0.683        & 0.621         & 0.549             & 0.748                & \uline{0.838}            & \textbf{0.869}   \\
+			\cmidrule(lr){1-11}
+			\multirow{2}{*}{200}                      & \textit{Energy}                  & 0.778                & 0.837        & 0.798         & 0.792        & 0.756         & 0.348          & 0.853                & \uline{0.926}            & \textbf{0.932}   \\
+			& \textit{Mass}                    & 0.567                & 0.643        & 0.587         & 0.591        & 0.595         & 0.114          & 0.693                & \uline{0.805}            & \textbf{0.836}   \\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
+
+Lastly, we can plot the energy and mass resolution of each model calculated as $res=\frac{pred-true}{true}$. Here we can see that both PUMiNet and PhyGHT outperform Particle net due to their tighter peak centered around zero. However, PhyGHT shows a noticeable performance increase in mass resolution compared to the baselines.
+
+\begin{figure*}
+	\centering
+	% --- Energy Resolution (mu60) ---
+	\begin{subfigure}{.20524\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/Energy_Resolution_mu60.png}
+		\caption{}
+		\label{fig:EnergyReso60}
+	\end{subfigure}\hfill
+	% --- Energy Resolution (mu200) ---
+	\begin{subfigure}{.20\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/Energy_Resolution_mu200.png}
+		\caption{}
+		\label{fig:EnergyReso200}
+	\end{subfigure}\hfill
+	% --- Mass Resolution (mu60) ---
+	\begin{subfigure}{.20\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/Mass_Resolution_mu60.png}
+		\caption{}
+		\label{fig:MassReso60}
+	\end{subfigure}\hfill
+	% --- Mass Resolution (mu200) ---
+	\begin{subfigure}{.20\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/Mass_Resolution_mu200.png}
+		\caption{}
+		\label{fig:MassReso200}
+	\end{subfigure}\hfill
+	
+	\caption{Comparison of Energy and Mass Resolutions of PhyGHT with baselines at $\langle \mu \rangle=60$ and  $\langle \mu \rangle=200$.}
+	\label{fig:Resolution}
+\end{figure*}
 
 \section{Physics Analysis}
 
@@ -260,7 +332,6 @@ Using truth labels, we trace the parton shower history via a depth-first search 
 \subsection{W Boson Analysis on Simulated ATLAS Data}
 
 ATLAS simulation is much more sophisticated as it contains GEANT 4 detector simulation. Therefore, we would like to demonstrate the effectiveness of $E_{frac}$ and $M_{frac}$ on ATLAS data. We start with an upgrade sample at the AOD level that contains specific information about pileup vertices.
-
 {\footnotesize
 	\begin{equation*}
 		mc21\_14TeV.601229.PhPy8EG\_A14\_ttbar\_hdamp258p75\_SingleLep.merge.AOD.e8481\_s4149\_r14701\_r14702
@@ -427,25 +498,7 @@ A PUPPI Weight is then constructed using using $F_{\chi^2}$, the cumulative dist
 
 After each track is assigned a PUPPI weight, we reweight each constituent of each jet accordingly. When can sum over the weighted 4-vectors of the set of tracks to calculate the predicted energy and mass fraction of each jet according to PUPPI weights. Since some particles were cut from the dataset with $p_T<1 GeV$, we also recalculate the energy and mass fractions using true pileup labels for the remaining constituents. From these recalculated values, we can derived an $R^2$ score and ROC curve. Note: at $\langle\mu\rangle=200$ the same cuts were used for PUPPI weights, but the performance sharply dropped as shown in the Figure \ref{fig:PUPPI_valdiation}. Since we do not apply a generator level filter to hard scatter events, our hard scatter appears more pileup-like than the original PUPPI paper at $\langle\mu\rangle=60$.
 
-\begin{table}[h]
-\centering
-\caption{Performance Comparison on the Test Set. We report the Coefficient of Determination ($R^2$) for the energy ($\hat{y}_E$) and mass ($\hat{y}_M$) correction factors across two pileup scenarios: $\langle\mu\rangle \in \{60, 200\}$.}
-\label{tab:main_results}
-\resizebox{0.78\linewidth}{!}{%
-\begin{tabular}{c|c|cccccccc|c}
-\toprule
-\multirow{2}{*}{$\bm{\langle\mu\rangle}$} & \multirow{2}{*}{\textbf{Target}} & \multicolumn{8}{c|}{\textit{Baselines}}                                                                                                       & \textit{Ours}    \\
-                                          &                                  & \textbf{Transformer} & \textbf{GNN} & \textbf{HGNN} & \textbf{GAT} & \textbf{HGAT} & \textbf{PUPPI} & \textbf{ParticleNet} & \textbf{PUMINet} & \textbf{PhyGHT}  \\
-\cmidrule(lr){1-11}
-\multirow{2}{*}{60}                       & \textit{Energy}                  & 0.812                & 0.841        & 0.821         & 0.839        & 0.792         & 0.769             & 0.869                & \uline{0.934}            & \textbf{0.943}   \\
-                                          & \textit{Mass}                    & 0.634                & 0.694        & 0.662         & 0.683        & 0.621         & 0.549             & 0.748                & \uline{0.838}            & \textbf{0.869}   \\
-\cmidrule(lr){1-11}
-\multirow{2}{*}{200}                      & \textit{Energy}                  & 0.778                & 0.837        & 0.798         & 0.792        & 0.756         & 0.348          & 0.853                & \uline{0.926}            & \textbf{0.932}   \\
-                                          & \textit{Mass}                    & 0.567                & 0.643        & 0.587         & 0.591        & 0.595         & 0.114          & 0.693                & \uline{0.805}            & \textbf{0.836}   \\
-\bottomrule
-\end{tabular}
-}
-\end{table}
+
 
 As shown in the table, PUPPI's performance sharply drops at $\langle \mu \rangle = 200$.
 
