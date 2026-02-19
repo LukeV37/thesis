@@ -8,12 +8,16 @@
 \section{Key Contributions}
 
 \begin{itemize}
-  \item VH Analysis
-  \item VBF Analysis
+  \item Contributed to two ATLAS Higgs analysis in the Higgs decaying to B/C Quarks.
+  \item For the Higgs production mode with associated vector boson, I ran studies in the CC, single lepton channel to include a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which ultimately increased the containing power on the background and for the first time allowed for $5\sigma$ for the $Z\rightarrow cc$ process and decreased the limited for $H\rightarrow cc$ by about 5\%.
+  \item For the Higgs production mode of Vector Boson Fusion, I assisted at nearly every part of the analysis, from sample production, flavor tagging optimization, adversarial neural network classifier, region definitions, fit studies, and fit combinations. For the first time, this analysis measured $3\sigma$ in the VBF $H\rightarrow bb$ channel and reported a limit on the VBF $H\rightarrow cc$ process. 
 \end{itemize}
 
 \section{Higgs Production at the LHC}
-\lipsum[1-2]
+
+A landmark achievement in experimental particle physics was obtained at the LHC in 2012 with the discovery of the Higgs Boson. This particle is a quantization of the Higgs field which is responsible for mass generation in the standard model, which up until then was a crucial missing piece. The Higgs field has a wine bottle shape that leads to spontaneous symmetry breaking which is a crucial part of the Higgs mechanism giving rise to the mass of vector bosons. Since its discovery, many of the Higgs properties have been studied including its mass, spin, coupling to gauge bosons, and coupling to third generation fermions. As of date, all experimental observations are in line with the Standard Model predictions.
+
+The Higgs boson has four unique production modes, shown in Figure \ref{fig:HiggsProduction}. In current LHC conditions with a center of mass energy at 13 TeV, the Hanbook of LHC Higgs cross section https://arxiv.org/abs/1610.07922 shows that $\sigma_{ggF} \approx 50 pb$, $\sigma_{VBF} \approx 4pb$, $\sigma_{VH} \approx 2.5 pb$, and $\sigma_{ttH} \approx 0.5 pb$. Each of these channels has their own unique backgrounds. The branching ratio of the Higgs boson is shown in Figure \ref{fig:HiggsBranchingRatios}. Notice the largest branching ratio is $H \rightarrow bb$ at around 58\%. Unfortunately, to take advantage of this channel an analysis will need to suppress the dominant hadronic multi-jet background at the LHC. Currently, ATLAS has focused large efforts on the VH channel, as it allows leptonic channels originating from the associated vector boson.
 
 \begin{figure}
 	\centering
@@ -22,8 +26,16 @@
 	\label{fig:HiggsProduction}
 \end{figure}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.4\linewidth]{figures/chapter6/Higgs_Branching_Ratios.png}
+	\caption{}
+	\label{fig:HiggsBranchingRatios}
+\end{figure}
+
 \section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
-\lipsum[1]
+
+Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score.
 
 \subsection{Fit Studies}
 
