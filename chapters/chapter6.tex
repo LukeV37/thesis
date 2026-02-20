@@ -35,22 +35,26 @@ The Higgs boson has four unique production modes, shown in Figure \ref{fig:Higgs
 
 \section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
 
-Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score.
+Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score. I joined this analysis in quite a mature stage, so I helped out with fit studies. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which had a vast amount of statistics. Due to the high statistics, this region caused significant pulls in the fit model, so we ran studies to decorrelated various nuissance parameters to add degrees of freedom into the fit model. This regions helped constrain the background modeling and overall improve the sensitivity to signal.
 
-\subsection{Fit Studies}
+\subsection{Statistical Methods using Likelihood Fits}
 
-\lipsum[1]
+In order to measure signal strength, $\mu$, we perform a statistical procedure to match the theoretical modeling, MC, to real world data. A likelihood function $\mathcal{L}(\mu,\theta)$ is constructed as the product of Poisson probability terms over the bins of the input distributions where $x_i$ is data counted in bin i and $s_i$ and $b_i$ are signal and background predictions, respectively. The parameter of interest (POI), or signal strength $\mu$, is extracted by maximising the likelihood function $\mathcal{L}$. The effects of systematic uncertainties are quantified as $\theta$, also called Nuissance Parameters NP, and are often assumed to be constrained by gaussian distributions. $\alpha_j$ is known as the global measurement data. Usually assumed mean=0 and var=1. The likelihood fit function is shown below.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter6/Likelihood_Fit_Function.png}
-	\caption{}
-	\label{fig:VBF_Diagrams}
-\end{figure}
+\begin{equation}
+	\mathcal{L}(\mu,\theta|x)=\prod_i Pois(x_i|\mu \cdot s_i(\theta)+b_i(\theta)) \prod_j C(\alpha_j|\theta_j)
+\end{equation}
 
-\lipsum[1]
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.7\linewidth]{figures/chapter6/Likelihood_Fit_Function.png}
+%	\caption{}
+%	\label{fig:VBF_Diagrams}
+%\end{figure}
 
-\begin{figure}
+In the VH analysis, the global likelihood fit contained 59 signal regions with 27 for $H \rightarrow bb$ and 32 for $H \rightarrow cc$ and 97 control regions. Signal regions are plotted against the BDT score to maximally separate the signal from the background. Control regions are used to constrain background normalization factors, particularly the floating normalization used to constrain $t\bar{t}$ and V+jets. By the time I joined this analysis, many of these regions were already finalized. However, Yanhui Ma tasked me with including a new signal region into the fit model. 
+
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
