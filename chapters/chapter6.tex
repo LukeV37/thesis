@@ -35,7 +35,7 @@ The Higgs boson has four unique production modes, shown in Figure \ref{fig:Higgs
 
 \section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
 
-Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score. I joined this analysis in quite a mature stage, so I helped out with fit studies. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which had a vast amount of statistics. Due to the high statistics, this region caused significant pulls in the fit model, so we ran studies to decorrelated various nuissance parameters to add degrees of freedom into the fit model. This regions helped constrain the background modeling and overall improve the sensitivity to signal.
+Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score. I joined this analysis in quite a mature stage, so I helped out with fit studies. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which had a vast amount of statistics. Due to the high statistics, this region caused significant pulls in the fit model, so we ran studies to decorrelated various nuissance parameters to add degrees of freedom into the fit model. This regions helped constrain the background modeling and overall improve the sensitivity to signal. In addition to measuring the VH channel, the VZ channel was used as a cross check analysis to validate the VH channel. 
 
 \subsection{Statistical Methods using Likelihood Fits}
 
@@ -72,11 +72,22 @@ In the VH analysis, the global likelihood fit contained 59 signal regions with 2
 	\label{fig:ANN_Scores}
 \end{figure}
 
-\lipsum[1]
-
 \subsection{Results}
 
-\lipsum[1]
+After including these regions into the fit model, I ran likelihood fits using the WSMaker framework to determine the impact of the new regions. In the table, we can see that the new region decreased the limit of the $H \rightarrow cc$ channel by 4\% expected and 8\% observed. However, there was a large improvement in the $Z \rightarrow cc$ channel where we found gains of 15\% expected and nearly 20\% observed. Note, that these fits were performed on blinded data, so data with a BDT score greater than 0.2 was excluded from the fit. The purpose of blinding data it common practice to make sure that the analysers are not making biased decisions in the fit model that would artificially inflate the signal measurement. Therefore decisions regarding the fit model should be motivated by unblinded data, and the final unblinded result is revealed a the very end. After unblinding, the VZ channel yield signal strength of:
+\begin{align}
+	\mu^{bb}_{VZ}&=0.93^{+0.13}_{-0.11}=0.92 \pm 0.05 (Stat)^{+0.12}_{-0.10}(Syst) \\
+	\mu^{cc}_{VZ}&=0.98^{+0.25}_{-0.22}=0.98 \pm 0.13 (Stat)^{+0.22}_{-0.18}(Syst)
+\end{align}
+
+These measurements result in an observed significance in the $VZ,Z\rightarrow bb$ process of greater than 10 standard deviations. For the $VZ,Z\rightarrow cc$ process, the observed (expected) significance over the null hypothesis is 5.2 (5.3) standard deviations. The low pT region in the single lepton channel was a crucial region for $5\sigma$ discovery of $VZ,Z\rightarrow cc$ process. 
+
+The final unblinded result in the VH channel yield signal strength of:
+\begin{align}
+	\mu^{bb}_{VH}&=0.92^{+0.16}_{-0.15}=0.92 \pm 0.10 (Stat)^{+0.13}_{-0.11}(Syst) \\
+	\mu^{cc}_{VH}&=1.0^{+5.4}_{-5.2}=1.0^{+4.0}_{-3.9} (Stat)^{+3.7}_{-3.5}(Syst)
+\end{align}
+For the $VH,H\rightarrow bb$ process, the observed (expected) significance over the null hypothesis is 7.4 (8.0) standard deviations. For the $VH,H\rightarrow cc$ process, the observed (expected) upper limit at 95\% confidence level is 11.5 (10.6) times the standard model predictions.
 
 \begin{figure}
 	\centering
