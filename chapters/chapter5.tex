@@ -25,8 +25,6 @@ In addition to small-R jet tagging which typically classifies jets as b, c, or l
 
 By cutting on the discriminant score, we can construct working points according to how much of the signal is retained by implementing the cut. Working points are defined by certain cuts on signal efficiency, $\epsilon_{sig}$, where signal efficiency is defined as the ratio of signal events passing the cut divided by the total number of signal events. Conventionally, there are 3 (or more) working points: loose, medium, and tight. A loose working point cuts the least amount of signal, but allows for the most background contamination. A tight working point cuts a lot of signal statistics, but supresses the most background. Working points are analysis dependent, and should be chosen empirically but choosing the working point that maximizes signal sensitivity in your signal region. Shown in Fig \ref{fig:GN2X_Discriminant}, we can see a cut at the 50\% signal efficiency working point which, by definition, is cutting 50\% of the signal, but heavily suppressing the background. You can notice that the dominant background in this figure is from Top decay, blue line. Therefore, this background will be important to calibrate to data, more on that later.
 
-These taggers are trained on MC where truth labels exist. MC is not a perfect model for data. There can exist mismodeling effects at multiple different stages including many effects from: generator, showering, detector, and reconstruction. Therefore, a working point defined in MC does not perfectly extrapolate to the same signal and background efficiency in data. To quantify the differences between phase spaces after implementing a cut, we must perform a calibration technique to account lack of excess of events in data. 
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\linewidth]{figures/chapter5/DXbb.png}
@@ -34,18 +32,15 @@ These taggers are trained on MC where truth labels exist. MC is not a perfect mo
 	\label{fig:GN2X_Discriminant}
 \end{figure}
 
+These taggers are trained on MC where truth labels exist. MC is not a perfect model for data. There can exist mismodeling effects at multiple different stages including many effects from: generator, showering, detector, and reconstruction. Therefore, a working point defined in MC does not perfectly extrapolate to the same signal and background efficiency in data. To quantify the differences between phase spaces after implementing a cut, we must perform a calibration technique to account lack of excess of events in data. 
+
+
+
 https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2023-021/
 
 https://cds.cern.ch/record/2774902/files/ATL-COM-PHYS-2021-435.pdf
 
 \section{ttbar Mistag Calibration}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.3\linewidth]{figures/chapter5/ttbar_diagram.png}
-	\caption{}
-	\label{fig:Yields}
-\end{figure}
 
 Top decay is a major source of background for GN2X $H \rightarrow bb$ and $H \rightarrow cc$, therefore, it is an important background to calibrate. As part of my ATLAS authorship qualification task, I investigated the $t\bar{t}$ mistag rate which quantifies the amount of ttbar events passing the predefined working point selections. However, the mistag rate is not the same in MC and data due to mismodeling effects. Therefore, scale factors are derived which is defined as the ratio of efficiency in data and efficiency in MC.
 
@@ -71,6 +66,15 @@ Since there are no floating normalization factors applied to the backgrounds, we
 
 \subsection{Tag-and-Probe Event Selection}
 
+Semi-leptonic ttbar decay has a very unique signature in the detector, and reconstructing this topology suppresses many backgrounds. The most dominant background is W+jets followed by single-top, and di-Boson. We use the hadronic largeR jet for the "probe" tagging candidate. The leptonic decaying top is used to as the "tag" candidate. A lepton+MET trigger is used as a foothold into this phase space. By implementing a b-tagging requirement on the "tag" side, we can suppress many of the contributions from W+jets. The feynman diagram shown in \ref{fig:semileptonic_ttbar_diagram}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/chapter5/ttbar_diagram.png}
+	\caption{}
+	\label{fig:semileptonic_ttbar_diagram}
+\end{figure}
+
 Physics objects are reconstructed and calibrated before event selection. Electrons are required 
 to have $p_\text{T} > 28$ GeV, $|\eta_\text{cluster}| < 2.47$ (excluding the barrel/endcap 
 transition region $1.37 < |\eta_\text{cluster}| < 1.52$), pass tight identification, and match 
@@ -87,6 +91,35 @@ than 5\% of the large-$R$ jet $p_\text{T}$ are removed. Only calibrated jets wit
 $p_\text{T} > 300$ GeV and $|\eta| < 2.0$ are considered. Variable-Radius track-jets 
 ($p_\text{T} > 7$ GeV, $0.02 \leq R \leq 0.4$) are ghost-associated to large-$R$ jets for 
 flavour tagging.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\linewidth]{figures/chapter5/Reco_Event.png}
+	\caption{}
+	\label{fig:Yields}
+\end{figure}
+
+\begin{table}[h]
+	\centering
+	\resizebox{0.6\textwidth}{!}{%
+		\begin{tabular}{ccc}
+			\hline
+			\textbf{Cut Applied} & \textbf{Electron Channel} & \textbf{Muon Channel} \\
+			\hline
+			Initial Events                   & 8,911,000 & 8,911,000 \\
+			Primary Vertex                   & 8,910,952 & 8,910,952 \\
+			Reconstruction                   & 1,220,162 & 1,220,162 \\
+			Lepton $p_T > 25$ GeV            & 374,572   & 400,935   \\
+			Tight lepton $> 70$ GeV          & 96,701    & 79,744    \\
+			Pflow jet $p_T > 25$ GeV         & 94,826    & 77,999    \\
+			UFO large-R jet $p_T > 200$ GeV  & 53,462    & 41,511    \\
+			MET                              & 44,089    & 33,959    \\
+			\hline
+		\end{tabular}%
+	}
+	\caption{Cutflow table for electron and muon selections.}
+	\label{tab:cutflow}
+\end{table}
 
 Overlap removal is applied sequentially to prevent double-counting: electrons within 
 $\Delta R = 0.01$ of a muon are removed first, followed by jets within $\Delta R = 0.2$ of 
@@ -108,35 +141,6 @@ compatibility with the calibrated LCTopo jet mass range. At least one small-$R$ 
 specifically the closest to the lepton in $\Delta R$, must pass $b$-tagging at the 77\% DL1r 
 working point and serves as the tag-jet, significantly suppressing the $V$+jets background.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter5/Reco_Event.png}
-	\caption{}
-	\label{fig:Yields}
-\end{figure}
-
-\begin{table}[h]
-	\centering
-	\resizebox{0.7\textwidth}{!}{%
-		\begin{tabular}{ccc}
-			\hline
-			\textbf{Cut Applied} & \textbf{Electron Channel} & \textbf{Muon Channel} \\
-			\hline
-			Initial Events                   & 8,911,000 & 8,911,000 \\
-			Primary Vertex                   & 8,910,952 & 8,910,952 \\
-			Reconstruction                   & 1,220,162 & 1,220,162 \\
-			Lepton $p_T > 25$ GeV            & 374,572   & 400,935   \\
-			Tight lepton $> 70$ GeV          & 96,701    & 79,744    \\
-			Pflow jet $p_T > 25$ GeV         & 94,826    & 77,999    \\
-			UFO large-R jet $p_T > 200$ GeV  & 53,462    & 41,511    \\
-			MET                              & 44,089    & 33,959    \\
-			\hline
-		\end{tabular}%
-	}
-	\caption{Cutflow table for electron and muon selections.}
-	\label{tab:cutflow}
-\end{table}
-
 %\begin{figure}
 %	\centering
 %	\includegraphics[width=0.7\linewidth]{figures/chapter5/Cutflow.png}
@@ -144,65 +148,67 @@ working point and serves as the tag-jet, significantly suppressing the $V$+jets 
 %	\label{fig:Yields}
 %\end{figure}
 
+Part of my ATLAS qualification task was ensuring that the largeR jet kinematics matched the previous software release. Switching from LCTopo to UFO is a large change in jet reconstruction. While the $p_T$, $\eta$, and $\phi$ are consistent between the R21 adn R24 software releases, there is a noticeable mass shift in the new release as shown in Figure \ref{fig:probe_jet_validation:subfigd}. To invesigate this mass shift further, validation plots were made in $p_T$ slices as shown in Figure \ref{fig:probe_jet_validation:subfige}, \ref{fig:probe_jet_validation:subfigf}, \ref{fig:probe_jet_validation:subfigg}, \ref{fig:probe_jet_validation:subfigh}. As of the end of my qualification task in 2023, JETMET was still providing updated calibrations to UFO objects to correctly model the mass of top quark.
+
 \begin{figure}
 	\centering
 	\begin{subfigure}{.24\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_pt.png}
 		\caption{}
-		\label{fig:sub1}
+		\label{fig:probe_jet_validation:subfiga}
 	\end{subfigure}%
 	\begin{subfigure}{.24\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_eta.png}
 		\caption{}
-		\label{fig:sub2}
+		\label{fig:probe_jet_validation:subfigb}
 	\end{subfigure}
 	\begin{subfigure}{.24\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_phi.png}
 		\caption{}
-		\label{fig:sub2}
+		\label{fig:probe_jet_validation:subfigc}
 	\end{subfigure}
 	\begin{subfigure}{.24\textwidth}
-	\centering
-	\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_mass.png}
-	\caption{}
-	\label{fig:sub2}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_mass.png}
+		\caption{}
+		\label{fig:probe_jet_validation:subfigd}
 	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
 	\begin{subfigure}{.24\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_mass_300_400.png}
 		\caption{}
-		\label{fig:sub1}
+		\label{fig:probe_jet_validation:subfige}
 	\end{subfigure}%
 	\begin{subfigure}{.24\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_mass_400_500.png}
 		\caption{}
-		\label{fig:sub2}
+		\label{fig:probe_jet_validation:subfigf}
 	\end{subfigure}
 	\begin{subfigure}{.24\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_mass_500_600.png}
 		\caption{}
-		\label{fig:sub2}
+		\label{fig:probe_jet_validation:subfigg}
 	\end{subfigure}
 	\begin{subfigure}{.24\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/probe_jet_mass_600_1000.png}
 		\caption{}
-		\label{fig:sub2}
+		\label{fig:probe_jet_validation:subfigh}
 	\end{subfigure}
 	\caption{}
-	\label{fig:ANN_Scores}
+	\label{fig:probe_jet_validation}
 \end{figure}
 
 \subsection{Constructing Fit Regions}
 
-\lipsum[1]
+The goal of this analysis is to measure the mistag efficiency $\epsilon^{data}_{ttbar}$ for different values of $p_T^{probe}$. We can extract the mistag efficiency by fitting the two previously defined parameters: ttbar normalization $\mu$ and SF. The signal regions are defined to have events that pass a given working point for the GN2Xv01 tagger, and control regions are populated with events that fail tagging requirements. As of the time of my qualification task, working points had not yet been finalized so a flat cut at 1.76 was used to approximate the 70\% working point. In recent developments, the GN2X working points are no longer defined as flat cuts on the discriminant. To reduce background sculpting, working points are defined as a function of the discriminant, jet mass, and jet pT.
+
+The post-fit control regions are shown in Figure \ref{fig:ttbar_CR}. Notice that after implementing event selections, the W+jets, single-top, and di-Boson background are heavily suppressed. A consistent theme across control regions show that the low mass bin has about 25\% more data than weighted MC predicts. Since UFO are a newly defined reconstruction technique, I was told to wait for the finalized recommendations. Another observation is the increase in ttbar\_nonmatch as the boost increases. These events, in white, come from QCD jets originating from ISR/FSR during the $2\rightarrow 2$ simulated $q, q \rightarrow t, \bar{t}$ process. 
 
 \begin{figure}
 	\centering
@@ -243,10 +249,10 @@ working point and serves as the tag-jet, significantly suppressing the $V$+jets 
 	\label{fig:sub2}
 	\end{subfigure}
 	\caption{}
-	\label{fig:ANN_Scores}
+	\label{fig:ttbar_CR}
 \end{figure}
 
-\lipsum[1]
+The post-fit signal regions are shown in Figure \ref{fig:ttbar_SR}. In general, the data-MC agreement is very good across all bins in all regions. Notice how the ttbar\_nonmatch is not as dominant in the boosted regions as a side-affect of the tagging requirement since QCD is much more suppressed cutting on the disciminant as shown in \ref{fig:GN2X_Discriminant}. Through performing these fits, the ttbar normalization factor $\mu$ and the SF are extracted in each $p_T$ slice. Its important to note that these parameters are extracted simultaneously using the SR and CR in tandom.
 
 \begin{figure}
 	\centering
@@ -287,14 +293,12 @@ working point and serves as the tag-jet, significantly suppressing the $V$+jets 
 		\label{fig:sub2}
 	\end{subfigure}
 	\caption{}
-	\label{fig:ANN_Scores}
+	\label{fig:ttbar_SR}
 \end{figure}
-
-\lipsum[1]
 
 \subsection{Results}
 
-\lipsum[1]
+A normalization factor and SF is derived per $p_T$ region. These parameters are extracted by maximizing the likelihood fit function. This can be interpreted as: what choice of parameters ($\mu$ and SF) yield the highest probability that the observed data matches the predicted MC. These fits only included statistical uncertainties, but a final result would also include systematic uncertainties such as: detector resolution, jet reconstruction, and flavor tagging uncertainties. The stat-only MC-16 results derived on full run 2 dataset are shown in \ref{fig:ttbar_SF:MC16}. The stat-only MC-20 results derived on full run 2 dataset are shown in \ref{fig:ttbar_SF:MC20}. The largest difference between these results are found in the ttbar normalization factors which were significantly lower in MC16 compared to MC20. Despite these differences, the SF between MC16 and MC20 are in much better agreement.
 
 \begin{figure}
 	\centering
@@ -302,22 +306,36 @@ working point and serves as the tag-jet, significantly suppressing the $V$+jets 
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/scale_factors_mc16.png}
 		\caption{}
-		\label{fig:sub1}
+		\label{fig:ttbar_SF:MC16}
 	\end{subfigure}%
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter5/scale_factors_mc20.png}
 		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_SF:MC20}
 	\end{subfigure}
 	\caption{}
-	\label{fig:ANN_Scores}
+	\label{fig:ttbar_SF}
 \end{figure}
 
-\lipsum[1]
+\section{Conclusion}
 
-\section{conclusion}
+This chapter presented the calibration of the GN2Xv01 boosted jet tagger using a 
+$t\bar{t}$-enriched region derived from semi-leptonic top quark decays. The tag-and-probe 
+event selection strategy proved effective at isolating a high-purity $t\bar{t}$ sample, 
+suppressing dominant backgrounds such as $W$+jets and single-top contributions to a 
+manageable level. The unique detector signature of semi-leptonic $t\bar{t}$ events, combined 
+with a $b$-tagging requirement on the leptonic-side tag jet, provided the clean phase space 
+necessary for a reliable extraction of the mistag rate.
 
-\lipsum[1]
+The GN2X discriminant was used to construct the signal and control regions, demonstrating 
+good data-MC agreement across all probe jet $p_T$ bins after performing the simultaneous 
+maximum likelihood fit, successfully extracting the $t\bar{t}$ normalization factor $\mu$ 
+and scale factor $SF$ in each $p_T$ slice. Scale factors were derived for both MC16 and MC20 
+configurations using the full Run 2 dataset, showing good mutual consistency despite notable 
+differences in the extracted normalization factors between the two campaigns. The techniques 
+and infrastructure developed here lay the groundwork for a full GN2Xv01 calibration to be 
+deployed in future ATLAS Higgs boson analyses targeting boosted $H \rightarrow b\bar{b}$ 
+and $H \rightarrow c\bar{c}$ signatures.
 
 
