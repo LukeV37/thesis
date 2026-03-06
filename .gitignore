@@ -1,1 +1,4 @@
 tmp/
+
+# Ignore wsl tmp files
+*:Zone.Identifier
