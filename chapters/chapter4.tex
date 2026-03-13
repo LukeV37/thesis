@@ -7,7 +7,7 @@
 
 \section{Introduction to Tagging B-Jets}
 
-\lipsum[1]
+Heavy particles produced in high-energy collisions, such as top quark and Higgs boson, decay with significant branching fractions to bottom quarks. Identification of jets originating from b-quarks is a critical task for the LHC physics program. The b quark decays via the weak force $b \to c W$.  The CKM matrix dictates lifetime of the decay. Since the $V_{cb}$ matrix element is small, the weak decay proceeds slowly relative to lighter quarks producing comparatively long lifetime ($\sim$1.5~ps). This lifetime is long enough that a B hadron produced at a typical LHC collision point travels a measurable distance, on the order of a few millimeters, before decaying, giving rise to a secondary vertex that is spatially displaced from the primary interaction vertex.
 
 \begin{figure}
 	\centering
@@ -28,7 +28,8 @@
 	\label{fig:IP3D}
 \end{figure}
 
-\lipsum[1]
+The displacement of the secondary vertex can be characterised by the impact parameters of its associated tracks. The transverse impact parameter $d_0$ is the distance of closest approach between a track and the primary vertex in the transverse plane, while the longitudinal impact parameter $z_0$ is the corresponding distance along the beam axis. Tracks originating from a displaced B-hadron decay will exhibit statistically significant non-zero values of $d_0$ and $z_0$, providing a powerful discriminant against light-flavour jets whose tracks are consistent with the primary vertex.
+
 
 \begin{figure}
 	\centering
@@ -49,43 +50,53 @@
 	\label{fig:IP3D}
 \end{figure}
 
-\lipsum[1]
+\section{Overview of Architectures for Modeling Jets}
 
-\subsection{Quantitative Comparisons Using ROC Curves}
+The identification of b-jets at the LHC reduces to a binary classification problem. Modern machine learning methods, and in particular deep neural networks, are well suited to perform b-tagging. Given a set of input observables such as track kinematics and secondary vertex properties, NNs can learn non-linear decision boundaries in high-dimensional feature spaces directly from simulated training samples. Furthermore, approaches based on recurrent or attention-based architectures can operate directly on the full set of tracks and vertices within a jet, treating the jet as a variable-length sequence or point cloud rather than a fixed-size feature vector. This preserves information that is inevitably discarded when constructing the high-level summary variables on which cut-based and low-dimensional likelihood approaches depend on. The result is a significant improvement in b-tagging efficiency at fixed light-jet rejection relative to classical algorithms, with direct benefits for analyses that rely on b-jet identification for signal selection or background suppression.
 
-\lipsum[1]
+\subsection{Boosted Decision Trees and MV2}
+
+A decision tree is a recursive binary classifier that partitions the input feature space by
+applying a sequence of threshold cuts, each chosen to maximize the separation between signal and
+background at that node. Starting from a root node containing the full training sample, the
+algorithm selects the input variable and cut value that optimizes a splitting criterion and divides the sample into two child nodes. This process
+is repeated recursively until a stopping condition is met, such as a maximum tree depth or a
+minimum number of events per node, at which point each terminal leaf is assigned a class label
+or score. A single tree is a weak classifier: it is fast to train and easy to interpret, but
+prone to high variance and sensitive to fluctuations in the training sample. Boosting addresses this limitation by combining many weak trees into a single strong ensemble. The final
+discriminant is a weighted sum of all trees in the ensemble.
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[c]{.3\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/binary_classification.png}
-		\caption{}
-		\label{fig:ROC:binary}
-	\end{subfigure}
-	\begin{subfigure}[c]{.3\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/classic_ROC.png}
-		\caption{}
-		\label{fig:ROC:classic}
-	\end{subfigure}
-	\begin{subfigure}[c]{.3\textwidth}
-	\centering
-	\includegraphics[width=\linewidth]{figures/chapter4/ATLAS_ROC.png}
+	\includegraphics[width=0.9\linewidth]{figures/chapter4/BDT.png}
 	\caption{}
-	\label{fig:ROC:ATLAS}
-	\end{subfigure}
-	\caption{https://github.com/LukeV37/Pythia\_PyTorch\_Tutorial/blob/main/Pythia\_Tutorial.ipynb}
-	\label{fig:ROC}
+	\label{fig:RNN}
 \end{figure}
 
-\section{Overview of Architectures for Modeling Jets}
+The first generation of multivariate b-taggers in ATLAS was based on boosted decision trees (BDTs). The MV2 family of taggers combined the outputs of lower-level algorithms, such as \texttt{IP3D}, \texttt{SV1},
+and \texttt{JetFitter}, into a single discriminant via gradient boosting.
+The input to the BDT was a set of high-level summary variables, each encoding
+a physically motivated combination of track and vertex information.
+\texttt{MV2c10}, the primary working point used during Run~2, was trained to separate $b$-jets
+from a background mixture of $10\%$ $c$-jets and $90\%$ light-jets, and achieved strong
+performance for its era.
+However, the BDT architecture is fundamentally limited by its fixed-size input vector of
+engineered features: correlations between tracks within the jet, and fine-grained vertex topology
+information, are compressed into scalar summaries before the classifier ever sees them.
 
-\lipsum[1]
+\subsection{Classic Neural Networks and DL1}
 
-\subsection{Classic Neural Networks}
-
-\lipsum[1]
+Artificial neurons are the basic computational units of a neural network. Each neuron computes a
+weighted sum of its inputs and passes the result through a non-linear activation function,
+producing a scalar output. By arranging neurons into layers and stacking multiple layers in
+sequence, one obtains a deep neural network (DNN) capable of learning hierarchical
+representations of the input data. The first layer receives the raw input features; each
+subsequent layer operates on the activations of the previous one, progressively extracting more
+abstract structure. Given sufficient depth and width, such networks are universal function
+approximators %~\cite{Hornik1989}, 
+and when trained by minimising a suitable loss function via
+stochastic gradient descent and backpropagation, they can learn highly non-linear decision
+boundaries directly from data.
 
 \begin{figure}[h]
 	\centering
@@ -106,24 +117,32 @@
 	\label{fig:IP3D}
 \end{figure}
 
-\lipsum[1-3]
+The \texttt{DL1} tagger replaced the BDT with a fully connected deep neural network, while
+retaining the same set of high-level input variables drawn from \texttt{IP3D}, \texttt{SV1},
+and \texttt{JetFitter}.
+The network consisted of several hidden layers with rectified linear unit (ReLU) activations,
+trained with a multi-class cross-entropy loss to simultaneously discriminate $b$-jets from both
+$c$-jets and light-jets, producing a three-component output $(p_b,\, p_c,\, p_\text{light})$.
+A scalar discriminant could then be constructed as
+\begin{equation}
+	D = \log\!\left(\frac{p_b}{f_c \cdot p_c + (1 - f_c) \cdot p_\text{light}}\right),
+\end{equation}
+where $f_c$ is a tunable parameter controlling the $c$-jet rejection working point.
+The feed-forward architecture allowed the network to learn non-linear combinations of the input
+variables more effectively than a BDT, yielding a modest but consistent improvement in
+light-jet and $c$-jet rejection at fixed $b$-jet efficiency.
+The fundamental limitation of \texttt{DL1}, however, remained the same as \texttt{MV2}: the
+inputs were fixed-size vectors of high-level summary statistics, and any information not
+captured by those summaries was discarded before reaching the classifier.
 
-\subsection{Boosted Decision Trees}
+\subsection{Recurrent Neural Networks and DL1r}
 
-\lipsum[1-3]
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{figures/chapter4/BDT.png}
-	\caption{}
-	\label{fig:RNN}
-\end{figure}
-
-\lipsum[1]
-
-\subsection{Recurrent Neural Networks}
-
-\lipsum[1]
+A recurrent neural network (RNN) processes sequential data by maintaining a hidden state that is
+updated at each step, allowing it to accumulate information across an arbitrarily long sequence.
+This makes RNNs naturally suited to problems where the number of inputs varies from sample to
+sample, as is the case for the tracks within a jet. In practice, the long short-term memory
+(LSTM) architecture is used, which introduces gated cell states to mitigate the vanishing
+gradient problem and enable learning over longer sequences.
 
 \begin{figure}[h]
 	\centering
@@ -132,11 +151,29 @@
 	\label{fig:RNN}
 \end{figure}
 
-\lipsum[1-3]
+\texttt{DL1r} augmented the \texttt{DL1} architecture by incorporating an LSTM component
+operating directly on the sequence of tracks within the jet. Tracks were sorted by decreasing
+impact parameter significance and passed through the LSTM, which processed them sequentially and
+produced a fixed-length embedding vector summarising the track content of the jet. This embedding
+was then concatenated with the high-level variables from \texttt{IP3D}, \texttt{SV1}, and
+\texttt{JetFitter}, and passed to the same feed-forward classifier as \texttt{DL1}. By
+processing tracks individually rather than through pre-computed summaries, the LSTM could retain
+fine-grained information about the impact parameter and kinematic properties of each track, and
+could in principle learn correlations between tracks that are invisible to scalar summary
+variables. \texttt{DL1r} demonstrated a significant improvement in $c$-jet rejection relative
+to \texttt{DL1}, reflecting the additional discriminating power available in the raw track
+sequence.
 
-\subsection{Deep Set Neural Networks}
+\subsection{Deep Set Neural Networks and DL1d}
 
-\lipsum[1]
+The Deep Sets architecture %~\cite{Zaheer2017} 
+is a permutation-invariant network designed to
+operate on unordered sets of objects. A shared transformation $\Phi$ is applied independently
+to each object, and the resulting representations are aggregated via a permutation-invariant
+operation such as a sum or mean, before being passed to a final network $F$. This is
+well-motivated for jet inputs, where the tracks and vertices within a jet have no natural
+ordering, and imposing one --- as an LSTM implicitly does --- introduces an arbitrary dependence
+that the network must learn to ignore.
 
 \begin{figure}[h]
 	\centering
@@ -145,30 +182,221 @@
 	\label{fig:RNN}
 \end{figure}
 
-\lipsum[1-3]
+\texttt{DL1d} applied this approach to variable length set of tracks as input, producing learned embeddings of each jet that were combined with the high-level
+jet variables for the final classification. The removal of the ordering dependence, combined with
+a richer treatment of vertex-level inputs, yielded further gains in tagging performance,
+particularly at low $b$-jet efficiency working points where the purity of the selected sample is
+most critical.
 
-\subsection{Graph Neural Networks}
+\subsection{Graph Neural Networks and GN1}
 
-\lipsum[1-3]
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{figures/chapter4/GN1.png}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2020-014/}
+	\label{fig:GN1}
+\end{figure}
 
-\subsection{Attention Mechanism and Transformers}
+A graph neural network (GNN) represents a set of objects as nodes in a graph, with edges
+encoding pairwise relationships between them. Message passing operations allow each node to
+iteratively aggregate information from its neighbours, building representations that capture
+both individual object properties and the collective structure of the ensemble. This is a natural
+fit for the tracks within a jet, which form an unordered set with meaningful pairwise
+relationships --- such as the angular separation or compatibility with a common decay vertex.
 
-\lipsum[1]
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.4\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/low_level_inputs.png}
+		\caption{}
+		\label{fig:IP3D:d0}
+	\end{subfigure}
+	\hspace{0.09\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/GN1_features.png}
+		\caption{}
+		\label{fig:IP3D:z0}
+	\end{subfigure}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
+	\label{fig:GN1_Inputs}
+\end{figure}
 
-\subsubsection{Event Level Modeling with Transformers}
+\texttt{GN1} represented a more fundamental architectural shift, moving away from the paradigm
+of combining separate low-level and high-level input streams towards an end-to-end graph-based
+representation of the jet. Tracks are treated as nodes in a fully connected graph, with message
+passing used to build up representations encoding both individual track properties and the
+collective structure of the track ensemble. Notably, \texttt{GN1} was the first ATLAS b-tagger
+to operate directly on low-level inputs, incorporating raw tracker hit information rather than
+relying solely on reconstructed track parameters and pre-computed vertex quantities. This allows
+the network to exploit information that is lost during track reconstruction, such as hit
+occupancy and local detector geometry, and represents a significant departure from all preceding
+taggers. \texttt{GN1} also introduced multi-task training: in addition to the primary jet-level
+$b$/$c$/light classification objective, the network was simultaneously trained to predict the
+origin of each individual track --- whether it originated from the primary vertex, a $b$-hadron
+decay, a $c$-hadron decay, or a hadronic interaction. This auxiliary track-classification
+objective acts as a powerful regulariser, encouraging the network to build physically
+interpretable representations that generalise well across different jet kinematics. The
+graph-based message passing, combined with multi-task learning and the use of low-level inputs,
+produced substantial improvements in both light-jet and $c$-jet rejection over \texttt{DL1d}.
 
-\lipsum[1]
+\subsection{Attention Mechanism and Transformers and GN2}
 
-\subsubsection{Set to Set Regression Tasks Using Transformers}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.4\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/attention_weights.png}
+		\caption{}
+		\label{fig:IP3D:d0}
+	\end{subfigure}
+	\hspace{0.09\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.2\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/attention_encoder.png}
+		\caption{}
+		\label{fig:IP3D:z0}
+	\end{subfigure}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
+	\label{fig:GN1_Inputs}
+\end{figure}
 
-\lipsum[1]
+The transformer architecture %~\cite{Vaswani2017} 
+processes a set of objects by computing, for
+each object, a weighted sum of all other object representations --- including itself. The weights
+are not fixed by the network topology but are computed dynamically from the inputs: each object
+produces a query vector and a set of key vectors, and the attention weight between two objects
+is determined by the similarity of their query and key representations. Concretely, for a jet
+with $N$ tracks, this produces an $N \times N$ attention matrix at each layer, where entry
+$(i,j)$ reflects how much track $i$ attends to track $j$ when updating its representation.
+Crucially, these weights are learned from data, meaning the network discovers which pairwise
+track correlations are most discriminating for $b$-tagging without any prior assumption about
+which tracks should be related. A transformer encoder block consists of one such self-attention
+operation followed by a small feed-forward network applied independently to each track, with
+residual connections and layer normalisation around both. Stacking multiple encoder blocks allows
+the network to build up increasingly abstract representations of the full track ensemble.
+
+\texttt{GN2} extended the graph neural network approach by replacing the message passing
+aggregation of \texttt{GN1} with a self-attention mechanism inspired by the transformer
+architecture. Rather than aggregating neighbour information through fixed pooling operations,
+self-attention computes a dynamic weighted sum of all other track representations, where the
+weights are learned functions of the query and key representations of each pair of tracks. This
+allows the network to selectively focus on the most relevant pairwise relationships for a given
+jet, rather than treating all edges equally. \texttt{GN2} retained the multi-task track-origin
+classification objective of \texttt{GN1} and extended the input feature set to include
+additional vertex and track quality variables. The attention mechanism provides both a
+performance benefit --- by more flexibly modelling long-range correlations between tracks --- and
+an interpretability benefit, since the learned attention weights can be inspected to understand
+which track pairs the network considers most informative for a given tagging decision.
+\texttt{GN2} currently represents the state-of-the-art b-tagger deployed in ATLAS, achieving
+the best light-jet and $c$-jet rejection of any tagger in the sequence, and forming the basis
+for ongoing development towards the High-Luminosity LHC era.
 
 \section{Benchmarks and Results}
 
-\lipsum[1-3]
+The performance of a b-tagger is evaluated using a receiver operating characteristic (ROC) curve.
+The tagger produces a continuous discriminant score for each jet, and a working point is defined
+by placing a threshold on this score: jets above the threshold are classified as $b$-jets, those
+below are rejected. By scanning the threshold continuously from its maximum to its minimum value,
+one traces out a curve in the space of signal efficiency and background rejection. The signal
+efficiency, or true positive rate, is the fraction of true $b$-jets that pass the threshold; the
+background rejection is the inverse of the false positive rate, which is the fraction of
+non-$b$-jets incorrectly accepted. In HEP it is conventional to plot the light-jet rejection
+$1/\varepsilon_\text{light}$ and $c$-jet rejection $1/\varepsilon_c$ as functions of the $b$-jet
+efficiency $\varepsilon_b$, rather than the true and false positive rates directly. A tagger with
+no discriminating power would accept signal and background at equal rates, corresponding to a
+flat rejection of unity for all efficiencies. A perfect tagger would achieve arbitrarily large
+background rejection at $\varepsilon_b = 1$. In practice, the ROC curve lies between these
+extremes, and the area under the curve (AUC) provides a single threshold-independent summary of
+overall tagger performance. Specific working points --- typically $\varepsilon_b = 60\%$, $70\%$,
+$77\%$, and $85\%$ --- are defined by fixing the $b$-jet efficiency and quoting the corresponding
+background rejection, allowing direct comparison between taggers and across analyses.
+
+Figure~\ref{fig:ROC:GN1} shows the output discriminant distributions for \texttt{DL1r} and
+\texttt{GN1} evaluated on a simulated $t\bar{t}$ sample at $\sqrt{s} = 13$~TeV. The $b$-jet
+distributions are peaked at high discriminant values, while the $c$-jet and light-jet
+distributions are concentrated at lower values, reflecting the ability of both taggers to
+separate $b$-jets from background. The \texttt{GN1} distributions show a more pronounced
+separation between the three jet flavours, qualitatively indicating improved discrimination
+relative to \texttt{DL1r}. The vertical dashed lines indicate the $70\%$ and $80\%$ $b$-jet
+efficiency working points, illustrating how a threshold on the discriminant defines an
+operating point on the ROC curve.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.4\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/GN1_discriminant.png}
+		\caption{}
+		\label{fig:ROC:discriminant}
+	\end{subfigure}
+	\hspace{0.05\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.43\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/GN1_b_ROC.png}
+		\caption{}
+		\label{fig:ROC:ATLAS}
+	\end{subfigure}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
+	\label{fig:ROC:GN1}
+\end{figure}
+
+Figure~\ref{fig:ROC:GN2} shows the ROC curves for \texttt{DL1d}, \texttt{GN1}, and \texttt{GN2},
+comparing light-jet and $c$-jet rejection as a function of $b$-jet efficiency, evaluated on a
+simulated $t\bar{t}$ sample with $20 < p_\text{T} < 250$~GeV at $\sqrt{s} = 13$~TeV using
+PFlow jets. Each successive architecture provides a clear improvement in background rejection
+at fixed $b$-jet efficiency across the full range of working points. At the $77\%$ working
+point, \texttt{GN2} achieves substantially higher light-jet and $c$-jet rejection than
+\texttt{DL1d}, with the ratio panels confirming a consistent gain of roughly a factor of two
+to five in light-jet rejection depending on the operating point. The $c$-jet rejection
+improvements are more modest but still significant, reflecting the inherently smaller
+separation between $b$-jets and $c$-jets due to their shared heavy-flavor decay topology.
+Figure~\ref{fig:roc_cjet} shows the equivalent curves as a function of $c$-jet efficiency,
+where the improvements in $b$-jet and light-jet rejection follow a similar trend.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/GN2_b_ROC.png}
+		\caption{}
+		\label{fig:ROC:discriminant}
+	\end{subfigure}
+	\hspace{0.1\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/GN2_c_ROC.png}
+		\caption{}
+		\label{fig:ROC:ATLAS}
+	\end{subfigure}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/FTAG-2023-01/}
+	\label{fig:ROC:GN2}
+\end{figure}
 
 \section{Conclusion}
 
-\lipsum[1]
+This chapter has traced the evolution of $b$-tagging algorithms in ATLAS from the early
+multivariate taggers of Run~2 through to the graph- and attention-based architectures deployed
+for Run~3. The progression reflects a consistent trend: each generation of taggers has moved
+closer to the raw detector information, replacing hand-engineered summary variables with learned
+representations operating directly on tracks, vertices, and hits.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/chapter4/performance_bar_graph.png}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/FTAG-2023-01/}
+	\label{fig:history}
+\end{figure}
+
+The performance gains from this evolution are summarized in Figure~\ref{fig:history}. These gains have direct physics implications. Higher background rejection at fixed signal
+efficiency translates to cleaner $b$-jet samples, reduced systematic uncertainties on flavor
+tagging scale factors, and improved sensitivity in analyses that rely on $b$-jet identification
+--- from top quark measurements to searches for new phenomena involving heavy-flavor final
+states. Looking ahead, further improvements are anticipated through the incorporation of
+additional low-level inputs, larger training samples exploiting the full Run~3 dataset, and
+continued architectural development motivated by the demands of the High-Luminosity LHC, where
+the increased pile-up environment will place even greater demands on the precision and robustness
+of flavour tagging algorithms.
 
 
