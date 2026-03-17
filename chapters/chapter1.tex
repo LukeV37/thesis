@@ -34,8 +34,8 @@ program pursues a broad range of open questions in the Standard Model and beyond
 including searches for supersymmetric partners, dark matter candidates, and precision 
 measurements of the top quark and gauge sector. With detector systems reading out hundreds 
 of millions of channels at 40\,MHz and data pipelines processing petabytes of collision 
-data per year, the LHC experimental programme represents one of the largest and most 
-complex data science endeavours ever undertaken.
+data per year, the LHC experimental program represents one of the largest and most 
+complex data science endeavors ever undertaken.
 
 \begin{figure}[h]
 	\centering
@@ -88,16 +88,15 @@ around the ring, housing the ATLAS, CMS, ALICE, and LHCb experiments.
 
 \section{Deep Learning in High Energy Physics}
 
-Artificial neurons are the basic computational units of a neural network. Each neuron computes a
-weighted sum of its inputs and passes the result through a non-linear activation function,
+Modern experimental high energy physics relies on advnaced data science techniques to perform efficient data analysis. Neural networks have become a very common practice for various data anlaysis techniques. Artificial neurons are the basic computational units of a neural network. Each neuron computes a weighted sum of its inputs and passes the result through a non-linear activation function,
 producing a scalar output. By arranging neurons into layers and stacking multiple layers in
 sequence, one obtains a deep neural network (DNN) capable of learning hierarchical
 representations of the input data. The first layer receives the raw input features; each
 subsequent layer operates on the activations of the previous one, progressively extracting more
 abstract structure. Given sufficient depth and width, such networks are universal function
 approximators %~\cite{Hornik1989}, 
-and when trained by minimising a suitable loss function via
-stochastic gradient descent and backpropagation, they can learn highly non-linear decision
+and when trained by minimizing a suitable loss function via
+stochastic gradient descent and back-propagation, they can learn highly non-linear decision
 boundaries directly from data.
 
 \begin{figure}[h]
@@ -119,21 +118,9 @@ boundaries directly from data.
 	\label{fig:IP3D}
 \end{figure}
 
-The \texttt{DL1} tagger replaced the BDT with a fully connected deep neural network, while
-retaining the same set of high-level input variables drawn from \texttt{IP3D}, \texttt{SV1},
-and \texttt{JetFitter}.
-The network consisted of several hidden layers with rectified linear unit (ReLU) activations,
-trained with a multi-class cross-entropy loss to simultaneously discriminate $b$-jets from both
-$c$-jets and light-jets, producing a three-component output $(p_b,\, p_c,\, p_\text{light})$.
-A scalar discriminant could then be constructed as
-\begin{equation}
-	D = \log\!\left(\frac{p_b}{f_c \cdot p_c + (1 - f_c) \cdot p_\text{light}}\right),
-\end{equation}
-where $f_c$ is a tunable parameter controlling the $c$-jet rejection working point.
-The feed-forward architecture allowed the network to learn non-linear combinations of the input
-variables more effectively than a BDT, yielding a modest but consistent improvement in
-light-jet and $c$-jet rejection at fixed $b$-jet efficiency.
-The fundamental limitation of \texttt{DL1}, however, remained the same as \texttt{MV2}: the
+The network consisted of several hidden layers with rectified linear unit (ReLU) activations.
+The feed-forward architecture allowed the network to learn non-linear combinations of the input.
+The fundamental limitation of NNs, however, remained the same: the
 inputs were fixed-size vectors of high-level summary statistics, and any information not
 captured by those summaries was discarded before reaching the classifier.
 
@@ -143,8 +130,7 @@ operate on unordered sets of objects. A shared transformation $\Phi$ is applied 
 to each object, and the resulting representations are aggregated via a permutation-invariant
 operation such as a sum or mean, before being passed to a final network $F$. This is
 well-motivated for jet inputs, where the tracks and vertices within a jet have no natural
-ordering, and imposing one --- as an LSTM implicitly does --- introduces an arbitrary dependence
-that the network must learn to ignore.
+ordering.
 
 \begin{figure}[h]
 	\centering
