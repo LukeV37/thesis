@@ -2,393 +2,506 @@
 \clearpage% Manually insert \clearpage
 \let\clearpage\relax% Remove \clearpage functionality
 \vspace*{-16pt}% Insert needed vertical retraction
-\chapter[STANDARD MODEL HADRONIC HIGGS ANALYSIS]{STANDARD MODEL HADRONIC HIGGS ANALYSIS}
+\chapter[PILEUP MITIGATION AT THE HL-LHC]{PILEUP MITIGATION AT THE HL-LHC}
 \endgroup
 
 \section{Key Contributions}
 
 \begin{itemize}
-  \item Contributed to two ATLAS Higgs analysis in the Higgs decaying to B/C Quarks.
-  \item For the Higgs production mode with associated vector boson, I ran studies in the CC, single lepton channel to include a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which ultimately increased the containing power on the background and for the first time allowed for $5\sigma$ for the $Z\rightarrow cc$ process and decreased the limited for $H\rightarrow cc$ by about 5\%.
-  \item For the Higgs production mode of Vector Boson Fusion, I assisted at nearly every part of the analysis, from sample production, flavor tagging optimization, adversarial neural network classifier, region definitions, fit studies, and fit combinations. For the first time, this analysis measured $3\sigma$ in the VBF $H\rightarrow bb$ channel and reported a limit on the VBF $H\rightarrow cc$ process. 
+  \item At the HL-LHC, pileup will begin to dominate the event, and we investigate machine learning methods for the task of pileup mitigation. 
+  \item Mitigating pileup will maximize the discovery potential of the ATLAS detector at HL-LHC conditions and benefit the entire experiment.
+  \item An open source simulated dataset is created to foster interdisciplinary collaboration between computer science and experimental HEP.
+  \item We define a novel regression task to predict the energy and mass fractions of each jet in the event, and we demonstrate the effectiveness of this approach by reconstructing the mass of Higgs Boson, Top Quark, and W Boson.
 \end{itemize}
 
-\section{Higgs Production at the LHC}
+\section{A New Approach to Pileup Mitigation at the Current and Upgraded LHC}
 
-A landmark achievement in experimental particle physics was obtained at the LHC in 2012 with the discovery of the Higgs Boson. This particle is a quantization of the Higgs field which is responsible for mass generation in the standard model, which up until then was a crucial missing piece. The Higgs field has a wine bottle shape that leads to spontaneous symmetry breaking which is a crucial part of the Higgs mechanism giving rise to the mass of vector bosons. Since its discovery, many of the Higgs properties have been studied including its mass, spin, coupling to gauge bosons, and coupling to third generation fermions. As of date, all experimental observations are in line with the Standard Model predictions.
+\begin{figure}[t]
+\centering
+  \includegraphics[width=0.8\linewidth]{figures/chapter6/Pileup_Graphic.png}
+  \caption{The interactions from crossing proton bunches in a single event. The hard scatter, HS, originates from the primary vertex forming a correlated set of particles while other interactions stochastically produce pileup, PU.}
+\label{fig:PileupSchematic}
+\end{figure}
+
+To increase recorded luminosity at the detectors, the LHC collides protons in bunches, where each bunch contains order $10^{11}$ protons. However, only a fraction of these protons collide and produce particle showers. The mean number of collisions per bunch crossing is referred to as $\langle\mu\rangle$. Current LHC conditions operate around $\langle\mu\rangle=60$ but HL-LHC operations will increase luminosity thereby increasing interactions to $\langle\mu\rangle=200$. Only collisions that pass an online trigger are saved for reconstruction, and typically there exists one hard scatter vertex surrounded by many other pileup vertices, although in HL-LHC conditions, there could exist more than one hard scatter vertex. A schematic of a typical single HS event is shown in Figure \ref{fig:PileupSchematic}.
+
+To study the problem of pileup at the HL-LHC, we produced a novel, open-source dataset that fills a critical need at the intersection of machine learning and high-energy physics. While functionally similar to proprietary datasets used by the ATLAS collaboration~\cite{ANA-FTAG-2024-06}, our dataset offers three key advantages. First, it provides truth labels for detailed pileup vertex classification. This enables precise separation of signal and background noise under HL-LHC conditions. Second, it is fully public. This provides open access to realistic particle physics data that is typically restricted to collaboration members. Third, it supports reproducibility and scalability. This allows the broader computer science community to comprehensively evaluate state-of-the-art machine learning architectures on complex particle physics analysis tasks. By simulating the extreme pileup conditions ($\langle\mu\rangle=200$) expected at the HL-LHC, we provide a benchmark that allows researchers to build and test models ready for the next generation of particle physics experiments.
+
+\subsection{Simulated Dataset}
+
+Particles in the detector are described using a standard 3D coordinate system defined by their transverse momentum ($p_T$), pseudorapidity ($\eta$), and azimuthal angle ($\phi$)\footnote{$\phi$ is azimuthal angle, $\eta=-\ln\left[ \tan\left( \frac{\theta}{2} \right) \right]$ where $\theta$ is polar angle, and $p_{\rm T}=|\overrightarrow{p}|\sin\theta$ in the spherical coordinate system where the $z$ axis is directed along the beam.}. Each charged particle track is represented by a feature vector $\mathbf{x}^{track} = [p_T, \eta, \phi, q, d_0, z_0]$. Here, $q$ is the charge, and $d_0$ and $z_0$ denote the transverse and longitudinal impact parameters, respectively. These impact parameters are calculated by extrapolating the track to the beam line \cite{beamline}. Each jet is described by a vector $\mathbf{x}^{jet} = [p_T, \eta, \phi, m]$ where $m$ is the mass. These features of the jet represent the aggregated kinematics of the charged and neutral constituents of each clustered set of particles.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{figures/chapter6/Higgs_Production.png}
-	\caption{}
-	\label{fig:HiggsProduction}
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\textbf{\tiny{Event at $\left\langle \mu \right\rangle$=60}}
+		\includegraphics[width=1\textwidth]{figures/chapter6/Event_mu60.png}
+		\caption{}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\textbf{\tiny{Event at $\left\langle \mu \right\rangle$=200}}
+		\includegraphics[width=1\linewidth]{figures/chapter6/Event_mu200.png}
+		\caption{}
+		\label{fig:sub2}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		%\textbf{\tiny{Dependence of Min Jet $p_{\rm T}$ on $\mu$}}
+		\includegraphics[width=1\linewidth]{figures/chapter6/njet_vs_ptcut.png} 
+		\caption{}
+		\label{fig:njets}
+	\end{subfigure}
+	\caption{Simulated events with jets depicted as large, circular clusters of energy. At $\left\langle \mu \right\rangle=200$, the gray pileup particles begin to dominate the event and significantly distort the energy and mass of hard scatter jets. (c) As $\left\langle \mu \right\rangle$ increases, the minimum jet $p_{\rm T}$ parameter must increase to keep jets per event constant. }
+	\label{fig:HLLHC}
 \end{figure}
 
-The Higgs boson has four unique production modes, shown in Figure \ref{fig:HiggsProduction}. In current LHC conditions with a center of mass energy at 13 TeV, the Hanbook of LHC Higgs cross section https://arxiv.org/abs/1610.07922 shows that $\sigma_{ggF} \approx 50 pb$, $\sigma_{VBF} \approx 4pb$, $\sigma_{VH} \approx 2.5 pb$, and $\sigma_{ttH} \approx 0.5 pb$. Each of these channels has their own unique backgrounds. The branching ratio of the Higgs boson is shown in Figure \ref{fig:HiggsBranchingRatios}. Notice the largest branching ratio is $H \rightarrow bb$ at around 58\%. Unfortunately, to take advantage of this channel an analysis will need to suppress the dominant hadronic multi-jet background at the LHC. Currently, ATLAS has focused large efforts on the VH channel, as it allows leptonic channels originating from the associated vector boson.
+ Two types of signal processes are generated using \textit{MadGraph5\_aMC@NLO} \cite{madgraph}. For PUMiNet, a sample of 50k di-Higgs through the process \texttt{p p > h h, h > b b\~{}}. For PhyGHT, the signal process is chosen to be top quark pair production decaying semi-leptonically, ($pp\to t\bar{t}, t \to q\bar{q}'b, \bar{t} \to \ell\nu\bar{b}$). These sample are showered using Pythia 8.312~\cite{pythia}. Samples are simulated at $\left\langle \mu \right\rangle = 60$ for the LHC pileup conditions and at $\left\langle \mu \right\rangle = 200$ for the HL-LHC pileup conditions. Pileup processes\footnote{The process \texttt{SoftQCD:inelastic} generated with Pythia using the A14 central tune~\cite{TheATLAScollaboration:2014rfk} and NNPDF2.3LO~\cite{BALL2013244}.} are overlaid according to a Poisson distribution with mean of $\left<\mu\right>$. The position of each hard scatter and pileup vertex in the event is independently smeared according to a Gaussian distribution with $\sigma_{x,y}=0.3$~mm in transverse plane and $\sigma_z=50$~mm along the direction of the proton beam to mimic the actual LHC conditions. Stable particles are then passed to FastJet~\cite{Cacciari_2012} to be clustered into jets using anti-$k_t$ algorithm~\cite{Cacciari_2008} with the cone size $R=0.4$ \footnote{$R = \sqrt{( \eta_{jet} - \eta_{track})^2 + ( \phi_{jet} - \phi_{track})^2}$, where the $\phi$ difference is taken modulo $2\pi$.} and minimum jet $p_{\rm T}$ of 25~GeV. To incorporate detector limitations, neutral particles and particles with $p_{\rm T}$ below 400~MeV are removed from the dataset.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.4\linewidth]{figures/chapter6/Higgs_Branching_Ratios.png}
-	\caption{}
-	\label{fig:HiggsBranchingRatios}
-\end{figure}
+\subsection{Pileup Mitigation using Regression}\label{JetLabels}\hfill
 
-\section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
-
-Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score. I joined this analysis in quite a mature stage, so I helped out with fit studies. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which had a vast amount of statistics. Due to the high statistics, this region caused significant pulls in the fit model, so we ran studies to decorrelated various nuissance parameters to add degrees of freedom into the fit model. This regions helped constrain the background modeling and overall improve the sensitivity to signal. In addition to measuring the VH channel, the VZ channel was used as a cross check analysis to validate the VH channel. 
-
-\subsection{Statistical Methods using Likelihood Fits}
-
-In order to measure signal strength, $\mu$, we perform a statistical procedure to match the theoretical modeling, MC, to real world data. A likelihood function $\mathcal{L}(\mu,\theta)$ is constructed as the product of Poisson probability terms over the bins of the input distributions where $x_i$ is data counted in bin i and $s_i$ and $b_i$ are signal and background predictions, respectively. The parameter of interest (POI), or signal strength $\mu$, is extracted by maximising the likelihood function $\mathcal{L}$. The effects of systematic uncertainties are quantified as $\theta$, also called Nuissance Parameters NP, and are often assumed to be constrained by gaussian distributions. $\alpha_j$ is known as the global measurement data. Usually assumed mean=0 and var=1. The likelihood fit function is shown below.
+Both jets and tracks are characterized by Lorentz 4-vectors $\overrightarrow{J}$ and $\overrightarrow{T}$, respectively. A Lorentz 4-vector is defined as $(E,\overrightarrow{p})$, where E is energy and $\overrightarrow{p}=(p_x,p_y,p_z)$ is the momentum in 3D space. The mass of an object described by a Lorentz 4-vector is defined as $m=\sqrt{E^2-|\overrightarrow{p}|^2}$.\footnote{In Natural Units} Each event is composed of a variable number of jets and each jet is formed by a variable number of associated tracks. Therefore, the fundamental data structure of an event can be interpreted as nested sets. The relationship between jet 4-vector $\overrightarrow{J}$ and the associated track 4-vectors, $\overrightarrow{T}$, is:
 
 \begin{equation}
-	\mathcal{L}(\mu,\theta|x)=\prod_i Pois(x_i|\mu \cdot s_i(\theta)+b_i(\theta)) \prod_j C(\alpha_j|\theta_j)
+  \overrightarrow{J}_i = \sum\limits_{j \in \overrightarrow{J}_i} \overrightarrow{T}_{ij}
 \end{equation}
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=0.7\linewidth]{figures/chapter6/Likelihood_Fit_Function.png}
-%	\caption{}
-%	\label{fig:VBF_Diagrams}
-%\end{figure}
-
-In the VH analysis, the global likelihood fit contained 59 signal regions with 27 for $H \rightarrow bb$ and 32 for $H \rightarrow cc$ and 97 control regions. Signal regions are plotted against the BDT score to maximally separate the signal from the background. Control regions are used to constrain background normalization factors, particularly the floating normalization used to constrain $t\bar{t}$ and V+jets. By the time I joined this analysis, many of these regions were already finalized. However, Yanhui Ma tasked me with including a new signal region into the fit model. 
-
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}{.49\textwidth}
-		\centering
-		\includegraphics[width=0.8\linewidth]{figures/chapter6/New_Region_Hcc.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.49\textwidth}
-		\centering
-		\includegraphics[width=0.8\linewidth]{figures/chapter6/New_Region_Zcc.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
-\end{figure}
-
-\subsection{Results}
-
-After including these regions into the fit model, I ran likelihood fits using the WSMaker framework to determine the impact of the new regions. In the table, we can see that the new region decreased the limit of the $H \rightarrow cc$ channel by 4\% expected and 8\% observed. However, there was a large improvement in the $Z \rightarrow cc$ channel where we found gains of 15\% expected and nearly 20\% observed. Note, that these fits were performed on blinded data, so data with a BDT score greater than 0.2 was excluded from the fit. The purpose of blinding data it common practice to make sure that the analysers are not making biased decisions in the fit model that would artificially inflate the signal measurement. Therefore decisions regarding the fit model should be motivated by unblinded data, and the final unblinded result is revealed a the very end. After unblinding, the VZ channel yield signal strength of:
-\begin{align}
-	\mu^{bb}_{VZ}&=0.93^{+0.13}_{-0.11}=0.92 \pm 0.05 (Stat)^{+0.12}_{-0.10}(Syst) \\
-	\mu^{cc}_{VZ}&=0.98^{+0.25}_{-0.22}=0.98 \pm 0.13 (Stat)^{+0.22}_{-0.18}(Syst)
-\end{align}
-
-These measurements result in an observed significance in the $VZ,Z\rightarrow bb$ process of greater than 10 standard deviations. For the $VZ,Z\rightarrow cc$ process, the observed (expected) significance over the null hypothesis is 5.2 (5.3) standard deviations. The low pT region in the single lepton channel was a crucial region for $5\sigma$ discovery of $VZ,Z\rightarrow cc$ process. 
-
-The final unblinded result in the VH channel yield signal strength of:
-\begin{align}
-	\mu^{bb}_{VH}&=0.92^{+0.16}_{-0.15}=0.92 \pm 0.10 (Stat)^{+0.13}_{-0.11}(Syst) \\
-	\mu^{cc}_{VH}&=1.0^{+5.4}_{-5.2}=1.0^{+4.0}_{-3.9} (Stat)^{+3.7}_{-3.5}(Syst)
-\end{align}
-For the $VH,H\rightarrow bb$ process, the observed (expected) significance over the null hypothesis is 7.4 (8.0) standard deviations. For the $VH,H\rightarrow cc$ process, the observed (expected) upper limit at 95\% confidence level is 11.5 (10.6) times the standard model predictions.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\linewidth]{figures/chapter6/New_Region_Results.png}
-	\caption{}
-	\label{fig:VBF_Diagrams}
-\end{figure}
-
-\section{Vector Boson Fusion Higgs Production Decaying to B/C Quarks}
-
-Recently, both ATLAS and CMS have reported evidence for the coupling of the Higgs boson to muons, providing the first direct probe of Higgs boson interactions with second-generation fermions. However, in the quark sector, one of the key properties that remains to be explored is the coupling of the Higgs boson to charm quarks.
-
-The search for Higgs boson decay into a charm quark-antiquark pair (H $\rightarrow$ cc) remains challenging because of the Higgs boson's smaller Yukawa coupling to charm quarks than to bottom quarks, the overwhelming quantum chromodynamics (QCD) multijet backgrounds, and the challenges in experimentally distinguishing charm jets from light flavor or bottom jets. The most stringent observed (expected) limits are 11.5 (10.6) times the SM prediction, from ATLAS in the VH production mode.
-
-This analysis presents a search for H $\rightarrow$ cc by exploiting the second-largest Higgs boson production mode, vector-boson fusion (VBF). In parallel, the analysis also targets H $\rightarrow$ bb decays in VBF production. The bottom-quark Yukawa coupling plays a central role in the Higgs sector, and while H $\rightarrow$ bb has been measured in associated-production modes (VH and ttH), it has not yet been observed in the VBF production mode.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter6/VBF_Signal_and_Background.png}
-	\caption{}
-	\label{fig:VBF_Diagrams}
-\end{figure}
-
-The VBF production mode is characterized by the presence of two forward jets with large invariant mass and rapidity separation, produced via the exchange of a virtual vector boson between the two initial-state quarks. A new inclusive trigger exploiting this topology was deployed in ATLAS partway through 2018, during Run 2 of the LHC. It achieves an efficiency for VBF H $\rightarrow$ bb events comparable to that of the b-tagging-based trigger used in the Run-2 VBF H $\rightarrow$ bb analysis, while also enabling the first search for the VBF H $\rightarrow$ cc process. The H $\rightarrow$ cc search utilizes proton-proton collision data collected by the ATLAS detector at two center-of-mass energies: 37.5 fb$^{-1}$ at $\sqrt{s} = 13$ TeV from part of the 2018 Run-2 period and 51.5 fb$^{-1}$ at $\sqrt{s} = 13.6$ TeV during 2022-2023 in Run 3, yielding a total integrated luminosity of 89.0 fb$^{-1}$. The H $\rightarrow$ bb process is measured only with the Run-3 data, allowing direct combination with the analysis performed on full Run-2 dataset. The analysis strategy follows previous work, with improvements in multivariate techniques, the adoption of the inclusive VBF trigger, and the use of a novel transformer-based flavor-tagging algorithm for jet flavor identification.
-
-\subsection{Event Selection}
-
-Simulated VBF signal events were generated using Monte Carlo methods. The simulations include both vector-boson fusion and gluon-gluon fusion processes. Background events are estimated using a data-driven method that accounts for the overwhelming QCD multijet production. The hadronic resonant background from vector boson plus jets is modeled using simulation techniques, with contributions from both QCD and electroweak processes. Other Higgs boson production modes are not considered due to their negligible contributions.
-
-Jet reconstruction uses the particleflow algorithm, which combines calorimeter energy deposits and inner-detector tracks into particleflow objects that are clustered into jets using the anti-k$_t$ algorithm with a radius parameter R = 0.4. To mitigate the impact of pileup, dedicated jet-vertex-tagging (JVT) requirements are applied. Jets with pseudorapidity $|\eta| < 2.5$ are required to have $p_T > 20$ GeV, whereas jets with $|\eta| > 2.5$ must satisfy $p_T > 30$ GeV.
-
-Selected events must pass the inclusive VBF trigger, which requires at least two jets: one with $p_T > 70$ GeV and $|\eta| < 3.2$, and another with $p_T > 50$ GeV and $|\eta| < 4.9$. Additional dijet requirements are imposed, namely $|\Delta\eta_{12}| > 4$, $|\Delta\phi_{12}| < 2$, and $M_{12} > 1000$ (1100) GeV for Run 3 (Run 2). Jets not identified as VBF candidate jets are considered for the selection of Higgs candidate jets (denoted by J$_{h1}$ and J$_{h2}$), originating from the H $\rightarrow$ cc or H $\rightarrow$ bb decay. Both J$_{h1}$ and J$_{h2}$ are required to have $p_T > 20$ GeV and $|\eta| < 2.5$. To suppress shape distortions in the background invariant-mass distributions, the Higgs candidate jets must also satisfy $p_{T,h1h2} > 150$ GeV and $|\Delta\phi_{h1h2}| < 2$. If multiple jets satisfy these criteria, the pair maximizing $p_{T,h1h2}$ is selected.
-\begin{figure}
-	\centering
-	\includegraphics[width=0.5\linewidth]{figures/chapter6/tabaux_01.png}
-	\caption{}
-	\label{fig:ANN_Scores}
-\end{figure}
-
-The two Higgs candidate jets must be either b-tagged or c-tagged. Flavor identification is performed using the transformer-based GN2 algorithm, which exploits charged-track information and achieves better separation of b-jets, c-jets, and light flavor jets than the previous DL1r tagger. The calibrated tagger output defines working points corresponding to various b- and c-jet efficiency targets, using established calibration methods consistent with those described in previous works. To identify b-jets, this analysis uses the 77\% b-tagging-efficiency working point, which has a c-jet (light flavor jet) efficiency of 6\% (0.24\%). Jets failing this requirement are classified as c-tagged if they satisfy the 50\% c-tagging-efficiency working point, which has a b-jet (light flavor jet) efficiency of 13\% (5.3\%). Two tighter working points, corresponding to 30\% and 10\% c-jet efficiencies, provide additional inputs to the neural network.
-\begin{figure}
-	\centering
-	\includegraphics[width=0.4\linewidth]{figures/chapter6/figaux_15.png}
-	\caption{}
-	\label{fig:ANN_Scores}
-\end{figure}
-
-Events are categorized into three channels: the bb Run-3 channel, where both Higgs candidate jets are b-tagged, and the cc Run-2 and Run-3 channels, where both are c-tagged.
-
-\subsection{Adversarial Neural Network Training}
-
-The overall analysis strategy is similar to previous work. A neural-network classifier is used to separate events into different analysis regions, and the signal yield is extracted from a simultaneous fit to the Higgs candidate mass (M$_{h1h2}$) distribution in all regions. The dominant Non-res. bkgd is estimated from data; its shape is determined from the lowest-score region, assuming it is largely identical across all regions. To realize this strategy, an adversarial neural network (ANN), similar to that in previous work, is trained separately for each analysis channel in order to decorrelate the neural-network classifier output from M$_{h1h2}$. The networks are implemented in PyTorch and optimized using the Adam optimizer. Inputs comprise event and jet kinematics and jet flavor-tagging information. For training, signal events are taken from VBF MC samples, while background events are drawn from data sidebands on either side of the Higgs boson mass window ($100 < M_{h1h2} < 140 GeV$) but within the range $50 < M_{h1h2} < 200 GeV$. The number of regions and their boundaries are optimized for maximum sensitivity, resulting in six signal regions per channel (SR1-SR6), ordered by decreasing signal purity, which ranges from 2\% to 0.02\%. The least pure region, SR6, is used as a control region.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.35\linewidth]{figures/chapter6/ANN.png}
-	\caption{}
-	\label{fig:ANN}
-\end{figure}
-
-The H $\rightarrow$ cc contamination in the H $\rightarrow$ bb channel is negligible, whereas the expected H $\rightarrow$ bb yield in the H $\rightarrow$ cc channel increases from about 40\% to 100\% of the H $\rightarrow$ cc signal across SR1-SR5 and is approximately 1.4 times larger in SR6. The expected ggF-to-VBF yield ratio increases from about 1\% in SR1 to 8\% in SR5, and reaches about 45\% in SR6 in all channels; the ggF ANN distribution closely resembles that of the backgrounds, explaining the weak sensitivity of the measurement to ggF.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.5\linewidth]{figures/chapter6/tab_02.png}
-	\caption{}
-	\label{fig:ANN_Features}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/fig_02a.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/fig_02b.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/fig_02c.png}
-		\caption{}
-		\label{fig:njets}
-	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
-\end{figure}
-
-\subsection{Statistical Fit Model}
-
-Signal production rates are extracted from a binned maximum-likelihood fit to the M$_{h1h2}$ distributions in all regions and channels, using 5 GeV bins over the range 50 < M$_{h1h2}$ < 200 GeV, resulting in a total of 30 bins per region. The expected H $\rightarrow$ cc and H $\rightarrow$ bb yields are scaled by independent signal-strength modifiers, $\mu_{cc}$ and $\mu_{bb}$, defined as the ratios of the observed to the SM-expected signal yields. These modifiers are treated as parameters of interest (POIs) and are extracted by maximizing the likelihood.
-
-The analysis employs six signal regions per channel (SR1-SR6), ordered by decreasing signal purity, which ranges from 2\% to 0.02\%. The least pure region, SR6, serves as a control region. The dominant background, non-resonant QCD multijet production, is estimated from data using a data-driven method. The shape of the background in high-score regions (SR1-SR5) is determined from the signal-depleted low-score region (SR6). This approach is motivated by the adversarial neural network design, which aims to decorrelate the reconstructed mass and classifier score.
-
-The background shape in each signal region is modeled using a data-driven approach. For each channel, the background shape in the high-score regions is taken from the signal-depleted low-score region (SR6). This strategy effectively constrains the multijet background shape in the high-score regions since SR6 contains a much larger number of events and is signal-depleted relative to SR1-SR5. The shape is determined by the classifier score distribution in the sidebands of SR6, which is then applied to all high-score regions.
-
-Systematic uncertainties are incorporated through nuisance parameters (NPs). The dominant systematic uncertainties include those from the non-resonant background bias uncertainty and the effects of limited Monte Carlo sample sizes, particularly those from the QCD V+jets samples. Detector-related uncertainties, primarily those associated with jets, are also included. The bias and residual uncertainties are applied to account for potential distortions in the signal extraction due to the neural network training on sideband data.
-
-The residual uncertainties capture potential correlations: for each signal region, an uncertainty is derived from M$_{h1h2}$ sidebands and applied across the full mass range. A fit to the ratio of the M$_{h1h2}$ distributions in the sidebands of SR6 to those in each of SR1-SR5 is performed, where a linear function adequately describes the observed differences; higher-order polynomials were tested but did not provide any significant improvement. The fitted slopes are implemented as unconstrained shape variations in the likelihood, while the offsets are absorbed by the normalization factors.
-
-The bias uncertainties quantify possible distortions of the M$_{h1h2}$ spectrum within the Higgs mass window ($100 < M_{h1h2} < 140 GeV$) that may arise because the ANN is trained only on sideband events and may bias the signal extraction. They are estimated by performing signal-plus-background fits on multijet MC samples, which are treated as data after being reweighted using sideband data information to improve the modelling. The resulting bias in the fitted signal strength, computed as the quadrature sum of the extracted signal yield and its statistical uncertainty, is taken as a systematic uncertainty. The bias amounts to about 27\%-51\% of the expected statistical uncertainty in the H $\rightarrow$ bb signal and 26\%-56\% of that in the H $\rightarrow$ cc signal. Both the bias and residual uncertainties are applied in SR1-SR5, treated as uncorrelated across regions, leading to 15 nuisance parameters for each set.
-
-\begin{figure}
-	\centering
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_12a.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_12b.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_12c.png}
-		\caption{}
-		\label{fig:njets}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_12d.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_12e.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_12f.png}
-		\caption{}
-		\label{fig:njets}
-	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_13a.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_13b.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_13c.png}
-		\caption{}
-		\label{fig:njets}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_13d.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_13e.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{figures/chapter6/figaux_13f.png}
-		\caption{}
-		\label{fig:njets}
-	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.5\linewidth]{figures/chapter6/tabaux_02.png}
-	\caption{}
-	\label{fig:Yields}
-\end{figure}
-
-\subsection{Analysis Results}
-
-Figure 1 shows the observed data together with the signal and background estimates in each bin of the Higgs candidate mass discriminant. All SRs are weighted by ln(1 + S/B) and summed; here S and B denote the total background and signal yields, respectively. The distributions are shown separately for the H $\rightarrow$ bb and H $\rightarrow$ cc channels, with the signal definition restricted to one Higgs boson decay mode at a time.
-
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}{.49\textwidth}
-		\centering
-		\includegraphics[width=0.8\textwidth]{figures/chapter6/fig_01a.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.49\textwidth}
-		\centering
-		\includegraphics[width=0.8\textwidth]{figures/chapter6/fig_01b.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
-\end{figure}
-
-The measured signal strengths for the H $\rightarrow$ bb and H $\rightarrow$ cc signals are:
-
-\begin{align}
-	\mu_{bb} &= 0.97^{+0.57}_{-0.50} = 0.97 \pm 0.45 \, (\text{stat.}) ^{+0.35}_{-0.22} (\text{syst.}) \\
-	\mu_{cc} &= 18 \pm 13 = 18 \pm 12 \, (\text{stat.}) \pm 7 \, (\text{syst.})
-\end{align}
-
-with a correlation of -4.5\% between the two measurements. The measurement of $\mu_{bb}$ yields an observed (expected) significance of 2.0 (2.1) standard deviations over the background-only prediction. No significant excess over the background-only hypothesis is observed in the search for H $\rightarrow$ cc. An upper limit on $\mu_{cc}$ is calculated using the CLs method, with the profile-likelihood ratio as the test statistic. The observed 95\% confidence level (CL) upper limit on $\mu_{cc}$ is 41, while a limit of 28 is expected in the case of no H $\rightarrow$ cc process. The result is also interpreted in the 'kappa framework' by reparameterizing $\mu_{cc}$ in terms of the charm Yukawa coupling modifier $\kappa_c$, defined as $\kappa_c^2 = \Gamma_c/\Gamma_{SMc}$, where $\Gamma_c$ is the partial decay width into a charm-quark pair. Assuming that all other couplings follow their SM predictions and only SM decays are considered, the parameterization is:
+Most of the time, jets have contributions from both hard scatter and pileup, and the goal is to purely recover the hard scatter component. However, the actual measured quantities of total energy, $E_{jet}$, and total mass, $m_{jet}$, of each jet contain pileup contamination. To mitigate the effects of pileup, we propose the use of continuous fractions, $E_{frac}$ and $M_{frac}$,\footnote{$E_{frac}$ and $M_{frac}$ can be considered scalar and vector corrections to $\overrightarrow{J}$, respectively. Pileup's stochastic directions affects the vector corrections significantly more than scalar corrections.} to be directly applied to each jet, as ratios, in order to recover only the hard scatter energy, $E_{HS}$, and mass, $m_{HS}$. Therefore, truth labels can be constructed from the 4-vectors of each jet, $\overrightarrow{J}$, by defining:
 \begin{equation}
-	\kappa_c = \frac{\mu_{cc}}{\sqrt{BR_{SM}(H \rightarrow cc)}}
+  E_{frac}^{true}=\frac{E_{HS}^{true}}{E_{jet}^{raw}} \phantom{.......} M_{frac}^{true}=\frac{m_{HS}^{true}}{m_{jet}^{raw}}.
 \end{equation}
 
-where $BR_{SM}(H \rightarrow cc)$ is the SM H $\rightarrow$ cc branching fraction. The expected 95\% CL constraint on the modifier is $|\kappa_c| < 11.6$. No observed constraint can be set at 95\% CL due to the large observed value of $\mu_{cc}$. Instead, a 68\% CL interval of $2.3 < |\kappa_c| < 18.4$ is obtained. An additional fit, performed by considering only the VBF process as signal, while fixing the ggF contribution to its SM prediction within uncertainties, yields a nearly identical result for both the H $\rightarrow$ bb and H $\rightarrow$ cc measurements.
+To correct the jets, we can simply apply the preditions of the model to the raw jet observables.
 
-The contributions of each uncertainty source to the total uncertainty in the fitted $\mu_{cc}$ and $\mu_{bb}$ values are summarized in Table 1. Both measurements are statistically limited. In both cases, the dominant systematic uncertainties arise from the Non-res. bkgd bias uncertainty and the effects of limited MC sample size (particularly those from the QCD V+jets samples), followed by the detector-related uncertainties, primarily those associated with jets.
+\begin{equation}
+  E_{HS}^{pred}=E_{frac}^{pred} \times E_{jet}^{raw} \phantom{.......} M_{HS}^{pred}= m_{frac}^{pred} \times m_{jet}^{raw}.
+\end{equation}
 
-\begin{figure}
+Using a mean squared error loss function, we can train a model to minimize the loss between the true and predicted energy and mass fractions for the N samples in our training dataset.
+
+\begin{equation}
+\mathcal{L} = \frac{1}{N} \sum_{i=1}^N \left ( \left( E_{frac,i}^{true} - E_{frac,i}^{pred} \right)^2 + \left( M_{frac,i}^{true} - M_{frac,i}^{pred} \right)^2 \right)
+\end{equation}
+
+\section{Pileup Mitigation using Graph and Attention Models}
+
+This work introduces a novel pileup mitigation strategy that directly applies $E_{frac}$ and $M_{frac}$ to jet 4-vectors to simultaneously identify pileup contributions and correct hard-scatter jets using attention- and graph-based neural networks. This approach leverages all available information from an event, including the correlations existing among hard scatter processes, to embed an accurate representation of the underlying physics process. Using a simulated dataset, the proposed approach outperforms traditional pileup mitigation strategies and assists with physics analysis.
+
+\subsection{Transformers Architecture for Pileup Mitigation}
+
+To effectively capture the topology of hard scatter decay and mitigate the effects of pileup, PUMiNet is composed of 4 distinct layers: (1) Local track attention to allow tracks within each jet to update their embeddings based on local context, (2) Global track attention to allows tracks to capture global correlations, (3) Global cross attention allows jets to update their embedding according to global track context, and lastly (4) Global jet attention allows jets to capture event-wide correlations such as conservation of momentum.
+
+Using multi-head attention, elements within a set learn how to update their embeddings based on the context of the set. The attention mechanism has three sets as input: (1) Query (2) Key (3) Value. The elements in the query set are referenced against elements in the key set where an attention weight matrix is learned. Based on the attention weights, a corresponding weighted value is used to update the embedding of each element in the query set. Therefore, we can define two types of attention: (1) self- and (2) cross-attention.
+
+\begin{figure}[t]
 	\centering
-	\includegraphics[width=0.4\linewidth]{figures/chapter6/tab_01.png}
-	\caption{}
-	\label{fig:Yields}
+	\includegraphics[width=1\linewidth]{figures/chapter6/PAKDD25-architecture.png}
+	\caption{Architecture of the proposed attention-based neural network method. Our method extracts two versions of track features to combine with jet features. The proposed multi-head cross-attention block correlates jets with respect to all tracks to enable learning of jet features based on an entire event.}
+	\label{fig:Model}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.65\linewidth]{figures/chapter6/tabaux_03.png}
-	\caption{}
-	\label{fig:Yields}
+We introduce a machine learning approach PUMiNet that incorporates jets and tracks to quantify $E_{frac}$ and $M_{frac}$ of jets. We define this problem as a regression task: $f(\mathcal{J},\mathcal{T})[\theta] \Rightarrow M_{frac}$ and $g(\mathcal{J},\mathcal{T})[\psi] \Rightarrow E_{frac}$, where $\theta$ and $\psi$ are model parameters. We consider $\mathcal{J} \in \mathbb{R}^{N_J \times x}$, and $\mathcal{T} \in \mathbb{R}^{N_J \times N_T \times y}$, where $x$ is jet feature dimensions, $y$ is track feature dimensions, $N_J$ is the total number of jets in an event, $N_T$ is the total number of tracks in a given jet. Our aim in this work is to extract rich contextual track information that exists in the jet-track correlation matrix $\mathcal{T}$ to reinforce jet features for the underlying jet-level regression task. We depict the overall architecture of the proposed model in Figure~\ref{fig:Model}.
+
+\textbf{Transformer Encoders}: We incorporate encoders with two forms of Set Attention ~\cite{SetAttention} in this work: (i) \emph{Encoders with self-attention} to capture the dependencies of jets and tracks separately, and (ii) \emph{Encoder with cross-attention} to capture the dependencies between jets and tracks on each other. We employ the transformer encoder, which operates on inputs \(Q\) (query), \(K\) (key), and \(V\) (value). First, we apply scaled-dot product attention on normalized vectors to calculate the attention weights and extract correlations: $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^\top}{\sqrt{d_E}}\right) \mathbf{V}$. We use multi-head attention, $MHA(Q,K,V) = $\\
+$ Concat(Attention_1,\ldots,Attention_h)$, where $h$ is the total number of attention heads in the encoder. Second, a residual connections is used to generate the context vector: $\mathbf{Q}_\text{Context} = \mathbf{Q} + \text{MHA}(\mathbf{Q}, \mathbf{K}, \mathbf{V})$. Third, a feed-forward network and an additional skip connection are used to produce the updated representation of the input query: $\mathbf{Q}_\text{Output} = \mathbf{Q}_{\text{Context}} + \text{FFN}(\mathbf{Q}_{\text{Context}})$. This encoder block can be stacked numerous times to iteratively update the query with various key-value pairs. Therefore, the two types of encoders in PUMiNet can be represented as given in Equation~\ref{eq:encoders} for inputs $\mathbb{X}$ and $\mathbb{Y}$:
+
+\begin{equation}
+	\text{Self-Encoder}(\mathbb{X},\mathbb{X},\mathbb{X}) = \mathbb{X}' \quad \text{Cross-Encoder}(\mathbb{X},\mathbb{Y},\mathbb{Y}) = \mathbb{X}'
+	\label{eq:encoders}
+\end{equation}
+
+\textbf{Learning Local Track-reinforced Jet Features $\hat{\mathcal{J}}$}: Apart from using jet features $\mathcal{J}$ for the underlying regression problems $f(\theta)$ and $g(\psi)$, transformer encoders can enrich a jet with its associated tracks for richer jet representations with respect to an event. To aggregate track features in jets, we first correlate jet and track features in the jet-track matrix $\mathcal{T}$ using $\mathcal{T}^{\prime} = \text{Self-Encoder}(\mathcal{T},\mathcal{T},\mathcal{T})$. We then aggregate tracks features of jets $\mathcal{J}_i$ using the sum operation, as given in Equation~\ref{eq:reduction}, where $N_T(\mathcal{J}_i)$ is the number of tracks in the jet $\mathcal{J}_i$. We then align the aggregated jet features $\hat{\mathcal{T}} \in \mathbb{R}^{N_J \times y}$ with the real jet features using the concatenation operation and apply non-linear transformation: $\hat{\mathcal{J}} = \text{ReLU}([\mathcal{J},\hat{\mathcal{T}}]W + b)$, where $W$ and $b$ are trainable weights and biases respectively.
+
+\begin{equation}
+	\hat{\mathcal{T}}(\mathcal{J}_i) = \sum_{t=1}^{N_T(\mathcal{J}_i)} \mathcal{T}_{t}^{\prime}
+	\label{eq:reduction}
+\end{equation}
+
+\textbf{Learning Global Track Features $t$}: Apart from reinforcing jets with correlations based on local track features, we also aim to enrich jet features independently based on global track correlations during each event. To this end, we first flatten the jet-track correlation matrix $\mathcal{T}$ to consider only the track features $t \in \mathbb{R}^{N_{T} \ \times y}$, where $N_{T}$ is the total number of tracks in the event. We then enrich track features using the stacked self-encoder module: $\hat{t} = \text{Self-Encoder}(t,t,t)$. We emphasize that self-encoder modules on all tracks capture global contextual details in the event. 
+
+\textbf{Learning Global Jet Features}: To model diverse event-wide correlations between jets $\hat{\mathcal{J}}$ and independent tracks $\hat{t}$, we apply encoder with cross-attention as $\mathcal{J}_{\text{cross}} = \text{Cross-Encoder}(\hat{\mathcal{J}},\hat{t},\hat{t})$. These encoded jet representations are based on the global context given by independent track representations that are present both within and outside the jets. Such unique representations allow the model to capture all possible correlations present in hard-scatter processes and give importance to learning jet features at the event-level. We further enrich these jet representations using $\mathcal{J}_{\text{final}} = \text{Self-Encoder}(\mathcal{J}_{\text{cross}},\mathcal{J}_{\text{cross}},\mathcal{J}_{\text{cross}})$.
+
+\subsection{Energy and Mass Regression Results of PUMiNet}
+
+To evaluate the performance of PUMiNet, a specific physics process is chosen: the simultaneous production of two Higgs bosons decaying into a $b$-anti $b$ quark pair. This process is of high interest for HEP and is one of the key components for the HL-LHC physics program~\cite{Dainese:2019rgk}. Each Higgs boson gives rise to a pair of jets $\overrightarrow{J}_i$, $\overrightarrow{J}_j$, described by a combined 4-vector $\overrightarrow{J}_{ij}$. When paired through the proper combinatorics, the distribution of the $\overrightarrow{J}_{ij}$ mass forms a resonance peak near the expected Higgs mass, $m_{\rm H}\approx125$~GeV, but pileup contamination will shift and widen the peak.
+
+\begin{figure}[t]
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Efrac1D_mu60.png}
+  \caption{}
+  \label{fig:Efrac1d_mu60}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Efrac2d_mu60.png}
+  \caption{}
+  \label{fig:Efrac2d_mu60}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Mfrac1D_mu60.png}
+  \caption{}
+  \label{fig:Mfrac1d_mu60}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Mfrac2D_mu60.png}
+  \caption{}
+  \label{fig:Mfrac2d_mu60}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Efrac1D_mu200.png}
+  \caption{}
+  \label{fig:Efrac1d_mu200}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Efrac2d_mu200.png}
+  \caption{}
+  \label{fig:Efrac2d_mu200}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Mfrac1D_mu200.png}
+  \caption{}
+  \label{fig:Mfrac1d_mu200}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \includegraphics[width=1\linewidth]{figures/chapter6/Mfrac2D_mu200.png}
+  \caption{}
+  \label{fig:Mfrac2d_mu200}
+\end{subfigure}
+\caption{At $\left \langle \mu \right \rangle=60$ (top row) and $\left \langle \mu \right \rangle=200$ (bottom row), the predicted energy (left) and mass (right) fraction of jets shown as 1D and 2D histograms.}
+\label{fig:RegressionResults}
 \end{figure}
 
-\subsection{Combinations}
+We deploy PUMiNet with each encoder block stacked three times to achieve a deeper representation of jets. We schedule the learning rate to decay by a factor of 0.1 after the $25^{th}$ epoch which noticeably helped descend the noisy loss landscape in model training. The \emph{AdamW} optimizer is used to prevent overtraining using weight decay and we use $R^2$ as an evaluation metric. The model converged after training 50 epochs on an NVIDIA RTX 3090.
 
-Two combined analyses are performed: one combining the H $\rightarrow$ cc result with the Run-2 VH-channel results, and another combining the Run-3 H $\rightarrow$ bb result with the Run-2 result in the VBF channel and a recently reported Run-2 photon-associated VBF (VBF+$\gamma$) result. For the H $\rightarrow$ cc combination, $\mu_{bb}$ is also allowed to float. For the H $\rightarrow$ bb combination, the H $\rightarrow$ cc channels from this analysis are excluded and $\mu_{cc}$ is fixed to 1, with the ggF contributions fixed to their SM predictions within uncertainties. For both combinations, jet-related experimental uncertainties are correlated, except for those related to jet flavor tagging, where different algorithms and calibration procedures are used; background modeling uncertainties are treated as uncorrelated, while theory uncertainties in signal production cross-sections and branching ratios are correlated.
+PUMiNet was evaluated on a sample of 20k di-Higgs events simulated specifically for testing. At $\left \langle \mu \right \rangle=60$, the model achieves $R^2=0.916$ for $E_{frac}$, as shown in Figure~\ref{fig:Efrac1d_mu60}, and $R^2=0.757$ for $M_{frac}$, as shown in Figure~\ref{fig:Mfrac1d_mu60}. At $\left \langle \mu \right \rangle=200$, the model achieves $R^2=0.912$ for $E_{frac}$, as shown in Figure \ref{fig:Efrac1d_mu200}, and $R^2=0.720$ for $M_{frac}$, as shown in Figure \ref{fig:Mfrac1d_mu200}. The 2D predicted vs truth values, plotted with a log z color scale, shown in Figure [\ref{fig:Efrac2d_mu60},\ref{fig:Mfrac2d_mu60}] at $\left \langle \mu \right \rangle=60$ and in Figure \ref{fig:Efrac2d_mu200} \ref{fig:Mfrac2d_mu200} at $\left \langle \mu \right \rangle=200$, show that there is good diagonal trend between the predictions and the truth. Overall, the transformer encoder architecture provides a highly parallelizable algorithm that is computationally feasible at high pileup conditions, and the plots in Figure~\ref{fig:RegressionResults} show that PUMiNet learns the hard scatter contributions without significant degradation to the $R^2$ value at high pileup conditions of the HL-LHC.
 
-From the first combination, the observed $\mu_{cc,Comb}$ signal strength relative to the SM prediction is 3.3$^{+5.2}_{-5.0}$, assuming SM VBF, ggF, and VH production rates. The observed (expected) 95\% CL upper limit on $\mu_{cc,Comb}$ is 13 (10), corresponding to an observed (expected) constraint of $|\kappa_c| < 4.7 (3.9)$. This represents an 8\% improvement in the expected limit and a 5\% improvement in the expected $|\kappa_c|$ constraint relative to the VH-only result. The observed result is slightly weaker than that from the VH channel, owing to an upward fluctuation in $\mu_{cc,Comb}$ driven by the VBF contribution. From the second combination, the observed $\mu_{bb,VBF}$ signal strength relative to the SM prediction is 0.87 $\pm$ 0.28, corresponding to an observed (expected) significance of 3.2 (3.6) standard deviations, thus providing the first evidence for the VBF H $\rightarrow$ bb process. The p-value for compatibility of the signal-strength parameters among the three analyses is 65\%, and 95\% between the Run-2 and Run-3 VBF H $\rightarrow$ bb analyses.
+\subsection{HyperGraph Transformer Architecture for Pileup Mitigation}
+
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=0.73\textwidth]{figures/chapter6/PhyGHTv2.png}
+	\caption{Overview of PhyGHT. It takes a heterogeneous graph of Tracks and Jets as input. It processes tracks through the Local Geometric (DA-GAT) block, followed by the Global Context block. The fused representations are filtered by the Pileup Suppression Gate (PSG) before being aggregated into the Jet representation via Hypergraph Attention for final regression.}
+	\label{fig:PhyGHTarchitecture}
+\end{figure*}
+
+Figure~\ref{fig:PhyGHTarchitecture} illustrates our PhyGHT architecture, a hierarchical graph neural network designed to mitigate pileup-induced distortion in physical jet observables such as mass and energy. PhyGHT takes as input raw event-level information, specifically jets and tracks. It then employs a \textit{four-stage} sequential feature refinement strategy to purify jets from pileup. First, the \textit{Local Geometric Block} uses a Distance-Aware Graph Attention Network (DA-GAT) to encode spatial correlations, effectively capturing the local topology of signal particles against stochastic pileup. Then the \textit{Global Context Block} employs a Transformer encoder to model event-wide constraints like pileup density and momentum conservation. Next, the \textit{Pileup Suppression Gate (PSG)} applies a learnable, differentiable mask to down-weight pileup tracks, serving as an analogue to traditional algorithms such as PUPPI. Finally, the \textit{Hypergraph Attention Block} dynamically aggregates purified tracks and fuses them with raw jet features via bipartite message passing, enabling precise regression of energy and mass correction factors.
+
+In addition to integrating local and global event context, we introduce the Pileup Suppression Gate (PSG), a learnable mechanism inspired by the phenomenological PUPPI algorithm~\cite{puppi}. While standard attention mechanisms implicitly suppress noisy features by assigning lower weights, they do not explicitly distinguish pileup contributions. The PSG acts as a learnable binary classifier, explicitly predicting the probability that a track originates from the hard-scatter vertex. To purify jets, we aggregate filtered constituent tracks using a hypergraph attention mechanism. This approach dynamically weights tracks based on their relevance to the specific jet cluster, in contrast to static global pooling operations that apply uniform weights to all constituents. The hypergraph structure is constructed by establishing shared connections between each jet and a variable number of tracks, enabling the model to adaptively encode complex topological relationships while maintaining computational efficiency.
+
+\subsection{Energy and Mass Regression Results of PhyGHT}
+
+On a test set of 1k semi-leptonic ttbar events, Table \ref{tab:PhyGHT:main_results} shows that the $R^2$ coefficient of PhyGHT is higher than other benchmarks, including PUMiNet. All results from the table were conducted on a single NVIDIA A10 GPU. To ensure a fair comparison, all models were trained for 200 epochs using the AdamW optimizer with a learning rate of $3 \times 10^{-4}$. We utilized a batch size of 16 for $\langle \mu \rangle = 60$, and 4 for $\langle \mu \rangle = 200$.
+
+\begin{table}[t]
+	\centering
+	\caption{Performance Comparison on the Test Set. We report the Coefficient of Determination ($R^2$) for the energy ($E_{frac}$) and mass ($M_{frac}$) correction factors across two pileup scenarios: $\langle\mu\rangle \in \{60, 200\}$.}
+	\label{tab:PhyGHT:main_results}
+	\resizebox{0.78\linewidth}{!}{%
+		\begin{tabular}{c|c|cccccccc|c}
+			\toprule
+			\multirow{2}{*}{$\bm{\langle\mu\rangle}$} & \multirow{2}{*}{\textbf{Target}} & \multicolumn{8}{c|}{\textit{Baselines}}                                                                                                       & \textit{Ours}    \\
+			&                                  & \textbf{Transformer} & \textbf{GNN} & \textbf{HGNN} & \textbf{GAT} & \textbf{HGAT} & \textbf{PUPPI} & \textbf{ParticleNet} & \textbf{PUMINet} & \textbf{PhyGHT}  \\
+			\cmidrule(lr){1-11}
+			\multirow{2}{*}{60}                       & \textit{Energy}                  & 0.812                & 0.841        & 0.821         & 0.839        & 0.792         & 0.769             & 0.869                & \uline{0.934}            & \textbf{0.943}   \\
+			& \textit{Mass}                    & 0.634                & 0.694        & 0.662         & 0.683        & 0.621         & 0.549             & 0.748                & \uline{0.838}            & \textbf{0.869}   \\
+			\cmidrule(lr){1-11}
+			\multirow{2}{*}{200}                      & \textit{Energy}                  & 0.778                & 0.837        & 0.798         & 0.792        & 0.756         & 0.348          & 0.853                & \uline{0.926}            & \textbf{0.932}   \\
+			& \textit{Mass}                    & 0.567                & 0.643        & 0.587         & 0.591        & 0.595         & 0.114          & 0.693                & \uline{0.805}            & \textbf{0.836}   \\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
+
+Lastly, we can plot the energy and mass resolution of each model calculated as $res=\frac{pred-true}{true}$. Here we can see that both PUMiNet and PhyGHT outperform Particle net due to their tighter peak centered around zero. However, PhyGHT shows a noticeable performance increase in mass resolution compared to the baselines.
+
+\begin{figure*}
+	\centering
+	% --- Energy Resolution (mu60) ---
+	\begin{subfigure}{.20524\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/Energy_Resolution_mu60.png}
+		\caption{}
+		\label{fig:EnergyReso60}
+	\end{subfigure}\hfill
+	% --- Energy Resolution (mu200) ---
+	\begin{subfigure}{.20\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/Energy_Resolution_mu200.png}
+		\caption{}
+		\label{fig:EnergyReso200}
+	\end{subfigure}\hfill
+	% --- Mass Resolution (mu60) ---
+	\begin{subfigure}{.20\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/Mass_Resolution_mu60.png}
+		\caption{}
+		\label{fig:MassReso60}
+	\end{subfigure}\hfill
+	% --- Mass Resolution (mu200) ---
+	\begin{subfigure}{.20\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/Mass_Resolution_mu200.png}
+		\caption{}
+		\label{fig:MassReso200}
+	\end{subfigure}\hfill
+	
+	\caption{Comparison of Energy and Mass Resolutions of PhyGHT with baselines at $\langle \mu \rangle=60$ and  $\langle \mu \rangle=200$.}
+	\label{fig:Resolution}
+\end{figure*}
+
+\section{Physics Analysis}
+
+\subsection{Di-Higgs Analysis on Simulated Pythia Data}
+
+To demonstrate that the model is able to provide useful insight into a practical physics analysis, we attempt to reconstruct the Higgs boson mass from the simulated di-Higgs dataset along with a non-resonant multijet background sample (denoted 4b).
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\textbf{\tiny{Raw Mass $\left \langle \mu \right \rangle=200$}}
+		\includegraphics[width=1\linewidth]{figures/chapter6/mass_peak_nocut.png}
+		\caption{}
+		\label{fig:Raw}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\textbf{\tiny{Uncorrected Mass $\left \langle \mu \right \rangle=200$}}
+		\includegraphics[width=1\linewidth]{figures/chapter6/mass_peak_uncorrected.png}
+		\caption{}
+		\label{fig:Uncorrected}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\textbf{\tiny{Corrected Mass $\left \langle \mu \right \rangle=200$}}
+		\includegraphics[width=1\linewidth]{figures/chapter6/mass_peak_corrected.png}
+		\caption{}
+		\label{fig:Corrected}
+	\end{subfigure}
+	\caption{The reconstructed Higgs boson mass when looking at (a) all jets with no cuts on $E_{frac}$ and no corrections, (b) uncorrected jets with cut at true $E_{frac}>0.2$, and (c) corrected jets (according to model predictions) with cut at predicted $E_{frac}>0.2$. (a) Shows no signs of mass peak due to pileup contamination. (b) Shows a mass peak that is heavily smeared due to pileup. (c) Shows the expected narrow narrow peak near $m_{\rm H}\approx 125$~GeV with corrections applied.}
+	\label{fig:MassPeak}
+\end{figure}
+
+The background sample was generated as the MadGraph process\newline\texttt{p p > b b\~{} b b\~{}} with the minimum $p_{\rm T}$ of the $b$-quarks set to 60~GeV to ensure the same kinematics of both samples, so that the only visible difference between the samples is the resonant mass peak that appears in the di-Higgs sample. Figure \ref{fig:MassPeak} shows the reconstructed mass of all possible pairs of jets in each event, and we expect to find a resonance mass peak near $m_{\rm H}\approx 125$~GeV with a narrow width. Figure \ref{fig:Raw} shows the uncorrected jets with no cut applied to $E_{frac}$ and the background and signal are indistinguishable. Figure \ref{fig:Uncorrected} shows that a cut at truth level $E_{frac}>0.2$ shows a resonant mass peak with uncorrected jets, however, the mean and the width of the mass peak has been significantly inflated due to the effects of pileup. Figure \ref{fig:Corrected} shows that a cut a prediction level $E_{frac}>0.2$ on corrected jets shows a mass peak near the expected value of 125~GeV with a narrow width which shows that the use of $E_{frac}$ and $M_{frac}$ to correct jets successfully mitigates the effects of pileup and restores physical quantities to their expected values.
+
+Lastly, we would like to show that one can slightly modify the learning objective of the model to directly classify an event as signal or background through a binary classification task, which circumvents the need for computationally costly combinatorics. To demonstrate this effect, a self-encoder module between jets is trained on a binary classification task, di-Higgs vs 4b, for three different cases where jets are represented by the following features: (1) $[p_{\rm T},\eta,\phi,m]$, (2) $[p_{\rm T},\eta,\phi,m,E_{frac}^{pred}, M_{frac}^{pred}]$, and (3) $[p_{\rm T},\eta,\phi,m,E_{frac}^{true}, M_{frac}^{true}]$. Through learning the proper attention weights between jets, the model is able to perceive the mass peak and directly classify the event as di-Higgs signal or 4b background. Figure \ref{fig:ROC} shows the background rejection, the reciprocal of false positive rate, vs the signal efficiency, the true positive rate.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.55\textwidth}
+		\includegraphics[width=1\linewidth]{figures/chapter6/Analysis_ROC.png}
+		\caption{}
+		\label{fig:ROC}
+	\end{subfigure}%
+	\begin{subfigure}{.43\textwidth}
+		\includegraphics[width=1\linewidth]{figures/chapter6/Analysis_Scores.png}
+		\caption{}
+		\label{fig:Scores}
+	\end{subfigure}
+	\caption{For the purposes of physics analysis, the learning objective is modified to perform direct binary classification of di-Higgs vs 4b. $E_{frac}$ and $M_{frac}$ improve performance of the classifier.}
+	\label{fig:Analysis}
+\end{figure}
+
+For the case (1) PUMiNet is able to successfully distinguish between di-Higgs and 4b physics processes despite having quite similar kinematic features. When predicted and truth $E_{frac}$ and $M_{frac}$ are provided in case (2) and (3), respectively, PUMiNet has a noticeable increase in background rejection. This improvement is elucidated in Figure \ref{fig:Scores} where the dashed line represents case (1) and the solid lines represent case (2). Here one can see a dramatic improvement in the lowest bin, background-like, and highest bin, signal-like which proves the the predicted $E_{frac}$ and $M_{frac}$ of the model can be used directly to perform event level classification.
+
+\subsection{Top Quark Analysis on Simulated Pythia Data}
+
+Figure~\ref{fig:TopReco60} and Figure~\ref{fig:TopReco200} illustrates the reconstruction of the top quark invariant mass, a standard benchmark for practical physics analysis. Heavily distorted by pileup, the uncorrected response (red) shows a mass resonance that is shifted with substantial broadening. PhyGHT successfully mitigates pileup contamination (blue) and nearly matches the ground truth mass resonance (green). Since the top quark mass resonance using PhyGHT's predictions aligns in good agreement with ground truth, we demonstrate that the model can be used in real world physics analysis. Additionally, we have reduced the pileup mitigation task to two simple correction factors which overall simplifies the pileup mitigation workflow compared to existing methods. The detailed methodology for selecting candidate jets and reconstructing the invariant mass is provided in Appendix~\ref{app:mass_reco}.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter6/Top_Mass_Reco_mu60.png}
+      \caption{}
+      \label{fig:TopReco60}
+    \end{subfigure}\hfill
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figures/chapter6/Top_Mass_Reco_mu200.png}
+      \caption{}
+      \label{fig:TopReco200}
+    \end{subfigure}\hfill
+    \caption{Mass Reconstruction after PhyGHT correction}
+\end{figure}
+
+To reconstruct the top quark mass, we first apply the predicted corrections to each jet by rescaling the mass and energy according to the predicted fractions. We then define a corrected jet vector with a new momentum magnitude $|\vec{p}|=\sqrt{E^2-m^2}$ and transverse momentum $p_T=|\vec{p}|\text{sech}(\eta)$. This results in a corrected Lorentz 4-vector where the direction remains unchanged, but the kinematics are scaled to reflect only the hard-scatter contributions.
+
+Using truth labels, we trace the parton shower history via a depth-first search algorithm to identify final-state particles originating from the $b$-quark and $W$-boson of the top quark decay. We then select three candidate jets: the two containing the highest fraction of tracks from the $W$-boson are designated as $W_1$ and $W_2$, while the jet with the most particles from the $b$-quark is designated as $B$. The top quark 4-vector is reconstructed by summing these candidates, $\vec{T} = \vec{W}_1+\vec{W}_2+\vec{B}$, and the final invariant mass is calculated using the energy-momentum relation $m=\sqrt{E^2-|\vec{p}|^2}$.
+
+\subsection{W Boson Analysis on Simulated ATLAS Data}
+
+ATLAS simulation is much more sophisticated as it contains GEANT 4 detector simulation. Therefore, we would like to demonstrate the effectiveness of $E_{frac}$ and $M_{frac}$ on ATLAS data. We start with an upgrade sample at the AOD level that contains specific information about pileup vertices.
+{\footnotesize
+	\begin{equation*}
+		mc21\_14TeV.601229.PhPy8EG\_A14\_ttbar\_hdamp258p75\_SingleLep.merge.AOD.e8481\_s4149\_r14701\_r14702
+	\end{equation*}
+}
+
+Specifically, this sample contains semi-leptonic ttbar events with access to the following containers: (1) xAOD::TruthEventContainer "TruthEvents" (2) xAOD::TruthPileupEventContainer "TruthPileupEvents" (3) xAOD::TrackParicleContainer "InDetTrackParticles". The TrackParticles have an auxData element called "truthParticleLink" that allows us to associate tracks to particles. Using this information we have full access to the origins of each particle, HS or PU, as well as associations between reconstructed tracks and truth level particles. This allows us to calculate $E_{frac}$ and $M_{frac}$ and track jets.
+
+There are three types of jets used in this study (1) Particle Jets, (2) Track Jets, and (3) Calorimeter Jets. Paricles jets are made of all MC truth particles (exluding neutrinos). Track jets are made of reconstructed tracks (no neutrals). Particle and Track jets are clustered using anti-kt R=0.4 algorithm. Calorimeter jets come directly from the DAOD container, and are matched to the nearest track jet.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/W_mass_raw.png}
+		\caption{}
+		\label{fig:Wmass:sub1}
+	\end{subfigure}\hfill
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/W_mass_stripped.png}
+		\caption{}
+		\label{fig:WMass:sub2}
+	\end{subfigure}\hfill
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter6/Direction_Corrections.png}
+		\caption{}
+		\label{fig:Wmass:sub3}
+	\end{subfigure}
+	\caption{Mass Reconstruction after PhyGHT correction}
+\end{figure}
+
+As a figure of merit, we reconstruct the W boson mass originating from the hadronic top quark. Particle jets are considred to originate from W if at least 2 particles can be traced back to W using MC truth history. If more than 2 candidates, the leading two jets are selected. As shown in Figure \ref{fig:Wmass:sub1} the reconstructed W mass is heavily inflated due to pileup. However, after applying truth level $E_{frac}$ and $M_{frac}$, we can see the W boson mass restored near 80 GeV in Figure \ref{fig:WMass:sub2}.
+
+Although $E_{frac}$ and $M_{frac}$ restore the W mass, they are not a complete set of corrections. As shown in Figure \ref{fig:Wmass:sub3}, the direction of the jet axis itself is distorted due to pileup requiring the need for $\eta$ and $\phi$ corrections. Shown in red is the true $M_{jj}$ mass clustered with HS particles only which represents the true jet axis. The blue shows corrected particle jets but raw jet direction. The green shows corrected track jets but raw jet direction. Therefore, $E_{frac}$ and $M_{frac}$ are not a complete description of pileup corrections as pileup affects the jet axis.
 
 \begin{figure}
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/figaux_03.png}
+		\includegraphics[width=1\linewidth]{figures/chapter6/W_mass_jet_types.png}
 		\caption{}
-		\label{fig:sub1}
+		\label{fig:Benchmark:sub1}
 	\end{subfigure}%
 	\begin{subfigure}{.49\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/figaux_04.png}
+		\includegraphics[width=1\linewidth]{figures/chapter6/W_mass_deltaR_matching.png}
 		\caption{}
-		\label{fig:sub2}
+		\label{fig:Benchmark:sub2}
 	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
+	\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
+	\label{fig:Benchmark}
 \end{figure}
 
-\begin{figure}
+In order to extrapolate these correction derived on track jets to calorimeter jets, we implement a matching scheme in $\Delta R$. We find W candidates from clustered track jets and then match each candidate to the closest calorimeter jet. Using the DAOD\_FTAG1 derivation, we can see the reconstructed W boson mass on 4 collections (1) PFlow, (2) EMTopo, (3) Truth, and (4) DressedWZ. Without applying $E_{frac}$ and $M_{frac}$ corrections, we can see the reconstructed W mass is near its truth value, which shows that pileup mitigation is already happening during the derivation procedure. Therefore, to implement our approach within ATLAS, we will need to replace the existing pileup mitigation techniques in order to not double count pileup corrections.
+
+\section{Standard Benchmarks}
+
+\subsection{ATLAS Jet Vertex Tagger}
+\textbf{Classic JVT Benchmark:} In order to benchmark the performance of the model against existing JVT algorithm, only a subset of the model is used to maintain consistency across input features. For a fair comparison, only jet features are considered: \{$p_T,\eta,\phi,m,R_{p_T},corrJVF$\} where $R_{p_T}$ and $corrJVT$ are defined in. This exercise attempts to show that the attention architecture over jet features (AttnJVT) alone brings noticeable improvements when jets are processed in the context of an event. These results can be further improved when jets are compounded with track features.
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.24\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter6/RpT.png}
+  \caption{}
+  \label{fig:Benchmark:sub1}
+\end{subfigure}%
+\begin{subfigure}{.24\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter6/corrJVF.png}
+  \caption{}
+  \label{fig:Benchmark:sub2}
+\end{subfigure}
+\begin{subfigure}{.24\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter6/JVT_1d.png}
+  \caption{}
+  \label{fig:Benchmark:sub3}
+\end{subfigure}
+\begin{subfigure}{.24\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter6/JVT_2d.png}
+  \caption{}
+  \label{fig:Benchmark:sub4}
+\end{subfigure}
+\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
+\label{fig:Benchmark}
+\end{figure}
+
+Using the di-Higgs dataset, the following models were created: (1) a replica of ATLAS JVT kNN model described in (2) a baseline deep neural network, and (3) a single MHA encoder between jets, AttnJVT.\footnote{A small number of learnable parameters are used, 21k, for AttnJVT and the baseline deep NN.} Since JVT is a binary classifier, the continuous labels are converted to binary using a cut at $E_{frac}=0.3$. The JVT algorithm and deep NN process inputs on a per jet basis, but AttnJVT processes an entire set of jets in the context of an event which allows the model to capture correlations between hard scatter jets. The baseline deep NN and AttnJVT are trained using the Binary Cross Entropy loss function, and converges after 60 epochs on 50k events. The benchmarked false positive rates against the true positive rates are shown in Figure Figure \ref{fig:Benchmark:sub1} \& \ref{fig:Benchmark:sub2} which shows that AttnJVT can significantly lower the false positive rate. We also show that PUMiNet brings further improvements over AttnJVT using both jet and track features to capture event-wide correlations in the regression setup, as shown in Figure \ref{fig:Benchmark:sub3}.
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter6/JVT_Benchmark_mu60.png}
+  \caption{}
+  \label{fig:Benchmark:sub1}
+\end{subfigure}%
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter6/JVT_Benchmark_mu200.png}
+  \caption{}
+  \label{fig:Benchmark:sub2}
+\end{subfigure}
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/chapter6/ROC_Comparison_wtracks.png}
+  \caption{}
+  \label{fig:Benchmark:sub3}
+\end{subfigure}
+\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
+\label{fig:Benchmark}
+\end{figure}
+
+
+\subsection{CMS PUPPI Benchmark}
+To implement the PUPPI algorithm on our dataset, we first initialize Lorentz 4-vectors of each track using $[p_T,\eta,\phi,m]$ where $m\approx0$ and has charge $q$. Tracks with $p_T< 1GeV$, $\eta>4.0$, and $q=0$ are cut from the dataset. Using awkward library in python, we find all possible pairs of tracks, $[T_i,T_j]$, and cut all pairs of tracks with $\Delta R(T_i,T_j)>0.3$ and $\Delta R(T_i,T_j)<0.02$. For each $T_i$ in all passing pairs, an $\epsilon$ parameter is calculated where $\epsilon_{ij}=\frac{p_{T}(T_j)}{\Delta R(T_i,T_j)}$. Then for all $T_i$, we calculate the local shape parameter $\alpha_i$, using the following equation on pairs that pass the $\Delta R$ cut.
+
+\begin{equation}
+\alpha_i = log \left( \sum_{i} \epsilon_{ij} \right)
+\end{equation}
+
+Then we select the $\alpha_i$ originating from pileup using truth labels, and calculate the median, $\alpha_{PU}^{median}$, and RMS, $\sigma_{PU}^{^2}$  originating from pileup. We then construct a $\chi^2$ metric using the following equation where $\mathcal{H}$ is the Heavyside function:
+
+\begin{equation}
+\chi^2=\mathcal{H}(\alpha_i-\alpha_{PU}^{median})\frac{(\alpha_i-\alpha_{PU}^{median})^2}{\sigma_{PU}^{^2}}
+\end{equation}
+
+A PUPPI Weight is then constructed using using $F_{\chi^2}$, the cumulative distribution function of the $\chi^2$ distribution with a single degree of freedom:
+
+\begin{equation}
+    w_i=F_{\chi^2,NDF=1}(\chi^2_i).
+\end{equation}
+
+\begin{figure}[t]
 	\centering
-	\begin{subfigure}{.32\textwidth}
+	\begin{subfigure}{.23\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/figaux_05.png}
-		\caption{}
-		\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.32\textwidth}
+		\includegraphics[width=\linewidth]{figures/chapter6/alpha_i_mu60.png}
+		\label{fig:alpha_i_mu60}
+	\end{subfigure}\hfill
+	\begin{subfigure}{.23\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/figaux_06.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\begin{subfigure}{.32\textwidth}
+		\includegraphics[width=\linewidth]{figures/chapter6/PUPPI_weights_mu60.png}
+		\label{fig:PUPPI_weights_mu60}
+	\end{subfigure}\hfill
+	\begin{subfigure}{.23\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/figaux_07.png}
-		\caption{}
-		\label{fig:sub2}
-	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
+		\includegraphics[width=\linewidth]{figures/chapter6/alpha_i_mu200.png}
+		\label{fig:alpha_i_mu200}
+	\end{subfigure}\hfill
+	\begin{subfigure}{.23\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/PUPPI_weights_mu200.png}
+		\label{fig:PUPPI_weights_mu200}
+	\end{subfigure}\hfill
+	\caption{Validation Plots for implementation of the PUPPI algorithm}
+	\label{fig:PUPPI_valdiation}
 \end{figure}
 
-\section{Conclusion}
-
-In summary, this thesis presents the first search for SM Higgs boson decay into a pair of charm quarks in the VBF production mode in the ATLAS experiment at the LHC, together with a simultaneous measurement of Higgs boson decay into a bottom quark-antiquark pair. The VBF H $\rightarrow$ cc search is enabled by a new trigger designed to exploit the VBF topology. The observed signal strengths relative to the SM predictions are $\mu_{bb} = 0.97^{+0.57}_{-0.50}$ and $\mu_{cc} = 18 \pm 13$. For the H $\rightarrow$ cc process, this corresponds to an observed (expected) 95\% CL upper limit of 41 (28) on $\mu_{cc}$. When combined with previous Run-2 results, these measurements improve the expected constraint on the Higgs-charm coupling and both the expected and observed constraints on the Higgs-bottom coupling.
+After each track is assigned a PUPPI weight, we reweight each constituent of each jet accordingly. When can sum over the weighted 4-vectors of the set of tracks to calculate the predicted energy and mass fraction of each jet according to PUPPI weights. Since some particles were cut from the dataset with $p_T<1 GeV$, we also recalculate the energy and mass fractions using true pileup labels for the remaining constituents. From these recalculated values, we can derived an $R^2$ score and ROC curve. Note: at $\langle\mu\rangle=200$ the same cuts were used for PUPPI weights, but the performance sharply dropped as shown in the Figure \ref{fig:PUPPI_valdiation}. Since we do not apply a generator level filter to hard scatter events, our hard scatter appears more pileup-like than the original PUPPI paper at $\langle\mu\rangle=60$.
 
 
 
+As shown in the table, PUPPI's performance sharply drops at $\langle \mu \rangle = 200$.
+
+\section{Conclusion}\hfill
+
+We suggest a novel model, PUMiNet, to address the effect of the pileup interactions on physics studies at current and future LHC conditions. The model makes use of a stack of transformer encoders with self- and cross-attention using track and jet parameters in the event. The proposed architecture allows the model to learn kinematic correlations arising from physics processes which enables PUMiNet to directly predict the fractions of jet energy and jet mass due to pileup in order to recover physically significant observables. The model was trained and tested using simulated di-Higgs datasets. It was shown that the model is capable of recovering the value and resolution of the Higgs boson mass in high-pileup conditions, where initially the Higgs boson mass peak is not possible to observe. PUMiNet:g provides a computationally efficient algorithm to model pileup at the event level and scales well with the expected increase of the pileup level at the LHC and HL-LHC. The OSU high-energy physics group, a member of the ATLAS Collaboration at the LHC, plans to integrate PUMiNet into ATLAS software and evaluate its performance with real LHC data.
