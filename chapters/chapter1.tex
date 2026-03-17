@@ -20,9 +20,44 @@
 
 \lipsum[1]
 
-\section{Collider Experiments}
+\section{The Large Hadron Collider}
 
-\lipsum[1]
+The Large Hadron Collider (LHC)%~\cite{Evans:2008zzb} 
+is a proton--proton synchrotron 
+operating at CERN, near Geneva, Switzerland, and is currently the highest-energy particle 
+collider ever constructed. The primary physics motivation for the LHC was the experimental 
+confirmation of the Brout--Englert--Higgs mechanism of electroweak symmetry breaking, the 
+discovery of which was announced in July 2012 by the ATLAS and CMS 
+collaborations%~\cite{HIGG-2012-27, CMS-HIG-12-028}
+. Beyond the Higgs boson, the LHC 
+program pursues a broad range of open questions in the Standard Model and beyond, 
+including searches for supersymmetric partners, dark matter candidates, and precision 
+measurements of the top quark and gauge sector. With detector systems reading out hundreds 
+of millions of channels at 40\,MHz and data pipelines processing petabytes of collision 
+data per year, the LHC experimental programme represents one of the largest and most 
+complex data science endeavours ever undertaken.
+
+\begin{figure}[h]
+	\centering
+	%\includegraphics[width=0.7\linewidth]{figures/chapter3/CERN_complex.png}
+	\includegraphics[width=0.7\linewidth]{figures/chapter3/CERN_complex_reduced.png}
+	\caption{https://atlas.cern/Resources/Schematics}
+	\label{fig:CERN_complex}
+\end{figure}
+
+Protons are sourced from hydrogen gas by stripping electrons with a strong electric field, 
+after which a linear accelerator (LINAC\,4) brings them to 160\,MeV. They are then injected 
+into the Proton Synchrotron Booster (PSB), which accelerates them to 2\,GeV, before passing 
+into the Proton Synchrotron (PS) at 26\,GeV and subsequently the Super Proton Synchrotron 
+(SPS) at 450\,GeV, as illustrated in Figure~\ref{fig:CERN_complex}. Finally, two 
+counter-rotating beams are injected into the LHC ring, where superconducting NbTi dipole 
+magnets operating at 1.9\,K and a peak field of 8.33\,T bend the beams around the 
+26.7\,km circumference. Radio-frequency (RF) cavities operating at 400\,MHz accelerate 
+the protons to a Lorentz factor of $\gamma \approx 7000$, corresponding to a velocity of 
+$v \approx 0.9999991\,c$ and a centre-of-mass energy of $\sqrt{s} = 13.6$\,TeV during 
+Run~3, representing the world's highest centre-of-mass energy. The beams are structured 
+into bunches spaced 25\,ns apart and are brought to collision at four interaction points 
+around the ring, housing the ATLAS, CMS, ALICE, and LHCb experiments.
 
 \section{The Future of Collider Experiments}
 
@@ -50,4 +85,77 @@
     \caption{A Phoenix Event Display\cite{phoenix} depicting an event in the ATLAS inner tracking system in the HL-LHC conditions at $\langle\mu\rangle=60$ (left) and $\langle\mu\rangle=200$ (right) for signal (blue) and background (red) particles with $p_T>1.0$ GeV.}
     \label{fig:PhoenixDisplay}
 \end{figure}
+
+\section{Deep Learning in High Energy Physics}
+
+Artificial neurons are the basic computational units of a neural network. Each neuron computes a
+weighted sum of its inputs and passes the result through a non-linear activation function,
+producing a scalar output. By arranging neurons into layers and stacking multiple layers in
+sequence, one obtains a deep neural network (DNN) capable of learning hierarchical
+representations of the input data. The first layer receives the raw input features; each
+subsequent layer operates on the activations of the previous one, progressively extracting more
+abstract structure. Given sufficient depth and width, such networks are universal function
+approximators %~\cite{Hornik1989}, 
+and when trained by minimising a suitable loss function via
+stochastic gradient descent and backpropagation, they can learn highly non-linear decision
+boundaries directly from data.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.4\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/artificial_neuron.png}
+		\caption{}
+		\label{fig:IP3D:d0}
+	\end{subfigure}
+	\hspace{0.1\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/simple_neural_network.png}
+		\caption{}
+		\label{fig:IP3D:z0}
+	\end{subfigure}
+	\caption{}
+	\label{fig:IP3D}
+\end{figure}
+
+The \texttt{DL1} tagger replaced the BDT with a fully connected deep neural network, while
+retaining the same set of high-level input variables drawn from \texttt{IP3D}, \texttt{SV1},
+and \texttt{JetFitter}.
+The network consisted of several hidden layers with rectified linear unit (ReLU) activations,
+trained with a multi-class cross-entropy loss to simultaneously discriminate $b$-jets from both
+$c$-jets and light-jets, producing a three-component output $(p_b,\, p_c,\, p_\text{light})$.
+A scalar discriminant could then be constructed as
+\begin{equation}
+	D = \log\!\left(\frac{p_b}{f_c \cdot p_c + (1 - f_c) \cdot p_\text{light}}\right),
+\end{equation}
+where $f_c$ is a tunable parameter controlling the $c$-jet rejection working point.
+The feed-forward architecture allowed the network to learn non-linear combinations of the input
+variables more effectively than a BDT, yielding a modest but consistent improvement in
+light-jet and $c$-jet rejection at fixed $b$-jet efficiency.
+The fundamental limitation of \texttt{DL1}, however, remained the same as \texttt{MV2}: the
+inputs were fixed-size vectors of high-level summary statistics, and any information not
+captured by those summaries was discarded before reaching the classifier.
+
+The Deep Sets architecture %~\cite{Zaheer2017} 
+is a permutation-invariant network designed to
+operate on unordered sets of objects. A shared transformation $\Phi$ is applied independently
+to each object, and the resulting representations are aggregated via a permutation-invariant
+operation such as a sum or mean, before being passed to a final network $F$. This is
+well-motivated for jet inputs, where the tracks and vertices within a jet have no natural
+ordering, and imposing one --- as an LSTM implicitly does --- introduces an arbitrary dependence
+that the network must learn to ignore.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/chapter4/DIPs.png}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2020-014/}
+	\label{fig:RNN}
+\end{figure}
+
+\texttt{DL1d} applied this approach to variable length set of tracks as input, producing learned embeddings of each jet that were combined with the high-level
+jet variables for the final classification. The removal of the ordering dependence, combined with
+a richer treatment of vertex-level inputs, yielded further gains in tagging performance,
+particularly at low $b$-jet efficiency working points where the purity of the selected sample is
+most critical.
 
