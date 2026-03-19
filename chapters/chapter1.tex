@@ -20,7 +20,9 @@
 
 \lipsum[1]
 
-\section{The Large Hadron Collider}
+\section{Collider Experiments}
+
+\subsection{The Large Hadron Collider}
 
 The Large Hadron Collider (LHC)%~\cite{Evans:2008zzb} 
 is a proton--proton synchrotron 
@@ -59,7 +61,7 @@ Run~3, representing the world's highest centre-of-mass energy. The beams are str
 into bunches spaced 25\,ns apart and are brought to collision at four interaction points 
 around the ring, housing the ATLAS, CMS, ALICE, and LHCb experiments.
 
-\section{The Future of Collider Experiments}
+\subsection{The Future of Collider Experiments and the HL-LHC}
 
 \lipsum[1]
 
@@ -86,7 +88,23 @@ around the ring, housing the ATLAS, CMS, ALICE, and LHCb experiments.
     \label{fig:PhoenixDisplay}
 \end{figure}
 
-\section{Deep Learning in High Energy Physics}
+\section{Statistical Methods in High Energy Physics}
+
+\lipsum[1]
+
+\subsection{Frequentist Approach -- A Counting Game}
+
+\lipsum[1]
+
+\subsection{Likelihood Fits}
+
+In order to measure signal strength, $\mu$, we perform a statistical procedure to match the theoretical modeling, MC, to real world data. A likelihood function $\mathcal{L}(\mu,\theta)$ is constructed as the product of Poisson probability terms over the bins of the input distributions where $x_i$ is data counted in bin i and $s_i$ and $b_i$ are signal and background predictions, respectively. The parameter of interest (POI), or signal strength $\mu$, is extracted by maximising the likelihood function $\mathcal{L}$. The effects of systematic uncertainties are quantified as $\theta$, also called Nuissance Parameters NP, and are often assumed to be constrained by gaussian distributions. $\alpha_j$ is known as the global measurement data. Usually assumed mean=0 and var=1. The likelihood fit function is shown below.
+
+\begin{equation}
+	\mathcal{L}(\mu,\theta|x)=\prod_i Pois(x_i|\mu \cdot s_i(\theta)+b_i(\theta)) \prod_j C(\alpha_j|\theta_j)
+\end{equation}
+
+\subsection{Neural Networks}
 
 Modern experimental high energy physics relies on advnaced data science techniques to perform efficient data analysis. Neural networks have become a very common practice for various data anlaysis techniques. Artificial neurons are the basic computational units of a neural network. Each neuron computes a weighted sum of its inputs and passes the result through a non-linear activation function,
 producing a scalar output. By arranging neurons into layers and stacking multiple layers in
@@ -144,4 +162,3 @@ jet variables for the final classification. The removal of the ordering dependen
 a richer treatment of vertex-level inputs, yielded further gains in tagging performance,
 particularly at low $b$-jet efficiency working points where the purity of the selected sample is
 most critical.
-
