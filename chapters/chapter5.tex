@@ -13,37 +13,9 @@
   \item For the Higgs production mode of Vector Boson Fusion, I assisted at nearly every part of the analysis, from sample production, flavor tagging optimization, adversarial neural network classifier, region definitions, fit studies, and fit combinations. For the first time, this analysis measured $3\sigma$ in the VBF $H\rightarrow bb$ channel and reported a limit on the VBF $H\rightarrow cc$ process. 
 \end{itemize}
 
-\section{Higgs Production at the LHC}
-
-A landmark achievement in experimental particle physics was obtained at the LHC in 2012 with the discovery of the Higgs Boson. This particle is a quantization of the Higgs field which is responsible for mass generation in the standard model, which up until then was a crucial missing piece. The Higgs field has a wine bottle shape that leads to spontaneous symmetry breaking which is a crucial part of the Higgs mechanism giving rise to the mass of vector bosons. Since its discovery, many of the Higgs properties have been studied including its mass, spin, coupling to gauge bosons, and coupling to third generation fermions. As of date, all experimental observations are in line with the Standard Model predictions.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{figures/chapter5/Higgs_Production.png}
-	\caption{}
-	\label{fig:HiggsProduction}
-\end{figure}
-
-The Higgs boson has four unique production modes, shown in Figure \ref{fig:HiggsProduction}. In current LHC conditions with a center of mass energy at 13 TeV, the Hanbook of LHC Higgs cross section https://arxiv.org/abs/1610.07922 shows that $\sigma_{ggF} \approx 50 pb$, $\sigma_{VBF} \approx 4pb$, $\sigma_{VH} \approx 2.5 pb$, and $\sigma_{ttH} \approx 0.5 pb$. Each of these channels has their own unique backgrounds. The branching ratio of the Higgs boson is shown in Figure \ref{fig:HiggsBranchingRatios}. Notice the largest branching ratio is $H \rightarrow bb$ at around 58\%. Unfortunately, to take advantage of this channel an analysis will need to suppress the dominant hadronic multi-jet background at the LHC. Currently, ATLAS has focused large efforts on the VH channel, as it allows leptonic channels originating from the associated vector boson.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.4\linewidth]{figures/chapter5/Higgs_Branching_Ratios.png}
-	\caption{}
-	\label{fig:HiggsBranchingRatios}
-\end{figure}
-
 \section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
 
 Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score. I joined this analysis in quite a mature stage, so I helped out with fit studies. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which had a vast amount of statistics. Due to the high statistics, this region caused significant pulls in the fit model, so we ran studies to decorrelated various nuissance parameters to add degrees of freedom into the fit model. This regions helped constrain the background modeling and overall improve the sensitivity to signal. In addition to measuring the VH channel, the VZ channel was used as a cross check analysis to validate the VH channel. 
-
-\subsection{Statistical Methods using Likelihood Fits}
-
-In order to measure signal strength, $\mu$, we perform a statistical procedure to match the theoretical modeling, MC, to real world data. A likelihood function $\mathcal{L}(\mu,\theta)$ is constructed as the product of Poisson probability terms over the bins of the input distributions where $x_i$ is data counted in bin i and $s_i$ and $b_i$ are signal and background predictions, respectively. The parameter of interest (POI), or signal strength $\mu$, is extracted by maximising the likelihood function $\mathcal{L}$. The effects of systematic uncertainties are quantified as $\theta$, also called Nuissance Parameters NP, and are often assumed to be constrained by gaussian distributions. $\alpha_j$ is known as the global measurement data. Usually assumed mean=0 and var=1. The likelihood fit function is shown below.
-
-\begin{equation}
-	\mathcal{L}(\mu,\theta|x)=\prod_i Pois(x_i|\mu \cdot s_i(\theta)+b_i(\theta)) \prod_j C(\alpha_j|\theta_j)
-\end{equation}
 
 %\begin{figure}
 %	\centering
