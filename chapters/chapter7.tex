@@ -17,7 +17,36 @@
 
 \section{Analysis}
 
-\lipsum[1]
+In this analysis, we aim to build upon the results from Hadronic top quark polarimetery with particle net \cite{Dong_2025} by using Transformers to target a more inclusive phase space. Reducing cuts during preselection will maximize the available statistics in data.
+
+We start by generating three samples for semi-leptonics top pair production, $pp \rightarrow t\bar{t} \rightarrow \ell^{\pm}\nu2b2j$ within the Standard Model at the $\sqrt{s}=14$ TeV LHC. The sample used for training is generated with unpolarized top quarks. The samples used for evaluation are left and right-handed polarized hadronic top quarks. At generation level, a $p_{T,top}>200$ GeV is used to simulate boosted phase space. Pythia8 is used to simulate shower and hadronization effects. At generator level, validation plots are show in the Figure \ref{fig:gen_val}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{figures/chapter7/gen_val.png}
+	\caption{Parton level validation plots}
+	\label{fig:gen_val}
+\end{figure}
+
+Event reconstruction begins by requiring the lepton from anti-top to be with $p_T>30$ GeV, $|\eta|<3$, and isolated. Isolation is defined by no other final state particles within $\Delta R<0.1$. The lepton is removed from subsequent jet clustering. Next, the neutrino from anti-top must have MET$>30$ GeV. The neutrino from anti-top and all other final state neutrinos are removed from subsequent jet clustering. Large-R jets are clustered using  Cambridge-Aachen algorithm with jet radius $R=1.5$, $p_T>250$ GeV, $|\eta|<3$, and the event must contain exactly one large-R jet to suppress contamination from ISR/FSR. The constituents of the large-R jet are removed from subsequent clustering. All remaining hadronic activity is clustered using anti-$k_t$ clustering alorithm with radius $R=0.4$ and $p_T>10$ GeV. Small-R jets are b-tagged by tracing the truth b-Hadron from anti-top. The event is required to have one b-jet with $p_T>30$ GeV, $|\eta|<3$, and $0.3<\Delta R(\text{b-jet},\ell)<3.0$. At reconstruction level, validation plots are show in the Figure \ref{fig:reco_val}. Additionally, constituents of the large-R jet with $p_T<400$ MeV and neutral particles are cut from the dataset to simulate detector conditions.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{figures/chapter7/reco_val.png}
+	\caption{Reco level validation plots}
+	\label{fig:reco_val}
+\end{figure}
+
+The kinematics of both the top quark and the hadronic decay products (particularly down and bottom quark) are needed to calculate $cos\theta$. The top quark truth label is represented by a vector in the $t\bar{t}_{CM}$ frame. The truth label of the bottom/down quark are represented by a vector in the top quark rest frame. Taking the dot product between the top quark $t\bar{t}_{CM}$ frame vector and the bottom/down quark vector in the top quark rest frame, we can extract meaningful information regarding the spin of the $t\bar{t}$ system. The model is trained to predict these vectors directly. To adhere to the naturalness of the problem, cosine similarity is used as the loss function. As opposed to other loss functions, such as mean squared error, cosine similarity has no "edge" defects or boundaries and allows the model to directly minimize the angle between the predicted and true vector.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/chapter7/unit_sphere.png}
+	\caption{Unit sphere with A1 representing truth vector and A2 representing model prediction.}
+	\label{fig:unit_sphere}
+\end{figure}
+
+An Event can be modeled as a set of objects: large-R jet+constituents, lepton, MET, small-R jets. For variable entries such as large-R jet constituents and small-R jets, a maximum fixed number is enforced such that events can be padded and batched for training. Transformers are a natural fit for this problem. The attention mechanism provides a computationally efficient, parallelizable architecture to extract correlations between a set of objects. This allows the model to effectively learn the direction of the top quark in the $t\bar{t}_{CM}$ frame by utilizing the context of the entire event. Additionally, the model learns correlations by extracting correlations on the "point-cloud-like" data structure of the constituents of the large-R jet.
 
 \section{Results}
 
