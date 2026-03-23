@@ -57,7 +57,7 @@ The primary goal of the tracking system is to capture the path of charged partic
 %
 The innermost component is the Pixel detector, which provides the highest granularity acting at a radial distance between 50mm and 150mm. It consists of 1744 silicon pixel modules arranged in three concentric barrel layers and two end-caps of three disks each. Each module has an active area of 16.4\,mm $\times$ 60.8\,mm and contains 47{,}232 pixels of size 50\,$\mu$m $\times$ 400\,$\mu$m, giving a total of approximately 80.4 million readout channels. providing measurements extremely close to the interaction point. It consists of three concentric barrel layers and two end-cap disks on each side. The innermost barrel layer is the Insertable B-Layer (IBL)~\cite{Abbott:2018ikt}, installed during the Long Shutdown 1 (LS1) between Run 1 and Run 2 at a radius of only 33mm from the beam axis. The IBL was introduced to improve primary vertex resolution and the reconstruction of displaced vertices from $b$-hadron decays, which is critical for $b$-jet identification (\textit{b}-tagging).
 
-IBL: https://cds.cern.ch/record/1291633
+IBL: https://cds.cern.ch/record/1291633 \\
 Comissioning and calibration: https://arxiv.org/pdf/1004.5293
 
 Surrounding the Pixel detector is the Semiconductor Tracker (SCT), a silicon detector consisting of 4088 modules of silicon-strip detectors. The SCT is arranged in four concentric barrels and two end-caps of nine disks each, providing space-point measurements across radial distances from 299mm to 560mm. The strips in the barrel are approximately aligned parallel to the solenoid field and beam axis while the strip direction in the end-caps is radial. The strips read out a total of 128 channels giving a total of approximately 6.3 million readout channels. A hit is registered when the pulse height in a channel exceeds a preset threshold, nominally corresponding to a charge of 1fC. Together, the Pixel detector and SCT provide the precision hit measurements used in track reconstruction.
@@ -66,49 +66,23 @@ The outermost component of the tracking system is the Transition Radiation Track
 
 \subsection{Upgraded Tracking System}
 
-For the High-Luminosity LHC (HL-LHC), expected to begin operation around 2029, the ATLAS ID will be replaced entirely by the all-silicon Inner Tracker (ITk)~\cite{ATL-PHYS-PUB-2021-012}. The HL-LHC will deliver instantaneous luminosities 
-of up to $7.5 \times 10^{34}$\,cm$^{-2}$s$^{-1}$, resulting in an average of 
-$\langle\mu\rangle \approx 200$ simultaneous $pp$ interactions per bunch crossing 
-(pile-up). The TRT and SCT, being inadequate for this radiation environment and track 
-density, are fully decommissioned and replaced. The ITk extends the tracking acceptance 
-to $|\eta| < 4.0$, as illustrated in Figure~\ref{fig:itk}, significantly improving 
-forward track reconstruction for physics processes with boosted topologies and 
-forward jets.
+For the High-Luminosity LHC (HL-LHC), the ATLAS inner detector will be replaced entirely by the all-silicon Inner Tracker (ITk)~\cite{}. The HL-LHC will deliver instantaneous luminosities of up to $7 \times 10^{34}$\,cm$^{-2}$s$^{-1}$\cite{2105.10367}, resulting in an average of $\langle\mu\rangle \approx 200$ simultaneous $pp$ interactions per bunch crossing  (pile-up). The integrated luminosity is expected to reach 4000 $fb^{-1}$ by the end of the HL-LHC program, a significant increase from around 350 $fb^{-1}$ obtained in Run 3. Being inadequate for this radiation environment and track density, the TRT and SCT are fully decommissioned and replaced by the upgraded ITk. The ITk extends the tracking acceptance to $|\eta| < 4.0$, as illustrated in Figure~\ref{fig:ATLAS_ITk}, significantly improving forward track reconstruction for physics processes with boosted topologies and forward jets.
 
-Strips: https://cds.cern.ch/record/2257755
+Strips: https://cds.cern.ch/record/2257755 \\
 Upgrade Pixals: https://arxiv.org/abs/2105.10367
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{figures/chapter3/ATLAS_tracker.png}
 	\caption{https://atlas.cern/Resources/Schematics}
-	\label{fig:ATLAS_tracker}
+	\label{fig:ATLAS_ITk}
 \end{figure}
 
-The ITk comprises two subsystems. The \textbf{ITk Pixel} detector forms the innermost 
-region, consisting of five barrel layers and multiple end-cap rings extending to 
-$|z| = 2850$\,mm, as shown in Figure~\ref{fig:ATLAS_tracker}. It provides high-granularity 
-space-point measurements close to the interaction point, retaining excellent vertex 
-resolution in the high pile-up environment. The \textbf{ITk Strip} detector surrounds 
-the pixel system, consisting of four barrel layers extending to $|\eta| < 2.5$ and 
-six end-cap discs on each side covering $1.1 < |\eta| < 4.0$. The strip modules use 
-short strips of 24.1\,mm and 48.2\,mm length in the barrel and end-cap respectively, 
-with a strip pitch of approximately 75\,$\mu$m, providing two-dimensional measurements 
-via a small stereo angle between paired strip layers.
+The ITk comprises two subsystems. ITk Pixel detector forms the innermost region, consisting of five barrel layers and multiple end-cap rings extending to $|z| = 2850$mm, as shown in Figure~\ref{fig:ATLAS_tracker}. With 5 billion readout channels, it provides high-granularity space-point measurements close to the interaction point, retaining excellent vertex resolution in the high pile-up environment. The ITk Strip detector surrounds the pixel system, consisting of four barrel layers extending to $|\eta| < 2.5$ and six end-cap discs on each side covering $1.1 < |\eta| < 4.0$. The strip detectors have 50 million readout channels, and strip modules use short strips of 24.1mm and 48.2mm length in the barrel and end-cap, respectively.
 
 \section{The Calorimeter System}
 
-The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet and 
-provides measurements of the energy deposited by both charged and neutral particles, 
-with the exception of muons and neutrinos. It is designed to provide full azimuthal 
-coverage over $|\eta| < 4.9$, ensuring sufficient hermiticity for reliable missing 
-transverse energy $E_{\text{T}}^{\text{miss}}$ reconstruction. The system is divided 
-into an electromagnetic (EM) calorimeter, which measures the energy of electrons and 
-photons via electromagnetic showers, and a hadronic calorimeter, which captures the 
-broader hadronic showers produced by strongly interacting particles. The overall 
-depth of the calorimeter system exceeds 10 hadronic interaction lengths $\lambda$, 
-ensuring good shower containment and limiting punch-through into the muon 
-spectrometer, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}.
+The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}. It provides measurements of the energy deposits by both charged and neutral particles, with the exception of muons and neutrinos. It is designed to provide full azimuthal coverage over $|\eta| < 4.9$, capturing the information needed for reliable reconstruction of missing transverse energy $E_{\text{T}}^{\text{miss}}$. The system is divided into an electromagnetic (EM) calorimeter, which measures the energy of electrons and photons via electromagnetic showers, and a hadronic calorimeter, which captures the broader showers produced by pions and other hadronic activity. The overall depth of the calorimeter system exceeds 10 hadronic interaction lengths, $\lambda$, ensuring the energy of the final state particles produced in the collisions is captured effectively.
 
 \begin{figure}[h]
 	\centering
@@ -144,6 +118,8 @@ representing non-uniformities and calibration uncertainties, and $\oplus$ denote
 addition in quadrature. For the ATLAS EMB, the stochastic term is 
 $a \approx 10\%\,\sqrt{\text{GeV}}$ and the constant term $c \approx 0.2\%$.
 
+Calibration: https://arxiv.org/pdf/2309.05471
+
 \subsection{Hadronic Calorimeter}
 
 The hadronic calorimeter employs two distinct technologies depending on the detector 
@@ -165,6 +141,8 @@ which is typical for a sampling hadronic calorimeter and reflects the intrinsic
 fluctuations in hadronic shower development, including the invisible energy carried 
 by nuclear excitations and slow neutrons.
 
+https://cds.cern.ch/record/2004868
+
 \subsection{Forward Calorimeter}
 
 The \textbf{LAr forward calorimeter} (FCal) extends the calorimetric coverage to 
@@ -177,6 +155,8 @@ Together, the EMB, EMEC, HEC, TileCal, and FCal provide the ATLAS detector with
 the full calorimetric coverage required for jet reconstruction and 
 $E_{\text{T}}^{\text{miss}}$ measurement across the broad range of physics processes 
 accessed at the LHC.
+
+https://iopscience.iop.org/article/10.1088/1748-0221/8/05/P05006/pdf
 
 
 \section{Object Reconstruction}
