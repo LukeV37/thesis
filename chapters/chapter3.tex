@@ -93,71 +93,64 @@ The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet, 
 
 \subsection{Electromagnetic Calorimeter}
 
-The electromagnetic calorimeter uses liquid argon (LAr) as the active sampling medium 
-throughout, with lead absorber plates, and is housed in three cryostats — one barrel 
-and two end-caps. The \textbf{LAr electromagnetic barrel} (EMB) covers $|\eta| < 1.475$ 
-and the \textbf{LAr electromagnetic end-cap} (EMEC) extends coverage over 
-$1.375 < |\eta| < 3.2$. Both employ an accordion geometry for the lead absorber and 
-kapton electrodes, which provides complete and uniform $\phi$ coverage without 
-azimuthal cracks. The EM calorimeter is divided into three longitudinal sampling layers 
-of varying granularity. The first layer, with fine $\eta$ segmentation of 
-$\Delta\eta = 0.003$, provides precise shower-shape discrimination between prompt 
-photons and $\pi^0 \to \gamma\gamma$ decays. The second layer collects the bulk of 
-the shower energy, while the third layer samples the shower tail. A presampler layer 
-at $|\eta| < 1.8$ corrects for energy losses upstream of the calorimeter in the 
-solenoid and inner detector material. The energy resolution of the EM calorimeter 
-is parameterised as
+The electromagnetic calorimeter is designed to capture the energy of electrons and photons. It is divided into three components: the LAr electromagnetic barrel (EMB), covering $|\eta| < 1.475$, the LAr electromagnetic end-cap (EMEC), covering $1.375 < |\eta| < 3.2$, and a presampler at $|\eta| < 1.8$ which corrects for upstream energy losses. The calorimeter uses liquid argon (LAr) as the active medium with lead absorber plates in an accordion geometry, and is segmented into three longitudinal sampling layers to enable shower development measurements. The energy resolution is parameterized as:
 %
 \begin{equation}
-	\frac{\sigma_E}{E} = \frac{a}{\sqrt{E}} \oplus \frac{b}{E} \oplus c,
+	\frac{\sigma_E}{E} = \frac{a}{\sqrt{E}} \oplus b,
 	\label{eq:em_resolution}
 \end{equation}
 %
-where $a$ is the stochastic term, $b$ the noise term, and $c$ the constant term 
-representing non-uniformities and calibration uncertainties, and $\oplus$ denotes 
-addition in quadrature. For the ATLAS EMB, the stochastic term is 
-$a \approx 10\%\,\sqrt{\text{GeV}}$ and the constant term $c \approx 0.2\%$.
+where $a$ and $b$ are the stochastic and constant terms 
+respectively. For the ATLAS EMB, the stochastic term is 
+$a \approx 10\%\,\sqrt{\text{GeV}}$ and the constant term $b \approx 0.17\%$.
 
 Calibration: https://arxiv.org/pdf/2309.05471
 
 \subsection{Hadronic Calorimeter}
 
-The hadronic calorimeter employs two distinct technologies depending on the detector 
-region. In the central region $|\eta| < 1.7$, the \textbf{Tile calorimeter} (TileCal) 
-uses steel as the absorber and scintillating plastic tiles as the active medium, with 
-wavelength-shifting fibres reading out the scintillation light to photomultiplier tubes. 
-It is divided into a barrel covering $|\eta| < 1.0$ and two extended barrels covering 
-$0.8 < |\eta| < 1.7$. In the end-cap region $1.5 < |\eta| < 3.2$, the \textbf{LAr 
-	hadronic end-cap calorimeter} (HEC) uses copper absorber plates interleaved with 
-LAr active gaps, sharing the end-cap cryostats with the EMEC. The hadronic energy 
-resolution is approximately
+The hadronic calorimeter is designed to capture the energy of hadrons and hadronic jets. It is divided into two components: the Tile calorimeter (TileCal), covering $|\eta| < 1.7$, and the LAr hadronic end-cap calorimeter (HEC), covering $1.5 < |\eta| < 3.2$. TileCal uses steel absorber plates with scintillating plastic tiles as the active medium, while the HEC uses copper absorber plates interleaved with liquid argon gaps, sharing the end-cap cryostats with the EMEC. The energy resolution is parameterized as:
 %
 \begin{equation}
 	\frac{\sigma_E}{E} \approx \frac{50\%}{\sqrt{E}} \oplus 3\%,
 	\label{eq:had_resolution}
 \end{equation}
 %
-which is typical for a sampling hadronic calorimeter and reflects the intrinsic 
-fluctuations in hadronic shower development, including the invisible energy carried 
-by nuclear excitations and slow neutrons.
+where the stochastic term reflects intrinsic fluctuations in hadronic 
+shower development and the constant term encodes calibration uncertainties.
 
 https://cds.cern.ch/record/2004868
 
 \subsection{Forward Calorimeter}
 
-The \textbf{LAr forward calorimeter} (FCal) extends the calorimetric coverage to 
-$3.1 < |\eta| < 4.9$, housed in the same end-cap cryostats as the EMEC and HEC. 
-It consists of three longitudinal modules: the first uses copper absorbers optimised 
-for electromagnetic measurements, while the second and third use tungsten absorbers 
-for hadronic energy measurement. The high density of the FCal modules is necessitated 
-by the extremely high particle flux in the forward region close to the beam pipe. 
-Together, the EMB, EMEC, HEC, TileCal, and FCal provide the ATLAS detector with 
-the full calorimetric coverage required for jet reconstruction and 
-$E_{\text{T}}^{\text{miss}}$ measurement across the broad range of physics processes 
-accessed at the LHC.
+The LAr forward calorimeter (FCal) is designed to capture both electromagnetic and hadronic energy in the forward region, extending calorimetric coverage to $3.1 < |\eta| < 4.9$, housed in the same end-cap cryostats as the EMEC and HEC. It consists of three longitudinal modules: the first uses copper absorbers optimised for electromagnetic measurements, while the second and third use tungsten absorbers for hadronic energy measurement. Each module consists of a metal matrix with regularly spaced longitudinal channels filled with concentric rod and tube electrodes, with LAr in the gap serving as the active medium. The FCal is approximately 10 interaction lengths deep, and its high-density design is necessitated by the extremely high particle flux in the forward region close to the beam pipe. The electromagnetic energy resolution is parameterized as:
+%
+\begin{equation}
+	\frac{\sigma_E}{E} \approx \frac{28.5\%}{\sqrt{E}} \oplus 3.5\%,
+	\label{eq:fcal_em_resolution}
+\end{equation}
+%
+and for hadronic energy the resolution is approximately
+%
+\begin{equation}
+	\frac{\sigma_E}{E} \approx \frac{94\%}{\sqrt{E}} \oplus 7.5\%,
+	\label{eq:fcal_had_resolution}
+\end{equation}
+%
+as measured in test-beam campaigns at the CERN SPS. Together, the EMB, 
+EMEC, HEC, TileCal, and FCal provide the ATLAS detector with full 
+calorimetric coverage for jet reconstruction and 
+$E_{\text{T}}^{\text{miss}}$ measurement across the broad range of 
+physics processes accessed at the LHC.
 
 https://iopscience.iop.org/article/10.1088/1748-0221/8/05/P05006/pdf
 
+\section{Muon Spectrometer}
+
+The muon spectrometer is designed to measure the momentum and trajectory of muons, which pass through the calorimeters with minimal energy loss. It is based on the magnetic deflection of muon tracks due to the powerful magnets. The muon spectrometer is instrumented with separate trigger and high-precision tracking chambers. The spectrometer provides coverage over $|\eta| < 2.7$, using monitored drift tubes (MDT) and cathode strip chambers (CSC) for precision tracking, and resistive-plate chambers (RPC) and thin-gap chambers (TGC) for triggering.
+
+\section{Trigger and Data Acquisition Systems}
+
+The ATLAS trigger and data acquisition (TDAQ) system is responsible for selecting events of physics interest from the 40MHz bunch crossing rate delivered by the LHC. It operates in three stages. The Level-1 (L1) trigger, implemented in custom hardware using coarse-granularity calorimeter and muon chamber information, reduces the event rate to approximately 75kHz. The Level-2 (L2) trigger then performs further selections, reducing the rate to approximately 3.5kHz. Finally, the event filter applies full offline-quality reconstruction algorithms to reduce the rate to approximately 200Hz for permanent storage at CERN.
 
 \section{Object Reconstruction}
 
