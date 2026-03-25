@@ -7,7 +7,7 @@
 
 \section{Introduction to B-Tagging}
 
-Heavy particles produced in high-energy collisions, such as top quark and Higgs boson, decay with significant branching fractions to bottom quarks. Identification of jets originating from b-quarks is a critical task for the LHC physics program. The b quark decays via the weak force $b \to c W$.  The CKM matrix dictates lifetime of the decay. Since the $V_{cb}$ matrix element is small, the weak decay proceeds slowly relative to lighter quarks producing comparatively long lifetime ($\sim$1.5~ps). This lifetime is long enough that a B hadron produced at a typical LHC collision point travels a measurable distance, on the order of a few millimeters, before decaying, giving rise to a secondary vertex that is spatially displaced from the primary interaction vertex.
+Heavy particles produced in high-energy collisions decay with significant branching fractions to heavy-flavor quarks: the top quark decays almost exclusively via $t \to Wb$, while the Higgs boson has sizeable branching fractions to both $b\bar{b}$ and $c\bar{c}$ pairs. Identification of jets originating from b-quarks (b-jets) and c-quarks (c-jets) is therefore a critical task for the LHC physics program. The b quark undergoes weak decay $b \to cW^-$, with a rate governed by the CKM matrix element $V_{cb}$. Since $|V_{cb}|$ is small, the decay proceeds slowly relative to those of lighter quarks, resulting in a comparatively long B-hadron lifetime of $\sim$1.5~ps. This is sufficient for a B hadron produced at a typical LHC interaction point to travel several millimetres before decaying, giving rise to a secondary vertex spatially displaced from the primary interaction vertex.
 
 \begin{figure}
 	\centering
@@ -28,7 +28,9 @@ Heavy particles produced in high-energy collisions, such as top quark and Higgs 
 	\label{fig:IP3D}
 \end{figure}
 
-The displacement of the secondary vertex can be characterised by the impact parameters of its associated tracks. The transverse impact parameter $d_0$ is the distance of closest approach between a track and the primary vertex in the transverse plane, while the longitudinal impact parameter $z_0$ is the corresponding distance along the beam axis. Tracks originating from a displaced B-hadron decay will exhibit statistically significant non-zero values of $d_0$ and $z_0$, providing a powerful discriminant against light-flavour jets whose tracks are consistent with the primary vertex.
+The displacement of the secondary vertex can be characterized by the impact parameters of its associated tracks. The transverse impact parameter $d_0$ is the distance of closest approach between a track and the primary vertex in the transverse plane, while the longitudinal impact parameter $z_0$ is the corresponding distance along the beam axis. Tracks originating from a displaced B-hadron decay will exhibit statistically significant non-zero values of $d_0$ and $z_0$, providing a powerful discriminant against light-flavor jets whose tracks are consistent with the primary vertex. Charm hadrons also undergo displaced decays, though with a shorter mean lifetime ($\sim$0.5~ps) and correspondingly smaller average displacement, making c-jets a more challenging background to reject than light-flavor jets.
+
+Early ATLAS b-tagging algorithms exploited these displaced-vertex signatures by combining track impact parameter significances, inclusive secondary vertex properties, and decay chain topology into multivariate discriminants, progressing from boosted decision trees to shallow and then deep neural networks. The following section describes the subsequent transition to end-to-end architectures that process the full set of tracks within a jet simultaneously, enabling substantial improvements in both light-jet and c-jet rejection.
 
 
 \begin{figure}
@@ -52,23 +54,33 @@ The displacement of the secondary vertex can be characterised by the impact para
 
 \section{Overview of Architectures for Modeling Jets}
 
-The identification of b-jets at the LHC reduces to a binary classification problem. Modern machine learning methods, and in particular deep neural networks, are well suited to perform b-tagging. Given a set of input observables such as track kinematics and secondary vertex properties, NNs can learn non-linear decision boundaries in high-dimensional feature spaces directly from simulated training samples. Furthermore, approaches based on recurrent or attention-based architectures can operate directly on the full set of tracks and vertices within a jet, treating the jet as a variable-length sequence or point cloud rather than a fixed-size feature vector. This preserves information that is inevitably discarded when constructing the high-level summary variables on which cut-based and low-dimensional likelihood approaches depend on. The result is a significant improvement in b-tagging efficiency at fixed light-jet rejection relative to classical algorithms, with direct benefits for analyses that rely on b-jet identification for signal selection or background suppression.
+Jet flavor identification at the LHC is a multi-class classification problem: given a jet, a tagger must discriminate between b-jets, c-jets, and light-flavor jets. Deep neural networks (DNNs) are well suited to this task, learning non-linear decision boundaries in high-dimensional feature spaces directly from MC-simulated training samples where truth-level flavor labels are available. Crucially, architectures that operate directly on the full set of tracks within a jet, treating the jet as a variable-length set of objects, preserve information that is inevitably lost when constructing fixed-size high-level summary variables. The following subsections describe the graph and attention based architectures that exploit this, and the performance gains they deliver in both b-jet and c-jet identification.
 
 \subsection{Graph Neural Networks and GN1}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\linewidth]{figures/chapter4/GN1.png}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2020-014/}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
 	\label{fig:GN1}
 \end{figure}
 
 A graph neural network (GNN) represents a set of objects as nodes in a graph, with edges
 encoding pairwise relationships between them. Message passing operations allow each node to
-iteratively aggregate information from its neighbours, building representations that capture
-both individual object properties and the collective structure of the ensemble. This is a natural
-fit for the tracks within a jet, which form an unordered set with meaningful pairwise
-relationships --- such as the angular separation or compatibility with a common decay vertex.
+iteratively aggregate information from its neighbors, building representations that capture
+both individual object properties and the collective structure of the ensemble. Formally, the
+updated representation of node $i$ at layer $k$ is given by:
+\begin{equation}
+	\mathbf{x}_i^{(k)} = \gamma^{(k)} \!\left( \mathbf{x}_i^{(k-1)},\; \bigoplus_{j \in \mathcal{N}(i)} \phi^{(k)}\!\left( \mathbf{x}_i^{(k-1)}, \mathbf{x}_j^{(k-1)}, \mathbf{e}_{j,i} \right) \right)
+\end{equation}
+where $\mathbf{x}_i^{(k-1)} \in \mathbb{R}^F$ are the node features of node $i$, $\mathbf{e}_{j,i} \in \mathbb{R}^D$
+are optional edge features, $\bigoplus$ denotes a differentiable permutation-invariant aggregation
+function such as a sum, mean, or max, and $\gamma$ and $\phi$ are differentiable functions
+implemented as MLPs. This is a natural fit for the tracks within a jet, which form an unordered
+set with meaningful pairwise relationships such as angular separation or compatibility with a
+common decay vertex.
+
+https://pytorch-geometric.readthedocs.io/en/latest/notes/create\_gnn.html
 
 \begin{figure}[h]
 	\centering
@@ -89,23 +101,26 @@ relationships --- such as the angular separation or compatibility with a common 
 	\label{fig:GN1_Inputs}
 \end{figure}
 
-\texttt{GN1} represented a more fundamental architectural shift, moving away from the paradigm
-of combining separate low-level and high-level input streams towards an end-to-end graph-based
-representation of the jet. Tracks are treated as nodes in a fully connected graph, with message
-passing used to build up representations encoding both individual track properties and the
-collective structure of the track ensemble. Notably, \texttt{GN1} was the first ATLAS b-tagger
-to operate directly on low-level inputs, incorporating raw tracker hit information rather than
-relying solely on reconstructed track parameters and pre-computed vertex quantities. This allows
-the network to exploit information that is lost during track reconstruction, such as hit
-occupancy and local detector geometry, and represents a significant departure from all preceding
-taggers. \texttt{GN1} also introduced multi-task training: in addition to the primary jet-level
-$b$/$c$/light classification objective, the network was simultaneously trained to predict the
-origin of each individual track --- whether it originated from the primary vertex, a $b$-hadron
-decay, a $c$-hadron decay, or a hadronic interaction. This auxiliary track-classification
-objective acts as a powerful regulariser, encouraging the network to build physically
-interpretable representations that generalise well across different jet kinematics. The
-graph-based message passing, combined with multi-task learning and the use of low-level inputs,
-produced substantial improvements in both light-jet and $c$-jet rejection over \texttt{DL1d}.
+\texttt{GN1} represented a fundamental architectural shift, moving away from the paradigm of
+combining outputs of separately optimized low-level tagging algorithms towards a single
+end-to-end graph-based representation of the jet. Tracks are treated as nodes in a fully
+connected graph, with message passing used to build representations encoding both individual
+track properties and the collective structure of the track ensemble. Rather than taking
+pre-computed high-level discriminants as inputs, \texttt{GN1} operates directly on low-level
+track parameters including impact parameter significances, track kinematics, and hit-level
+variables such as pixel and SCT hit counts, exploiting information that is otherwise compressed
+or discarded when constructing high-level summary variables.
+
+\texttt{GN1} also introduced multi-task training with two auxiliary objectives alongside the
+primary jet-level $b$/$c$/light classification. The first predicts the truth origin of each
+individual track, classifying it as originating from the primary vertex, a $b$-hadron decay,
+a $c$-hadron decay, pileup, or other secondary processes. The second predicts the vertex
+compatibility of each pair of tracks, determining whether two tracks originate from the same
+vertex and thereby performing implicit secondary vertex finding without a dedicated vertexing
+algorithm. Together these auxiliary objectives act as powerful regularizers, encouraging the
+network to build physically interpretable representations that generalize well across jet
+kinematics. The graph-based message passing combined with multi-task learning produced
+substantial improvements in both light-jet and $c$-jet rejection over \texttt{DL1r}.
 
 \subsection{Attention Mechanism and Transformers and GN2}
 
@@ -115,79 +130,82 @@ produced substantial improvements in both light-jet and $c$-jet rejection over \
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/attention_weights.png}
 		\caption{}
-		\label{fig:IP3D:d0}
+		\label{fig:attention_weights}
 	\end{subfigure}
 	\hspace{0.09\textwidth}   % <-- space here
 	\begin{subfigure}[c]{.2\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/attention_encoder.png}
 		\caption{}
-		\label{fig:IP3D:z0}
+		\label{fig:attention_encoder}
 	\end{subfigure}
 	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
-	\label{fig:GN1_Inputs}
+	\label{fig:attention}
 \end{figure}
 
-The transformer architecture %~\cite{Vaswani2017} 
-processes a set of objects by computing, for
-each object, a weighted sum of all other object representations --- including itself. The weights
-are not fixed by the network topology but are computed dynamically from the inputs: each object
-produces a query vector and a set of key vectors, and the attention weight between two objects
-is determined by the similarity of their query and key representations. Concretely, for a jet
-with $N$ tracks, this produces an $N \times N$ attention matrix at each layer, where entry
-$(i,j)$ reflects how much track $i$ attends to track $j$ when updating its representation.
-Crucially, these weights are learned from data, meaning the network discovers which pairwise
-track correlations are most discriminating for $b$-tagging without any prior assumption about
-which tracks should be related. A transformer encoder block consists of one such self-attention
-operation followed by a small feed-forward network applied independently to each track, with
-residual connections and layer normalisation around both. Stacking multiple encoder blocks allows
-the network to build up increasingly abstract representations of the full track ensemble.
+The attention mechanism computes updated representations of each element in a set by learning
+dynamic edge weights that reflect the correlations, or local context, between all pairs of
+elements. In scaled dot-product attention, each object's representation is projected into three
+vectors: a query $\mathbf{q}$, a key $\mathbf{k}$, and a value $\mathbf{v}$. Collecting these
+projections across all $N$ objects into matrices $Q$, $K$, and $V$, the updated representations
+are given by:
+\begin{equation}
+	\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+\end{equation}
+where $d_k$ is the dimension of the key vectors, introduced to prevent saturation of the softmax
+at large dot-product magnitudes. For a jet with $N$ tracks, this produces an $N \times N$
+attention matrix at each layer, where entry $(i,j)$ reflects how strongly track $i$ attends to
+track $j$ when updating its representation. A transformer encoder block consists of one such
+self-attention operation followed by a position-wise feed-forward network, with residual
+connections and layer normalization around both. Multi-head attention extends this by running
+$h$ independent attention operations in parallel with separate learned projections, allowing the
+network to simultaneously capture different aspects of the track relationships.
 
-\texttt{GN2} extended the graph neural network approach by replacing the message passing
-aggregation of \texttt{GN1} with a self-attention mechanism inspired by the transformer
-architecture. Rather than aggregating neighbour information through fixed pooling operations,
-self-attention computes a dynamic weighted sum of all other track representations, where the
-weights are learned functions of the query and key representations of each pair of tracks. This
-allows the network to selectively focus on the most relevant pairwise relationships for a given
-jet, rather than treating all edges equally. \texttt{GN2} retained the multi-task track-origin
-classification objective of \texttt{GN1} and extended the input feature set to include
-additional vertex and track quality variables. The attention mechanism provides both a
-performance benefit --- by more flexibly modelling long-range correlations between tracks --- and
-an interpretability benefit, since the learned attention weights can be inspected to understand
-which track pairs the network considers most informative for a given tagging decision.
-\texttt{GN2} currently represents the state-of-the-art b-tagger deployed in ATLAS, achieving
-the best light-jet and $c$-jet rejection of any tagger in the sequence, and forming the basis
-for ongoing development towards the High-Luminosity LHC era.
+Compared to the message passing approach of \texttt{GN1}, self-attention offers several
+advantages for jet flavor tagging. In message passing, all neighboring tracks contribute to
+the node update through a fixed aggregation function, regardless of their relevance to the jet.
+Self-attention replaces this with a fully learned, input-dependent weighting, allowing the
+network to dynamically identify which track pairs are most discriminating on a per-jet basis.
+This enables the capture of long-range correlations across the full track ensemble without any
+locality bias. The learned attention weights also provide direct interpretability: they can be
+inspected to understand which track pairs the network considers most informative for a given
+tagging decision, as illustrated in Figure~\ref{fig:attention}.
+
+\texttt{GN2} extended \texttt{GN1} by replacing the message passing aggregation with a
+transformer encoder applied directly to the set of tracks within each jet. The multi-task
+training objectives of \texttt{GN1} were retained, and the input feature set was extended to
+include additional track quality and vertex variables. A global jet representation is formed by
+an attention-weighted sum over the final track representations and passed to the jet-level
+classification head. \texttt{GN2} currently represents the state-of-the-art resolved jet
+flavor tagger deployed in ATLAS, achieving the best light-jet and $c$-jet rejection of any
+tagger in the sequence, and forming the architectural basis for the boosted jet tagger
+\texttt{GN2X} described in Section~\ref{sec:boosted}.
 
 \subsection{Benchmarks and Results -- Resolved}
 
-The performance of a b-tagger is evaluated using a receiver operating characteristic (ROC) curve.
-The tagger produces a continuous discriminant score for each jet, and a working point is defined
-by placing a threshold on this score: jets above the threshold are classified as $b$-jets, those
-below are rejected. By scanning the threshold continuously from its maximum to its minimum value,
-one traces out a curve in the space of signal efficiency and background rejection. The signal
-efficiency, or true positive rate, is the fraction of true $b$-jets that pass the threshold; the
-background rejection is the inverse of the false positive rate, which is the fraction of
-non-$b$-jets incorrectly accepted. In HEP it is conventional to plot the light-jet rejection
-$1/\varepsilon_\text{light}$ and $c$-jet rejection $1/\varepsilon_c$ as functions of the $b$-jet
-efficiency $\varepsilon_b$, rather than the true and false positive rates directly. A tagger with
-no discriminating power would accept signal and background at equal rates, corresponding to a
-flat rejection of unity for all efficiencies. A perfect tagger would achieve arbitrarily large
-background rejection at $\varepsilon_b = 1$. In practice, the ROC curve lies between these
-extremes, and the area under the curve (AUC) provides a single threshold-independent summary of
-overall tagger performance. Specific working points --- typically $\varepsilon_b = 60\%$, $70\%$,
-$77\%$, and $85\%$ --- are defined by fixing the $b$-jet efficiency and quoting the corresponding
-background rejection, allowing direct comparison between taggers and across analyses.
+The performance of a flavor tagger is evaluated using a receiver operating characteristic (ROC)
+curve. The tagger produces a continuous discriminant score for each jet, and a working point is
+defined by placing a threshold on this score. By scanning the threshold continuously, one traces
+out a curve in the space of signal efficiency and background rejection, where the signal
+efficiency is the fraction of true $b$-jets passing the threshold and the background rejection
+is the inverse of the false positive rate. In HEP it is conventional to plot the light-jet
+rejection $1/\varepsilon_\text{light}$ and $c$-jet rejection $1/\varepsilon_c$ as functions of
+the $b$-jet efficiency $\varepsilon_b$. The area under the curve (AUC) provides a single
+threshold-independent summary of overall tagger performance. Specific working points ---
+typically $\varepsilon_b = 60\%$, $70\%$, $77\%$, and $85\%$ --- are defined by fixing the
+$b$-jet efficiency and quoting the corresponding background rejection, allowing direct comparison
+between taggers and across analyses.
 
-Figure~\ref{fig:ROC:GN1} shows the output discriminant distributions for \texttt{DL1r} and
-\texttt{GN1} evaluated on a simulated $t\bar{t}$ sample at $\sqrt{s} = 13$~TeV. The $b$-jet
-distributions are peaked at high discriminant values, while the $c$-jet and light-jet
-distributions are concentrated at lower values, reflecting the ability of both taggers to
-separate $b$-jets from background. The \texttt{GN1} distributions show a more pronounced
-separation between the three jet flavours, qualitatively indicating improved discrimination
-relative to \texttt{DL1r}. The vertical dashed lines indicate the $70\%$ and $80\%$ $b$-jet
-efficiency working points, illustrating how a threshold on the discriminant defines an
-operating point on the ROC curve.
+Figure~\ref{fig:GN1:results} shows the output discriminant distributions and ROC curves for
+\texttt{DL1r} and \texttt{GN1}, evaluated on a simulated $t\bar{t}$ sample with
+$20 < p_\text{T} < 250$~GeV at $\sqrt{s} = 13$~TeV. The $b$-jet distributions are peaked at
+high discriminant values while the $c$-jet and light-jet distributions are concentrated at lower
+values; the \texttt{GN1} distributions show a more pronounced separation between all three
+flavors relative to \texttt{DL1r}. The dashed vertical lines indicate the $60\%$ and $80\%$
+$b$-jet efficiency working points. The ROC curves confirm this improvement quantitatively: at
+the $70\%$ working point, \texttt{GN1} achieves approximately 1.8 times greater light-jet
+rejection and 2.1 times greater $c$-jet rejection than \texttt{DL1r}, with the ratio panels
+showing a consistent gain across the full efficiency range.
 
 \begin{figure}[h]
 	\centering
@@ -195,31 +213,27 @@ operating point on the ROC curve.
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/GN1_discriminant.png}
 		\caption{}
-		\label{fig:ROC:discriminant}
+		\label{fig:GN1:discriminant}
 	\end{subfigure}
 	\hspace{0.05\textwidth}   % <-- space here
 	\begin{subfigure}[c]{.43\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/GN1_b_ROC.png}
 		\caption{}
-		\label{fig:ROC:ATLAS}
+		\label{fig:GN1:ROC}
 	\end{subfigure}
 	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
-	\label{fig:ROC:GN1}
+	\label{fig:GN1:results}
 \end{figure}
 
-Figure~\ref{fig:ROC:GN2} shows the ROC curves for \texttt{DL1d}, \texttt{GN1}, and \texttt{GN2},
-comparing light-jet and $c$-jet rejection as a function of $b$-jet efficiency, evaluated on a
-simulated $t\bar{t}$ sample with $20 < p_\text{T} < 250$~GeV at $\sqrt{s} = 13$~TeV using
-PFlow jets. Each successive architecture provides a clear improvement in background rejection
-at fixed $b$-jet efficiency across the full range of working points. At the $77\%$ working
-point, \texttt{GN2} achieves substantially higher light-jet and $c$-jet rejection than
-\texttt{DL1d}, with the ratio panels confirming a consistent gain of roughly a factor of two
-to five in light-jet rejection depending on the operating point. The $c$-jet rejection
-improvements are more modest but still significant, reflecting the inherently smaller
-separation between $b$-jets and $c$-jets due to their shared heavy-flavor decay topology.
-Figure~\ref{fig:roc_cjet} shows the equivalent curves as a function of $c$-jet efficiency,
-where the improvements in $b$-jet and light-jet rejection follow a similar trend.
+Figure~\ref{fig:GN2:results} shows the ROC curves for \texttt{DL1d}, \texttt{GN1}, and
+\texttt{GN2}, comparing light-jet and $c$-jet rejection as a function of $b$-jet efficiency on
+the same $t\bar{t}$ sample. Each successive architecture provides a clear improvement in
+background rejection at fixed $b$-jet efficiency across the full range of working points. The
+$c$-jet rejection improvements are more modest than those for light-jets, reflecting the
+inherently smaller separation between $b$-jets and $c$-jets due to their shared heavy-flavor
+decay topology. The cumulative performance gains across all three generations of taggers are
+summarized in Figure~\ref{fig:history}.
 
 \begin{figure}[h]
 	\centering
@@ -227,17 +241,17 @@ where the improvements in $b$-jet and light-jet rejection follow a similar trend
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/GN2_b_ROC.png}
 		\caption{}
-		\label{fig:ROC:discriminant}
+		\label{fig:GN2:b_ROC}
 	\end{subfigure}
 	\hspace{0.1\textwidth}   % <-- space here
 	\begin{subfigure}[c]{.35\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/GN2_c_ROC.png}
 		\caption{}
-		\label{fig:ROC:ATLAS}
+		\label{fig:GN2:c_ROC}
 	\end{subfigure}
 	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/FTAG-2023-01/}
-	\label{fig:ROC:GN2}
+	\label{fig:GN2:results}
 \end{figure}
 
 \begin{figure}[h]
@@ -248,24 +262,65 @@ where the improvements in $b$-jet and light-jet rejection follow a similar trend
 \end{figure}
 
 \subsection{Boosted Jet Tagging with Graph and Attention Neural Networks}
+\label{sec:boosted}
 
-In addition to small-R jet tagging which typically classifies jets as b, c, or light, large-R jet tagging (R=1.0), classifies boosted objects. When an object is boosted, the decay products often overlap in the lab frame. Identifying these boosted jets is crucial for the Higgs program at the LHC since a boosted Higgs can hadronically decay in the following channels: $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$. The backgrounds considered for are multijet (QCD) processes and fully hadronic top-quark decays. Taking advantage of transformer and graph architecture, GN2X is capable of learning directly on track inputs to learn the correlations within the large-R jet. GN2X produces an embedding of the jet in a 4D output with a softmax function applied across the predictions to enable the output to be interpreted as a probability of four classes: $p_{Hbb}$,$p_{Hcc}$, $p_{top}$, and $p_{QCD}$. The 4D output can be reduced to a single 1D output using the formulas for the discriminant shown below, which roughly resembles log likelihood. 
+In addition to small-$R$ jet tagging, large-$R$ jet tagging ($R=1.0$) is used to identify boosted
+objects whose decay products are sufficiently collimated that they cannot be resolved as individual
+small-$R$ jets. Identifying these boosted jets is crucial for the Higgs program at the LHC, where
+a boosted Higgs boson can hadronically decay via $H \rightarrow b\bar{b}$ and
+$H \rightarrow c\bar{c}$, with multijet (QCD) processes and fully hadronic top-quark decays
+forming the primary backgrounds. The previous state-of-the-art tagger, DXbb, combined
+flavor-tagging discriminants from individual variable-radius (VR) subjets in a feed-forward
+neural network, limiting its ability to exploit correlations between the decay products of both
+$b$- and $c$-hadrons within the jet.
+
+Building upon the transformer architecture of \texttt{GN2}, \texttt{GN2X} extends this approach
+to large-$R$ jet tagging by operating directly on charged particle tracks associated with the
+large-$R$ jet, reconstructed from Unified Flow Objects (UFOs). Up to 100 tracks are used as
+input, sorted by decreasing transverse impact parameter significance, with each track described
+by 20 variables including impact parameter significances, track kinematics, and hit-level
+quantities. The network retains the multi-task training objectives of \texttt{GN1} and
+\texttt{GN2}, simultaneously training track origin classification and vertex grouping auxiliary
+tasks alongside the primary jet-level classification. Track representations are processed through
+a transformer encoder consisting of 6 encoder blocks with 4 attention heads, and a global jet
+representation is formed via an attention-weighted sum over the final track representations.
+\texttt{GN2X} produces four probability scores via a softmax output layer: $p_{Hbb}$, $p_{Hcc}$,
+$p_{\text{top}}$, and $p_{\text{QCD}}$.
+
+These four probabilities are combined into a discriminant score taking the form of a log-likelihood
+ratio:
 
 \begin{align}
-	D^{GN2X}_{Hbb} &= ln \left( \frac{p_{Hbb}}{f_{Hcc} \cdot p_{Hcc} + f_{top} \cdot p_{top} + (1-f_{Hcc}-f_{top})\cdot p_{QCD}} \right) \\
-	D^{GN2X}_{Hcc} &= ln \left( \frac{p_{Hcc}}{f_{Hbb} \cdot p_{Hbb} + f_{top} \cdot p_{top} + (1-f_{Hbb}-f_{top})\cdot p_{QCD}} \right)
+	D^{\text{GN2X}}_{Hbb} &= \ln \left( \frac{p_{Hbb}}{f_{Hcc} \cdot p_{Hcc} + f_{top} \cdot 
+		p_{top} + (1 - f_{Hcc} - f_{top}) \cdot p_{QCD}} \right) \\
+	D^{\text{GN2X}}_{Hcc} &= \ln \left( \frac{p_{Hcc}}{f_{Hbb} \cdot p_{Hbb} + f_{top} \cdot 
+		p_{top} + (1 - f_{Hbb} - f_{top}) \cdot p_{QCD}} \right)
 \end{align}
 
-By cutting on the discriminant score, we can construct working points according to how much of the signal is retained by implementing the cut. Working points are defined by certain cuts on signal efficiency, $\epsilon_{sig}$, where signal efficiency is defined as the ratio of signal events passing the cut divided by the total number of signal events. Conventionally, there are 3 (or more) working points: loose, medium, and tight. A loose working point cuts the least amount of signal, but allows for the most background contamination. A tight working point cuts a lot of signal statistics, but supresses the most background. Working points are analysis dependent, and should be chosen empirically but choosing the working point that maximizes signal sensitivity in your signal region. Shown in Fig \ref{fig:GN2X_Discriminant}, we can see a cut at the 50\% signal efficiency working point which, by definition, is cutting 50\% of the signal, but heavily suppressing the background. You can notice that the dominant background in this figure is from Top decay, blue line. Therefore, this background will be important to calibrate to data, more on that later.
+where $f_{Hcc}$ and $f_{\text{top}}$ are free parameters controlling the relative rejection weights
+of the $H(c\bar{c})$ and top backgrounds with respect to multijet, optimized to maximize background
+rejection at a given signal efficiency. For $H(b\bar{b})$ tagging, values of $f_{Hcc} = 0.02$ and
+$f_{\text{top}} = 0.25$ are used~\cite{ATL-PHYS-PUB-2023-021}.
 
-\begin{figure}
+Working points are defined by placing a threshold on the discriminant score at a fixed signal
+efficiency $\varepsilon_\text{sig}$, with looser working points retaining more signal at the cost
+of greater background contamination, and tighter working points suppressing more background at the
+cost of signal statistics. Figure~\ref{fig:GN2X_Discriminant} shows the normalized
+$D^{\text{GN2X}}_{Hbb}$ discriminant distributions for all four jet classes evaluated on SM
+samples with $p_\text{T} > 250$~GeV and $50 < m_J < 200$~GeV, with the dashed line indicating
+the 50\% $H(b\bar{b})$ signal efficiency working point. The clear separation between the
+$H(b\bar{b})$ distribution and the three background classes demonstrates the discriminating power
+of the tagger.
+
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.5\linewidth]{figures/chapter4/DXbb.png}
-	\caption{}
+	\caption{Normalized $D^{\text{GN2X}}_{Hbb}$ discriminant distributions for $H(b\bar{b})$,
+		$H(c\bar{c})$, top, and multijet jet classes, evaluated on SM samples with $p_{\text{T}} > 250$
+		GeV and $50 < m_{J} < 200$ GeV. The dashed vertical line indicates the cut corresponding to
+		the 50\% $H(b\bar{b})$ signal efficiency working point.}
 	\label{fig:GN2X_Discriminant}
 \end{figure}
-
-These taggers are trained on MC where truth labels exist. MC is not a perfect model for data. There can exist mismodeling effects at multiple different stages including many effects from: generator, showering, detector, and reconstruction. Therefore, a working point defined in MC does not perfectly extrapolate to the same signal and background efficiency in data. To quantify the differences between phase spaces after implementing a cut, we must perform a calibration technique to account lack of excess of events in data. 
 
 https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2023-021/
 
@@ -277,12 +332,85 @@ https://ftag.docs.cern.ch
 
 \subsection{Benchmarks and Results -- Boosted}
 
-Include results!
+The performance of \texttt{GN2X} is evaluated in terms of background rejection as a function of
+signal efficiency for both $H(b\bar{b})$ and $H(c\bar{c})$ tagging, compared against the DXbb
+tagger and a double-tagging baseline using two VR subjets tagged independently with \texttt{GN2},
+as shown in Figure~\ref{fig:GN2X:ROC}.
+
+At a 50\% $H(b\bar{b})$ signal efficiency, \texttt{GN2X} achieves rejection factors of
+approximately 40 against top-quark jets and 300 against multijet events, corresponding to
+improvements of factors of 1.6 and 2.5 respectively over DXbb~\cite{ATL-PHYS-PUB-2023-021}.
+For $H(c\bar{c})$ tagging at 50\% signal efficiency, \texttt{GN2X} improves upon the VR subjet
+baseline by factors of 3, 5, and 6 in top, multijet, and $H(b\bar{b})$ rejection
+respectively~\cite{ATL-PHYS-PUB-2023-021}.
+
+An additional advantage of \texttt{GN2X} is its stable signal efficiency as a function of jet
+$p_\text{T}$: \texttt{GN2X} maintains approximately 50\% $H(b\bar{b})$ signal efficiency across
+the full $p_\text{T}$ spectrum, whereas DXbb degrades from 50\% at 250~GeV to approximately 35\%
+at 1.5~TeV. This is a direct consequence of operating on tracks rather than fixed-size subjet
+discriminants, which become less reliable at high boost.
+
+The performance gains over both baselines stem from \texttt{GN2X} having direct access to all
+charged particle tracks within the large-$R$ jet simultaneously. The double-tagging baseline tags
+subjets independently and therefore cannot capture inter-subjet correlations, while DXbb operates
+on high-level subjet discriminants rather than low-level tracks. By operating directly on tracks,
+\texttt{GN2X} exploits the full spatial and kinematic correlations between decay products of both
+$b$- and $c$-hadrons within the jet.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/boosted_hbb.png}
+		\caption{}
+		\label{fig:GN2X:Hbb_ROC}
+	\end{subfigure}
+	\hspace{0.1\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/boosted_hcc.png}
+		\caption{}
+		\label{fig:GN2X:Hcc_ROC}
+	\end{subfigure}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/FTAG-2023-01/}
+	\label{fig:GN2X:ROC}
+\end{figure}
+
+\subsubsection{Mass Sculpting of Background}
+
+An important consideration when deploying any tagger is the potential for mass sculpting, 
+where correlations between the tagger score and the large-$R$ jet mass cause the background 
+mass distribution to resemble that of the signal after applying a discriminant cut. This is 
+particularly undesirable for data-driven background estimation techniques which rely on 
+smoothly-falling mass distributions.
+
+Figure~\ref{fig:mass_sculpting} shows the large-$R$ jet mass distributions for $H(b\bar{b})$ 
+and multijet samples before and after applying a 70\% $H(b\bar{b})$ efficiency 
+$D^{\text{GN2X}}_{Hbb}$ cut. Close to the peak of the $H(b\bar{b})$ mass distribution, 
+the multijet mass shape remains largely unchanged, as desired. Some sculpting is observed 
+at high and low mass values, attributed to low training statistics in those 
+regions~\cite{ATL-PHYS-PUB-2023-021}.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/chapter4/mass_sculpting.png}
+	\caption{Large-$R$ jet mass distributions for $H(b\bar{b})$ and multijet samples, before 
+		and after applying a 70\% $H(b\bar{b})$ efficiency $D^{\text{GN2X}}_{Hbb}$ cut. Taken 
+		from~\cite{ATL-PHYS-PUB-2023-021}.}
+	\label{fig:mass_sculpting}
+\end{figure}
 
 \section{Calibration of B-Tagging Algorithms}
 
+Since these taggers are trained on Monte Carlo (MC) simulation where truth labels are available, 
+and MC is not a perfect model of data, mismodeling effects can arise from multiple sources 
+including the matrix element generator, parton shower, detector simulation, and reconstruction. 
+As a result, a working point defined in MC does not perfectly extrapolate to the same signal and 
+background efficiencies in data. To quantify and correct for these differences, a calibration 
+procedure must be performed to account for any excess or deficit of events in data relative to MC.
+
 The GN2X tagger is trained on Monte Carlo simulated events, and therefore its efficiency
-may differ between simulation and data due to mismodelling effects. To account for this,
+may differ between simulation and data due to mismodeling effects. To account for this,
 data-to-simulation efficiency scale factors (SFs) are derived, defined as the ratio of the
 tagging efficiency measured in data to that predicted by simulation:
 
@@ -291,7 +419,7 @@ tagging efficiency measured in data to that predicted by simulation:
 \end{equation}
 
 These scale factors are measured separately for signal-like and background-like topologies,
-since the tagger response depends on the flavour composition and kinematics of the jet.
+since the tagger response depends on the flavor composition and kinematics of the jet.
 Two calibrations are described in this section: a signal efficiency calibration using
 $Z \rightarrow b\bar{b}$ events, and a mistag rate calibration using semi-leptonic
 $t\bar{t}$ events.
@@ -302,7 +430,7 @@ The signal efficiency calibration targets the tagger's ability to correctly iden
 large-$R$ jets originating from a massive particle decaying to a $b\bar{b}$ pair. Since
 the Higgs boson is itself the signal of interest in many analyses, it cannot be used
 directly for calibration. Instead, $Z \rightarrow b\bar{b}$ events serve as a proxy:
-the $Z$ boson is a colour-singlet resonance with a mass close to the Higgs boson mass,
+the $Z$ boson is a color-singlet resonance with a mass close to the Higgs boson mass,
 and therefore the kinematic properties of $Z \rightarrow b\bar{b}$ and
 $H \rightarrow b\bar{b}$ jets are expected to be similar, making the derived scale
 factors transferable.
@@ -336,7 +464,7 @@ Top quark decay is a major source of background for GN2X $H \rightarrow b\bar{b}
 $H \rightarrow c\bar{c}$, and therefore it is an important background to calibrate.
 As part of my ATLAS authorship qualification task, I investigated the $t\bar{t}$ mistag
 rate, which quantifies the rate at which $t\bar{t}$ events pass the predefined working
-point selections. The mistag rate is not the same in MC and data due to mismodelling
+point selections. The mistag rate is not the same in MC and data due to mismodeling
 effects, and so scale factors are derived as defined above.
 
 Efficiency here is defined as the number of $t\bar{t}$ events passing the tagger
@@ -345,8 +473,8 @@ $t\bar{t}$ events in data is unknown, it must be extracted by performing a maxim
 likelihood fit. In each region (defined later) we perform a counting experiment based
 on the requirement that the number of expected MC events should match the number of
 events observed in data. Since MC does not perfectly agree with data, we have two
-degrees of freedom: $\mu$ and $SF$. Here $\mu$ is the $t\bar{t}$ normalisation factor
-that accounts for the overall normalisation difference between MC and data, and $SF$
+degrees of freedom: $\mu$ and $SF$. Here $\mu$ is the $t\bar{t}$ normalization factor
+that accounts for the overall normalization difference between MC and data, and $SF$
 is the factor that accounts for the discrepancy introduced by the tagger. With these
 two unknowns, we construct two equations (one for the signal region and one for the
 control region) to simultaneously extract $\mu$ and $SF$:
@@ -363,7 +491,7 @@ Or equivalently, written in terms of scale factors:
 	N^{\text{data}}_{\text{untag}} &= \mu \cdot \frac{1 - \epsilon^{\text{MC}} \cdot SF}{1 - \epsilon^{\text{MC}}} \cdot N^{t\bar{t}}_{\text{untag}} + N^{\text{other}}_{\text{untag}}
 \end{align}
 
-Since no floating normalisation factors are applied to the backgrounds, a region in
+Since no floating normalization factors are applied to the backgrounds, a region in
 phase space must be found where the backgrounds are heavily suppressed and the
 $t\bar{t}$ contribution is dominant. To achieve this, semi-leptonic $t\bar{t}$ events
 are targeted, where the leptonically decaying top quark serves as the ``tag'' and the
@@ -395,7 +523,7 @@ algorithm, then trimmed to reduce pile-up and soft emission effects --- subjets 
 than 5\% of the large-$R$ jet $p_\text{T}$ are removed. Only calibrated jets with 
 $p_\text{T} > 300$ GeV and $|\eta| < 2.0$ are considered. Variable-Radius track-jets 
 ($p_\text{T} > 7$ GeV, $0.02 \leq R \leq 0.4$) are ghost-associated to large-$R$ jets for 
-flavour tagging.
+flavor tagging.
 
 \begin{figure}
 	\centering
@@ -453,61 +581,61 @@ working point and serves as the tag-jet, significantly suppressing the $V$+jets 
 %	\label{fig:Yields}
 %\end{figure}
 
-Part of my ATLAS qualification task was ensuring that the largeR jet kinematics matched the previous software release. Switching from LCTopo to UFO is a large change in jet reconstruction. While the $p_T$, $\eta$, and $\phi$ are consistent between the R21 adn R24 software releases, there is a noticeable mass shift in the new release as shown in Figure \ref{fig:probe_jet_validation:subfigd}. To invesigate this mass shift further, validation plots were made in $p_T$ slices as shown in Figure \ref{fig:probe_jet_validation:subfige}, \ref{fig:probe_jet_validation:subfigf}, \ref{fig:probe_jet_validation:subfigg}, \ref{fig:probe_jet_validation:subfigh}. As of the end of my qualification task in 2023, JETMET was still providing updated calibrations to UFO objects to correctly model the mass of top quark.
+%Part of my ATLAS qualification task was ensuring that the largeR jet kinematics matched the previous software release. Switching from LCTopo to UFO is a large change in jet reconstruction. While the $p_T$, $\eta$, and $\phi$ are consistent between the R21 adn R24 software releases, there is a noticeable mass shift in the new release as shown in Figure \ref{fig:probe_jet_validation:subfigd}. To invesigate this mass shift further, validation plots were made in $p_T$ slices as shown in Figure \ref{fig:probe_jet_validation:subfige}, \ref{fig:probe_jet_validation:subfigf}, \ref{fig:probe_jet_validation:subfigg}, \ref{fig:probe_jet_validation:subfigh}. As of the end of my qualification task in 2023, JETMET was still providing updated calibrations to UFO objects to correctly model the mass of top quark.
 
-\begin{figure}
-	\centering
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_pt.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfiga}
-	\end{subfigure}%
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_eta.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfigb}
-	\end{subfigure}
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_phi.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfigc}
-	\end{subfigure}
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfigd}
-	\end{subfigure}
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_300_400.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfige}
-	\end{subfigure}%
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_400_500.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfigf}
-	\end{subfigure}
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_500_600.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfigg}
-	\end{subfigure}
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_600_1000.png}
-		\caption{}
-		\label{fig:probe_jet_validation:subfigh}
-	\end{subfigure}
-	\caption{}
-	\label{fig:probe_jet_validation}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_pt.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfiga}
+%	\end{subfigure}%
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_eta.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfigb}
+%	\end{subfigure}
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_phi.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfigc}
+%	\end{subfigure}
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfigd}
+%	\end{subfigure}
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_300_400.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfige}
+%	\end{subfigure}%
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_400_500.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfigf}
+%	\end{subfigure}
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_500_600.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfigg}
+%	\end{subfigure}
+%	\begin{subfigure}{.24\textwidth}
+%		\centering
+%		\includegraphics[width=\linewidth]{figures/chapter4/probe_jet_mass_600_1000.png}
+%		\caption{}
+%		\label{fig:probe_jet_validation:subfigh}
+%	\end{subfigure}
+%	\caption{}
+%	\label{fig:probe_jet_validation}
+%\end{figure}
 
 \subsubsection{Constructing Fit Regions}
 
@@ -515,7 +643,7 @@ The goal of this analysis is to measure the mistag efficiency $\epsilon^{data}_{
 
 The post-fit control regions are shown in Figure \ref{fig:ttbar_CR}. Notice that after implementing event selections, the W+jets, single-top, and di-Boson background are heavily suppressed. A consistent theme across control regions show that the low mass bin has about 25\% more data than weighted MC predicts. Since UFO are a newly defined reconstruction technique, I was told to wait for the finalized recommendations. Another observation is the increase in ttbar\_nonmatch as the boost increases. These events, in white, come from QCD jets originating from ISR/FSR during the $2\rightarrow 2$ simulated $q, q \rightarrow t, \bar{t}$ process. 
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.32\textwidth}
 		\centering
