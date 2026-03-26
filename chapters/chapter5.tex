@@ -9,13 +9,23 @@
 
 \begin{itemize}
   \item Contributed to two ATLAS Higgs analysis in the Higgs decaying to B/C Quarks.
-  \item For the Higgs production mode with associated vector boson, I ran studies in the CC, single lepton channel to include a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which ultimately increased the containing power on the background and for the first time allowed for $5\sigma$ for the $Z\rightarrow cc$ process and decreased the limited for $H\rightarrow cc$ by about 5\%.
+  \item For the Higgs production mode with associated vector boson, I ran studies in the CC, single lepton channel to include a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which ultimately increased the containing power on the background and for the first time allowed for $5\sigma$ for the $Z\rightarrow cc$ process and decreased the limit for $H\rightarrow c\bar{c}$ by $\sim$4\%.
   \item For the Higgs production mode of Vector Boson Fusion, I assisted at nearly every part of the analysis, from sample production, flavor tagging optimization, adversarial neural network classifier, region definitions, fit studies, and fit combinations. For the first time, this analysis measured $3\sigma$ in the VBF $H\rightarrow bb$ channel and reported a limit on the VBF $H\rightarrow cc$ process. 
 \end{itemize}
 
+\section{Motivation for \texorpdfstring{$H \rightarrow b\bar{b}$}{H→bb} and \texorpdfstring{$H \rightarrow c\bar{c}$}{H→cc} Measurements at the LHC}
+
+The measurement of Higgs boson Yukawa couplings to fermions provides a direct test of the mass-generation mechanism in the Standard Model, where fermion masses arise from Yukawa interactions with the Higgs field. Among all Higgs decay modes, $H \rightarrow b\bar{b}$ has the largest branching fraction, $\mathcal{B}(H \rightarrow b\bar{b}) = 58.2 \pm 0.7\%$ for $m_H = 125$ GeV, making it one of the most experimentally accessible. The $b$-quark Yukawa coupling is also one of the most theoretically important to constrain precisely because it drives the dominant contribution to the total Higgs decay width, meaning any BSM modification would have broad consequences for the Higgs sector. The $H \rightarrow c\bar{c}$ decay, with $\mathcal{B}(H \rightarrow c\bar{c}) = 2.9\%$, presents a far more difficult experimental target. Charm jets are intrinsically harder to distinguish from light-flavor jets than $b$-jets, owing to the relatively short decay lengths and lower masses of charm hadrons. Nevertheless, recent advances in flavor tagging have enabled sufficiently precise charm jet identification to probe the charm Yukawa coupling, which serves as a sensitive proxy for new physics. Many BSM models allow $\kappa_c$ to be enhanced well beyond its SM value, making a direct upper limit experimentally valuable even in the absence of a discovery.
+
+Despite having a smaller production cross section than the VBF mode, the VH channel has yielded the most sensitive ATLAS measurements of both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ to date, owing to the powerful background suppression afforded by the leptonic trigger strategy.
+
 \section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
 
-Despite the smaller cross section, the VH production channel has yielded the best measurements to date within the ATLAS experiment for $H \rightarrow bb$ measurement and $H \rightarrow cc$ limits. This is primarily due to the use of lepton and MET triggers that instantly suppress the large QCD multi-jet background. The leading backgrounds for this channel are $t\bar{t}$ and V+jets production. However, Boosted Decision Trees, BDTs, are used to learn the difference between signal and background. Regions are defined by channel (0,1,2 leptons), pT slice, and BDT score. I joined this analysis in quite a mature stage, so I helped out with fit studies. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which had a vast amount of statistics. Due to the high statistics, this region caused significant pulls in the fit model, so we ran studies to decorrelated various nuissance parameters to add degrees of freedom into the fit model. This regions helped constrain the background modeling and overall improve the sensitivity to signal. In addition to measuring the VH channel, the VZ channel was used as a cross check analysis to validate the VH channel. 
+The associated production of the Higgs boson with a vector boson ($VH$, $V = W, Z$) provides a uniquely clean environment for studying hadronic Higgs decays. The leptonic decay of the vector boson provides the critical trigger handle that suppresses QCD multijet backgrounds and makes both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ experimentally accessible. The $W$ boson is reconstructed via its decays to an electron, muon, or $\tau$-lepton and a neutrino, while the $Z$ boson is reconstructed from electron or muon pairs, or identified through large missing transverse energy in the $Z \rightarrow \nu\nu$ case. These signatures define the 0-, 1-, and 2-lepton analysis channels, and the analysis uses 140 fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 13$ TeV collected by the ATLAS detector during Run 2. The dominant residual backgrounds are $t\bar{t}$ and $V$+jets production, which are separated from signal using Boosted Decision Trees (BDTs) trained on kinematic and flavor-tagging variables. Events are further categorized by lepton multiplicity, vector boson $p_\mathrm{T}$, and BDT score, and the analysis ultimately constrains the coupling modifiers $\kappa_b$ and $\kappa_c$ and their ratio $|\kappa_c/\kappa_b|$ within the $\kappa$-framework.
+
+\subsection{Fit Regions}
+
+The global likelihood fit comprises 59 signal regions, with 27 targeting $H \rightarrow b\bar{b}$ and 32 targeting $H \rightarrow c\bar{c}$, and 97 control regions, as illustrated in Figure~\ref{fig:VH_regions}. The $H \rightarrow b\bar{b}$ signal regions require both Higgs candidate jets to be b-tagged using the DL1r algorithm at the 70\% b-jet efficiency working point, while the $H \rightarrow c\bar{c}$ signal regions require no b-tagged jets and at least one c-tagged jet. C-tagging is performed using the DL1r c-jet discriminant with two working points: a loose working point ($C_L$) at 45\% c-jet efficiency and a tight working point ($C_T$) at 25\% c-jet efficiency. This gives three tagging configurations for the $H \rightarrow c\bar{c}$ signal regions: tight-tight ($C_T C_T$), tight-loose ($C_T C_L$), and tight-non-tagged ($C_T N$), where $N$ denotes a non-tagged jet. Loose-non-tagged ($C_L N$) events are used exclusively as control regions. Signal regions are binned in BDT score to maximally separate signal from background, while control regions constrain the floating normalization factors for the dominant $t\bar{t}$ and $V$+jets backgrounds. The analysis is further segmented into multiple $p_\mathrm{T}^V$ intervals across all three lepton channels, providing additional sensitivity to the signal across a wide kinematic range in both boosted and resolved cases.
 
 %\begin{figure}
 %	\centering
@@ -24,110 +34,208 @@ Despite the smaller cross section, the VH production channel has yielded the bes
 %	\label{fig:VBF_Diagrams}
 %\end{figure}
 
-In the VH analysis, the global likelihood fit contained 59 signal regions with 27 for $H \rightarrow bb$ and 32 for $H \rightarrow cc$ and 97 control regions. Signal regions are plotted against the BDT score to maximally separate the signal from the background. Control regions are used to constrain background normalization factors, particularly the floating normalization used to constrain $t\bar{t}$ and V+jets. By the time I joined this analysis, many of these regions were already finalized. However, Yanhui Ma tasked me with including a new signal region into the fit model. 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/chapter5/VH_regions.png}
+	\caption{}
+	\label{fig:VH_regions}
+\end{figure}
+
+I joined this analysis at a mature stage, with the majority of signal and control regions already finalized. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_\mathrm{T}$ signal region, $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$, in the single-lepton CC channel. A key challenge in this region was that the $C_T N$ and $C_L N$ tagging configurations have very high event statistics but low signal-to-background ratios, causing large pulls on the experimental uncertainties in the fit. These configurations were therefore removed from the low $p_\mathrm{T}$ region to stabilize the fit model. However, removing these regions left insufficient constraining power to freely float the $W$+lf ($W$ boson produced in association with light-flavor jets) normalization factor in the $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$ interval. Instead, the $W$+lf normalization was assigned a 20\% Gaussian prior for this $p_\mathrm{T}^V$ bin, while remaining freely floating at higher $p_\mathrm{T}^V$. Both the $W$+lf and $W$+mf ($W$ boson produced in association with medium-flavor, charm jets) normalization factors were decorrelated by jet multiplicity and $p_\mathrm{T}^V$ for the low $p_\mathrm{T}$ region. With the $W$+lf prior in place, the constraint on the freely floating $W$+mf normalization improved significantly, as shown in Figure~\ref{fig:NP_FloatNorm}. These changes ultimately helped constrain the background modeling and improve the overall sensitivity to signal.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/chapter5/NP_FloatNorm.png}
+	\caption{}
+	\label{fig:NP_FloatNorm}
+\end{figure} 
+
+\subsection{Results}
+
+The VZ diboson process is used as a cross-check channel to verify the analysis methodology implemented for the VH signal. After including the new low $p_\mathrm{T}$ regions into the fit model, likelihood fits were performed using the WSMaker framework on blinded data, where signal-enriched regions with BDT score above 0.2 were masked to prevent bias in the fit model. The impact of the new regions on the expected sensitivity is summarized in Table~\ref{tab:VH_new_region_results}. 
+
+\begin{table}[h]
+	\centering
+	\caption{Impact of adding the low $p_\mathrm{T}$ region and removing $C_T N$ and $C_L N$ configurations
+		on the $H \rightarrow c\bar{c}$ upper limit (in units of $\mu$) and $Z \rightarrow c\bar{c}$
+		significance (in standard deviations).}
+	\label{tab:VH_new_region_results}
+	\resizebox{0.7\textwidth}{!}{
+		\begin{tabular}{lccc}
+			\hline\hline
+			& Default & Default + low $p_\mathrm{T}$ & rm $C_T N$, $C_L N$ \\
+			\hline
+			$H \rightarrow c\bar{c}$ Prefit limit
+			& $20.67^{+8.10}_{-5.78}$
+			& $19.85^{+7.84}_{-5.55}$
+			& $20.02^{+7.84}_{-5.59}$ \\[6pt]
+			$H \rightarrow c\bar{c}$ Postfit limit
+			& $22.27^{+8.72}_{-6.22}$
+			& $20.48^{+8.02}_{-5.72}$
+			& $21.37^{+8.37}_{-5.97}$ \\[6pt]
+			\hline
+			$Z \rightarrow c\bar{c}$ Prefit significance
+			& $2.127$
+			& $2.443$
+			& $2.408$ \\[6pt]
+			$Z \rightarrow c\bar{c}$ Postfit significance
+			& $2.197$
+			& $2.582$
+			& $2.503$ \\
+			\hline\hline
+	\end{tabular}}
+\end{table}
+
+These fits were performed in the single-lepton channel only, and the improvements may be somewhat diluted when the global fit is run simultaneously across the 0-, 1-, and 2-lepton channels. Nevertheless, adding the low $p_\mathrm{T}$ region improved the $H \rightarrow c\bar{c}$ prefit and postfit limits by $\sim$4\% and $\sim$8\% respectively, while the $Z \rightarrow c\bar{c}$ significance improved by $\sim$15\% prefit and $\sim$18\% postfit. After removing the $C_T N$ and $C_L N$ configurations to stabilize the fit, the net improvement relative to the default regions is $\sim$3\% in the $H \rightarrow c\bar{c}$ prefit limit and $\sim$4\% postfit, while the $Z \rightarrow c\bar{c}$ significance retains gains of $\sim$13\% prefit and postfit. 
+
+Figure~\ref{fig:VH_New_Regions} shows the post-unblinding BDT score distributions in the new low $p_\mathrm{T}$ signal regions for the $H \rightarrow c\bar{c}$ and $Z \rightarrow c\bar{c}$ processes in the single-lepton channel.
 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=0.8\linewidth]{figures/chapter5/New_Region_Hcc.png}
-		\caption{}
-		\label{fig:sub1}
+		\caption{$H \rightarrow c\bar{c}$}
+		\label{fig:VH_New_Region_Hcc}
 	\end{subfigure}%
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=0.8\linewidth]{figures/chapter5/New_Region_Zcc.png}
-		\caption{}
-		\label{fig:sub2}
+		\caption{$Z \rightarrow c\bar{c}$}
+		\label{fig:VH_New_Region_Zcc}
 	\end{subfigure}
-	\caption{}
-	\label{fig:ANN_Scores}
+	\caption{BDT score distributions in the new low $p_\mathrm{T}$ signal region ($75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$) in the single-lepton channel for the $H \rightarrow c\bar{c}$ (left) and $Z \rightarrow c\bar{c}$ (right) processes.}
+	\label{fig:VH_New_Regions}
 \end{figure}
 
-\subsection{Results}
-
-After including these regions into the fit model, I ran likelihood fits using the WSMaker framework to determine the impact of the new regions. In the table, we can see that the new region decreased the limit of the $H \rightarrow cc$ channel by 4\% expected and 8\% observed. However, there was a large improvement in the $Z \rightarrow cc$ channel where we found gains of 15\% expected and nearly 20\% observed. Note, that these fits were performed on blinded data, so data with a BDT score greater than 0.2 was excluded from the fit. The purpose of blinding data it common practice to make sure that the analysers are not making biased decisions in the fit model that would artificially inflate the signal measurement. Therefore decisions regarding the fit model should be motivated by unblinded data, and the final unblinded result is revealed a the very end. After unblinding, the VZ channel yield signal strength of:
+With the fit model validated on blinded data, the analysis was unblinded and the VZ channel yields signal strengths of:
 \begin{align}
-	\mu^{bb}_{VZ}&=0.93^{+0.13}_{-0.11}=0.92 \pm 0.05 (Stat)^{+0.12}_{-0.10}(Syst) \\
-	\mu^{cc}_{VZ}&=0.98^{+0.25}_{-0.22}=0.98 \pm 0.13 (Stat)^{+0.22}_{-0.18}(Syst)
+	\mu^{bb}_{VZ}&=0.92^{+0.13}_{-0.11}=0.92 \pm 0.05 \, \text{(Stat)}^{+0.12}_{-0.10}\text{(Syst)} \\
+	\mu^{cc}_{VZ}&=0.98^{+0.25}_{-0.22}=0.98 \pm 0.13 \, \text{(Stat)}^{+0.22}_{-0.18}\text{(Syst)}
 \end{align}
 
-These measurements result in an observed significance in the $VZ,Z\rightarrow bb$ process of greater than 10 standard deviations. For the $VZ,Z\rightarrow cc$ process, the observed (expected) significance over the null hypothesis is 5.2 (5.3) standard deviations. The low pT region in the single lepton channel was a crucial region for $5\sigma$ discovery of $VZ,Z\rightarrow cc$ process. 
+Both results are in good agreement with the Standard Model prediction. The $VZ, Z \rightarrow b\bar{b}$ process is observed with a significance greater than 10 standard deviations, while the $VZ, Z \rightarrow c\bar{c}$ process yields an observed (expected) significance of 5.2 (5.3) standard deviations, marking the first observation of this process by ATLAS. The inclusion of the new low $p_\mathrm{T}$ single-lepton region was a crucial contribution to achieving this $5\sigma$ threshold.
 
-The final unblinded result in the VH channel yield signal strength of:
+With the methodology validated through the VZ channel, the final unblinded VH measurement yields signal strengths of:
 \begin{align}
-	\mu^{bb}_{VH}&=0.92^{+0.16}_{-0.15}=0.92 \pm 0.10 (Stat)^{+0.13}_{-0.11}(Syst) \\
-	\mu^{cc}_{VH}&=1.0^{+5.4}_{-5.2}=1.0^{+4.0}_{-3.9} (Stat)^{+3.7}_{-3.5}(Syst)
+	\mu^{bb}_{VH}&=0.92^{+0.16}_{-0.15}=0.92 \pm 0.10 \, \text{(Stat)}^{+0.13}_{-0.11}\text{(Syst)} \\
+	\mu^{cc}_{VH}&=1.0^{+5.4}_{-5.2}=1.0^{+4.0}_{-3.9} \, \text{(Stat)}^{+3.7}_{-3.5}\text{(Syst)}
 \end{align}
-For the $VH,H\rightarrow bb$ process, the observed (expected) significance over the null hypothesis is 7.4 (8.0) standard deviations. For the $VH,H\rightarrow cc$ process, the observed (expected) upper limit at 95\% confidence level is 11.5 (10.6) times the standard model predictions.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\linewidth]{figures/chapter5/New_Region_Results.png}
-	\caption{}
-	\label{fig:VBF_Diagrams}
-\end{figure}
+The combined $VH, H \rightarrow b\bar{b}$ measurement has an observed (expected) significance of 7.4 (8.0) standard deviations. Individually, the $WH, H \rightarrow b\bar{b}$ and $ZH, H \rightarrow b\bar{b}$ processes have observed (expected) significances of 5.3 (5.5) and 4.9 (5.6) standard deviations respectively, marking the first observation of the $WH, H \rightarrow b\bar{b}$ process. For the $VH, H \rightarrow c\bar{c}$ process, the observed (expected) upper limit at 95\% confidence level is 11.5 (10.6) times the Standard Model prediction, corresponding to a constraint on the charm Yukawa coupling modifier of $|\kappa_c| < 4.2$ at 95\% CL.
 
 \section{Vector Boson Fusion Higgs Production Decaying to B/C Quarks}
 
-Recently, both ATLAS and CMS have reported evidence for the coupling of the Higgs boson to muons, providing the first direct probe of Higgs boson interactions with second-generation fermions. However, in the quark sector, one of the key properties that remains to be explored is the coupling of the Higgs boson to charm quarks.
-
-The search for Higgs boson decay into a charm quark-antiquark pair (H $\rightarrow$ cc) remains challenging because of the Higgs boson's smaller Yukawa coupling to charm quarks than to bottom quarks, the overwhelming quantum chromodynamics (QCD) multijet backgrounds, and the challenges in experimentally distinguishing charm jets from light flavor or bottom jets. The most stringent observed (expected) limits are 11.5 (10.6) times the SM prediction, from ATLAS in the VH production mode.
-
-This analysis presents a search for H $\rightarrow$ cc by exploiting the second-largest Higgs boson production mode, vector-boson fusion (VBF). In parallel, the analysis also targets H $\rightarrow$ bb decays in VBF production. The bottom-quark Yukawa coupling plays a central role in the Higgs sector, and while H $\rightarrow$ bb has been measured in associated-production modes (VH and ttH), it has not yet been observed in the VBF production mode.
+The vector-boson fusion (VBF) production mode has the second-largest Higgs boson production cross section at the LHC, approximately 3.8 pb at $\sqrt{s} = 13$ TeV, significantly larger than the VH production mode. However, unlike VH, the VBF process is fully hadronic. The two initial-state quarks each radiate a virtual vector boson that fuses to produce the Higgs boson, with the scattered quarks fragmenting into two energetic forward jets with large pseudorapidity separation and high dijet invariant mass. With the Higgs boson also decaying hadronically into either $b\bar{b}$ or $c\bar{c}$, the entire final state consists of jets, as illustrated in Figure~\ref{fig:VBF_Diagrams}, making non-resonant QCD multijet production the overwhelming dominant background at approximately 99\% of the total. Unlike the VH channel, where the leptonic decay of the associated vector boson provides an immediate trigger handle that suppresses QCD backgrounds, the VBF channel has no such leptonic foothold. This makes the VBF analysis considerably more challenging and necessitates a dedicated strategy to extract the Higgs signal from an enormous QCD background.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{figures/chapter5/VBF_Signal_and_Background.png}
-	\caption{}
+	\caption{Representative Feynman diagrams for the VBF $H \rightarrow b\bar{b}$ signal process (left) and a QCD multijet background process with gluon splitting to a $b\bar{b}$ pair (right).}
 	\label{fig:VBF_Diagrams}
 \end{figure}
 
-The VBF production mode is characterized by the presence of two forward jets with large invariant mass and rapidity separation, produced via the exchange of a virtual vector boson between the two initial-state quarks. A new inclusive trigger exploiting this topology was deployed in ATLAS partway through 2018, during Run 2 of the LHC. It achieves an efficiency for VBF H $\rightarrow$ bb events comparable to that of the b-tagging-based trigger used in the Run-2 VBF H $\rightarrow$ bb analysis, while also enabling the first search for the VBF H $\rightarrow$ cc process. The H $\rightarrow$ cc search utilizes proton-proton collision data collected by the ATLAS detector at two center-of-mass energies: 37.5 fb$^{-1}$ at $\sqrt{s} = 13$ TeV from part of the 2018 Run-2 period and 51.5 fb$^{-1}$ at $\sqrt{s} = 13.6$ TeV during 2022-2023 in Run 3, yielding a total integrated luminosity of 89.0 fb$^{-1}$. The H $\rightarrow$ bb process is measured only with the Run-3 data, allowing direct combination with the analysis performed on full Run-2 dataset. The analysis strategy follows previous work, with improvements in multivariate techniques, the adoption of the inclusive VBF trigger, and the use of a novel transformer-based flavor-tagging algorithm for jet flavor identification.
+A key enabling development for this analysis is a new inclusive VBF trigger, deployed in ATLAS partway through Run 2 in 2018, which exploits the large dijet invariant mass and rapidity separation characteristic of the VBF topology. Unlike the previous $b$-tagging-based trigger, this inclusive trigger is agnostic to jet flavor, making it the first trigger capable of selecting VBF $H \rightarrow c\bar{c}$ candidates. The $H \rightarrow c\bar{c}$ search uses data collected at two center-of-mass energies: 37.5 fb$^{-1}$ at $\sqrt{s} = 13$ TeV from part of the 2018 Run-2 period, and 51.5 fb$^{-1}$ at $\sqrt{s} = 13.6$ TeV during 2022--2023 in Run 3, for a total of 89.0 fb$^{-1}$. The $H \rightarrow b\bar{b}$ measurement uses only the Run-3 dataset, allowing a direct combination with the previous Run-2 VBF $H \rightarrow b\bar{b}$ result. Key improvements over previous work include enhanced multivariate techniques and the adoption of the GN2 transformer-based flavor tagger, described in Chapter~4, which provides significantly better $b$- and $c$-jet identification than the DL1r algorithm used previously.
 
-\subsection{Event Selection}
+\subsection{Event Simulation and Selection}
 
-Simulated VBF signal events were generated using Monte Carlo methods. The simulations include both vector-boson fusion and gluon-gluon fusion processes. Background events are estimated using a data-driven method that accounts for the overwhelming QCD multijet production. The hadronic resonant background from vector boson plus jets is modeled using simulation techniques, with contributions from both QCD and electroweak processes. Other Higgs boson production modes are not considered due to their negligible contributions.
+Simulated VBF signal events are generated at NLO in QCD and ggF events are generated at NNLO using POWHEG BOX v2. PYTHIA 8 is used for parton showering and hadronization. Although ggF can produce events with a VBF-like topology via gluon radiation into forward jets, its kinematic distribution closely resembles that of the background, resulting in weak sensitivity to the ggF contribution specifically. The signal-strength modifiers $\mu_{bb}$ and $\mu_{cc}$ are therefore defined inclusively, scaling both VBF and ggF contributions together. The dominant background, non-resonant QCD multijet production, accounts for approximately 99\% of the total and is estimated using a data-driven method, as MC simulation of QCD multijet processes lacks the accuracy needed for reliable background modeling. The subdominant $V$+jets background is modeled using simulation, with QCD and electroweak components generated using MadGraph5\_aMC@NLO and SHERPA respectively. Top-quark pair ($t\bar{t}$) production is modeled with POWHEG BOX v2 interfaced with PYTHIA 8. Other Higgs production modes are not considered due to their negligible contributions.
 
-Jet reconstruction uses the particleflow algorithm, which combines calorimeter energy deposits and inner-detector tracks into particleflow objects that are clustered into jets using the anti-k$_t$ algorithm with a radius parameter R = 0.4. To mitigate the impact of pileup, dedicated jet-vertex-tagging (JVT) requirements are applied. Jets with pseudorapidity $|\eta| < 2.5$ are required to have $p_T > 20$ GeV, whereas jets with $|\eta| > 2.5$ must satisfy $p_T > 30$ GeV.
+Jets are reconstructed using the particle-flow algorithm, which improves energy resolution by combining inner-detector tracks with calorimeter energy deposits before clustering with the anti-$k_t$ algorithm ($R = 0.4$). To suppress pileup jets, jet-vertex-tagging (JVT) uses track-based variables to identify jets originating from the primary hard-scatter vertex. Jets within the tracker acceptance ($|\eta| < 2.5$) are required to have $p_T > 20$ GeV, while forward jets ($|\eta| > 2.5$), which rely more heavily on calorimeter information, must satisfy $p_T > 30$ GeV.
 
-Selected events must pass the inclusive VBF trigger, which requires at least two jets: one with $p_T > 70$ GeV and $|\eta| < 3.2$, and another with $p_T > 50$ GeV and $|\eta| < 4.9$. Additional dijet requirements are imposed, namely $|\Delta\eta_{12}| > 4$, $|\Delta\phi_{12}| < 2$, and $M_{12} > 1000$ (1100) GeV for Run 3 (Run 2). Jets not identified as VBF candidate jets are considered for the selection of Higgs candidate jets (denoted by J$_{h1}$ and J$_{h2}$), originating from the H $\rightarrow$ cc or H $\rightarrow$ bb decay. Both J$_{h1}$ and J$_{h2}$ are required to have $p_T > 20$ GeV and $|\eta| < 2.5$. To suppress shape distortions in the background invariant-mass distributions, the Higgs candidate jets must also satisfy $p_{T,h1h2} > 150$ GeV and $|\Delta\phi_{h1h2}| < 2$. If multiple jets satisfy these criteria, the pair maximizing $p_{T,h1h2}$ is selected.
-\begin{figure}
+The inclusive VBF trigger selects events containing at least two jets satisfying $p_T > 70$ GeV ($|\eta| < 3.2$) and $p_T > 50$ GeV ($|\eta| < 4.9$), with additional dijet requirements of $|\Delta\eta_{jj}| > 4$, $|\Delta\phi_{jj}| < 2$, and $m_{jj} > 1000$ (1100) GeV for Run 3 (Run 2). To ensure full trigger efficiency, the offline selection imposes stricter requirements on the two VBF candidate jets: both must satisfy $p_T > 75$ GeV, with the leading jet restricted to $|\eta| < 3.2$ and the subleading jet to $|\eta| < 4.5$, and the dijet system must satisfy $m_{jj} > 1200$ GeV. If multiple jet pairs pass these requirements, the one with the largest $m_{jj}$ is retained.
+
+The remaining jets, not assigned as VBF candidates, are used to form the Higgs candidate jet pair ($j_{h1}$, $j_{h2}$) from the $H \rightarrow b\bar{b}$ or $H \rightarrow c\bar{c}$ decay. Both jets must have $p_T > 20$ GeV and $|\eta| < 2.5$, consistent with the inner detector acceptance. To avoid sculpting the background dijet invariant-mass distribution, requirements of $p_{T,h1h2} > 150$ GeV and $|\Delta\phi_{h1h2}| < 2$ are also applied. If multiple pairs qualify, the one with the highest $p_{T,h1h2}$ is chosen, as summarised in Figure~\ref{fig:VBF:cutflow}.
+
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{figures/chapter5/tabaux_01.png}
 	\caption{}
-	\label{fig:ANN_Scores}
+	\label{fig:VBF:cutflow}
 \end{figure}
 
-The two Higgs candidate jets must be either b-tagged or c-tagged. Flavor identification is performed using the transformer-based GN2 algorithm, which exploits charged-track information and achieves better separation of b-jets, c-jets, and light flavor jets than the previous DL1r tagger. The calibrated tagger output defines working points corresponding to various b- and c-jet efficiency targets, using established calibration methods consistent with those described in previous works. To identify b-jets, this analysis uses the 77\% b-tagging-efficiency working point, which has a c-jet (light flavor jet) efficiency of 6\% (0.24\%). Jets failing this requirement are classified as c-tagged if they satisfy the 50\% c-tagging-efficiency working point, which has a b-jet (light flavor jet) efficiency of 13\% (5.3\%). Two tighter working points, corresponding to 30\% and 10\% c-jet efficiencies, provide additional inputs to the neural network.
-\begin{figure}
+The two Higgs candidate jets must each be either b-tagged or c-tagged using the GN2 transformer-based flavor tagging algorithm, described in detail in Chapter~4, which achieves significantly improved separation of $b$-jets, $c$-jets, and light-flavor jets compared to the previously used DL1r tagger. For $b$-jet identification, the 77\% $b$-tagging efficiency working point is used, corresponding to $c$-jet and light-flavor jet efficiencies of 6\% and 0.24\%, respectively, as illustrated in Figure~\ref{fig:VBF:ftag_cuts}. Jets failing the $b$-tagging requirement are classified as $c$-tagged if they satisfy the 50\% $c$-tagging efficiency working point, which has $b$-jet and light-flavor jet efficiencies of 13\% and 5.3\%. Two additional tighter working points at 30\% and 10\% $c$-jet efficiency are also evaluated and provide supplementary inputs to the neural network classifier. All efficiency values are derived from simulated $t\bar{t}$ events.
+
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.4\linewidth]{figures/chapter5/figaux_15.png}
 	\caption{}
-	\label{fig:ANN_Scores}
+	\label{fig:VBF:ftag_cuts}
 \end{figure}
 
-Events are categorized into three channels: the bb Run-3 channel, where both Higgs candidate jets are b-tagged, and the cc Run-2 and Run-3 channels, where both are c-tagged.
+To recover energy lost in semileptonic heavy-flavor decays, the four-momentum of any muon with $p_T > 3$ GeV reconstructed within a $b$- or $c$-tagged jet is added to the jet prior to the muon isolation requirement. For $b$-tagged jets, an additional $p_T$-dependent energy calibration is applied to correct for residual response differences. Finally, events containing isolated electrons or muons are vetoed to ensure orthogonality with the VH analysis channels, enabling a direct statistical combination across the two production modes.
+
+The selected events are split into three analysis channels based on the flavor tagging outcome of the two Higgs candidate jets: a $H \rightarrow b\bar{b}$ channel using Run-3 data only, and two $H \rightarrow c\bar{c}$ channels covering Run-2 and Run-3 separately, each requiring both jets to be $c$-tagged. The $H \rightarrow b\bar{b}$ measurement is restricted to Run-3 data to allow a direct combination with the previous Run-2 VBF $H \rightarrow b\bar{b}$ analysis, avoiding any overlap in the datasets used.
 
 \subsection{Adversarial Neural Network Training}
 
-The overall analysis strategy is similar to previous work. A neural-network classifier is used to separate events into different analysis regions, and the signal yield is extracted from a simultaneous fit to the Higgs candidate mass (M$_{h1h2}$) distribution in all regions. The dominant Non-res. bkgd is estimated from data; its shape is determined from the lowest-score region, assuming it is largely identical across all regions. To realize this strategy, an adversarial neural network (ANN), similar to that in previous work, is trained separately for each analysis channel in order to decorrelate the neural-network classifier output from M$_{h1h2}$. The networks are implemented in PyTorch and optimized using the Adam optimizer. Inputs comprise event and jet kinematics and jet flavor-tagging information. For training, signal events are taken from VBF MC samples, while background events are drawn from data sidebands on either side of the Higgs boson mass window ($100 < M_{h1h2} < 140 GeV$) but within the range $50 < M_{h1h2} < 200 GeV$. The number of regions and their boundaries are optimized for maximum sensitivity, resulting in six signal regions per channel (SR1-SR6), ordered by decreasing signal purity, which ranges from 2\% to 0.02\%. The least pure region, SR6, is used as a control region.
+Since the QCD multijet background is estimated from data, the ANN is trained using background events drawn from data sidebands outside the Higgs mass window ($100 < M_{h1h2} < 140$ GeV), within the range $50 < M_{h1h2} < 200$ GeV. Without special treatment, the network could trivially exploit the absence of background events in the signal window as a discriminating feature, making the classifier score correlated with $M_{h1h2}$. This would invalidate the data-driven background estimation, which relies on transferring the background $M_{h1h2}$ shape from the low-score control region to the high-score signal regions. To prevent this, an adversarial neural network (ANN) is employed, in which a secondary adversary network is trained simultaneously to penalize any correlation between the classifier output and $M_{h1h2}$. The combined loss function takes the form:
+\begin{equation}
+    \mathcal{L} = \mathcal{L}_{\text{clf}} - \lambda \cdot \mathcal{L}_{\text{adv}}
+\end{equation}
+where $\mathcal{L}_{\text{clf}}$ is the binary cross-entropy (BCE) loss for signal-background classification, $\mathcal{L}_{\text{adv}}$ is the categorical cross-entropy loss of the adversary predicting the $M_{h1h2}$ bin from the classifier output, and $\lambda$ controls the strength of the decorrelation penalty. The $-\lambda \cdot \mathcal{L}_{\text{adv}}$ term forces the classifier to ``unlearn'' any mass-dependent discrimination: by maximizing the adversary's loss, the classifier is driven towards outputs that carry no information about $M_{h1h2}$. The ANN is trained separately for each analysis channel using PyTorch with the Adam optimizer, taking event and jet kinematics and flavor-tagging information as inputs, as listed in Figure~\ref{fig:ANN_Features}. The classifier output defines six signal regions per channel (SR1--SR6), ordered by decreasing signal purity ranging from 2\% to 0.02\%, with SR6 serving as the control region from which the background shape is derived. The architecture is illustrated in Figure~\ref{fig:ANN}.
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.35\linewidth]{figures/chapter5/ANN.png}
 	\caption{}
 	\label{fig:ANN}
 \end{figure}
 
-The H $\rightarrow$ cc contamination in the H $\rightarrow$ bb channel is negligible, whereas the expected H $\rightarrow$ bb yield in the H $\rightarrow$ cc channel increases from about 40\% to 100\% of the H $\rightarrow$ cc signal across SR1-SR5 and is approximately 1.4 times larger in SR6. The expected ggF-to-VBF yield ratio increases from about 1\% in SR1 to 8\% in SR5, and reaches about 45\% in SR6 in all channels; the ggF ANN distribution closely resembles that of the backgrounds, explaining the weak sensitivity of the measurement to ggF.
-
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{figures/chapter5/tab_02.png}
 	\caption{}
 	\label{fig:ANN_Features}
 \end{figure}
+
+The $H \rightarrow c\bar{c}$ contamination in the $H \rightarrow b\bar{b}$ channel is negligible, whereas the expected $H \rightarrow b\bar{b}$ yield in the $H \rightarrow c\bar{c}$ channel grows from approximately 40\% to 100\% of the $H \rightarrow c\bar{c}$ signal across SR1--SR5, reaching about 1.4 times the $H \rightarrow c\bar{c}$ yield in SR6. The ggF contribution relative to VBF rises from about 1\% in SR1 to 8\% in SR5, reaching approximately 45\% in SR6 across all channels, consistent with the weak sensitivity to ggF noted earlier. The ANN score distributions across regions are shown in Figure~\ref{fig:ANN_Scores}.
+
+
+
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.25\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{figures/chapter5/losses_BB2223_lambda100_mod0_v1.png}
+		\caption{}
+		\label{fig:sub1}
+	\end{subfigure}%
+  \hspace{0.1\textwidth}   % <-- space here
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{figures/chapter5/losses_decorr_BB2223_lambda100_mod0_v1.png}
+		\caption{}
+		\label{fig:sub2}
+	\end{subfigure}
+	\caption{}
+	\label{fig:ANN_decorr}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/chapter5/VBFHbb_Run3_Hbb_ANN_ROC.png}
+	\caption{}
+	\label{fig:ANN_ROC}
+\end{figure}
+
+My primary contributions to the VBF analysis were focused on the ANN training and optimization, for which I developed a training framework using a Single Program Multiple Data (SPMD) parallel programming approach to enable fast multi-channel training turnaround. A central challenge in adversarial training is balancing classifier performance against decorrelation quality, controlled by the adversarial loss weight $\lambda$. I monitored the decorrelation quality by visualizing the ``unlearning'' of the classifier's mass dependence after the adversary was activated at epoch 50, shown in Figure~\ref{fig:ANN_decorr}: the decorrelation metric rises sharply as the adversary penalizes mass-correlated discrimination before stabilizing at a plateau. To study the impact of $\lambda$ on classifier performance, I scanned across multiple values and evaluated each model using ROC curves, shown in Figure~\ref{fig:ANN_ROC}, where models with higher $\lambda$ exhibit stronger decorrelation at the cost of reduced signal-background separation. To quantify the decorrelation quality in the most sensitive regions, I recorded the $1/\text{JSD}$ score for SR1 and SR2 across the $\lambda$ scan, summarized in Table~\ref{tab:ANN_decorr}. While the optimization was performed primarily using the $H \rightarrow c\bar{c}$ channel, results from the $H \rightarrow b\bar{b}$ Run-3 channel are shown here as they are more stable and illustrative of the general trends.
+
+\begin{table}[h]
+	\centering
+	\caption{Quantitative decorrelation using $1/\text{JSD}$ for SR1 and SR2 across various adversarial loss weights $\lambda$ in the $H \rightarrow b\bar{b}$ Run-3 channel. Higher $1/\text{JSD}$ indicates better decorrelation.}
+	\label{tab:ANN_decorr}
+	\resizebox{0.85\textwidth}{!}{
+	\begin{tabular}{lccccccc}
+		\hline\hline
+		& $\lambda=0$ & $\lambda=10$ & $\lambda=50$ & $\lambda=70$ & $\lambda=100$ & $\lambda=500$ & $\lambda=1000$ \\
+		\hline
+		SR1 & 17.08 & 23.16 & 31.66 & 22.69 & 21.57 & 39.47 & 30.06 \\
+		SR2 & 99.25 & 351.04 & 242.01 & 307.62 & 254.68 & 269.39 & 278.32 \\
+		\hline\hline
+	\end{tabular}}
+\end{table}
 
 \begin{figure}
 	\centering
