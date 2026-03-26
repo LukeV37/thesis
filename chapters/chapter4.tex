@@ -58,13 +58,6 @@ Jet flavor identification at the LHC is a multi-class classification problem: gi
 
 \subsection{Graph Neural Networks and GN1}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\linewidth]{figures/chapter4/GN1.png}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
-	\label{fig:GN1}
-\end{figure}
-
 A graph neural network (GNN) represents a set of objects as nodes in a graph, with edges
 encoding pairwise relationships between them. Message passing operations allow each node to
 iteratively aggregate information from its neighbors, building representations that capture
@@ -81,6 +74,16 @@ set with meaningful pairwise relationships such as angular separation or compati
 common decay vertex.
 
 https://pytorch-geometric.readthedocs.io/en/latest/notes/create\_gnn.html
+
+\texttt{GN1} represented a fundamental architectural shift, moving away from the paradigm of
+combining outputs of separately optimized low-level tagging algorithms towards a single
+end-to-end graph-based representation of the jet. Tracks are treated as nodes in a fully
+connected graph, with message passing used to build representations encoding both individual
+track properties and the collective structure of the track ensemble. Rather than taking
+pre-computed high-level discriminants as inputs, \texttt{GN1} operates directly on low-level
+track parameters including impact parameter significances, track kinematics, and hit-level
+variables such as pixel and SCT hit counts, exploiting information that is otherwise compressed
+or discarded when constructing high-level summary variables.
 
 \begin{figure}[h]
 	\centering
@@ -101,16 +104,6 @@ https://pytorch-geometric.readthedocs.io/en/latest/notes/create\_gnn.html
 	\label{fig:GN1_Inputs}
 \end{figure}
 
-\texttt{GN1} represented a fundamental architectural shift, moving away from the paradigm of
-combining outputs of separately optimized low-level tagging algorithms towards a single
-end-to-end graph-based representation of the jet. Tracks are treated as nodes in a fully
-connected graph, with message passing used to build representations encoding both individual
-track properties and the collective structure of the track ensemble. Rather than taking
-pre-computed high-level discriminants as inputs, \texttt{GN1} operates directly on low-level
-track parameters including impact parameter significances, track kinematics, and hit-level
-variables such as pixel and SCT hit counts, exploiting information that is otherwise compressed
-or discarded when constructing high-level summary variables.
-
 \texttt{GN1} also introduced multi-task training with two auxiliary objectives alongside the
 primary jet-level $b$/$c$/light classification. The first predicts the truth origin of each
 individual track, classifying it as originating from the primary vertex, a $b$-hadron decay,
@@ -122,26 +115,14 @@ network to build physically interpretable representations that generalize well a
 kinematics. The graph-based message passing combined with multi-task learning produced
 substantial improvements in both light-jet and $c$-jet rejection over \texttt{DL1r}.
 
-\subsection{Attention Mechanism and Transformers and GN2}
-
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[c]{.4\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/attention_weights.png}
-		\caption{}
-		\label{fig:attention_weights}
-	\end{subfigure}
-	\hspace{0.09\textwidth}   % <-- space here
-	\begin{subfigure}[c]{.2\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/attention_encoder.png}
-		\caption{}
-		\label{fig:attention_encoder}
-	\end{subfigure}
+	\includegraphics[width=1.0\linewidth]{figures/chapter4/GN1.png}
 	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
-	\label{fig:attention}
+	\label{fig:GN1}
 \end{figure}
+
+\subsection{Attention Mechanism and Transformers and GN2}
 
 The attention mechanism computes updated representations of each element in a set by learning
 dynamic edge weights that reflect the correlations, or local context, between all pairs of
@@ -171,6 +152,25 @@ locality bias. The learned attention weights also provide direct interpretabilit
 inspected to understand which track pairs the network considers most informative for a given
 tagging decision, as illustrated in Figure~\ref{fig:attention}.
 
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.4\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/attention_weights.png}
+		\caption{}
+		\label{fig:attention_weights}
+	\end{subfigure}
+	\hspace{0.09\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.2\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/attention_encoder.png}
+		\caption{}
+		\label{fig:attention_encoder}
+	\end{subfigure}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
+	\label{fig:attention}
+\end{figure}
+
 \texttt{GN2} extended \texttt{GN1} by replacing the message passing aggregation with a
 transformer encoder applied directly to the set of tracks within each jet. The multi-task
 training objectives of \texttt{GN1} were retained, and the input feature set was extended to
@@ -196,17 +196,6 @@ typically $\varepsilon_b = 60\%$, $70\%$, $77\%$, and $85\%$ --- are defined by 
 $b$-jet efficiency and quoting the corresponding background rejection, allowing direct comparison
 between taggers and across analyses.
 
-Figure~\ref{fig:GN1:results} shows the output discriminant distributions and ROC curves for
-\texttt{DL1r} and \texttt{GN1}, evaluated on a simulated $t\bar{t}$ sample with
-$20 < p_\text{T} < 250$~GeV at $\sqrt{s} = 13$~TeV. The $b$-jet distributions are peaked at
-high discriminant values while the $c$-jet and light-jet distributions are concentrated at lower
-values; the \texttt{GN1} distributions show a more pronounced separation between all three
-flavors relative to \texttt{DL1r}. The dashed vertical lines indicate the $60\%$ and $80\%$
-$b$-jet efficiency working points. The ROC curves confirm this improvement quantitatively: at
-the $70\%$ working point, \texttt{GN1} achieves approximately 1.8 times greater light-jet
-rejection and 2.1 times greater $c$-jet rejection than \texttt{DL1r}, with the ratio panels
-showing a consistent gain across the full efficiency range.
-
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[c]{.4\textwidth}
@@ -226,6 +215,36 @@ showing a consistent gain across the full efficiency range.
 	\label{fig:GN1:results}
 \end{figure}
 
+Figure~\ref{fig:GN1:results} shows the output discriminant distributions and ROC curves for
+\texttt{DL1r} and \texttt{GN1}, evaluated on a simulated $t\bar{t}$ sample with
+$20 < p_\text{T} < 250$~GeV at $\sqrt{s} = 13$~TeV. The $b$-jet distributions are peaked at
+high discriminant values while the $c$-jet and light-jet distributions are concentrated at lower
+values; the \texttt{GN1} distributions show a more pronounced separation between all three
+flavors relative to \texttt{DL1r}. The dashed vertical lines indicate the $60\%$ and $80\%$
+$b$-jet efficiency working points. The ROC curves confirm this improvement quantitatively: at
+the $70\%$ working point, \texttt{GN1} achieves approximately 1.8 times greater light-jet
+rejection and 2.1 times greater $c$-jet rejection than \texttt{DL1r}, with the ratio panels
+showing a consistent gain across the full efficiency range.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.25\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/GN2_b_ROC.png}
+		\caption{}
+		\label{fig:GN2:b_ROC}
+	\end{subfigure}
+	\hspace{0.2\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.25\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter4/GN2_c_ROC.png}
+		\caption{}
+		\label{fig:GN2:c_ROC}
+	\end{subfigure}
+	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/FTAG-2023-01/}
+	\label{fig:GN2:results}
+\end{figure}
+
 Figure~\ref{fig:GN2:results} shows the ROC curves for \texttt{DL1d}, \texttt{GN1}, and
 \texttt{GN2}, comparing light-jet and $c$-jet rejection as a function of $b$-jet efficiency on
 the same $t\bar{t}$ sample. Each successive architecture provides a clear improvement in
@@ -237,26 +256,7 @@ summarized in Figure~\ref{fig:history}.
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[c]{.35\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/GN2_b_ROC.png}
-		\caption{}
-		\label{fig:GN2:b_ROC}
-	\end{subfigure}
-	\hspace{0.1\textwidth}   % <-- space here
-	\begin{subfigure}[c]{.35\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter4/GN2_c_ROC.png}
-		\caption{}
-		\label{fig:GN2:c_ROC}
-	\end{subfigure}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/FTAG-2023-01/}
-	\label{fig:GN2:results}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter4/performance_bar_graph.png}
+	\includegraphics[width=0.45\linewidth]{figures/chapter4/performance_bar_graph.png}
 	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/FTAG-2023-01/}
 	\label{fig:history}
 \end{figure}
@@ -302,6 +302,16 @@ of the $H(c\bar{c})$ and top backgrounds with respect to multijet, optimized to 
 rejection at a given signal efficiency. For $H(b\bar{b})$ tagging, values of $f_{Hcc} = 0.02$ and
 $f_{\text{top}} = 0.25$ are used~\cite{ATL-PHYS-PUB-2023-021}.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/chapter4/DXbb.png}
+	\caption{Normalized $D^{\text{GN2X}}_{Hbb}$ discriminant distributions for $H(b\bar{b})$,
+		$H(c\bar{c})$, top, and multijet jet classes, evaluated on SM samples with $p_{\text{T}} > 250$
+		GeV and $50 < m_{J} < 200$ GeV. The dashed vertical line indicates the cut corresponding to
+		the 50\% $H(b\bar{b})$ signal efficiency working point.}
+	\label{fig:GN2X_Discriminant}
+\end{figure}
+
 Working points are defined by placing a threshold on the discriminant score at a fixed signal
 efficiency $\varepsilon_\text{sig}$, with looser working points retaining more signal at the cost
 of greater background contamination, and tighter working points suppressing more background at the
@@ -311,16 +321,6 @@ samples with $p_\text{T} > 250$~GeV and $50 < m_J < 200$~GeV, with the dashed li
 the 50\% $H(b\bar{b})$ signal efficiency working point. The clear separation between the
 $H(b\bar{b})$ distribution and the three background classes demonstrates the discriminating power
 of the tagger.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=0.5\linewidth]{figures/chapter4/DXbb.png}
-	\caption{Normalized $D^{\text{GN2X}}_{Hbb}$ discriminant distributions for $H(b\bar{b})$,
-		$H(c\bar{c})$, top, and multijet jet classes, evaluated on SM samples with $p_{\text{T}} > 250$
-		GeV and $50 < m_{J} < 200$ GeV. The dashed vertical line indicates the cut corresponding to
-		the 50\% $H(b\bar{b})$ signal efficiency working point.}
-	\label{fig:GN2X_Discriminant}
-\end{figure}
 
 https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2023-021/
 
@@ -336,26 +336,6 @@ The performance of \texttt{GN2X} is evaluated in terms of background rejection a
 signal efficiency for both $H(b\bar{b})$ and $H(c\bar{c})$ tagging, compared against the DXbb
 tagger and a double-tagging baseline using two VR subjets tagged independently with \texttt{GN2},
 as shown in Figure~\ref{fig:GN2X:ROC}.
-
-At a 50\% $H(b\bar{b})$ signal efficiency, \texttt{GN2X} achieves rejection factors of
-approximately 40 against top-quark jets and 300 against multijet events, corresponding to
-improvements of factors of 1.6 and 2.5 respectively over DXbb~\cite{ATL-PHYS-PUB-2023-021}.
-For $H(c\bar{c})$ tagging at 50\% signal efficiency, \texttt{GN2X} improves upon the VR subjet
-baseline by factors of 3, 5, and 6 in top, multijet, and $H(b\bar{b})$ rejection
-respectively~\cite{ATL-PHYS-PUB-2023-021}.
-
-An additional advantage of \texttt{GN2X} is its stable signal efficiency as a function of jet
-$p_\text{T}$: \texttt{GN2X} maintains approximately 50\% $H(b\bar{b})$ signal efficiency across
-the full $p_\text{T}$ spectrum, whereas DXbb degrades from 50\% at 250~GeV to approximately 35\%
-at 1.5~TeV. This is a direct consequence of operating on tracks rather than fixed-size subjet
-discriminants, which become less reliable at high boost.
-
-The performance gains over both baselines stem from \texttt{GN2X} having direct access to all
-charged particle tracks within the large-$R$ jet simultaneously. The double-tagging baseline tags
-subjets independently and therefore cannot capture inter-subjet correlations, while DXbb operates
-on high-level subjet discriminants rather than low-level tracks. By operating directly on tracks,
-\texttt{GN2X} exploits the full spatial and kinematic correlations between decay products of both
-$b$- and $c$-hadrons within the jet.
 
 \begin{figure}[h]
 	\centering
@@ -376,6 +356,20 @@ $b$- and $c$-hadrons within the jet.
 	\label{fig:GN2X:ROC}
 \end{figure}
 
+At a 50\% $H(b\bar{b})$ signal efficiency, \texttt{GN2X} achieves rejection factors of
+approximately 40 against top-quark jets and 300 against multijet events, corresponding to
+improvements of factors of 1.6 and 2.5 respectively over DXbb~\cite{ATL-PHYS-PUB-2023-021}.
+For $H(c\bar{c})$ tagging at 50\% signal efficiency, \texttt{GN2X} improves upon the VR subjet
+baseline by factors of 3, 5, and 6 in top, multijet, and $H(b\bar{b})$ rejection
+respectively~\cite{ATL-PHYS-PUB-2023-021}.
+
+The performance gains over both baselines stem from \texttt{GN2X} having direct access to all
+charged particle tracks within the large-$R$ jet simultaneously. The double-tagging baseline tags
+subjets independently and therefore cannot capture inter-subjet correlations, while DXbb operates
+on high-level subjet discriminants rather than low-level tracks. By operating directly on tracks,
+\texttt{GN2X} exploits the full spatial and kinematic correlations between decay products of both
+$b$- and $c$-hadrons within the jet.
+
 \subsubsection{Mass Sculpting of Background}
 
 An important consideration when deploying any tagger is the potential for mass sculpting, 
@@ -384,14 +378,7 @@ mass distribution to resemble that of the signal after applying a discriminant c
 particularly undesirable for data-driven background estimation techniques which rely on 
 smoothly-falling mass distributions.
 
-Figure~\ref{fig:mass_sculpting} shows the large-$R$ jet mass distributions for $H(b\bar{b})$ 
-and multijet samples before and after applying a 70\% $H(b\bar{b})$ efficiency 
-$D^{\text{GN2X}}_{Hbb}$ cut. Close to the peak of the $H(b\bar{b})$ mass distribution, 
-the multijet mass shape remains largely unchanged, as desired. Some sculpting is observed 
-at high and low mass values, attributed to low training statistics in those 
-regions~\cite{ATL-PHYS-PUB-2023-021}.
-
-\begin{figure}[htbp]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{figures/chapter4/mass_sculpting.png}
 	\caption{Large-$R$ jet mass distributions for $H(b\bar{b})$ and multijet samples, before 
@@ -400,137 +387,221 @@ regions~\cite{ATL-PHYS-PUB-2023-021}.
 	\label{fig:mass_sculpting}
 \end{figure}
 
+Figure~\ref{fig:mass_sculpting} shows the large-$R$ jet mass distributions for $H(b\bar{b})$ 
+and multijet samples before and after applying a 70\% $H(b\bar{b})$ efficiency 
+$D^{\text{GN2X}}_{Hbb}$ cut. Close to the peak of the $H(b\bar{b})$ mass distribution, 
+the multijet mass shape remains largely unchanged, as desired. Some sculpting is observed 
+at high and low mass values, attributed to low training statistics in those 
+regions~\cite{ATL-PHYS-PUB-2023-021}.
+
+
+
 \section{Calibration of B-Tagging Algorithms}
 
-Since these taggers are trained on Monte Carlo (MC) simulation where truth labels are available, 
-and MC is not a perfect model of data, mismodeling effects can arise from multiple sources 
-including the matrix element generator, parton shower, detector simulation, and reconstruction. 
-As a result, a working point defined in MC does not perfectly extrapolate to the same signal and 
-background efficiencies in data. To quantify and correct for these differences, a calibration 
-procedure must be performed to account for any excess or deficit of events in data relative to MC.
-
-The GN2X tagger is trained on Monte Carlo simulated events, and therefore its efficiency
-may differ between simulation and data due to mismodeling effects. To account for this,
-data-to-simulation efficiency scale factors (SFs) are derived, defined as the ratio of the
-tagging efficiency measured in data to that predicted by simulation:
+Since GN2X is trained on Monte Carlo simulation, its tagging efficiency may differ from that
+observed in data due to mismodelling effects arising from the matrix element generator, parton
+shower, underlying event tune, and detector simulation. GN2X requires a process-based
+calibration where scale factors are derived separately for distinct physics processes in order
+to extract the signal efficiency and background mistag rate independently. The efficiency scale
+factor for a given process is defined in data and MC as:
 
 \begin{equation}
-	SF = \frac{\epsilon^{\text{data}}}{\epsilon^{\text{MC}}}
+	\varepsilon^{\text{data}} = \frac{N^{\text{data}}_{\text{passed}}}{N^{\text{data}}_{\text{total}}}, \qquad
+	\varepsilon^{\text{MC}} = \frac{N^{\text{MC}}_{\text{passed}}}{N^{\text{MC}}_{\text{total}}}
 \end{equation}
 
-These scale factors are measured separately for signal-like and background-like topologies,
-since the tagger response depends on the flavor composition and kinematics of the jet.
-Two calibrations are described in this section: a signal efficiency calibration using
-$Z \rightarrow b\bar{b}$ events, and a mistag rate calibration using semi-leptonic
-$t\bar{t}$ events.
+where $N_{\text{passed}}$ is the number of events passing the tagger working point requirement
+and $N_{\text{total}}$ is the total number of events in the process. The scale factor is then:
+
+\begin{equation}
+	SF = \frac{\varepsilon^{\text{data}}}{\varepsilon^{\text{MC}}}
+	\label{eq:SF}
+\end{equation}
+
+Two calibrations are described in this section. First, a signal efficiency calibration
+using $Z \rightarrow b\bar{b}$ events as a kinematic proxy for $H \rightarrow b\bar{b}$. Second,
+a top-quark mistag rate calibration using semi-leptonic $t\bar{t}$ events.
 
 \subsection{\texorpdfstring{$Z \rightarrow b\bar{b}$}{Z->bb} Signal Efficiency Calibration}
 
-The signal efficiency calibration targets the tagger's ability to correctly identify
-large-$R$ jets originating from a massive particle decaying to a $b\bar{b}$ pair. Since
-the Higgs boson is itself the signal of interest in many analyses, it cannot be used
-directly for calibration. Instead, $Z \rightarrow b\bar{b}$ events serve as a proxy:
-the $Z$ boson is a color-singlet resonance with a mass close to the Higgs boson mass,
-and therefore the kinematic properties of $Z \rightarrow b\bar{b}$ and
-$H \rightarrow b\bar{b}$ jets are expected to be similar, making the derived scale
-factors transferable.
+The signal efficiency calibration measures the rate at which GN2X correctly identifies
+large-$R$ jets originating from an $X \rightarrow b\bar{b}$ decay, where $X$ is some
+heavy mass resonance. Since the Higgs boson is itself the signal of interest in the analyses that use
+these scale factors, calibrating directly on $H \rightarrow b\bar{b}$ events is not
+feasible as this would lead to circular dependence. Any sample used for calibration should 
+not contain the signal being searched for. Instead,
+$Z \rightarrow b\bar{b}$ events serve as a kinematic proxy. The $Z$ boson
+($m_Z \approx 91$~GeV) is a color-singlet resonance with a mass reasonably close to
+the Higgs ($m_H \approx 125$~GeV), and the internal structure of $Z \rightarrow b\bar{b}$
+and $H \rightarrow b\bar{b}$ jets are expected to be sufficiently similar that scale
+factors derived from the $Z$ sample can be extrapolated to the Higgs signal.
 
-The scale factor is expressed as the ratio of two signal strengths, measured before
-and after the tagger requirement is applied:
+Since $N^{\text{data}}_{\text{total}}$ is not directly observable in the hadronic channel,
+the scale factor is extracted via a double ratio of signal strengths measured before and
+after applying the tagger requirement:
 
 \begin{equation}
-	SF = \frac{\mu_{\text{post-tag}}}{\mu_{\text{pre-tag}}}
+	SF = \frac{\varepsilon^{\text{data}}}{\varepsilon^{\text{MC}}} = \frac{N^{\text{data}}_{\text{passed}}/N^{\text{data}}_{\text{total}}}{N^{\text{MC}}_{\text{passed}}/N^{\text{MC}}_{\text{total}}} = \frac{N^{\text{data}}_{\text{passed}}/N^{\text{MC}}_{\text{passed}}}{N^{\text{data}}_{\text{total}}/N^{\text{MC}}_{\text{total}}} = \frac{\mu_{\text{post-tag}}}{\mu_{\text{pre-tag}}}
 \end{equation}
 
-where $\mu$ denotes the number of signal events observed in data divided by the number
-predicted by simulation. The pre-tag signal strength $\mu_{\text{pre-tag}}$ is measured
-using the clean leptonic decay channel $Z \rightarrow \ell^+\ell^-$, which has
-substantially smaller relative backgrounds than the hadronic channel and allows the
-$Z \rightarrow b\bar{b}$ yield before tagging to be estimated indirectly. The post-tag
-signal strength $\mu_{\text{post-tag}}$ is extracted from a likelihood fit to the
-large-$R$ jet mass distribution after applying the tagger requirement, using the
-$Z \rightarrow b\bar{b}$ mass peak as a discriminating feature.
+where $\mu$ is the ratio of observed to predicted signal yields. Overwhelming multijet background
+make a direct measurement of $\mu_{\text{pre-tag}}$ using $Z \rightarrow b\bar{b}$ events
+before tagging unfeasible. Instead, $\mu_{\text{pre-tag}}$ is obtained from the
+$Z \rightarrow \ell^+\ell^-$ channel, which has a well-understood background composition.
+The number of $Z \rightarrow b\bar{b}$ events in data before tagging is estimated as:
 
-Two complementary event selections are used depending on the transverse momentum of
-the $Z$-boson candidate. At lower transverse momenta ($200 < p_T < 450$ GeV),
-$Z(\rightarrow b\bar{b})\gamma$ events are used, where an associated photon provides
-a clean trigger and recoil signature. At higher transverse momenta ($p_T > 450$ GeV),
-$Z(\rightarrow b\bar{b}) + \text{jets}$ events are used, where the large-$R$ jet is
-sufficiently boosted to be captured within the $R = 1.0$ jet cone.
+\begin{equation}
+	N^{\text{data}}_{Z \rightarrow b\bar{b}} = N^{\text{MC}}_{Z \rightarrow b\bar{b}} \cdot \frac{N^{\text{data}}_{\ell\ell} - N^{\text{MC}}_{\text{bkg},\ell\ell}}{N^{\text{MC}}_{Z \rightarrow \ell^+\ell^-}}
+\end{equation}
+
+where $N^{\text{MC}}_{Z \rightarrow b\bar{b}}$ is the MC prediction before tagging,
+$N^{\text{data}}_{\ell\ell}$ is the total number of selected dilepton events in data,
+$N^{\text{MC}}_{\text{bkg},\ell\ell}$ is the MC background prediction in the dilepton
+channel, and $N^{\text{MC}}_{Z \rightarrow \ell^+\ell^-}$ is the MC prediction for
+$Z \rightarrow \ell^+\ell^-$ signal events. Thus $\mu_{\text{pre-tag}}$ depends only
+on the dilepton channel yields:
+
+\begin{equation}
+	\mu_{\text{pre-tag}} = \frac{N^{\text{data}}_{\ell\ell} - N^{\text{MC}}_{\text{bkg},\ell\ell}}{N^{\text{MC}}_{Z \rightarrow \ell^+\ell^-}}
+\end{equation}
+
+The post-tag signal strength $\mu_{\text{post-tag}}$ is extracted from a binned
+likelihood fit to the large-$R$ jet mass distribution after applying the working point
+requirement, exploiting the $Z \rightarrow b\bar{b}$ mass peak as a discriminating
+feature against the smoothly-falling multijet background.
+
+Two complementary event topologies are used depending on the transverse momentum of
+the $Z$ candidate. At moderate boosts ($200 < p_\text{T} < 450$~GeV),
+$Z(\rightarrow b\bar{b})\gamma$ events are selected, where an associated photon
+provides a clean single-photon trigger and a well-defined recoil object. At higher
+boosts ($p_\text{T} > 450$~GeV), $Z(\rightarrow b\bar{b})$+jets events are used,
+where the hadronic decay products are sufficiently collimated to be fully captured
+within the $R = 1.0$ jet cone.
 
 \subsection{\texorpdfstring{$t\bar{t}$}{ttbar} Mistag Calibration}
 
-Top quark decay is a major source of background for GN2X $H \rightarrow b\bar{b}$ and
-$H \rightarrow c\bar{c}$, and therefore it is an important background to calibrate.
-As part of my ATLAS authorship qualification task, I investigated the $t\bar{t}$ mistag
-rate, which quantifies the rate at which $t\bar{t}$ events pass the predefined working
-point selections. The mistag rate is not the same in MC and data due to mismodeling
-effects, and so scale factors are derived as defined above.
+Top quark pair production is one of the dominant backgrounds in boosted
+$H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ searches, and correctly modelling
+its contribution after tagger requirements is critical for reliable background estimation
+in these analyses. While the signal efficiency calibration corrects for data-MC differences
+in the tagger's ability to identify $H \rightarrow b\bar{b}$ jets, a separate calibration
+is required to correct for mismodelling of the top-jet mistag rate, which is the rate at
+which hadronic top-quark jets pass the GN2X working point. An underestimate of the top
+rejection in data would lead to a residual excess of top background
+after tagging, directly biasing any analysis relying on this tagger. The $t\bar{t}$
+mistag calibration described in this section was performed as part of the author's ATLAS
+authorship qualification task.
 
-Efficiency here is defined as the number of $t\bar{t}$ events passing the tagger
-selection divided by the total number of $t\bar{t}$ events. Since the number of
-$t\bar{t}$ events in data is unknown, it must be extracted by performing a maximum
-likelihood fit. In each region (defined later) we perform a counting experiment based
-on the requirement that the number of expected MC events should match the number of
-events observed in data. Since MC does not perfectly agree with data, we have two
-degrees of freedom: $\mu$ and $SF$. Here $\mu$ is the $t\bar{t}$ normalization factor
-that accounts for the overall normalization difference between MC and data, and $SF$
-is the factor that accounts for the discrepancy introduced by the tagger. With these
-two unknowns, we construct two equations (one for the signal region and one for the
-control region) to simultaneously extract $\mu$ and $SF$:
-
-\begin{align}
-	N^{\text{data}}_{\text{tag}}   &= \mu \cdot \frac{\epsilon^{\text{data}}}{\epsilon^{\text{MC}}} \cdot N^{t\bar{t}}_{\text{tag}} + N^{\text{other}}_{\text{tag}} \\
-	N^{\text{data}}_{\text{untag}} &= \mu \cdot \frac{1 - \epsilon^{\text{data}}}{1 - \epsilon^{\text{MC}}} \cdot N^{t\bar{t}}_{\text{untag}} + N^{\text{other}}_{\text{untag}}
-\end{align}
-
-Or equivalently, written in terms of scale factors:
+Scale factors are derived following Equation~\ref{eq:SF}, where the efficiency
+$\varepsilon$ represents the mistag rate: the fraction of $t\bar{t}$ probe jets passing
+the tagger working point. Since the $t\bar{t}$ yield in data cannot be measured directly,
+as it is contaminated with contributions from $W$+jets, single-top, and diboson processes,
+both the scale factor and an overall $t\bar{t}$ normalization factor $\mu_{t\bar{t}}$
+must be extracted simultaneously. Writing the expected yields in the signal region (SR),
+where the probe jet passes the tagger, and the control region (CR), where it fails,
+in terms of the efficiencies:
 
 \begin{align}
-	N^{\text{data}}_{\text{tag}}   &= \mu \cdot SF \cdot N^{t\bar{t}}_{\text{tag}} + N^{\text{other}}_{\text{tag}} \\
-	N^{\text{data}}_{\text{untag}} &= \mu \cdot \frac{1 - \epsilon^{\text{MC}} \cdot SF}{1 - \epsilon^{\text{MC}}} \cdot N^{t\bar{t}}_{\text{untag}} + N^{\text{other}}_{\text{untag}}
+	N^{\text{data}}_{\text{SR}} &= \mu_{t\bar{t}} \cdot \frac{\varepsilon^{\text{data}}}{\varepsilon^{\text{MC}}} \cdot N^{t\bar{t}}_{\text{SR}} + N^{\text{other}}_{\text{SR}} \\
+	N^{\text{data}}_{\text{CR}} &= \mu_{t\bar{t}} \cdot \frac{1 - \varepsilon^{\text{data}}}{1 - \varepsilon^{\text{MC}}} \cdot N^{t\bar{t}}_{\text{CR}} + N^{\text{other}}_{\text{CR}}
 \end{align}
 
-Since no floating normalization factors are applied to the backgrounds, a region in
-phase space must be found where the backgrounds are heavily suppressed and the
-$t\bar{t}$ contribution is dominant. To achieve this, semi-leptonic $t\bar{t}$ events
-are targeted, where the leptonically decaying top quark serves as the ``tag'' and the
-hadronically decaying top quark serves as the ``probe''.
+where $N^{t\bar{t}}$ and $N^{\text{other}}$ are the MC-predicted $t\bar{t}$ and
+non-$t\bar{t}$ event yields respectively. Substituting $SF = \varepsilon^{\text{data}} /
+\varepsilon^{\text{MC}}$ from Equation~\ref{eq:SF}, these expressions become:
+
+\begin{align}
+	N^{\text{data}}_{\text{SR}} &= \mu_{t\bar{t}} \cdot SF \cdot N^{t\bar{t}}_{\text{SR}} + N^{\text{other}}_{\text{SR}} \\
+	N^{\text{data}}_{\text{CR}} &= \mu_{t\bar{t}} \cdot \frac{1 - \varepsilon^{\text{MC}} \cdot SF}{1 - \varepsilon^{\text{MC}}} \cdot N^{t\bar{t}}_{\text{CR}} + N^{\text{other}}_{\text{CR}}
+\end{align}
+
+These two equations are solved simultaneously per probe-jet $p_\text{T}$ bin to extract
+$\mu_{t\bar{t}}$ and $SF$ via a maximum likelihood fit to the probe-jet mass distribution.
+The normalisation factor $\mu_{t\bar{t}}$ absorbs the known data-MC discrepancy in the
+$t\bar{t}$ $p_\text{T}$ spectrum, while $SF$ isolates the efficiency correction
+introduced by the tagger itself. Since no floating normalisation is applied to the
+non-$t\bar{t}$ backgrounds, a phase space region must be identified where these
+contributions are heavily suppressed and the $t\bar{t}$ yield dominates. Semi-leptonic
+$t\bar{t}$ events are targeted for this purpose, where the leptonically decaying top
+quark provides the event ``tag'' and the hadronically decaying top quark provides the
+tagger ``probe''.
 
 \subsubsection{Tag-and-Probe Event Selection}
 
-Semi-leptonic ttbar decay has a very unique signature in the detector, and reconstructing this topology suppresses many backgrounds. The most dominant background is W+jets followed by single-top, and di-Boson. We use the hadronic largeR jet for the "probe" tagging candidate. The leptonic decaying top is used to as the "tag" candidate. A lepton+MET trigger is used as a foothold into this phase space. By implementing a b-tagging requirement on the "tag" side, we can suppress many of the contributions from W+jets. The feynman diagram shown in \ref{fig:semileptonic_ttbar_diagram}.
+Semi-leptonic $t\bar{t}$ decay produces a distinctive detector signature: one top quark
+decays leptonically ($t \rightarrow Wb \rightarrow \ell\nu b$) and the other hadronically
+($t \rightarrow Wb \rightarrow qqb$), yielding a final state containing an isolated lepton,
+significant $E_\text{T}^\text{miss}$ from the neutrino, a $b$-tagged small-$R$ jet from
+the leptonic side, and a boosted large-$R$ jet from the hadronic side, as illustrated in
+Figure~\ref{fig:semileptonic_ttbar_diagram}. In the tag-and-probe approach, the
+leptonically decaying top quark provides the event ``tag'' and the hadronic large-$R$ jet
+serves as the tagger ``probe''. The dominant backgrounds are $W$+jets, single-top, and
+diboson production. Requiring a $b$-tagged small-$R$ jet on the tag side heavily suppresses
+the $W$+jets contribution, while the back-to-back topology of the two top quarks provides
+further discrimination against non-$t\bar{t}$ processes.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.2\linewidth]{figures/chapter4/ttbar_diagram.png}
-	\caption{}
+	\includegraphics[width=0.4\linewidth]{figures/chapter4/ttbar_diagram.png}
+	\caption{Feynman diagram of semi-leptonic $t\bar{t}$ decay. One top quark decays
+		leptonically via $t \rightarrow Wb \rightarrow \ell\nu b$, providing the event tag,
+		while the other decays hadronically via $t \rightarrow Wb \rightarrow qqb$, with the
+		hadronic decay products reconstructed as a large-$R$ probe jet.}
 	\label{fig:semileptonic_ttbar_diagram}
 \end{figure}
 
-Physics objects are reconstructed and calibrated before event selection. Electrons are required 
-to have $p_\text{T} > 28$ GeV, $|\eta_\text{cluster}| < 2.47$ (excluding the barrel/endcap 
-transition region $1.37 < |\eta_\text{cluster}| < 1.52$), pass tight identification, and match 
-a track in the inner detector (ID). Muons must satisfy $p_\text{T} > 28$ GeV, $|\eta| < 2.5$, 
-and pass medium identification by matching ID and muon spectrometer tracks. Both lepton types 
+Physics objects are reconstructed and calibrated before event selection. Electrons are required
+to have $p_\text{T} > 28$ GeV, $|\eta_\text{cluster}| < 2.47$ (excluding the barrel/endcap
+transition region $1.37 < |\eta_\text{cluster}| < 1.52$), pass tight identification, and match
+a track in the inner detector (ID). Muons must satisfy $p_\text{T} > 28$ GeV, $|\eta| < 2.5$,
+and pass medium identification by matching ID and muon spectrometer tracks. Both lepton types
 must meet tight isolation criteria and primary vertex compatibility requirements.
 
-Small-$R$ jets are built via the anti-$k_\text{T}$ algorithm ($R = 0.4$) using particle flow 
-inputs, requiring $p_\text{T} > 25$ GeV and $|\eta| < 2.5$, with pile-up suppression via the 
-Jet Vertex Tagger. $B$-jets are identified using the DL1r multivariate algorithm. Large-$R$ 
-jets ($R = 1.0$) are reconstructed from topological LCTopo clusters using the anti-$k_\text{T}$ 
-algorithm, then trimmed to reduce pile-up and soft emission effects --- subjets carrying less 
-than 5\% of the large-$R$ jet $p_\text{T}$ are removed. Only calibrated jets with 
-$p_\text{T} > 300$ GeV and $|\eta| < 2.0$ are considered. Variable-Radius track-jets 
-($p_\text{T} > 7$ GeV, $0.02 \leq R \leq 0.4$) are ghost-associated to large-$R$ jets for 
-flavor tagging.
+Small-$R$ jets are built via the anti-$k_\text{T}$ algorithm ($R = 0.4$) using particle flow
+inputs, requiring $p_\text{T} > 25$ GeV and $|\eta| < 2.5$, with pile-up suppression via the
+Jet Vertex Tagger. $B$-jets are identified using the DL1d multivariate algorithm. Large-$R$
+jets ($R = 1.0$) are reconstructed from UFO~\cite{PLACEHOLDER:UFO} using the anti-$k_\text{T}$
+algorithm and trimmed to reduce pile-up and soft radiation effects, with subjets carrying less
+than 5\% of the large-$R$ jet $p_\text{T}$ removed. Only large-$R$ jets with
+$p_\text{T} > 300$ GeV and $|\eta| < 2.0$ are considered. GN2X is applied directly to the
+large-$R$ jet, operating on the charged particle tracks associated to it.
 
-\begin{figure}
+Overlap removal is applied sequentially to prevent double-counting: electrons within
+$\Delta R = 0.01$ of a muon are removed first, followed by jets within $\Delta R = 0.2$ of
+an electron. Electrons within $\Delta R = 0.4$ of a remaining jet are then discarded. Muons
+are rejected if within $\Delta R < 0.04 + 10~\text{GeV}/p_\text{T}(\mu)$ of a jet with three
+or more tracks; otherwise the jet is removed. The missing transverse momentum
+($E_\text{T}^\text{miss}$) is computed as the magnitude of the negative vector sum of all
+calibrated object momenta, plus a track-based soft term matched to the primary vertex to
+ensure resilience against pile-up.
+
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{figures/chapter4/Reco_Event.png}
-	\caption{}
-	\label{fig:Yields}
+	\caption{Illustration of the reconstructed semi-leptonic $t\bar{t}$ event topology used
+		in the tag-and-probe calibration. The leptonic tag side consists of an isolated lepton
+		and a $b$-tagged small-$R$ jet, while the hadronic probe side is reconstructed as a
+		single large-$R$ jet candidate for GN2X tagging.}
+	\label{fig:reco_event}
 \end{figure}
+
+Events must pass a single-electron or single-muon trigger with $p_\text{T} > 28$ GeV, and
+are further required to contain exactly one lepton with $p_\text{T} > 70$ GeV to suppress
+non-prompt lepton backgrounds. $E_\text{T}^\text{miss} > 70$ GeV is imposed to account for
+the neutrino from the leptonic $W$ decay. At least one large-$R$ jet with $p_\text{T} \geq
+300$ GeV must be present; the leading-$p_\text{T}$ large-$R$ jet is designated as the
+probe-jet candidate and its mass is restricted to $50~\text{GeV} \leq m \leq 300~\text{GeV}$
+to ensure compatibility with the calibrated jet mass range. The small-$R$ jet closest to the
+lepton in $\Delta R$ must pass $b$-tagging at the 77\% DL1d working point and serves as
+the tag-jet, significantly suppressing the $V$+jets background. To further enforce the
+back-to-back topology expected from $t\bar{t}$ production, the azimuthal separation between
+the tag-jet and probe-jet is required to satisfy $|\Delta\phi(\text{tag}, \text{probe})| > 1.0$.
+Additionally, the invariant mass of the lepton and tag-jet system is required to satisfy
+$m_{\ell j} < 150$~GeV, exploiting the kinematic constraint that the lepton and $b$-jet
+from the leptonic top decay must have an invariant mass below $m_t - m_W \approx 155$~GeV,
+thereby further suppressing non-$t\bar{t}$ contributions. The resulting event topology is
+illustrated in Figure~\ref{fig:reco_event}, and the effect of each successive selection
+requirement on the event yield is shown in Table~\ref{tab:cutflow}.
 
 \begin{table}[h]
 	\centering
@@ -550,29 +621,10 @@ flavor tagging.
 			\hline
 		\end{tabular}%
 	}
-	\caption{Cutflow table for electron and muon selections.}
+	\caption{Cutflow table showing the effect of each successive selection requirement on
+		the MC event yield for the electron and muon channels.}
 	\label{tab:cutflow}
 \end{table}
-
-Overlap removal is applied sequentially to prevent double-counting: electrons within 
-$\Delta R = 0.01$ of a muon are removed first, followed by jets within $\Delta R = 0.2$ of 
-an electron. Electrons within $\Delta R = 0.4$ of a remaining jet are then discarded. Muons 
-are rejected if within $\Delta R < 0.04 + 10~\text{GeV}/p_\text{T}(\mu)$ of a jet with three 
-or more tracks; otherwise the jet is removed.
-
-The missing transverse momentum ($E_\text{T}^\text{miss}$) is computed as the magnitude of 
-the negative vector sum of all calibrated object momenta, plus a track-based soft term matched 
-to the primary vertex to ensure resilience against pile-up.
-
-Events must pass a single-electron or single-muon trigger with $p_\text{T} > 28$ GeV, and are 
-further required to contain exactly one lepton with $p_\text{T} > 70$ GeV to suppress 
-non-prompt lepton backgrounds. $E_\text{T}^\text{miss} > 70$ GeV is imposed to account for 
-the neutrino from the leptonic $W$ decay. At least one large-$R$ jet with $p_\text{T} \geq 
-300$ GeV must be present, with the leading-$p_\text{T}$ jet designated as the probe-jet 
-candidate; its mass is restricted to $50~\text{GeV} \leq m \leq 300~\text{GeV}$ to ensure 
-compatibility with the calibrated LCTopo jet mass range. At least one small-$R$ jet, 
-specifically the closest to the lepton in $\Delta R$, must pass $b$-tagging at the 77\% DL1r 
-working point and serves as the tag-jet, significantly suppressing the $V$+jets background.
 
 %\begin{figure}
 %	\centering
@@ -639,153 +691,186 @@ working point and serves as the tag-jet, significantly suppressing the $V$+jets 
 
 \subsubsection{Constructing Fit Regions}
 
-The goal of this analysis is to measure the mistag efficiency $\epsilon^{data}_{ttbar}$ for different values of $p_T^{probe}$. We can extract the mistag efficiency by fitting the two previously defined parameters: ttbar normalization $\mu$ and SF. The signal regions are defined to have events that pass a given working point for the GN2Xv01 tagger, and control regions are populated with events that fail tagging requirements. As of the time of my qualification task, working points had not yet been finalized so a flat cut at 1.76 was used to approximate the 70\% working point. In recent developments, the GN2X working points are no longer defined as flat cuts on the discriminant. To reduce background sculpting, working points are defined as a function of the discriminant, jet mass, and jet pT.
-
-The post-fit control regions are shown in Figure \ref{fig:ttbar_CR}. Notice that after implementing event selections, the W+jets, single-top, and di-Boson background are heavily suppressed. A consistent theme across control regions show that the low mass bin has about 25\% more data than weighted MC predicts. Since UFO are a newly defined reconstruction technique, I was told to wait for the finalized recommendations. Another observation is the increase in ttbar\_nonmatch as the boost increases. These events, in white, come from QCD jets originating from ISR/FSR during the $2\rightarrow 2$ simulated $q, q \rightarrow t, \bar{t}$ process. 
+The mistag efficiency $\varepsilon^{\text{data}}_{t\bar{t}}$ is measured as a function of
+probe-jet $p_\text{T}$ by simultaneously extracting the $t\bar{t}$ normalisation factor
+$\mu_{t\bar{t}}$ and the scale factor $SF$ from a maximum likelihood fit in each $p_\text{T}$
+bin. The signal region is populated by events where the probe jet passes the GN2Xv01 tagger
+working point, and the control region by events where it fails. At the time of this study,
+the GN2Xv01 working points had not yet been finalised; a flat threshold of 1.76 on the
+discriminant was therefore used to approximate the 70\% signal efficiency working point.
+Subsequent developments have resulted in working points defined as two-dimensional functions
+of the discriminant score, jet mass, and jet $p_\text{T}$, in order to reduce mass sculpting
+effects as discussed in Section~\ref{sec:MASS_SCULPTING}.
 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/CR_pt_200_postfit.png}
-		\caption{}
-		\label{fig:sub1}
+		\label{fig:ttbar_CR:200}
 	\end{subfigure}%
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/CR_pt_250_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_CR:250}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/CR_pt_300_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_CR:300}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/CR_pt_400_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_CR:400}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/CR_pt_500_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_CR:500}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/CR_pt_600_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_CR:600}
 	\end{subfigure}
 	\caption{}
 	\label{fig:ttbar_CR}
 \end{figure}
 
-The post-fit signal regions are shown in Figure \ref{fig:ttbar_SR}. In general, the data-MC agreement is very good across all bins in all regions. Notice how the ttbar\_nonmatch is not as dominant in the boosted regions as a side-affect of the tagging requirement since QCD is much more suppressed cutting on the disciminant as shown in \ref{fig:GN2X_Discriminant}. Through performing these fits, the ttbar normalization factor $\mu$ and the SF are extracted in each $p_T$ slice. Its important to note that these parameters are extracted simultaneously using the SR and CR in tandom.
+The post-fit probe-jet mass distributions in the control region are shown in
+Figure~\ref{fig:ttbar_CR}. Following the event selection, the $W$+jets, single-top, and
+diboson backgrounds are heavily suppressed across all $p_\text{T}$ bins, confirming the
+effectiveness of the tag-and-probe strategy and allowing direct access to a $t\bar{t}$ 
+enriched region of phase space. A consistent data excess of approximately 25\%
+is observed in the low-mass region of the probe-jet mass distribution. This discrepancy is
+attributed to the UFO jet mass calibration being preliminary at the time of this study;
+finalised recommendations from the JETMET group were not yet available. Also observed is a
+growing contribution from $t\bar{t}$ unmatched events at higher probe-jet $p_\text{T}$,
+which arise from QCD jets produced via initial- or final-state radiation in the
+$q\bar{q} \rightarrow t\bar{t}$ hard-scatter process.
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/SR_pt_200_postfit.png}
-		\caption{}
-		\label{fig:sub1}
+		\label{fig:ttbar_SR:200}
 	\end{subfigure}%
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/SR_pt_250_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_SR:250}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/SR_pt_300_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_SR:300}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/SR_pt_400_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_SR:400}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/SR_pt_500_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_SR:500}
 	\end{subfigure}
 	\begin{subfigure}{.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/SR_pt_600_postfit.png}
-		\caption{}
-		\label{fig:sub2}
+		\label{fig:ttbar_SR:600}
 	\end{subfigure}
 	\caption{}
 	\label{fig:ttbar_SR}
 \end{figure}
 
-\subsubsection{ttbar Mistag Calibration Results}
+The post-fit probe-jet mass distributions in the signal region are shown in
+Figure~\ref{fig:ttbar_SR}. Good data-MC agreement is observed across all $p_\text{T}$ bins
+after the simultaneous fit. The relative contribution from unmatched $t\bar{t}$ events is
+reduced compared to the control region, as QCD-like jets are more strongly suppressed by
+the discriminant threshold, consistent with the separation shown in
+Figure~\ref{fig:GN2X_Discriminant}. The normalisation factor $\mu_{t\bar{t}}$ and scale
+factor $SF$ are extracted simultaneously from the SR and CR in each $p_\text{T}$ bin,
+ensuring that any overall $t\bar{t}$ normalisation difference is absorbed by $\mu_{t\bar{t}}$
+and does not bias the extracted $SF$.
 
-A normalization factor and SF is derived per $p_T$ region. These parameters are extracted by maximizing the likelihood fit function. This can be interpreted as: what choice of parameters ($\mu$ and SF) yield the highest probability that the observed data matches the predicted MC. These fits only included statistical uncertainties, but a final result would also include systematic uncertainties such as: detector resolution, jet reconstruction, and flavor tagging uncertainties. The stat-only MC-16 results derived on full run 2 dataset are shown in \ref{fig:ttbar_SF:MC16}. The stat-only MC-20 results derived on full run 2 dataset are shown in \ref{fig:ttbar_SF:MC20}. The largest difference between these results are found in the ttbar normalization factors which were significantly lower in MC16 compared to MC20. Despite these differences, the SF between MC16 and MC20 are in much better agreement.
+\subsubsection{\texorpdfstring{$t\bar{t}$}{ttbar} Mistag Calibration Results}
 
-\begin{figure}
+The $t\bar{t}$ normalisation factor $\mu_{t\bar{t}}$ and scale factor $SF$ are extracted
+per probe-jet $p_\text{T}$ bin from the simultaneous maximum likelihood fit to the SR and
+CR mass distributions. These results include statistical uncertainties only; a finalised
+result would additionally incorporate systematic uncertainties from sources including jet
+energy and mass scale and resolution, $t\bar{t}$ modelling from initial- and final-state
+radiation variations, and flavour tagging uncertainties.
+
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/scale_factors_mc16.png}
-		\caption{}
 		\label{fig:ttbar_SF:MC16}
 	\end{subfigure}%
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/scale_factors_mc20.png}
-		\caption{}
 		\label{fig:ttbar_SF:MC20}
 	\end{subfigure}
-	\caption{}
+	\caption{Extracted $t\bar{t}$ normalisation factor $\mu_{t\bar{t}}$ and scale factor
+		$SF$ as a function of probe-jet $p_\text{T}$, derived using the full Run~2 dataset
+		for the MC16 (a) and MC20 (b) simulation campaigns. Statistical uncertainties only.}
 	\label{fig:ttbar_SF}
 \end{figure}
 
+Results are derived for both the MC16 and MC20 simulation campaigns using the full Run~2
+dataset, and are shown in Figure~\ref{fig:ttbar_SF}. The most notable difference between
+the two campaigns is in the extracted $\mu_{t\bar{t}}$ values, which are significantly
+lower in MC16 than in MC20, reflecting a known difference in the $t\bar{t}$ cross-section
+normalisation and $p_\text{T}$ modelling between the two configurations. Despite this
+difference in normalisation, the scale factors extracted from MC16 and MC20 are in good
+mutual agreement across all $p_\text{T}$ bins, indicating that the tagger response
+relative to the MC prediction is largely insensitive to the choice of simulation campaign.
+The scale factors are consistent with unity within uncertainties, suggesting no large
+mismodelling of the top-quark mistag rate in either MC campaign.
+
 \section{Conclusion}
 
-This chapter has traced the evolution of $b$-tagging algorithms in ATLAS from the early
-multivariate taggers of Run~2 through to the graph- and attention-based architectures deployed
-for Run~3. The progression reflects a consistent trend: each generation of taggers has moved
-closer to the raw detector information, replacing hand-engineered summary variables with learned
-representations operating directly on tracks, vertices, and hits.
+This chapter has traced the evolution of jet flavor tagging algorithms in ATLAS from early
+multivariate approaches through to the graph- and attention-based architectures deployed for
+Run~3. Each successive generation has moved closer to the raw detector information, replacing
+hand-engineered summary variables with learned representations operating directly on tracks
+and hits. The performance gains from this progression are substantial: as summarized in
+Figure~\ref{fig:history}, each new architecture delivers measurable improvements in both
+light-jet and $c$-jet rejection at fixed $b$-jet efficiency, with direct implications for
+the sensitivity of analyses relying on heavy-flavor identification.
 
-The performance gains from this evolution are summarized in Figure~\ref{fig:history}. These gains have direct physics implications. Higher background rejection at fixed signal
-efficiency translates to cleaner $b$-jet samples, reduced systematic uncertainties on flavor
-tagging scale factors, and improved sensitivity in analyses that rely on $b$-jet identification
---- from top quark measurements to searches for new phenomena involving heavy-flavor final
-states. Looking ahead, further improvements are anticipated through the incorporation of
-additional low-level inputs, larger training samples exploiting the full Run~3 dataset, and
-continued architectural development motivated by the demands of the High-Luminosity LHC, where
-the increased pile-up environment will place even greater demands on the precision and robustness
-of flavor tagging algorithms.
+The extension of this paradigm to boosted jet tagging, realized in \texttt{GN2X}, demonstrates
+that the same end-to-end track-based approach scales naturally to large-$R$ jets. By operating
+directly on all charged particle tracks within the large-$R$ jet rather than on high-level
+subjet discriminants, \texttt{GN2X} achieves significant improvements over the previous
+state-of-the-art DXbb tagger in both $H(b\bar{b})$ and $H(c\bar{c})$ identification, while
+maintaining acceptable mass sculpting behavior in the multijet background.
 
-This chapter presented the calibration of the GN2Xv01 boosted jet tagger using a 
-$t\bar{t}$-enriched region derived from semi-leptonic top quark decays. The tag-and-probe 
-event selection strategy proved effective at isolating a high-purity $t\bar{t}$ sample, 
-suppressing dominant backgrounds such as $W$+jets and single-top contributions to a 
-manageable level. The unique detector signature of semi-leptonic $t\bar{t}$ events, combined 
-with a $b$-tagging requirement on the leptonic-side tag jet, provided the clean phase space 
-necessary for a reliable extraction of the mistag rate.
+A tagger trained on simulation is only useful in data analyses if its efficiency differences
+relative to data are understood and corrected. The two calibrations presented in this chapter
+together provide the complete set of scale factors needed to deploy \texttt{GN2X} in physics
+analyses. The $Z \rightarrow b\bar{b}$ signal efficiency calibration establishes the correction
+to the tagger's ability to identify genuine $H \rightarrow b\bar{b}$ candidates, while the
+$t\bar{t}$ mistag rate calibration corrects for mismodeling of the dominant top-quark
+background. Together, these calibrations ensure that both the signal acceptance and background
+rejection of the tagger are accurately described in simulation.
 
-The GN2X discriminant was used to construct the signal and control regions, demonstrating 
-good data-MC agreement across all probe jet $p_T$ bins after performing the simultaneous 
-maximum likelihood fit, successfully extracting the $t\bar{t}$ normalization factor $\mu$ 
-and scale factor $SF$ in each $p_T$ slice. Scale factors were derived for both MC16 and MC20 
-configurations using the full Run 2 dataset, showing good mutual consistency despite notable 
-differences in the extracted normalization factors between the two campaigns. The techniques 
-and infrastructure developed here lay the groundwork for a full GN2Xv01 calibration to be 
-deployed in future ATLAS Higgs boson analyses targeting boosted $H \rightarrow b\bar{b}$ 
-and $H \rightarrow c\bar{c}$ signatures.
+The $t\bar{t}$ mistag calibration, performed as part of the author's ATLAS authorship
+qualification task, demonstrated good data-MC agreement across all probe-jet $p_\text{T}$
+bins following the simultaneous maximum likelihood fit. Scale factors consistent with unity
+were extracted for both the MC16 and MC20 simulation campaigns, with good mutual consistency
+between the two despite notable differences in the $t\bar{t}$ normalization factors. These
+results are based on statistical uncertainties only; a complete result would require the
+inclusion of systematic uncertainties from jet energy and mass scale, $t\bar{t}$ modeling,
+and flavor tagging sources. The methodology and infrastructure developed here provide the
+foundation for a full \texttt{GN2Xv01} calibration to be deployed in future ATLAS analyses
+targeting boosted $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ signatures at Run~3.
 
 
 
