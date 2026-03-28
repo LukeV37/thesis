@@ -23,11 +23,11 @@
 \label{fig:PileupSchematic}
 \end{figure}
 
-To increase recorded luminosity at the detectors, the LHC collides protons in bunches, where each bunch contains order $10^{11}$ protons. However, only a fraction of these protons collide and produce particle showers. The mean number of collisions per bunch crossing is referred to as $\langle\mu\rangle$. Current LHC conditions operate around $\langle\mu\rangle=60$ but HL-LHC operations will increase luminosity thereby increasing interactions to $\langle\mu\rangle=200$. Only collisions that pass an online trigger are saved for reconstruction, and typically there exists one hard scatter vertex surrounded by many other pileup vertices, although in HL-LHC conditions, there could exist more than one hard scatter vertex. A schematic of a typical single HS event is shown in Figure \ref{fig:PileupSchematic}.
+The High-Luminosity Large Hadron Collider (HL-LHC) will dramatically increase the instantaneous luminosity to enable the study of rare processes such as di-Higgs production and potential signatures of physics beyond the Standard Model. As bunches of protons collide at the LHC, current conditions produce a mean of $\langle\mu\rangle\approx60$ proton-proton interactions per bunch crossing, whereas HL-LHC operations will increase this to $\langle\mu\rangle=200$. Only one of these interactions, the hard scatter, is of physics interest and the remaining collisions are pileup interactions. The decay products of pileup contaminate the detector and distort the kinematic properties of hard scatter jets by inflating their energies and masses which smears mass resonance peaks. A schematic of a typical event is shown in Figure~\ref{fig:PileupSchematic}. Traditional pileup mitigation algorithms such as JVT~\cite{ATLAS-CONF-2014-018} and PUPPI~\cite{puppi} were designed for lower pileup conditions and degrade severely at $\langle\mu\rangle=200$, motivating the need for more powerful, event-aware approaches. In this chapter, we investigate machine learning methods through the use of attention and graph based neural networks that exploit correlations across the entire event to precisely recover the hard-scatter contributions to jet energy and mass.
 
 \subsection{Simulated Dataset in the HL-LHC Environment}
 
-To study the problem of pileup at the HL-LHC, we produced a novel, open-source dataset that fills a critical need at the intersection of machine learning and high-energy physics. While functionally similar to proprietary datasets used by the ATLAS collaboration~\cite{ANA-FTAG-2024-06}, our dataset offers three key advantages. First, it provides truth labels for detailed pileup vertex classification. This enables precise separation of signal and background noise under HL-LHC conditions. Second, it is fully public. This provides open access to realistic particle physics data that is typically restricted to collaboration members. Third, it supports reproducibility and scalability. This allows the broader computer science community to comprehensively evaluate state-of-the-art machine learning architectures on complex particle physics analysis tasks. By simulating the extreme pileup conditions ($\langle\mu\rangle=200$) expected at the HL-LHC, we provide a benchmark that allows researchers to build and test models ready for the next generation of particle physics experiments.
+The simulations presented in this chapter are made available as a novel, open-source dataset designed to support interdisciplinary machine learning research between high-energy physics and computer science. Unlike the proprietary datasets used internally by the ATLAS collaboration~\cite{ANA-FTAG-2024-06}, this dataset is fully public and includes truth-level labels identifying the origin of each particle — whether it came from the hard scatter or a pileup vertex. This enables rigorous evaluation of pileup mitigation algorithms under realistic HL-LHC conditions. By making this dataset openly available, we aim to lower the barrier for the broader computer science community to engage with particle physics problems and to enable reproducible benchmarking of machine learning architectures at the extreme pileup conditions of $\langle\mu\rangle=200$ expected at the HL-LHC.
 
 \begin{figure}[h]
 	\centering
@@ -55,7 +55,133 @@ To study the problem of pileup at the HL-LHC, we produced a novel, open-source d
 	\label{fig:HLLHC}
 \end{figure}
 
- A hardscatter process is generated using \textit{MadGraph5\_aMC@NLO} \cite{madgraph}, for example, di-Higgs through the process \texttt{p p > h h, h > b b\~{}} or top quark pair production decaying semi-leptonically using, ($pp\to t\bar{t}, t \to q\bar{q}'b, \bar{t} \to \ell\nu\bar{b}$). These sample are showered using Pythia 8.312~\cite{pythia}. Pileup processes\footnote{The process \texttt{SoftQCD:inelastic} generated with Pythia using the A14 central tune~\cite{TheATLAScollaboration:2014rfk} and NNPDF2.3LO~\cite{BALL2013244}.} are overlaid according to a Poisson distribution with mean of $\left<\mu\right>$. Samples are simulated at $\left\langle \mu \right\rangle = 60$ for the LHC pileup conditions and at $\left\langle \mu \right\rangle = 200$ for the HL-LHC pileup conditions. The position of each hard scatter and pileup vertex in the event is independently smeared according to a Gaussian distribution with $\sigma_{x,y}=0.3$~mm in transverse plane and $\sigma_z=50$~mm along the direction of the proton beam to mimic the actual LHC conditions. Stable particles are then passed to FastJet~\cite{Cacciari_2012} to be clustered into jets using anti-$k_t$ algorithm~\cite{Cacciari_2008} with the cone size $R=0.4$ \footnote{$R = \sqrt{( \eta_{jet} - \eta_{track})^2 + ( \phi_{jet} - \phi_{track})^2}$, where the $\phi$ difference is taken modulo $2\pi$.} and minimum jet $p_{\rm T}$ of 25~GeV. To incorporate detector limitations, neutral particles and particles with $p_{\rm T}$ below 400~MeV are removed from the dataset.
+Two hard-scatter processes are simulated to study pileup mitigation across different event topologies. The first is fully hadronic di-Higgs production, $pp \to hh \to b\bar{b}b\bar{b}$, where both Higgs bosons decay to $b\bar{b}$ pairs yielding a 4-jet final state. Di-Higgs production is a key target of the HL-LHC physics program and provides a clean benchmark for pileup mitigation, as the reconstructed Higgs mass resonance near $m_H \approx 125$~GeV is sharp and narrow in the absence of pileup, making it highly sensitive to jet energy and mass distortions and a direct figure of merit for the corrections developed in this chapter. The second process is semi-leptonic top quark pair production, $pp \to t\bar{t} \to q\bar{q}'b\,\ell\nu\bar{b}$, a standard benchmark whose multi-object final state, comprising hadronic jets, a lepton, and missing transverse energy, tests the method across a more complex event topology. The known W boson ($m_W \approx 80$~GeV) and top quark ($m_t \approx 173$~GeV) mass scales serve as additional validation figures of merit.
+
+Both processes are generated at leading order using \textit{MadGraph5\_aMC@NLO}~\cite{madgraph} and interfaced with Pythia 8.312~\cite{pythia} for parton showering and hadronization. Pileup is modelled by overlaying minimum-bias collisions\footnote{The process \texttt{SoftQCD:inelastic} generated with Pythia using the A14 central tune~\cite{TheATLAScollaboration:2014rfk} and NNPDF2.3LO~\cite{BALL2013244}.}, where the number of pileup interactions per event is drawn from a Poisson distribution with mean $\langle\mu\rangle$. Two pileup scenarios are produced: $\langle\mu\rangle=60$, representing current LHC conditions, and $\langle\mu\rangle=200$, representing the HL-LHC. To model realistic beam conditions, each vertex position is smeared with a Gaussian of width $\sigma_{x,y}=0.3$~mm in the transverse plane and $\sigma_z=50$~mm along the beam axis. Stable final-state particles are clustered into jets using the anti-$k_t$ algorithm~\cite{Cacciari_2008} with radius parameter $R=0.4$, where $R = \sqrt{(\Delta\eta)^2+(\Delta\phi)^2}$, as implemented in FastJet~\cite{Cacciari_2012}. A minimum jet $p_{\rm T}$ threshold of 25~GeV is applied, reflecting the practical limit of calorimeter jet reconstruction in the ATLAS detector. Similarly, neutral particles are excluded and charged particles with $p_{\rm T} < 400$~MeV are removed, consistent with the tracking acceptance of the ATLAS inner detector.
+ 
+\subsection{ATLAS JVT Benchmark}
+
+The Jet Vertex Tagger (JVT)~\cite{ATLAS-CONF-2014-018} is the standard ATLAS algorithm for identifying and suppressing pileup jets. Jets in ATLAS are reconstructed from calorimeter energy deposits, which carry no inherent vertex information, as a calorimeter cluster alone cannot be attributed to a specific proton-proton interaction. Tracks reconstructed in the inner detector, however, can be extrapolated to the beamline and associated to a specific primary vertex based on their longitudinal and transverse impact parameters. JVT exploits this complementarity by associating inner detector tracks to jets~\cite{DUMMY-ghost-association} and using the resulting track composition as a proxy for vertex origin. By examining what fraction of a jet's constituent track $p_{\rm T}$ originates from the hard-scatter primary vertex versus pileup vertices, JVT effectively embeds vertex information into each jet and identifies whether it is a hard-scatter or pileup jet.
+
+JVT is built from two such track-based variables. The first, corrJVF, is a pileup-corrected version of the original Jet Vertex Fraction (JVF), which measured the fraction of track $p_{\rm T}$ in a jet originating from the hard-scatter vertex. The original JVF suffered from an efficiency that degraded with increasing number of pileup vertices $N_{Vtx}$, since more pileup tracks become associated with the jet at higher $\langle\mu\rangle$. corrJVF addresses this by normalizing the pileup track contribution by the total number of pileup tracks in the event where the scaling factor is chosen to be $k=0.01$:
+
+\begin{equation}
+	corrJVF = \frac{
+		\sum_k p^{trk_k}_T(PV_0)
+	}{
+		\sum_l p^{trk_l}_T(PV_0) + \frac{\sum_{n \geq 1} \sum_l p^{trk_l}_T(PV_n)}{k \cdot n^{PU}_{trk}}
+	}
+\end{equation}
+
+The second variable, $R_{pT}$, is the ratio of the scalar $p_{\rm T}$ sum of hard-scatter tracks to the fully calibrated jet $p_{\rm T}$, and is approximately independent of $N_{Vtx}$:
+
+\begin{equation}
+	R_{pT} = \frac{\sum_k p^{trk_k}_T (PV_0)}{p^{jet}_T}
+\end{equation}
+
+JVT combines corrJVF and $R_{pT}$ into a single discriminant using a 2D k-nearest-neighbor (kNN) likelihood with $k=100$ neighbors, assigning each jet a probability of originating from the hard scatter based on its position in the corrJVF--$R_{pT}$ plane. The distributions of $R_{pT}$ and corrJVF are shown in Figure~\ref{fig:JVTvars}, and the resulting JVT score is shown in Figure~\ref{fig:JVTscore}, both reproduced on the simulated di-Higgs dataset.
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter6/RpT.png}
+		\caption{}
+		\label{fig:JVTvars:RpT}
+	\end{subfigure}%
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter6/corrJVF.png}
+		\caption{}
+		\label{fig:JVTvars:corrJVF}
+	\end{subfigure}
+	\caption{Distributions of (a) $R_{pT}$ and (b) corrJVF for hard-scatter and pileup jets, reproduced on the simulated di-Higgs dataset. Hard-scatter jets populate larger values of both variables, while pileup jets are concentrated near zero.}
+	\label{fig:JVTvars}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter6/JVT_1d.png}
+		\caption{}
+		\label{fig:JVTscore:1D}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter6/JVT_2d.png}
+		\caption{}
+		\label{fig:JVTscore:2D}
+	\end{subfigure}
+	\caption{(a) 1D JVT score distribution and (b) 2D kNN likelihood in the corrJVF--$R_{pT}$ plane, reproduced on the simulated di-Higgs dataset. Hard-scatter jets cluster near JVT$\approx$1 while pileup jets are concentrated near zero.}
+	\label{fig:JVTscore}
+\end{figure}
+
+A key limitation of JVT is that it operates on each jet independently, using only per-jet track information with no awareness of other jets or global event-level structure. This per-jet approach is well-suited to lower pileup conditions but becomes increasingly insufficient as $\langle\mu\rangle$ grows, since event-wide correlations between jets carry important information about the hard-scatter topology. This limitation directly motivates the event-aware ML approaches developed in this chapter.
+
+\subsection{CMS PUPPI Benchmark}
+
+While JVT operates at the jet level by tagging entire jets to vertices, the Pileup Per Particle Identification algorithm (PUPPI)~\cite{puppi} takes a fundamentally different approach by operating at the individual particle level. The core physics insight is that particles produced in a hard-scatter parton shower exhibit a collinear structure in $\eta$-$\phi$ space, a consequence of the collinear singularity of QCD, whereas pileup particles are spatially diffuse and uncorrelated with the hard scatter. Rather than tagging jets to vertices after clustering, PUPPI assigns each particle a continuous weight between zero and one indicating the probability it originated from the hard scatter, then rescales each particle's four-momentum by that weight prior to jet clustering.
+
+To probe this local collinear structure, PUPPI defines a shape parameter $\alpha_i$ for each particle $i$ by summing the $p_{\rm T}$-weighted inverse distances to neighboring particles within a cone $R_{\rm min} < \Delta R_{ij} \leq R_0$:
+
+\begin{equation}
+	\alpha_i = \log \left( \sum_{j} \frac{p_{T_j}}{\Delta R_{ij}} \right), \quad R_{\rm min} < \Delta R_{ij} \leq R_0
+\end{equation}
+
+where $R_0 = 0.3$ and $R_{\rm min} = 0.02$ are chosen to match typical detector resolutions. Hard-scatter particles, surrounded by collinear shower products, tend to have larger $\alpha_i$, while pileup particles, which lack this shower structure, tend to have smaller $\alpha_i$. The distributions of $\alpha_i$ for hard-scatter and pileup particles at $\langle\mu\rangle=60$ and $\langle\mu\rangle=200$ are shown in Figure~\ref{fig:alpha_i}.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/alpha_i_mu60.png}
+		\caption{}
+		\label{fig:alpha_i_mu60}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/alpha_i_mu200.png}
+		\caption{}
+		\label{fig:alpha_i_mu200}
+	\end{subfigure}
+	\caption{Distributions of the local shape parameter $\alpha_i$ for hard-scatter and pileup particles at (a) $\langle\mu\rangle=60$ and (b) $\langle\mu\rangle=200$ on the simulated semi-leptonic $t\bar{t}$ dataset. At higher pileup, the two distributions overlap significantly, degrading discrimination.}
+	\label{fig:alpha_i}
+\end{figure}
+
+Since charged tracks can be associated to specific vertices, the $\alpha_i$ distribution of charged pileup tracks is used to characterize the pileup on an event-by-event basis. The median $\bar{\alpha}_{PU}$ and RMS $\sigma_{PU}$ are computed from charged pileup tracks, and a $\chi^2$ metric is constructed for each particle using the Heaviside step function $\mathcal{H}$:
+
+\begin{equation}
+	\chi^2_i = \mathcal{H}(\alpha_i - \bar{\alpha}_{PU})\frac{(\alpha_i - \bar{\alpha}_{PU})^2}{\sigma_{PU}^{2}}
+\end{equation}
+
+Particles with $\alpha_i$ below the pileup median receive $\chi^2=0$ and are treated as pileup, while those above receive a weight proportional to how far they deviate from the pileup distribution. The PUPPI weight is then assigned using $F_{\chi^2}$, the cumulative distribution function of the $\chi^2$ distribution with one degree of freedom:
+
+\begin{equation}
+	w_i = F_{\chi^2,\text{NDF}=1}(\chi^2_i).
+\end{equation}
+
+Each particle's four-momentum is then rescaled by $w_i$, and particles with small weights or small rescaled $p_{\rm T}$ are discarded. The resulting PUPPI weight distributions for hard-scatter and pileup particles at $\langle\mu\rangle=60$ and $\langle\mu\rangle=200$ are shown in Figure~\ref{fig:PUPPI_weights}.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/PUPPI_weights_mu60.png}
+		\caption{}
+		\label{fig:PUPPI_weights_mu60}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter6/PUPPI_weights_mu200.png}
+		\caption{}
+		\label{fig:PUPPI_weights_mu200}
+	\end{subfigure}
+	\caption{PUPPI weight distributions for hard-scatter and pileup particles at (a) $\langle\mu\rangle=60$ and (b) $\langle\mu\rangle=200$ on the simulated semi-leptonic $t\bar{t}$ dataset. Ideal behavior assigns weights near one to hard-scatter particles and near zero to pileup particles.}
+	\label{fig:PUPPI_weights}
+\end{figure}
+
+The weighted four-vectors of each jet's constituent tracks are summed to derive predicted energy and mass correction fractions, which are evaluated against truth labels using the $R^2$ metric on the simulated semi-leptonic $t\bar{t}$ dataset. Since we do not apply a generator-level filter to hard-scatter events, our hard-scatter events appear more pileup-like than in the original PUPPI study, which affects performance at $\langle\mu\rangle=60$. More critically, at $\langle\mu\rangle=200$ the $\alpha_i$ distributions of hard-scatter and pileup particles overlap substantially, causing PUPPI's performance to degrade sharply. This sensitivity to high pileup conditions, shared by both JVT and PUPPI, underscores the need for more powerful, learned approaches that can adapt to the extreme pileup environment of the HL-LHC.
 
 \subsection{Pileup Mitigation as a Regression Task}\label{JetLabels}\hfill
 
@@ -224,39 +350,6 @@ Lastly, we would like to show that one can slightly modify the learning objectiv
 
 For the case (1) PUMiNet is able to successfully distinguish between di-Higgs and 4b physics processes despite having quite similar kinematic features. When predicted and truth $E_{frac}$ and $M_{frac}$ are provided in case (2) and (3), respectively, PUMiNet has a noticeable increase in background rejection. This improvement is elucidated in Figure \ref{fig:Scores} where the dashed line represents case (1) and the solid lines represent case (2). Here one can see a dramatic improvement in the lowest bin, background-like, and highest bin, signal-like which proves the the predicted $E_{frac}$ and $M_{frac}$ of the model can be used directly to perform event level classification.
 
-\subsection{ATLAS Jet Vertex Tagger Benchmark}
-\textbf{Classic JVT Benchmark:} In order to benchmark the performance of the model against existing JVT algorithm, only a subset of the model is used to maintain consistency across input features. For a fair comparison, only jet features are considered: \{$p_T,\eta,\phi,m,R_{p_T},corrJVF$\} where $R_{p_T}$ and $corrJVT$ are defined in. This exercise attempts to show that the attention architecture over jet features (AttnJVT) alone brings noticeable improvements when jets are processed in the context of an event. These results can be further improved when jets are compounded with track features.
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{figures/chapter6/RpT.png}
-		\caption{}
-		\label{fig:Benchmark:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{figures/chapter6/corrJVF.png}
-		\caption{}
-		\label{fig:Benchmark:sub2}
-	\end{subfigure}
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{figures/chapter6/JVT_1d.png}
-		\caption{}
-		\label{fig:Benchmark:sub3}
-	\end{subfigure}
-	\begin{subfigure}{.24\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{figures/chapter6/JVT_2d.png}
-		\caption{}
-		\label{fig:Benchmark:sub4}
-	\end{subfigure}
-	\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
-	\label{fig:Benchmark}
-\end{figure}
-
 Using the di-Higgs dataset, the following models were created: (1) a replica of ATLAS JVT kNN model described in (2) a baseline deep neural network, and (3) a single MHA encoder between jets, AttnJVT.\footnote{A small number of learnable parameters are used, 21k, for AttnJVT and the baseline deep NN.} Since JVT is a binary classifier, the continuous labels are converted to binary using a cut at $E_{frac}=0.3$. The JVT algorithm and deep NN process inputs on a per jet basis, but AttnJVT processes an entire set of jets in the context of an event which allows the model to capture correlations between hard scatter jets. The baseline deep NN and AttnJVT are trained using the Binary Cross Entropy loss function, and converges after 60 epochs on 50k events. The benchmarked false positive rates against the true positive rates are shown in Figure Figure \ref{fig:Benchmark:sub1} \& \ref{fig:Benchmark:sub2} which shows that AttnJVT can significantly lower the false positive rate. We also show that PUMiNet brings further improvements over AttnJVT using both jet and track features to capture event-wide correlations in the regression setup, as shown in Figure \ref{fig:Benchmark:sub3}.
 
 \begin{figure}[ht]
@@ -282,66 +375,6 @@ Using the di-Higgs dataset, the following models were created: (1) a replica of 
 	\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
 	\label{fig:Benchmark}
 \end{figure}
-
-\subsection{W Boson Analysis on ATLAS Monte Carlo}
-
-ATLAS simulation is much more sophisticated as it contains GEANT 4 detector simulation. Therefore, we would like to demonstrate the effectiveness of $E_{frac}$ and $M_{frac}$ on ATLAS data. We start with an upgrade sample at the AOD level that contains specific information about pileup vertices.
-{\footnotesize
-	\begin{equation*}
-		mc21\_14TeV.601229.PhPy8EG\_A14\_ttbar\_hdamp258p75\_SingleLep.merge.AOD.e8481\_s4149\_r14701\_r14702
-	\end{equation*}
-}
-
-Specifically, this sample contains semi-leptonic ttbar events with access to the following containers: (1) xAOD::TruthEventContainer "TruthEvents" (2) xAOD::TruthPileupEventContainer "TruthPileupEvents" (3) xAOD::TrackParicleContainer "InDetTrackParticles". The TrackParticles have an auxData element called "truthParticleLink" that allows us to associate tracks to particles. Using this information we have full access to the origins of each particle, HS or PU, as well as associations between reconstructed tracks and truth level particles. This allows us to calculate $E_{frac}$ and $M_{frac}$ and track jets.
-
-There are three types of jets used in this study (1) Particle Jets, (2) Track Jets, and (3) Calorimeter Jets. Paricles jets are made of all MC truth particles (exluding neutrinos). Track jets are made of reconstructed tracks (no neutrals). Particle and Track jets are clustered using anti-kt R=0.4 algorithm. Calorimeter jets come directly from the DAOD container, and are matched to the nearest track jet.
-
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/W_mass_raw.png}
-		\caption{}
-		\label{fig:Wmass:sub1}
-	\end{subfigure}\hfill
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/W_mass_stripped.png}
-		\caption{}
-		\label{fig:WMass:sub2}
-	\end{subfigure}\hfill
-	\begin{subfigure}{.32\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{figures/chapter6/Direction_Corrections.png}
-		\caption{}
-		\label{fig:Wmass:sub3}
-	\end{subfigure}
-	\caption{Mass Reconstruction after PhyGHT correction}
-\end{figure}
-
-As a figure of merit, we reconstruct the W boson mass originating from the hadronic top quark. Particle jets are considred to originate from W if at least 2 particles can be traced back to W using MC truth history. If more than 2 candidates, the leading two jets are selected. As shown in Figure \ref{fig:Wmass:sub1} the reconstructed W mass is heavily inflated due to pileup. However, after applying truth level $E_{frac}$ and $M_{frac}$, we can see the W boson mass restored near 80 GeV in Figure \ref{fig:WMass:sub2}.
-
-Although $E_{frac}$ and $M_{frac}$ restore the W mass, they are not a complete set of corrections. As shown in Figure \ref{fig:Wmass:sub3}, the direction of the jet axis itself is distorted due to pileup requiring the need for $\eta$ and $\phi$ corrections. Shown in red is the true $M_{jj}$ mass clustered with HS particles only which represents the true jet axis. The blue shows corrected particle jets but raw jet direction. The green shows corrected track jets but raw jet direction. Therefore, $E_{frac}$ and $M_{frac}$ are not a complete description of pileup corrections as pileup affects the jet axis.
-
-\begin{figure}
-	\centering
-	\begin{subfigure}{.49\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{figures/chapter6/W_mass_jet_types.png}
-		\caption{}
-		\label{fig:Benchmark:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.49\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{figures/chapter6/W_mass_deltaR_matching.png}
-		\caption{}
-		\label{fig:Benchmark:sub2}
-	\end{subfigure}
-	\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
-	\label{fig:Benchmark}
-\end{figure}
-
-In order to extrapolate these correction derived on track jets to calorimeter jets, we implement a matching scheme in $\Delta R$. We find W candidates from clustered track jets and then match each candidate to the closest calorimeter jet. Using the DAOD\_FTAG1 derivation, we can see the reconstructed W boson mass on 4 collections (1) PFlow, (2) EMTopo, (3) Truth, and (4) DressedWZ. Without applying $E_{frac}$ and $M_{frac}$ corrections, we can see the reconstructed W mass is near its truth value, which shows that pileup mitigation is already happening during the derivation procedure. Therefore, to implement our approach within ATLAS, we will need to replace the existing pileup mitigation techniques in order to not double count pileup corrections.
 
 \section{Pileup Mitigation using HyperGraph Transformer -- PhyGHT}
 
@@ -442,54 +475,65 @@ To reconstruct the top quark mass, we first apply the predicted corrections to e
 
 Using truth labels, we trace the parton shower history via a depth-first search algorithm to identify final-state particles originating from the $b$-quark and $W$-boson of the top quark decay. We then select three candidate jets: the two containing the highest fraction of tracks from the $W$-boson are designated as $W_1$ and $W_2$, while the jet with the most particles from the $b$-quark is designated as $B$. The top quark 4-vector is reconstructed by summing these candidates, $\vec{T} = \vec{W}_1+\vec{W}_2+\vec{B}$, and the final invariant mass is calculated using the energy-momentum relation $m=\sqrt{E^2-|\vec{p}|^2}$.
 
-\subsection{CMS PUPPI Benchmark}
-To implement the PUPPI algorithm on our dataset, we first initialize Lorentz 4-vectors of each track using $[p_T,\eta,\phi,m]$ where $m\approx0$ and has charge $q$. Tracks with $p_T< 1GeV$, $\eta>4.0$, and $q=0$ are cut from the dataset. Using awkward library in python, we find all possible pairs of tracks, $[T_i,T_j]$, and cut all pairs of tracks with $\Delta R(T_i,T_j)>0.3$ and $\Delta R(T_i,T_j)<0.02$. For each $T_i$ in all passing pairs, an $\epsilon$ parameter is calculated where $\epsilon_{ij}=\frac{p_{T}(T_j)}{\Delta R(T_i,T_j)}$. Then for all $T_i$, we calculate the local shape parameter $\alpha_i$, using the following equation on pairs that pass the $\Delta R$ cut.
+\section{W Boson Analysis on ATLAS Monte Carlo}
 
-\begin{equation}
-\alpha_i = log \left( \sum_{i} \epsilon_{ij} \right)
-\end{equation}
+ATLAS simulation is much more sophisticated as it contains GEANT 4 detector simulation. Therefore, we would like to demonstrate the effectiveness of $E_{frac}$ and $M_{frac}$ on ATLAS data. We start with an upgrade sample at the AOD level that contains specific information about pileup vertices.
+{\footnotesize
+	\begin{equation*}
+		mc21\_14TeV.601229.PhPy8EG\_A14\_ttbar\_hdamp258p75\_SingleLep.merge.AOD.e8481\_s4149\_r14701\_r14702
+	\end{equation*}
+}
 
-Then we select the $\alpha_i$ originating from pileup using truth labels, and calculate the median, $\alpha_{PU}^{median}$, and RMS, $\sigma_{PU}^{^2}$  originating from pileup. We then construct a $\chi^2$ metric using the following equation where $\mathcal{H}$ is the Heavyside function:
+Specifically, this sample contains semi-leptonic ttbar events with access to the following containers: (1) xAOD::TruthEventContainer "TruthEvents" (2) xAOD::TruthPileupEventContainer "TruthPileupEvents" (3) xAOD::TrackParicleContainer "InDetTrackParticles". The TrackParticles have an auxData element called "truthParticleLink" that allows us to associate tracks to particles. Using this information we have full access to the origins of each particle, HS or PU, as well as associations between reconstructed tracks and truth level particles. This allows us to calculate $E_{frac}$ and $M_{frac}$ and track jets.
 
-\begin{equation}
-\chi^2=\mathcal{H}(\alpha_i-\alpha_{PU}^{median})\frac{(\alpha_i-\alpha_{PU}^{median})^2}{\sigma_{PU}^{^2}}
-\end{equation}
+There are three types of jets used in this study (1) Particle Jets, (2) Track Jets, and (3) Calorimeter Jets. Paricles jets are made of all MC truth particles (exluding neutrinos). Track jets are made of reconstructed tracks (no neutrals). Particle and Track jets are clustered using anti-kt R=0.4 algorithm. Calorimeter jets come directly from the DAOD container, and are matched to the nearest track jet.
 
-A PUPPI Weight is then constructed using using $F_{\chi^2}$, the cumulative distribution function of the $\chi^2$ distribution with a single degree of freedom:
-
-\begin{equation}
-    w_i=F_{\chi^2,NDF=1}(\chi^2_i).
-\end{equation}
-
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering
-	\begin{subfigure}{.23\textwidth}
+	\begin{subfigure}{.32\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/alpha_i_mu60.png}
-		\label{fig:alpha_i_mu60}
+		\includegraphics[width=\linewidth]{figures/chapter6/W_mass_raw.png}
+		\caption{}
+		\label{fig:Wmass:sub1}
 	\end{subfigure}\hfill
-	\begin{subfigure}{.23\textwidth}
+	\begin{subfigure}{.32\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/PUPPI_weights_mu60.png}
-		\label{fig:PUPPI_weights_mu60}
+		\includegraphics[width=\linewidth]{figures/chapter6/W_mass_stripped.png}
+		\caption{}
+		\label{fig:WMass:sub2}
 	\end{subfigure}\hfill
-	\begin{subfigure}{.23\textwidth}
+	\begin{subfigure}{.32\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/alpha_i_mu200.png}
-		\label{fig:alpha_i_mu200}
-	\end{subfigure}\hfill
-	\begin{subfigure}{.23\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/chapter6/PUPPI_weights_mu200.png}
-		\label{fig:PUPPI_weights_mu200}
-	\end{subfigure}\hfill
-	\caption{Validation Plots for implementation of the PUPPI algorithm}
-	\label{fig:PUPPI_valdiation}
+		\includegraphics[width=1\linewidth]{figures/chapter6/Direction_Corrections.png}
+		\caption{}
+		\label{fig:Wmass:sub3}
+	\end{subfigure}
+	\caption{Mass Reconstruction after PhyGHT correction}
 \end{figure}
 
-After each track is assigned a PUPPI weight, we reweight each constituent of each jet accordingly. When can sum over the weighted 4-vectors of the set of tracks to calculate the predicted energy and mass fraction of each jet according to PUPPI weights. Since some particles were cut from the dataset with $p_T<1 GeV$, we also recalculate the energy and mass fractions using true pileup labels for the remaining constituents. From these recalculated values, we can derived an $R^2$ score and ROC curve. Note: at $\langle\mu\rangle=200$ the same cuts were used for PUPPI weights, but the performance sharply dropped as shown in the Figure \ref{fig:PUPPI_valdiation}. Since we do not apply a generator level filter to hard scatter events, our hard scatter appears more pileup-like than the original PUPPI paper at $\langle\mu\rangle=60$.
+As a figure of merit, we reconstruct the W boson mass originating from the hadronic top quark. Particle jets are considred to originate from W if at least 2 particles can be traced back to W using MC truth history. If more than 2 candidates, the leading two jets are selected. As shown in Figure \ref{fig:Wmass:sub1} the reconstructed W mass is heavily inflated due to pileup. However, after applying truth level $E_{frac}$ and $M_{frac}$, we can see the W boson mass restored near 80 GeV in Figure \ref{fig:WMass:sub2}.
 
-As shown in the table, PUPPI's performance sharply drops at $\langle \mu \rangle = 200$.
+Although $E_{frac}$ and $M_{frac}$ restore the W mass, they are not a complete set of corrections. As shown in Figure \ref{fig:Wmass:sub3}, the direction of the jet axis itself is distorted due to pileup requiring the need for $\eta$ and $\phi$ corrections. Shown in red is the true $M_{jj}$ mass clustered with HS particles only which represents the true jet axis. The blue shows corrected particle jets but raw jet direction. The green shows corrected track jets but raw jet direction. Therefore, $E_{frac}$ and $M_{frac}$ are not a complete description of pileup corrections as pileup affects the jet axis.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter6/W_mass_jet_types.png}
+		\caption{}
+		\label{fig:Benchmark:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/chapter6/W_mass_deltaR_matching.png}
+		\caption{}
+		\label{fig:Benchmark:sub2}
+	\end{subfigure}
+	\caption{Benchmark performance for the binary classification task for replica ATLAS JVT (blue), baseline deep NN (red), and MHA jet encoder (green) for for $\left<\mu\right>=60$ (a) and $\left<\mu\right>=200$ (b). Further improvement can be gained by PUMiNet when tracks are added to the model (c). }
+	\label{fig:Benchmark}
+\end{figure}
+
+In order to extrapolate these correction derived on track jets to calorimeter jets, we implement a matching scheme in $\Delta R$. We find W candidates from clustered track jets and then match each candidate to the closest calorimeter jet. Using the DAOD\_FTAG1 derivation, we can see the reconstructed W boson mass on 4 collections (1) PFlow, (2) EMTopo, (3) Truth, and (4) DressedWZ. Without applying $E_{frac}$ and $M_{frac}$ corrections, we can see the reconstructed W mass is near its truth value, which shows that pileup mitigation is already happening during the derivation procedure. Therefore, to implement our approach within ATLAS, we will need to replace the existing pileup mitigation techniques in order to not double count pileup corrections.
 
 \section{Conclusion}\hfill
 
