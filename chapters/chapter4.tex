@@ -28,7 +28,7 @@ Heavy particles produced in high-energy collisions decay with significant branch
 	\label{fig:IP3D}
 \end{figure}
 
-The displacement of the secondary vertex can be characterized by the impact parameters of its associated tracks. The transverse impact parameter $d_0$ is the distance of closest approach between a track and the primary vertex in the transverse plane, while the longitudinal impact parameter $z_0$ is the corresponding distance along the beam axis. Tracks originating from a displaced B-hadron decay will exhibit statistically significant non-zero values of $d_0$ and $z_0$, providing a powerful discriminant against light-flavor jets whose tracks are consistent with the primary vertex. Charm hadrons also undergo displaced decays, though with a shorter mean lifetime ($\sim$0.5~ps) and correspondingly smaller average displacement, making c-jets a more challenging background to reject than light-flavor jets.
+The displacement of the secondary vertex can be characterized by the impact parameters of its associated tracks. The transverse impact parameter $d_0$ is the distance of closest approach between a track and the primary vertex in the transverse plane, while the longitudinal impact parameter $z_0$ is the corresponding distance along the beam axis (REFER TO THE FIGURE). Tracks originating from a displaced B-hadron decay will exhibit statistically significant non-zero values of $d_0$ and $z_0$, providing a powerful discriminant against light-flavor jets whose tracks are consistent with the primary vertex. Charm hadrons also undergo displaced decays, though with a shorter mean lifetime ($\sim$0.5~ps) and correspondingly smaller average displacement, making c-jets a more challenging background to reject than light-flavor jets.
 
 Early ATLAS b-tagging algorithms exploited these displaced-vertex signatures by combining track impact parameter significances, inclusive secondary vertex properties, and decay chain topology into multivariate discriminants, progressing from boosted decision trees to shallow and then deep neural networks. The following section describes the subsequent transition to end-to-end architectures that process the full set of tracks within a jet simultaneously, enabling substantial improvements in both light-jet and c-jet rejection.
 
@@ -52,7 +52,7 @@ Early ATLAS b-tagging algorithms exploited these displaced-vertex signatures by 
 	\label{fig:IP3D}
 \end{figure}
 
-\section{Overview of Architectures for Modeling Jets}
+\section{Overview of Architectures for Jet Tagging}
 
 Jet flavor identification at the LHC is a multi-class classification problem: given a jet, a tagger must discriminate between b-jets, c-jets, and light-flavor jets. Deep neural networks (DNNs) are well suited to this task, learning non-linear decision boundaries in high-dimensional feature spaces directly from MC-simulated training samples where truth-level flavor labels are available. Crucially, architectures that operate directly on the full set of tracks within a jet, treating the jet as a variable-length set of objects, preserve information that is inevitably lost when constructing fixed-size high-level summary variables. The following subsections describe the graph- and attention-based architectures that exploit this, and the performance gains they deliver in both b-jet and c-jet identification.
 
@@ -133,6 +133,7 @@ are given by:
 \begin{equation}
 	\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
 \end{equation}
+where softmax is BLAH BLAH BLAH...
 where $d_k$ is the dimension of the key vectors, introduced to prevent saturation of the softmax
 at large dot-product magnitudes. For a jet with $N$ tracks, this produces an $N \times N$
 attention matrix at each layer, where entry $(i,j)$ reflects how strongly track $i$ attends to
@@ -181,7 +182,7 @@ flavor tagger deployed in ATLAS, achieving the best light-jet and $c$-jet reject
 tagger in the sequence, and forming the architectural basis for the boosted jet tagger
 \texttt{GN2X} described in Section~\ref{sec:boosted}.
 
-\subsection{Benchmarks and Results -- Resolved}
+\subsection{Benchmarks and Results -- Small-R Jets}
 
 The performance of a flavor tagger is evaluated using a receiver operating characteristic (ROC)
 curve. The tagger produces a continuous discriminant score for each jet, and a working point is
@@ -312,6 +313,8 @@ $f_{\text{top}} = 0.25$ are used~\cite{ATL-PHYS-PUB-2023-021}.
 	\label{fig:GN2X_Discriminant}
 \end{figure}
 
+EXPLAIN TTBAR MISTAG CALIBRATION REFER TO FIGURE SHOW TOP QUARK EVENTS PASSING THROUGH DXBB CUT!
+
 Working points are defined by placing a threshold on the discriminant score at a fixed signal
 efficiency $\varepsilon_\text{sig}$, with looser working points retaining more signal at the cost
 of greater background contamination, and tighter working points suppressing more background at the
@@ -330,7 +333,7 @@ https://xbb-docs.docs.cern.ch
 
 https://ftag.docs.cern.ch
 
-\subsection{Benchmarks and Results -- Boosted}
+\subsection{Benchmarks and Results -- Large-R Jets}
 
 The performance of \texttt{GN2X} is evaluated in terms of background rejection as a function of
 signal efficiency for both $H(b\bar{b})$ and $H(c\bar{c})$ tagging, compared against the DXbb
@@ -593,7 +596,7 @@ the neutrino from the leptonic $W$ decay. At least one large-$R$ jet with $p_\te
 probe-jet candidate and its mass is restricted to $50~\text{GeV} \leq m \leq 300~\text{GeV}$
 to ensure compatibility with the calibrated jet mass range. The small-$R$ jet closest to the
 lepton in $\Delta R$ must pass $b$-tagging at the 77\% DL1d working point and serves as
-the tag-jet, significantly suppressing the $V$+jets background. To further enforce the
+the tag-jet, significantly suppressing the $W$+jets background. To further enforce the
 back-to-back topology expected from $t\bar{t}$ production, the azimuthal separation between
 the tag-jet and probe-jet is required to satisfy $|\Delta\phi(\text{tag}, \text{probe})| > 1.0$.
 Additionally, the invariant mass of the lepton and tag-jet system is required to satisfy
@@ -746,7 +749,7 @@ enriched region of phase space. A consistent data excess of approximately 25\%
 is observed in the low-mass region of the probe-jet mass distribution. This discrepancy is
 attributed to the UFO jet mass calibration being preliminary at the time of this study;
 finalized recommendations from the JETMET group were not yet available. Also observed is a
-growing contribution from $t\bar{t}$ unmatched events at higher probe-jet $p_\text{T}$,
+growing contribution from $t\bar{t}$ unmatched (PLEASE DEFINE UNMATCHED) events at higher probe-jet $p_\text{T}$,
 which arise from QCD jets produced via initial- or final-state radiation in the
 $q\bar{q} \rightarrow t\bar{t}$ hard-scatter process.
 
