@@ -34,7 +34,7 @@ which is an approximation to the rapidity $y = \frac{1}{2}\ln\frac{E+p_z}{E-p_z}
 	\label{eq:deltaR}
 \end{equation}
 %
-which is the standard metric used for object matching and isolation. The detector is divided into a central barrel region and two end-cap regions. Particle momenta and energies measured transverse to the beam axis are denoted $p_{\text{T}}$ and $E_{\text{T}}$, respectively. Heavy objects, such as top quarks, tend to have high $p_T$ decay products and are biased toward central region ($\eta \approx 0$) while pileup and softer processes tend to be uniformly distributed in $\eta$.
+which is the standard metric used for object matching and isolation. The detector is divided into a central barrel region and two end-cap regions. Particle momenta and energies measured transverse to the beam axis are denoted $p_{\text{T}}$ and $E_{\text{T}}$, respectively. Heavy objects, such as top quarks, tend to have high $p_T$ decay products and are biased toward the central region ($\eta \approx 0$) while pileup and softer processes tend to be uniformly distributed in $\eta$.
 
 \section{The Tracking System}
 
@@ -49,16 +49,16 @@ The ATLAS Inner Detector~\cite{PERF-2007-01} measures electrical readouts as cha
 	\label{fig:ATLAS_tracker}
 \end{figure}
 
-The primary goal of the tracking system is to capture the path of charged particles, called tracks, and should minimally affect the momentum of tracks. The tracking system also allows for primary and secondary vertex reconstruction. A 2T solenoidal magnetic field applies an external force to the charged particles. Momentum of the particle can be determined based on the radius of curvature. The tracking system has full coverage over $\phi$ and acceptance over the pseudorapidity range $|\eta| < 2.5$. The momentum resolution of the tracking system scales with $p_T$ implying that more curvature gives more accurate $p_T$ measurement.
+The primary goal of the tracking system is to capture the path of charged particles, called tracks, and should minimally affect the momentum of tracks. The tracking system also allows for primary and secondary vertex reconstruction. A 2T solenoidal magnetic field applies an external force to the charged particles. Momentum of the particle can be determined based on the radius of curvature. The tracking system has full coverage over $\phi$ and acceptance over the pseudorapidity range $|\eta| < 2.5$. The momentum resolution of the tracking system scales with $p_T$, implying that more curvature gives more accurate $p_T$ measurement.
 %
 \begin{equation}
 	\frac{\sigma_{p_T}}{p_T}=0.05\% p_T \text{GeV} \oplus 1\%
 \end{equation}
 %
-The innermost component is the Pixel detector, which provides the highest granularity acting at a radial distance between 50mm and 150mm. It consists of 1744 silicon pixel modules arranged in three concentric barrel layers and two end-caps of three disks each. Each module has an active area of 16.4\,mm $\times$ 60.8\,mm and contains 47{,}232 pixels of size 50\,$\mu$m $\times$ 400\,$\mu$m, giving a total of approximately 80.4 million readout channels. providing measurements extremely close to the interaction point. It consists of three concentric barrel layers and two end-cap disks on each side. The innermost barrel layer is the Insertable B-Layer (IBL)~\cite{Abbott:2018ikt}, installed during the Long Shutdown 1 (LS1) between Run 1 and Run 2 at a radius of only 33mm from the beam axis. The IBL was introduced to improve primary vertex resolution and the reconstruction of displaced vertices from $b$-hadron decays, which is critical for $b$-jet identification (\textit{b}-tagging).
+The innermost component is the Pixel detector, which provides the highest granularity acting at a radial distance between 50mm and 150mm. It consists of 1744 silicon pixel modules arranged in three concentric barrel layers and two end-caps of three disks each. Each module has an active area of 16.4\,mm $\times$ 60.8\,mm and contains 47{,}232 pixels of size 50\,$\mu$m $\times$ 400\,$\mu$m, giving a total of approximately 80.4 million readout channels. The innermost barrel layer is the Insertable B-Layer (IBL)~\cite{Abbott:2018ikt}, installed during the Long Shutdown 1 (LS1) between Run 1 and Run 2 at a radius of only 33mm from the beam axis. The IBL was introduced to improve primary vertex resolution and the reconstruction of displaced vertices from $b$-hadron decays, which is critical for $b$-jet identification (\textit{b}-tagging).
 
 IBL: https://cds.cern.ch/record/1291633 \\
-Comissioning and calibration: https://arxiv.org/pdf/1004.5293
+Commissioning and calibration: https://arxiv.org/pdf/1004.5293
 
 Surrounding the Pixel detector is the Semiconductor Tracker (SCT), a silicon detector consisting of 4088 modules of silicon-strip detectors. The SCT is arranged in four concentric barrels and two end-caps of nine disks each, providing space-point measurements across radial distances from 299mm to 560mm. The strips in the barrel are approximately aligned parallel to the solenoid field and beam axis while the strip direction in the end-caps is radial. The strips read out a total of 128 channels giving a total of approximately 6.3 million readout channels. A hit is registered when the pulse height in a channel exceeds a preset threshold, nominally corresponding to a charge of 1fC. Together, the Pixel detector and SCT provide the precision hit measurements used in track reconstruction.
 
@@ -66,10 +66,10 @@ The outermost component of the tracking system is the Transition Radiation Track
 
 \subsection{Upgraded Tracking System}
 
-For the High-Luminosity LHC (HL-LHC), the ATLAS inner detector will be replaced entirely by the all-silicon Inner Tracker (ITk)~\cite{}. The HL-LHC will deliver instantaneous luminosities of up to $7 \times 10^{34}$\,cm$^{-2}$s$^{-1}$\cite{2105.10367}, resulting in an average of $\langle\mu\rangle \approx 200$ simultaneous $pp$ interactions per bunch crossing  (pile-up). The integrated luminosity is expected to reach 4000 $fb^{-1}$ by the end of the HL-LHC program, a significant increase from around 350 $fb^{-1}$ obtained in Run 3. Being inadequate for this radiation environment and track density, the TRT and SCT are fully decommissioned and replaced by the upgraded ITk. The ITk extends the tracking acceptance to $|\eta| < 4.0$, as illustrated in Figure~\ref{fig:ATLAS_ITk}, significantly improving forward track reconstruction for physics processes with boosted topologies and forward jets.
+For the High-Luminosity LHC (HL-LHC), the ATLAS inner detector will be replaced entirely by the all-silicon Inner Tracker (ITk)~\cite{}. The HL-LHC will deliver instantaneous luminosities of up to $7 \times 10^{34}$\,cm$^{-2}$s$^{-1}$\cite{2105.10367}, resulting in an average of $\langle\mu\rangle \approx 200$ simultaneous $pp$ interactions per bunch crossing  (pile-up). The integrated luminosity is expected to reach 4000 $fb^{-1}$ by the end of the HL-LHC program, a significant increase from around 350 $fb^{-1}$ obtained in Run 3. As the current inner detector is inadequate for this radiation environment and track density, the TRT and SCT are fully decommissioned and replaced by the upgraded ITk. The ITk extends the tracking acceptance to $|\eta| < 4.0$, as illustrated in Figure~\ref{fig:ATLAS_ITk}, significantly improving forward track reconstruction for physics processes with boosted topologies and forward jets.
 
 Strips: https://cds.cern.ch/record/2257755 \\
-Upgrade Pixals: https://arxiv.org/abs/2105.10367
+Upgrade Pixels: https://arxiv.org/abs/2105.10367
 
 \begin{figure}[h]
 	\centering
@@ -78,7 +78,7 @@ Upgrade Pixals: https://arxiv.org/abs/2105.10367
 	\label{fig:ATLAS_ITk}
 \end{figure}
 
-The ITk comprises two subsystems. ITk Pixel detector forms the innermost region, consisting of five barrel layers and multiple end-cap rings extending to $|z| = 2850$mm, as shown in Figure~\ref{fig:ATLAS_tracker}. With 5 billion readout channels, it provides high-granularity space-point measurements close to the interaction point, retaining excellent vertex resolution in the high pile-up environment. The ITk Strip detector surrounds the pixel system, consisting of four barrel layers extending to $|\eta| < 2.5$ and six end-cap discs on each side covering $1.1 < |\eta| < 4.0$. The strip detectors have 50 million readout channels, and strip modules use short strips of 24.1mm and 48.2mm length in the barrel and end-cap, respectively.
+The ITk comprises two subsystems. The ITk Pixel detector forms the innermost region, consisting of five barrel layers and multiple end-cap rings extending to $|z| = 2850$mm, as shown in Figure~\ref{fig:ATLAS_tracker}. With 5 billion readout channels, it provides high-granularity space-point measurements close to the interaction point, retaining excellent vertex resolution in the high pile-up environment. The ITk Strip detector surrounds the pixel system, consisting of four barrel layers extending to $|\eta| < 2.5$ and six end-cap discs on each side covering $1.1 < |\eta| < 4.0$. The strip detectors have 50 million readout channels, and strip modules use short strips of 24.1mm and 48.2mm length in the barrel and end-cap, respectively.
 
 \section{The Calorimeter System}
 
@@ -122,7 +122,7 @@ https://cds.cern.ch/record/2004868
 
 \subsection{Forward Calorimeter}
 
-The LAr forward calorimeter (FCal) is designed to capture both electromagnetic and hadronic energy in the forward region, extending calorimetric coverage to $3.1 < |\eta| < 4.9$, housed in the same end-cap cryostats as the EMEC and HEC. It consists of three longitudinal modules: the first uses copper absorbers optimised for electromagnetic measurements, while the second and third use tungsten absorbers for hadronic energy measurement. Each module consists of a metal matrix with regularly spaced longitudinal channels filled with concentric rod and tube electrodes, with LAr in the gap serving as the active medium. The FCal is approximately 10 interaction lengths deep, and its high-density design is necessitated by the extremely high particle flux in the forward region close to the beam pipe. The electromagnetic energy resolution is parameterized as:
+The LAr forward calorimeter (FCal) is designed to capture both electromagnetic and hadronic energy in the forward region, extending calorimetric coverage to $3.1 < |\eta| < 4.9$, housed in the same end-cap cryostats as the EMEC and HEC. It consists of three longitudinal modules: the first uses copper absorbers optimized for electromagnetic measurements, while the second and third use tungsten absorbers for hadronic energy measurement. Each module consists of a metal matrix with regularly spaced longitudinal channels filled with concentric rod and tube electrodes, with LAr in the gap serving as the active medium. The FCal is approximately 10 interaction lengths deep, and its high-density design is necessitated by the extremely high particle flux in the forward region close to the beam pipe. The electromagnetic energy resolution is parameterized as:
 %
 \begin{equation}
 	\frac{\sigma_E}{E} \approx \frac{28.5\%}{\sqrt{E}} \oplus 3.5\%,
@@ -192,7 +192,7 @@ Reconstruction proceeds inside-out. First, three-dimensional space-points are fo
 from individual channel hits, exploiting the stereo geometry of the SCT to resolve 
 two-dimensional positions from pairs of strip measurements. Track candidates are seeded 
 from triplets of space-points in the pixel and first SCT layers, each defining an 
-initial helix hypothesis parameterised by the five track parameters
+initial helix hypothesis parameterized by the five track parameters
 %
 \begin{equation}
 	\boldsymbol{\tau} = (d_0,\, z_0,\, \phi,\, \theta,\, q/p),
@@ -216,7 +216,7 @@ number of hits, fit quality $\chi^2/n_{\text{dof}}$, and number of holes (expect
 but missing hits). The final tracks are required to satisfy quality criteria on the 
 minimum number of hits and maximum $|d_0|$ and $|z_0|$ to suppress fake tracks from 
 random hit combinations. For Run~3, the reconstruction software was significantly 
-optimised to handle the higher pile-up environment of $\langle\mu\rangle \approx 50$, 
+optimized to handle the higher pile-up environment of $\langle\mu\rangle \approx 50$, 
 achieving a factor of two improvement in processing speed while maintaining 
 reconstruction efficiency and reducing the fake-track rate by more than a factor of 
 two~\cite{IDTR-2022-04}.
@@ -244,7 +244,7 @@ https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/PERF-2014-07/
 https://arxiv.org/abs/0802.1189
 
 Quarks and gluons produced in hard-scatter interactions cannot be observed directly 
-due to colour confinement, and instead fragment and hadronise into collimated sprays 
+due to color confinement, and instead fragment and hadronize into collimated sprays 
 of stable particles known as \textit{jets}. A jet algorithm must be both infrared- and 
 collinear-safe — that is, insensitive to soft wide-angle radiation and to the collinear 
 splitting of hard partons~\cite{Cacciari:2008gp, Salam:2009jx}.
@@ -256,7 +256,7 @@ The starting point for calorimeter-based jet reconstruction is the formation of
 electronic noise and pile-up by grouping calorimeter cells according to their 
 signal-to-noise ratio $\varsigma = |E_{\text{cell}}| / \sigma_{\text{noise}}$. Cluster 
 formation proceeds via a seeded growth algorithm in which cells with $\varsigma > 4$ 
-are designated as seeds, neighbouring cells with $\varsigma > 2$ are iteratively 
+are designated as seeds, neighboring cells with $\varsigma > 2$ are iteratively 
 added, and a final ring of adjacent cells with $\varsigma > 0$ is included to capture 
 the full shower extent. This \textit{4-2-0} thresholding scheme is illustrated in 
 Figure~\ref{fig:topo_cluster} for a simulated dijet event in the FCal. Topo-clusters 

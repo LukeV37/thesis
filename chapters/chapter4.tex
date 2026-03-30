@@ -7,7 +7,7 @@
 
 \section{Introduction to B-Tagging}
 
-Heavy particles produced in high-energy collisions decay with significant branching fractions to heavy-flavor quarks: the top quark decays almost exclusively via $t \to Wb$, while the Higgs boson has sizeable branching fractions to both $b\bar{b}$ and $c\bar{c}$ pairs. Identification of jets originating from b-quarks (b-jets) and c-quarks (c-jets) is therefore a critical task for the LHC physics program. The b quark undergoes weak decay $b \to cW^-$, with a rate governed by the CKM matrix element $V_{cb}$. Since $|V_{cb}|$ is small, the decay proceeds slowly relative to those of lighter quarks, resulting in a comparatively long B-hadron lifetime of $\sim$1.5~ps. This is sufficient for a B hadron produced at a typical LHC interaction point to travel several millimetres before decaying, giving rise to a secondary vertex spatially displaced from the primary interaction vertex.
+Heavy particles produced in high-energy collisions decay with significant branching fractions to heavy-flavor quarks: the top quark decays almost exclusively via $t \to Wb$, while the Higgs boson has sizable branching fractions to both $b\bar{b}$ and $c\bar{c}$ pairs. Identification of jets originating from b-quarks (b-jets) and c-quarks (c-jets) is therefore a critical task for the LHC physics program. The b quark undergoes weak decay $b \to cW^-$, with a rate governed by the CKM matrix element $V_{cb}$. Since $|V_{cb}|$ is small, the decay proceeds slowly relative to those of lighter quarks, resulting in a comparatively long B-hadron lifetime of $\sim$1.5~ps. This is sufficient for a B hadron produced at a typical LHC interaction point to travel several millimeters before decaying, giving rise to a secondary vertex spatially displaced from the primary interaction vertex.
 
 \begin{figure}
 	\centering
@@ -54,7 +54,7 @@ Early ATLAS b-tagging algorithms exploited these displaced-vertex signatures by 
 
 \section{Overview of Architectures for Modeling Jets}
 
-Jet flavor identification at the LHC is a multi-class classification problem: given a jet, a tagger must discriminate between b-jets, c-jets, and light-flavor jets. Deep neural networks (DNNs) are well suited to this task, learning non-linear decision boundaries in high-dimensional feature spaces directly from MC-simulated training samples where truth-level flavor labels are available. Crucially, architectures that operate directly on the full set of tracks within a jet, treating the jet as a variable-length set of objects, preserve information that is inevitably lost when constructing fixed-size high-level summary variables. The following subsections describe the graph and attention based architectures that exploit this, and the performance gains they deliver in both b-jet and c-jet identification.
+Jet flavor identification at the LHC is a multi-class classification problem: given a jet, a tagger must discriminate between b-jets, c-jets, and light-flavor jets. Deep neural networks (DNNs) are well suited to this task, learning non-linear decision boundaries in high-dimensional feature spaces directly from MC-simulated training samples where truth-level flavor labels are available. Crucially, architectures that operate directly on the full set of tracks within a jet, treating the jet as a variable-length set of objects, preserve information that is inevitably lost when constructing fixed-size high-level summary variables. The following subsections describe the graph- and attention-based architectures that exploit this, and the performance gains they deliver in both b-jet and c-jet identification.
 
 \subsection{Graph Neural Networks and GN1}
 
@@ -110,7 +110,7 @@ individual track, classifying it as originating from the primary vertex, a $b$-h
 a $c$-hadron decay, pileup, or other secondary processes. The second predicts the vertex
 compatibility of each pair of tracks, determining whether two tracks originate from the same
 vertex and thereby performing implicit secondary vertex finding without a dedicated vertexing
-algorithm. Together these auxiliary objectives act as powerful regularizers, encouraging the
+algorithm. Together, these auxiliary objectives act as powerful regularizers, encouraging the
 network to build physically interpretable representations that generalize well across jet
 kinematics. The graph-based message passing combined with multi-task learning produced
 substantial improvements in both light-jet and $c$-jet rejection over \texttt{DL1r}.
@@ -399,7 +399,7 @@ regions~\cite{ATL-PHYS-PUB-2023-021}.
 \section{Calibration of B-Tagging Algorithms}
 
 Since GN2X is trained on Monte Carlo simulation, its tagging efficiency may differ from that
-observed in data due to mismodelling effects arising from the matrix element generator, parton
+observed in data due to mismodeling effects arising from the matrix element generator, parton
 shower, underlying event tune, and detector simulation. GN2X requires a process-based
 calibration where scale factors are derived separately for distinct physics processes in order
 to extract the signal efficiency and background mistag rate independently. The efficiency scale
@@ -445,7 +445,7 @@ after applying the tagger requirement:
 \end{equation}
 
 where $\mu$ is the ratio of observed to predicted signal yields. Overwhelming multijet background
-make a direct measurement of $\mu_{\text{pre-tag}}$ using $Z \rightarrow b\bar{b}$ events
+makes a direct measurement of $\mu_{\text{pre-tag}}$ using $Z \rightarrow b\bar{b}$ events
 before tagging unfeasible. Instead, $\mu_{\text{pre-tag}}$ is obtained from the
 $Z \rightarrow \ell^+\ell^-$ channel, which has a well-understood background composition.
 The number of $Z \rightarrow b\bar{b}$ events in data before tagging is estimated as:
@@ -481,11 +481,11 @@ within the $R = 1.0$ jet cone.
 \subsection{\texorpdfstring{$t\bar{t}$}{ttbar} Mistag Calibration}
 
 Top quark pair production is one of the dominant backgrounds in boosted
-$H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ searches, and correctly modelling
+$H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ searches, and correctly modeling
 its contribution after tagger requirements is critical for reliable background estimation
 in these analyses. While the signal efficiency calibration corrects for data-MC differences
 in the tagger's ability to identify $H \rightarrow b\bar{b}$ jets, a separate calibration
-is required to correct for mismodelling of the top-jet mistag rate, which is the rate at
+is required to correct for mismodeling of the top-jet mistag rate, which is the rate at
 which hadronic top-quark jets pass the GN2X working point. An underestimate of the top
 rejection in data would lead to a residual excess of top background
 after tagging, directly biasing any analysis relying on this tagger. The $t\bar{t}$
@@ -517,9 +517,9 @@ non-$t\bar{t}$ event yields respectively. Substituting $SF = \varepsilon^{\text{
 
 These two equations are solved simultaneously per probe-jet $p_\text{T}$ bin to extract
 $\mu_{t\bar{t}}$ and $SF$ via a maximum likelihood fit to the probe-jet mass distribution.
-The normalisation factor $\mu_{t\bar{t}}$ absorbs the known data-MC discrepancy in the
+The normalization factor $\mu_{t\bar{t}}$ absorbs the known data-MC discrepancy in the
 $t\bar{t}$ $p_\text{T}$ spectrum, while $SF$ isolates the efficiency correction
-introduced by the tagger itself. Since no floating normalisation is applied to the
+introduced by the tagger itself. Since no floating normalization is applied to the
 non-$t\bar{t}$ backgrounds, a phase space region must be identified where these
 contributions are heavily suppressed and the $t\bar{t}$ yield dominates. Semi-leptonic
 $t\bar{t}$ events are targeted for this purpose, where the leptonically decaying top
@@ -633,7 +633,7 @@ requirement on the event yield is shown in Table~\ref{tab:cutflow}.
 %	\label{fig:Yields}
 %\end{figure}
 
-%Part of my ATLAS qualification task was ensuring that the largeR jet kinematics matched the previous software release. Switching from LCTopo to UFO is a large change in jet reconstruction. While the $p_T$, $\eta$, and $\phi$ are consistent between the R21 adn R24 software releases, there is a noticeable mass shift in the new release as shown in Figure \ref{fig:probe_jet_validation:subfigd}. To invesigate this mass shift further, validation plots were made in $p_T$ slices as shown in Figure \ref{fig:probe_jet_validation:subfige}, \ref{fig:probe_jet_validation:subfigf}, \ref{fig:probe_jet_validation:subfigg}, \ref{fig:probe_jet_validation:subfigh}. As of the end of my qualification task in 2023, JETMET was still providing updated calibrations to UFO objects to correctly model the mass of top quark.
+%Part of my ATLAS qualification task was ensuring that the largeR jet kinematics matched the previous software release. Switching from LCTopo to UFO is a large change in jet reconstruction. While the $p_T$, $\eta$, and $\phi$ are consistent between the R21 and R24 software releases, there is a noticeable mass shift in the new release as shown in Figure \ref{fig:probe_jet_validation:subfigd}. To investigate this mass shift further, validation plots were made in $p_T$ slices as shown in Figure \ref{fig:probe_jet_validation:subfige}, \ref{fig:probe_jet_validation:subfigf}, \ref{fig:probe_jet_validation:subfigg}, \ref{fig:probe_jet_validation:subfigh}. As of the end of my qualification task in 2023, JETMET was still providing updated calibrations to UFO objects to correctly model the mass of top quark.
 
 %\begin{figure}
 %	\centering
@@ -692,11 +692,11 @@ requirement on the event yield is shown in Table~\ref{tab:cutflow}.
 \subsubsection{Constructing Fit Regions}
 
 The mistag efficiency $\varepsilon^{\text{data}}_{t\bar{t}}$ is measured as a function of
-probe-jet $p_\text{T}$ by simultaneously extracting the $t\bar{t}$ normalisation factor
+probe-jet $p_\text{T}$ by simultaneously extracting the $t\bar{t}$ normalization factor
 $\mu_{t\bar{t}}$ and the scale factor $SF$ from a maximum likelihood fit in each $p_\text{T}$
 bin. The signal region is populated by events where the probe jet passes the GN2Xv01 tagger
 working point, and the control region by events where it fails. At the time of this study,
-the GN2Xv01 working points had not yet been finalised; a flat threshold of 1.76 on the
+the GN2Xv01 working points had not yet been finalized; a flat threshold of 1.76 on the
 discriminant was therefore used to approximate the 70\% signal efficiency working point.
 Subsequent developments have resulted in working points defined as two-dimensional functions
 of the discriminant score, jet mass, and jet $p_\text{T}$, in order to reduce mass sculpting
@@ -745,7 +745,7 @@ effectiveness of the tag-and-probe strategy and allowing direct access to a $t\b
 enriched region of phase space. A consistent data excess of approximately 25\%
 is observed in the low-mass region of the probe-jet mass distribution. This discrepancy is
 attributed to the UFO jet mass calibration being preliminary at the time of this study;
-finalised recommendations from the JETMET group were not yet available. Also observed is a
+finalized recommendations from the JETMET group were not yet available. Also observed is a
 growing contribution from $t\bar{t}$ unmatched events at higher probe-jet $p_\text{T}$,
 which arise from QCD jets produced via initial- or final-state radiation in the
 $q\bar{q} \rightarrow t\bar{t}$ hard-scatter process.
@@ -791,19 +791,19 @@ Figure~\ref{fig:ttbar_SR}. Good data-MC agreement is observed across all $p_\tex
 after the simultaneous fit. The relative contribution from unmatched $t\bar{t}$ events is
 reduced compared to the control region, as QCD-like jets are more strongly suppressed by
 the discriminant threshold, consistent with the separation shown in
-Figure~\ref{fig:GN2X_Discriminant}. The normalisation factor $\mu_{t\bar{t}}$ and scale
+Figure~\ref{fig:GN2X_Discriminant}. The normalization factor $\mu_{t\bar{t}}$ and scale
 factor $SF$ are extracted simultaneously from the SR and CR in each $p_\text{T}$ bin,
-ensuring that any overall $t\bar{t}$ normalisation difference is absorbed by $\mu_{t\bar{t}}$
+ensuring that any overall $t\bar{t}$ normalization difference is absorbed by $\mu_{t\bar{t}}$
 and does not bias the extracted $SF$.
 
 \subsubsection{\texorpdfstring{$t\bar{t}$}{ttbar} Mistag Calibration Results}
 
-The $t\bar{t}$ normalisation factor $\mu_{t\bar{t}}$ and scale factor $SF$ are extracted
+The $t\bar{t}$ normalization factor $\mu_{t\bar{t}}$ and scale factor $SF$ are extracted
 per probe-jet $p_\text{T}$ bin from the simultaneous maximum likelihood fit to the SR and
-CR mass distributions. These results include statistical uncertainties only; a finalised
+CR mass distributions. These results include statistical uncertainties only; a finalized
 result would additionally incorporate systematic uncertainties from sources including jet
-energy and mass scale and resolution, $t\bar{t}$ modelling from initial- and final-state
-radiation variations, and flavour tagging uncertainties.
+energy and mass scale and resolution, $t\bar{t}$ modeling from initial- and final-state
+radiation variations, and flavor tagging uncertainties.
 
 \begin{figure}[h]
 	\centering
@@ -817,7 +817,7 @@ radiation variations, and flavour tagging uncertainties.
 		\includegraphics[width=\linewidth]{figures/chapter4/scale_factors_mc20.png}
 		\label{fig:ttbar_SF:MC20}
 	\end{subfigure}
-	\caption{Extracted $t\bar{t}$ normalisation factor $\mu_{t\bar{t}}$ and scale factor
+	\caption{Extracted $t\bar{t}$ normalization factor $\mu_{t\bar{t}}$ and scale factor
 		$SF$ as a function of probe-jet $p_\text{T}$, derived using the full Run~2 dataset
 		for the MC16 (a) and MC20 (b) simulation campaigns. Statistical uncertainties only.}
 	\label{fig:ttbar_SF}
@@ -827,12 +827,12 @@ Results are derived for both the MC16 and MC20 simulation campaigns using the fu
 dataset, and are shown in Figure~\ref{fig:ttbar_SF}. The most notable difference between
 the two campaigns is in the extracted $\mu_{t\bar{t}}$ values, which are significantly
 lower in MC16 than in MC20, reflecting a known difference in the $t\bar{t}$ cross-section
-normalisation and $p_\text{T}$ modelling between the two configurations. Despite this
-difference in normalisation, the scale factors extracted from MC16 and MC20 are in good
+normalization and $p_\text{T}$ modeling between the two configurations. Despite this
+difference in normalization, the scale factors extracted from MC16 and MC20 are in good
 mutual agreement across all $p_\text{T}$ bins, indicating that the tagger response
 relative to the MC prediction is largely insensitive to the choice of simulation campaign.
 The scale factors are consistent with unity within uncertainties, suggesting no large
-mismodelling of the top-quark mistag rate in either MC campaign.
+mismodeling of the top-quark mistag rate in either MC campaign.
 
 \section{Conclusion}
 
