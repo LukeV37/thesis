@@ -21,6 +21,8 @@ Despite having a smaller production cross section than the VBF mode, the VH chan
 
 \section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
 
+TODO: Add latex notation for the title
+
 The associated production of the Higgs boson with a vector boson ($VH$, $V = W, Z$) provides a uniquely clean environment for studying hadronic Higgs decays. The leptonic decay of the vector boson provides the critical trigger handle that suppresses QCD multijet backgrounds and makes both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ experimentally accessible. The $W$ boson is reconstructed via its decays to an electron, muon, or $\tau$-lepton and a neutrino, while the $Z$ boson is reconstructed from electron or muon pairs, or identified through large missing transverse energy in the $Z \rightarrow \nu\nu$ case. These signatures define the 0-, 1-, and 2-lepton analysis channels, and the analysis uses 140 fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 13$ TeV collected by the ATLAS detector during Run 2. The dominant residual backgrounds are $t\bar{t}$ and $V$+jets production, which are separated from signal using Boosted Decision Trees (BDTs) trained on kinematic and flavor-tagging variables. Events are further categorized by lepton multiplicity, vector boson $p_\mathrm{T}$, and BDT score, and the analysis ultimately constrains the coupling modifiers $\kappa_b$ and $\kappa_c$ and their ratio $|\kappa_c/\kappa_b|$ within the $\kappa$-framework.
 
 \subsection{Fit Regions}
@@ -40,6 +42,8 @@ The global likelihood fit comprises 59 signal regions, with 27 targeting $H \rig
 	\caption{Overview of the signal and control regions used in the VH analysis, categorized by lepton channel, $p_\mathrm{T}^V$ interval, and flavor tagging configuration for the $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ signal regions.}
 	\label{fig:VH_regions}
 \end{figure}
+
+TODO: explain motivation for different regions
 
 I joined this analysis at a mature stage, with the majority of signal and control regions already finalized. Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_\mathrm{T}$ signal region, $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$, in the single-lepton CC channel. A key challenge in this region was that the $C_T N$ and $C_L N$ tagging configurations have very high event statistics but low signal-to-background ratios, causing large pulls on the experimental uncertainties in the fit. These configurations were therefore removed from the low $p_\mathrm{T}$ region to stabilize the fit model. However, removing these regions left insufficient constraining power to freely float the $W$+lf ($W$ boson produced in association with light-flavor jets) normalization factor in the $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$ interval. Instead, the $W$+lf normalization was assigned a 20\% Gaussian prior for this $p_\mathrm{T}^V$ bin, while remaining freely floating at higher $p_\mathrm{T}^V$. Both the $W$+lf and $W$+mf ($W$ boson produced in association with medium-flavor, charm jets) normalization factors were decorrelated by jet multiplicity and $p_\mathrm{T}^V$ for the low $p_\mathrm{T}$ region. With the $W$+lf prior in place, the constraint on the freely floating $W$+mf normalization improved significantly, as shown in Figure~\ref{fig:NP_FloatNorm}. These changes ultimately helped constrain the background modeling and improve the overall sensitivity to signal.
 
