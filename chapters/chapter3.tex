@@ -7,48 +7,103 @@
 
 \section{Introduction to the ATLAS Detector}
 
-The ATLAS (\underline{A} \underline{T}oroidal \underline{L}HC \underline{A}pparatu\underline{S}) detector~\cite{PERF-2007-01} is a general-purpose particle detector. It is situated near the CERN campus at a designated interaction point on the LHC 100m below ground. As shown in Figure~\ref{fig:ATLAS_detector}, the ATLAS detector is 44m in length and 25m in diameter and weighs around 7000 tonnes. At this scale, the ATLAS detector records some of the highest energy particle collisions ever observed. The detector is designed to capture the decay products of physics processes produced in $pp$ collisions. It is composed of several concentric subsystems arranged around the interaction point: the inner tracking system, the electromagnetic and hadronic calorimeters, and the muon spectrometer. A solenoid magnet surrounding the inner detector provides a 2T axial field which bends the trajectories of charged particles and the curvature can be used to determine the momentum of these particles.
-
-MENTION THE MOTIVATION OF TRACKER AND CALORIMETER. IT IS DESIGNED IN SUCH A WAY TO IDENTIFY PARTILCES THAT ARE PRODUCES: eLECTRONS, PHOTONS, MUONS, HADRONS (JETS). tRACKER DOES NOT CAPTURE ENERGY, BUT CALO DOES STOP ENERGY
-
-eVERY SINGLE PHYSICS ANALYSIS REQUIRES FULL UNDERSTANDING OF EVENT TOPOLOGY OF VARIOUS OBJECTS. sINCE THESE PRODUCTION OF THESE PHYSICS PROCDUCTIONS IS AT DIFFERENT RATES, CROSS SECTIONS, AND BRANCHING RATIOS. sOME OF THESE EVENTS ARE QUITE RARE SO TRIGGER BECOMES SUPER IMPORTANT. tRIGGER PLAYS A HUGE PART IN 
-
-https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/PERF-2007-01/
+The ATLAS (\underline{A} \underline{T}oroidal \underline{L}HC \underline{A}pparatu\underline{S}) detector~\cite{PERF-2007-01} is a general-purpose particle detector designed to reconstruct the full final state of $pp$ collisions across a broad physics program. It is situated at a designated interaction point on the LHC, approximately 100\,m below ground near the CERN campus. As shown in Figure~\ref{fig:ATLAS_detector}, the detector is 44\,m in length, 25\,m in diameter, and weighs approximately 7000 tonnes. It is composed of several concentric subsystems arranged around the interaction point: the inner tracking system, the electromagnetic and hadronic calorimeters, and the muon spectrometer. Each subsystem is designed to measure specific properties of the particles produced in the collision, as described in the following sections.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{figures/chapter3/ATLAS_detector.jpg}
-	\caption{https://atlas.cern/Resources/Schematics}
+	\caption{The ATLAS detector and its subcomponents}
 	\label{fig:ATLAS_detector}
 \end{figure}
+% https://atlas.cern/Resources/Schematics
+
+\subsection{General Purpose Detector Design}
+
+A general-purpose detector is designed around the physics objects it must
+measure. Two subsystems form the foundation of this design. The
+\textbf{inner tracker} measures the momenta of charged particles by recording
+their curved trajectories in a solenoidal magnetic field. It must do so
+\textit{non-destructively}, using thin silicon layers that minimally perturb
+the particles passing through. The \textbf{calorimeters} take the opposite
+approach, and are designed to stop particles completely and absorb their
+total energy. Unlike the tracker, the calorimeters respond to both charged
+and neutral particles. Together, these two systems provide the complementary
+information needed to reconstruct the full event topology.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/chapter3/ATLAS_detector_particles.png}
+	\caption{https://atlas.cern/Resources/Schematics}
+	\label{fig:detector_slice}
+\end{figure}
+
+As illustrated in Figure~\ref{fig:detector_slice}, each particle species
+exploits this architecture differently. \textbf{Electrons}~\cite{EGAM-2018-01} leave a curved
+track in the inner detector and deposit their full energy in the EM
+calorimeter via a narrow electromagnetic shower. \textbf{Photons}~\cite{EGAM-2018-01} produce
+an identical EM shower but leave no track, as they carry no electric charge.
+\textbf{Muons}~\cite{MUON-2018-03} are minimum-ionising and pass through the calorimeters
+largely unimpeded. They leave matched tracks in both the inner detector and
+the outermost muon spectrometer. \textbf{Jets} leave tracks from their
+charged constituents and deposit energy across both the EM and hadronic
+calorimeters. \textbf{Neutrinos} escape the detector entirely. Their
+presence is inferred from the transverse momentum imbalance they leave
+behind, reconstructed as missing transverse energy $E_{\text{T}}^{\text{miss}}$.
+
+% MENTION THE MOTIVATION OF TRACKER AND CALORIMETER. IT IS DESIGNED IN SUCH A WAY TO IDENTIFY PARTILCES THAT ARE PRODUCES: eLECTRONS, PHOTONS, MUONS, HADRONS (JETS). tRACKER DOES NOT CAPTURE ENERGY, BUT CALO DOES STOP ENERGY
+% eVERY SINGLE PHYSICS ANALYSIS REQUIRES FULL UNDERSTANDING OF EVENT TOPOLOGY OF VARIOUS OBJECTS. sINCE THESE PRODUCTION OF THESE PHYSICS PROCDUCTIONS IS AT DIFFERENT RATES, CROSS SECTIONS, AND BRANCHING RATIOS. sOME OF THESE EVENTS ARE QUITE RARE SO TRIGGER BECOMES SUPER IMPORTANT. tRIGGER PLAYS A HUGE PART IN
+
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/PERF-2007-01/
 
 \subsection{Detector Coordinate System}
 
-ATLAS uses a right-handed coordinate system with its origin at the interaction point (z=0). The $z$-axis is defined along the beam direction, the $x$-axis points from the interaction point towards the center of the LHC ring, and the $y$-axis points upward. The azimuthal angle $\phi$ is measured in the $x$--$y$ transverse plane around the beam axis, while the polar angle $\theta$ is measured from the positive $z$-axis. In collider coordinate systems it is convenient to replace $\theta$ with the pseudorapidity, defined as:
+ATLAS uses a right-handed coordinate system with its origin at the
+interaction point ($z=0$). The $z$-axis points along the beam direction,
+the $x$-axis points toward the center of the LHC ring, and the $y$-axis
+points upward. The azimuthal angle $\phi$ is measured around the beam axis
+in the transverse plane, and the polar angle $\theta$ is measured from the
+positive $z$-axis. The polar angle $\theta$ transforms nonlinearly under
+longitudinal Lorentz boosts, making it an inconvenient coordinate.
+Rapidity, $y = \frac{1}{2}\ln\frac{E+p_z}{E-p_z}$, transforms with a
+simple additive shift, so rapidity \textit{differences} between particles
+are invariant. Since computing $y$ requires knowledge of the particle mass,
+it is approximated by the pseudorapidity:
 %
 \begin{equation}
 	\eta = -\ln\tan\left(\frac{\theta}{2}\right),
 	\label{eq:pseudorapidity}
 \end{equation}
 %
-which is an approximation to the rapidity $y = \frac{1}{2}\ln\frac{E+p_z}{E-p_z}$ in the massless limit, and whose differences are Lorentz-invariant under boosts along the beam axis. The angular separation between two objects is expressed as:
+which is purely geometric and equals $y$ in the massless limit.
+Particle production is approximately uniform in $\eta$, which is why
+detector subsystems are segmented uniformly in $\eta$ rather than $\theta$.
+The angular separation between two objects is expressed as:
 %
 \begin{equation}
 	\Delta R = \sqrt{(\Delta\eta)^2 + (\Delta\phi)^2},
 	\label{eq:deltaR}
 \end{equation}
 %
-which is the standard metric used for object matching and isolation. The detector is divided into a central barrel region and two end-cap regions. Particle momenta and energies measured transverse to the beam axis are denoted $p_{\text{T}}$ and $E_{\text{T}}$, respectively. Heavy objects, such as top quarks, tend to have high $p_T$ decay products and are biased toward the central region ($\eta \approx 0$) while pileup and softer processes tend to be uniformly distributed in $\eta$.
+which is the standard metric for object matching and isolation. The detector
+is divided into a central barrel region and two end-cap regions, with
+transverse momentum and energy denoted $p_{\text{T}}$ and $E_{\text{T}}$
+respectively.
+
+% HEAVY OBJECTS SUCH AS TOP QUARKS TEND TO HAVE HIGH $p_T$ DECAY PRODUCTS
+% AND ARE BIASED TOWARD THE CENTRAL REGION ($\eta \approx 0$) WHILE PILEUP
+% AND SOFTER PROCESSES TEND TO BE UNIFORMLY DISTRIBUTED IN $\eta$.
 
 \section{The Tracking System}
 
-\subsection{Current Tracking System}
-
-The tracking system is composed of three complementary subdetectors: the Pixel detector, the Semiconductor Tracker (SCT), and the Transition Radiation Tracker (TRT) as shown in Figure~\ref{ATLAS_tracker}. 
+% TODO: MERGE THE OPENING SENTENCE (LISTING THREE SUBDETECTORS) WITH THE
+% FOLLOWING PARAGRAPH INTO ONE COHERENT INTRO PARAGRAPH. FIX GRAMMAR:
+% "SHOULD MINIMALLY AFFECT THE MOMENTUM OF TRACKS" -- SUBJECT SHIFTS MID-SENTENCE.
+% ALSO FIX BROKEN FIGURE REF: \ref{ATLAS_tracker} SHOULD BE \ref{fig:ATLAS_tracker}
+The tracking system is composed of three complementary subdetectors: the Pixel detector, the Semiconductor Tracker (SCT), and the Transition Radiation Tracker (TRT) as shown in Figure~\ref{ATLAS_tracker}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter3/ATLAS_track_hits.png}
+	\includegraphics[width=0.9\linewidth]{figures/chapter3/ATLAS_track_hits.png}
 	\caption{https://atlas.cern/Resources/Schematics}
 	\label{fig:ATLAS_tracker}
 \end{figure}
@@ -58,31 +113,24 @@ The primary goal of the tracking system is to capture the path of charged partic
 \begin{equation}
 	\frac{\sigma_{p_T}}{p_T}=0.05\% p_T \text{GeV} \oplus 1\%
 \end{equation}
+% TODO: EXPLAIN THE \oplus SYMBOL AND THE TWO TERMS (STOCHASTIC VS CONSTANT).
+% FIX UNITS: 0.05\% p_T \text{GeV} SHOULD BE 0.05\% \cdot p_T\,[\text{GeV}] OR SIMILAR.
 %
+
+\subsection{Pixel Detector}
+
 The innermost component is the Pixel detector, which provides the highest granularity acting at a radial distance between 50mm and 150mm. It consists of 1744 silicon pixel modules arranged in three concentric barrel layers and two end-caps of three disks each. Each module has an active area of 16.4\,mm $\times$ 60.8\,mm and contains 47{,}232 pixels of size 50\,$\mu$m $\times$ 400\,$\mu$m, giving a total of approximately 80.4 million readout channels. The innermost barrel layer is the Insertable B-Layer (IBL)~\cite{Abbott:2018ikt}, installed during the Long Shutdown 1 (LS1) between Run 1 and Run 2 at a radius of only 33mm from the beam axis. The IBL was introduced to improve primary vertex resolution and the reconstruction of displaced vertices from $b$-hadron decays, which is critical for $b$-jet identification (\textit{b}-tagging).
 
 IBL: https://cds.cern.ch/record/1291633 \\
 Commissioning and calibration: https://arxiv.org/pdf/1004.5293
 
+\subsection{Semiconductor Tracker -- SCT}
+
 Surrounding the Pixel detector is the Semiconductor Tracker (SCT), a silicon detector consisting of 4088 modules of silicon-strip detectors. The SCT is arranged in four concentric barrels and two end-caps of nine disks each, providing space-point measurements across radial distances from 299mm to 560mm. The strips in the barrel are approximately aligned parallel to the solenoid field and beam axis while the strip direction in the end-caps is radial. The strips read out a total of 128 channels giving a total of approximately 6.3 million readout channels. A hit is registered when the pulse height in a channel exceeds a preset threshold, nominally corresponding to a charge of 1fC. Together, the Pixel detector and SCT provide the precision hit measurements used in track reconstruction.
 
+\subsection{Transition Radiation Tracker -- TRT}
+
 The outermost component of the tracking system is the Transition Radiation Tracker (TRT), a gaseous straw-tube detector which covers radial distances from  554mm to 1082mm. The TRT consists of 298,304 proportional drift tubes (straws)  of 4mm diameter, read out by 350,848 channels of electronics. The straws in the barrel region are arranged in three cylindrical layers and 32 $\phi$ sectors, with split anodes read out from each side. In the end-cap regions, the straws are radially oriented. The TRT straw layout is designed such that charged particles with transverse momentum  $p_{\text{T}} > 0.5$\,GeV and pseudorapidity $|\eta| < 2.0$ typically cross more  than 30 straws, contributing significantly to overall track momentum resolution.
-
-\subsection{Upgraded Tracking System} % MOVE TO HL-LHC Introduction section or PILEUP section
-
-For the High-Luminosity LHC (HL-LHC), the ATLAS inner detector will be replaced entirely by the all-silicon Inner Tracker (ITk)~\cite{}. The HL-LHC will deliver instantaneous luminosities of up to $7 \times 10^{34}$\,cm$^{-2}$s$^{-1}$\cite{2105.10367}, resulting in an average of $\langle\mu\rangle \approx 200$ simultaneous $pp$ interactions per bunch crossing  (pile-up). The integrated luminosity is expected to reach 4000 $fb^{-1}$ by the end of the HL-LHC program, a significant increase from around 350 $fb^{-1}$ obtained in Run 3. As the current inner detector is inadequate for this radiation environment and track density, the TRT and SCT are fully decommissioned and replaced by the upgraded ITk. The ITk extends the tracking acceptance to $|\eta| < 4.0$, as illustrated in Figure~\ref{fig:ATLAS_ITk}, significantly improving forward track reconstruction for physics processes with boosted topologies and forward jets.
-
-Strips: https://cds.cern.ch/record/2257755 \\
-Upgrade Pixels: https://arxiv.org/abs/2105.10367
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter3/ATLAS_tracker.png}
-	\caption{https://atlas.cern/Resources/Schematics}
-	\label{fig:ATLAS_ITk}
-\end{figure}
-
-The ITk comprises two subsystems. The ITk Pixel detector forms the innermost region, consisting of five barrel layers and multiple end-cap rings extending to $|z| = 2850$mm, as shown in Figure~\ref{fig:ATLAS_tracker}. With 5 billion readout channels, it provides high-granularity space-point measurements close to the interaction point, retaining excellent vertex resolution in the high pile-up environment. The ITk Strip detector surrounds the pixel system, consisting of four barrel layers extending to $|\eta| < 2.5$ and six end-cap discs on each side covering $1.1 < |\eta| < 4.0$. The strip detectors have 50 million readout channels, and strip modules use short strips of 24.1mm and 48.2mm length in the barrel and end-cap, respectively.
 
 \section{The Calorimeter System}
 
@@ -97,7 +145,9 @@ The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet, 
 
 \subsection{Electromagnetic Calorimeter}
 
-The electromagnetic calorimeter is designed to capture the energy of electrons and photons. It is divided into three components: the LAr electromagnetic barrel (EMB), covering $|\eta| < 1.475$, the LAr electromagnetic end-cap (EMEC), covering $1.375 < |\eta| < 3.2$, and a presampler at $|\eta| < 1.8$ which corrects for upstream energy losses. DEFINE LIQUID ARGON EARLIER! The calorimeter uses liquid argon (LAr) as the active medium with lead absorber plates in an accordion geometry, and is segmented into three longitudinal sampling layers to enable shower development measurements. The energy resolution is parameterized as:
+% TODO: DEFINE LIQUID ARGON (LAr) EARLIER IN THE CALORIMETER SECTION INTRO,
+% BEFORE IT IS USED HERE.
+The electromagnetic calorimeter is designed to capture the energy of electrons and photons. It is divided into three components: the LAr electromagnetic barrel (EMB), covering $|\eta| < 1.475$, the LAr electromagnetic end-cap (EMEC), covering $1.375 < |\eta| < 3.2$, and a presampler at $|\eta| < 1.8$ which corrects for upstream energy losses. The calorimeter uses liquid argon (LAr) as the active medium with lead absorber plates in an accordion geometry, and is segmented into three longitudinal sampling layers to enable shower development measurements. The energy resolution is parameterized as:
 %
 \begin{equation}
 	\frac{\sigma_E}{E} = \frac{a}{\sqrt{E}} \oplus b,
@@ -148,7 +198,9 @@ physics processes accessed at the LHC.
 
 https://iopscience.iop.org/article/10.1088/1748-0221/8/05/P05006/pdf
 
-\section{Muon Spectrometer} % EXPAND ON THIS SECTION
+% TODO: EXPAND THIS SECTION. NOTE THAT THE TRIGGER PARAGRAPH BELOW REFERS
+% TO L2 + EVENT FILTER WHICH WAS REPLACED BY THE HIGH LEVEL TRIGGER (HLT) IN RUN 2/3 -- UPDATE THIS.
+\section{Muon Spectrometer}
 
 The muon spectrometer is designed to measure the momentum and trajectory of muons, which pass through the calorimeters with minimal energy loss. It is based on the magnetic deflection of muon tracks due to the powerful magnets. The muon spectrometer is instrumented with separate trigger and high-precision tracking chambers. The spectrometer provides coverage over $|\eta| < 2.7$, using monitored drift tubes (MDT) and cathode strip chambers (CSC) for precision tracking, and resistive-plate chambers (RPC) and thin-gap chambers (TGC) for triggering.
 
@@ -156,18 +208,13 @@ The muon spectrometer is designed to measure the momentum and trajectory of muon
 
 The ATLAS trigger and data acquisition (TDAQ) system is responsible for selecting events of physics interest from the 40MHz bunch crossing rate delivered by the LHC. It operates in three stages. The Level-1 (L1) trigger, implemented in custom hardware using coarse-granularity calorimeter and muon chamber information, reduces the event rate to approximately 75kHz. The Level-2 (L2) trigger then performs further selections, reducing the rate to approximately 3.5kHz. Finally, the event filter applies full offline-quality reconstruction algorithms to reduce the rate to approximately 200Hz for permanent storage at CERN.
 
+% TODO: ADD A BRIDGING SENTENCE CONNECTING THE TRIGGER (WHICH SELECTS EVENTS)
+% TO OBJECT RECONSTRUCTION (WHICH PROCESSES THEM).
 \section{Object Reconstruction}
 
+% TODO: ADD SUBSECTIONS FOR ELECTRONS, PHOTONS, MUONS, AND MET RECONSTRUCTION.
+% CURRENTLY ONLY TRACK AND JET RECONSTRUCTION ARE COVERED.
 The raw output of the ATLAS detector consists of millions of digitized electronic signals read out across hundreds of millions of channels in the tracking, calorimeter, and muon systems. The central challenge of event reconstruction is the conversion of  these digital signals into physically meaningful four-vectors representing the particles produced in the hard-scatter interaction. Each reconstructed object is the product of algorithms that aggregate information across multiple subsystems, resolve ambiguities from overlapping signals, and suppress backgrounds from pile-up and electronic noise.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\linewidth]{figures/chapter3/ATLAS_detector_particles.png}
-	\caption{https://atlas.cern/Resources/Schematics}
-	\label{fig:detector_slice}
-\end{figure}
-
-As illustrated in Figure~\ref{fig:detector_slice}, each particle species produces a characteristic signature in the detector. \textbf{Electrons}~\cite{EGAM-2018-01} leave a curved inner detector track and deposit their energy in the EM calorimeter via bremsstrahlung and pair production, forming a narrow electromagnetic shower. \textbf{Photons}~\cite{EGAM-2018-01} produce an identical EM shower but leave no associated track due to their electrical neutrality. \textbf{Muons}~\cite{MUON-2018-03} are minimum-ionising through the calorimeters and leave matched tracks in both the inner detector and muon spectrometer. Charged \textbf{hadrons} initiate broad hadronic showers in the hadronic calorimeter and leave an inner detector track, while neutral hadrons such as neutrons deposit energy only in the calorimeter with no associated track. \textbf{Neutrinos} escape the detector unseen; their presence is inferred from a momentum imbalance in the transverse plane, reconstructed as the missing transverse energy $E_{\text{T}}^{\text{miss}}$. Reconstructing each of these objects requires coherently combining information from multiple subsystems into a single unified four-vector, with the methodology depending on the particle species.
 
 EGAM-2018-01: https://arxiv.org/abs/1908.00005
 EGAM-2023-01: https://arxiv.org/abs/2308.13362
