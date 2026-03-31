@@ -95,11 +95,14 @@ respectively.
 
 \section{The Tracking System}
 
-% TODO: MERGE THE OPENING SENTENCE (LISTING THREE SUBDETECTORS) WITH THE
-% FOLLOWING PARAGRAPH INTO ONE COHERENT INTRO PARAGRAPH. FIX GRAMMAR:
-% "SHOULD MINIMALLY AFFECT THE MOMENTUM OF TRACKS" -- SUBJECT SHIFTS MID-SENTENCE.
-% ALSO FIX BROKEN FIGURE REF: \ref{ATLAS_tracker} SHOULD BE \ref{fig:ATLAS_tracker}
-The tracking system is composed of three complementary subdetectors: the Pixel detector, the Semiconductor Tracker (SCT), and the Transition Radiation Tracker (TRT) as shown in Figure~\ref{ATLAS_tracker}.
+The ATLAS Inner Detector (ID) reconstructs the trajectories of charged
+particles while minimally perturbing them. Every 25\,ns, hundreds of charged
+particles emerge from the interaction point within $|\eta| < 2.5$, demanding
+fine detector granularity and radiation-hard sensors. As shown in
+Figure~\ref{fig:ATLAS_tracker}, the ID comprises three complementary
+subdetectors arranged concentrically outward from the beam axis: the silicon
+Pixel detector, the Semiconductor Tracker (SCT), and the Transition Radiation
+Tracker (TRT).
 
 \begin{figure}[h]
 	\centering
@@ -108,33 +111,91 @@ The tracking system is composed of three complementary subdetectors: the Pixel d
 	\label{fig:ATLAS_tracker}
 \end{figure}
 
-The primary goal of the tracking system is to capture the path of charged particles, called tracks, and should minimally affect the momentum of tracks. The tracking system also allows for primary and secondary vertex reconstruction. A 2T solenoidal magnetic field applies an external force to the charged particles. Momentum of the particle can be determined based on the radius of curvature. The tracking system has full coverage over $\phi$ and acceptance over the pseudorapidity range $|\eta| < 2.5$. The momentum resolution of the tracking system scales with $p_T$, implying that more curvature gives more accurate $p_T$ measurement.
+The system is immersed in a 2\,T solenoidal magnetic field. This curves
+charged-particle trajectories in the transverse plane, allowing momenta to
+be inferred from the radius of curvature. The ID provides full azimuthal
+coverage over $|\eta| < 2.5$ with a nominal $p_{\text{T}}$ threshold of
+0.5\,GeV. The momentum resolution is parameterized as:
 %
 \begin{equation}
-	\frac{\sigma_{p_T}}{p_T}=0.05\% p_T \text{GeV} \oplus 1\%
+	\frac{\sigma_{p_T}}{p_T} = 0.05\%\cdot p_{\text{T}}\,[\text{GeV}]
+	\oplus 1\%,
+	\label{eq:id_momentum_res}
 \end{equation}
-% TODO: EXPLAIN THE \oplus SYMBOL AND THE TWO TERMS (STOCHASTIC VS CONSTANT).
-% FIX UNITS: 0.05\% p_T \text{GeV} SHOULD BE 0.05\% \cdot p_T\,[\text{GeV}] OR SIMILAR.
 %
+where $\oplus$ denotes addition in quadrature. The first term grows with
+$p_{\text{T}}$ as high-momentum tracks curve less; the second is a constant
+term from alignment and calibration uncertainties.
 
 \subsection{Pixel Detector}
 
-The innermost component is the Pixel detector, which provides the highest granularity acting at a radial distance between 50mm and 150mm. It consists of 1744 silicon pixel modules arranged in three concentric barrel layers and two end-caps of three disks each. Each module has an active area of 16.4\,mm $\times$ 60.8\,mm and contains 47{,}232 pixels of size 50\,$\mu$m $\times$ 400\,$\mu$m, giving a total of approximately 80.4 million readout channels. The innermost barrel layer is the Insertable B-Layer (IBL)~\cite{Abbott:2018ikt}, installed during the Long Shutdown 1 (LS1) between Run 1 and Run 2 at a radius of only 33mm from the beam axis. The IBL was introduced to improve primary vertex resolution and the reconstruction of displaced vertices from $b$-hadron decays, which is critical for $b$-jet identification (\textit{b}-tagging).
+The Pixel detector is the innermost component of the ID. It is positioned
+as close as 50.5\,mm from the beam axis in the barrel. Its fine granularity
+and proximity to the interaction point enable precise track impact parameter
+measurements. These are essential for reconstructing displaced secondary
+vertices from $b$-hadron decays, which is critical for $b$-jet
+identification and $\tau$-lepton tagging.
+
+The detector consists of 1744 silicon pixel modules arranged in three
+concentric barrel layers and two end-caps of three disks each. The barrel
+layers span radii from 50.5\,mm to 122.5\,mm and the end-cap disks span
+88.8\,mm to 149.6\,mm. Each pixel measures 50\,$\mu$m $\times$ 400\,$\mu$m
+in $R\phi$ and $z$ respectively, providing two-dimensional space-point
+measurements at each layer. The intrinsic accuracy is 10\,$\mu$m in $R\phi$
+and 115\,$\mu$m in $z$. The detector has approximately 80.4 million readout
+channels in total.
+
+The innermost barrel layer is the Insertable B-Layer
+(IBL)~\cite{Abbott:2018ikt}, added during Long Shutdown 1 between Run 1
+and Run 2 at a radius of 33\,mm. The IBL improves impact parameter
+resolution and displaced vertex reconstruction, directly enhancing
+$b$-tagging performance.
 
 IBL: https://cds.cern.ch/record/1291633 \\
 Commissioning and calibration: https://arxiv.org/pdf/1004.5293
 
 \subsection{Semiconductor Tracker -- SCT}
 
-Surrounding the Pixel detector is the Semiconductor Tracker (SCT), a silicon detector consisting of 4088 modules of silicon-strip detectors. The SCT is arranged in four concentric barrels and two end-caps of nine disks each, providing space-point measurements across radial distances from 299mm to 560mm. The strips in the barrel are approximately aligned parallel to the solenoid field and beam axis while the strip direction in the end-caps is radial. The strips read out a total of 128 channels giving a total of approximately 6.3 million readout channels. A hit is registered when the pulse height in a channel exceeds a preset threshold, nominally corresponding to a charge of 1fC. Together, the Pixel detector and SCT provide the precision hit measurements used in track reconstruction.
+The SCT extends precision silicon tracking to intermediate radii, providing additional measurements that complement the Pixel detector in track reconstruction. It consists of 4088 silicon strip modules arranged in four concentric barrel layers and two end-caps of nine disks each. The barrel layers span radii from 299\,mm to 514\,mm and the end-cap disks extend from 275\,mm to 560\,mm.
+
+Unlike pixels, strip sensors measure position in only one dimension. A strip is a long thin conductor, and a hit identifies which strip fired but not where along its length the particle crossed. To recover the second coordinate, each SCT module pairs two strip sensors at an angle. One sensor is oriented parallel to the beam axis, the other is rotated by 40\,mrad. Combining hits from both sensors yields a two-dimensional space point. The strip pitch is approximately 80\,$\mu$m, giving an intrinsic accuracy of 17\,$\mu$m in $R\phi$ and 580\,$\mu$m in $z$. The poorer $z$ resolution relative to the Pixel detector is a direct consequence of this geometry. Strip sensors are cheaper to produce per unit area than pixel sensors, making them well suited to the larger radii of the SCT where lower track density makes coarser granularity acceptable. A hit is registered when the signal exceeds a threshold of 1\,fC, and the detector has approximately 6.3 million readout channels in total.
 
 \subsection{Transition Radiation Tracker -- TRT}
 
-The outermost component of the tracking system is the Transition Radiation Tracker (TRT), a gaseous straw-tube detector which covers radial distances from  554mm to 1082mm. The TRT consists of 298,304 proportional drift tubes (straws)  of 4mm diameter, read out by 350,848 channels of electronics. The straws in the barrel region are arranged in three cylindrical layers and 32 $\phi$ sectors, with split anodes read out from each side. In the end-cap regions, the straws are radially oriented. The TRT straw layout is designed such that charged particles with transverse momentum  $p_{\text{T}} > 0.5$\,GeV and pseudorapidity $|\eta| < 2.0$ typically cross more  than 30 straws, contributing significantly to overall track momentum resolution.
+The TRT is the outermost component of the tracking system, covering radii from
+554\,mm to 1082\,mm. It consists of 298,304 proportional drift tubes (straws)
+of 4\,mm diameter. The barrel is divided into three rings of 32 modules each,
+with straws arranged axially and interleaved with polypropylene fibres. In the
+end-cap regions, the straws are oriented radially. Each straw provides a
+drift-time measurement with an intrinsic accuracy of 130\,$\mu$m. All charged
+tracks with $p_{\text{T}} > 0.5$\,GeV and $|\eta| < 2.0$ traverse at least 36
+straws, except in the transition region between the barrel and end-caps
+($0.8 < |\eta| < 1.0$), where this decreases to a minimum of 22. The large
+number of measurements contributes to the overall track momentum resolution.
+
+The TRT also provides electron identification through transition radiation.
+Transition radiation is emitted when a charged particle crosses a boundary of
+changing dielectric constant, producing X-ray photons. The number of photons
+produced is proportional to the Lorentz factor $\gamma = E/mc^2$. Electrons
+have a much higher $\gamma$ than pions at the same momentum due to their
+smaller mass, so they produce significantly more transition radiation than
+hadrons. These photons are absorbed by the Xe-based gas mixture and registered
+as high-threshold hits. The fraction of high-threshold hits along a track
+provides discrimination between electrons and pions.
 
 \section{The Calorimeter System}
 
-The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}. It provides measurements of the energy deposits by both charged and neutral particles, with the exception of muons and neutrinos. It is designed to provide full azimuthal coverage over $|\eta| < 4.9$, capturing the information needed for reliable reconstruction of missing transverse energy $E_{\text{T}}^{\text{miss}}$. The system is divided into an electromagnetic (EM) calorimeter, which measures the energy of electrons and photons via electromagnetic showers, and a hadronic calorimeter, which captures the broader showers produced by pions and other hadronic activity. The overall depth of the calorimeter system exceeds 10 hadronic interaction lengths, $\lambda$, ensuring the energy of the final state particles produced in the collisions is captured effectively.
+The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid
+magnet, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}. Unlike
+the inner detector, which measures particle trajectories
+non-destructively, the calorimeters are designed to stop particles
+completely and absorb their total energy. This is achieved through a
+\textit{sampling} design. Dense absorber material initiates a shower of
+secondary particles. An interleaved active medium then collects a
+representative sample of the deposited energy. The calorimeters respond
+to both charged and neutral particles, making them essential for
+reconstructing photons, jets, and missing transverse energy
+$E_{\text{T}}^{\text{miss}}$.
 
 \begin{figure}[h]
 	\centering
@@ -143,73 +204,137 @@ The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet, 
 	\label{fig:ATLAS_calorimeter}
 \end{figure}
 
+The system provides full azimuthal coverage over $|\eta| < 4.9$ and is
+divided into three regions: the electromagnetic (EM) calorimeter, the
+hadronic calorimeter, and the forward calorimeter (FCal). The total
+depth exceeds 10 hadronic interaction lengths $\lambda$, ensuring shower
+containment and limiting punch-through into the muon spectrometer.
+
+The majority of ATLAS calorimeters use liquid argon (LAr) as the active
+medium. LAr was chosen for its intrinsic linear response, stable
+behaviour over time, and radiation hardness. These properties are
+critical given the high particle flux at the LHC. It is used in the
+electromagnetic barrel and end-cap calorimeters, the hadronic end-cap,
+and the forward calorimeter. The hadronic barrel calorimeter (TileCal)
+uses scintillating plastic tiles instead, which is more cost-effective
+at the larger radii where the radiation environment is less severe.
+
 \subsection{Electromagnetic Calorimeter}
 
-% TODO: DEFINE LIQUID ARGON (LAr) EARLIER IN THE CALORIMETER SECTION INTRO,
-% BEFORE IT IS USED HERE.
-The electromagnetic calorimeter is designed to capture the energy of electrons and photons. It is divided into three components: the LAr electromagnetic barrel (EMB), covering $|\eta| < 1.475$, the LAr electromagnetic end-cap (EMEC), covering $1.375 < |\eta| < 3.2$, and a presampler at $|\eta| < 1.8$ which corrects for upstream energy losses. The calorimeter uses liquid argon (LAr) as the active medium with lead absorber plates in an accordion geometry, and is segmented into three longitudinal sampling layers to enable shower development measurements. The energy resolution is parameterized as:
+Electrons and photons lose energy in matter primarily through
+bremsstrahlung and pair production, producing compact cascades known as
+electromagnetic showers. Lead is used as the absorber material because
+its short radiation length ($X_0 = 0.56$\,cm) allows full shower
+containment within a manageable depth. Fine spatial granularity is also
+required to resolve nearby clusters and identify individual photons.
+
+The lead absorber plates and LAr electrodes are shaped into an accordion
+fold, alternating between axial and radial orientations in the barrel
+and end-caps respectively. This eliminates uninstrumented gaps in $\phi$,
+ensuring every particle traverses active material regardless of azimuthal
+angle. The calorimeter is divided into the LAr electromagnetic barrel
+(EMB), covering $|\eta| < 1.475$, and the LAr electromagnetic end-cap
+(EMEC), covering $1.375 < |\eta| < 3.2$. The total active thickness
+exceeds $22\,X_0$ in the barrel and $24\,X_0$ in the end-caps.
+
+The energy resolution of the EMB is parameterized as:
 %
 \begin{equation}
 	\frac{\sigma_E}{E} = \frac{a}{\sqrt{E}} \oplus b,
 	\label{eq:em_resolution}
 \end{equation}
 %
-where $a$ and $b$ are the stochastic and constant terms 
-respectively. For the ATLAS EMB, the stochastic term is 
-$a \approx 10\%\,\sqrt{\text{GeV}}$ and the constant term $b \approx 0.17\%$.
-
-Calibration: https://arxiv.org/pdf/2309.05471
+where $\oplus$ denotes addition in quadrature. The stochastic term
+$a \approx 10\%\,\sqrt{\text{GeV}}$ reflects statistical fluctuations
+in shower sampling. The constant term $b \approx 0.17\%$ encodes
+non-uniformities and calibration uncertainties, and dominates at high
+energy.
 
 \subsection{Hadronic Calorimeter}
 
-The hadronic calorimeter is designed to capture the energy of hadrons and hadronic jets. It is divided into two components: the Tile calorimeter (TileCal), covering $|\eta| < 1.7$, and the LAr hadronic end-cap calorimeter (HEC), covering $1.5 < |\eta| < 3.2$. TileCal uses steel absorber plates with scintillating plastic tiles as the active medium, while the HEC uses copper absorber plates interleaved with liquid argon gaps, sharing the end-cap cryostats with the EMEC. The energy resolution is parameterized as:
+Hadronic showers are broader and deeper than electromagnetic showers,
+and exhibit larger intrinsic fluctuations in energy deposition. The
+hadronic interaction length in iron ($\lambda \approx 16.77$\,cm) is
+nearly ten times larger than the radiation length
+($X_0 \approx 1.757$\,cm)~\cite{PDG2024}, so hadronic calorimeters
+must be physically much larger to achieve comparable shower containment.
+% PDG 2024: https://pdg.lbl.gov/2024/AtomicNuclearProperties/HTML/iron_Fe.html
+
+The hadronic calorimeter is divided into two components. The Tile
+calorimeter (TileCal) covers $|\eta| < 1.7$ using steel absorber plates
+with scintillating plastic tiles as the active medium, providing
+approximately $7.4\,\lambda$ of depth. Steel and scintillator are well
+suited to the large volume at these radii, where the radiation
+environment is less severe and cost-effective construction is important.
+The LAr hadronic end-cap calorimeter (HEC) extends coverage to
+$1.5 < |\eta| < 3.2$ using copper absorber plates interleaved with LAr
+gaps. The HEC shares the end-cap cryostats with the EMEC, and its
+overlap with TileCal in the range $1.5 < |\eta| < 1.7$ ensures
+continuous coverage across the barrel-to-end-cap transition.
+
+The combined hadronic energy resolution is parameterized as:
 %
 \begin{equation}
 	\frac{\sigma_E}{E} \approx \frac{50\%}{\sqrt{E}} \oplus 3\%,
 	\label{eq:had_resolution}
 \end{equation}
 %
-where the stochastic term reflects intrinsic fluctuations in hadronic 
-shower development and the constant term encodes calibration uncertainties.
-
-https://cds.cern.ch/record/2004868
+where the large stochastic term reflects the irreducible fluctuations
+in hadronic shower development. The constant term encodes calibration
+uncertainties and non-compensation effects.
 
 \subsection{Forward Calorimeter}
 
-The LAr forward calorimeter (FCal) is designed to capture both electromagnetic and hadronic energy in the forward region, extending calorimetric coverage to $3.1 < |\eta| < 4.9$, housed in the same end-cap cryostats as the EMEC and HEC. It consists of three longitudinal modules: the first uses copper absorbers optimized for electromagnetic measurements, while the second and third use tungsten absorbers for hadronic energy measurement. Each module consists of a metal matrix with regularly spaced longitudinal channels filled with concentric rod and tube electrodes, with LAr in the gap serving as the active medium. The FCal is approximately 10 interaction lengths deep, and its high-density design is necessitated by the extremely high particle flux in the forward region close to the beam pipe. The electromagnetic energy resolution is parameterized as:
+The region close to the beam axis is exposed to an extremely high
+particle flux, demanding a compact, high-density detector design.
+Extending calorimetric coverage into this region is essential for
+reliable $E_{\text{T}}^{\text{miss}}$ reconstruction and for forward
+jet reconstruction in processes such as vector boson fusion (VBF),
+discussed further in Chapter~5.
+
+The LAr forward calorimeter (FCal) extends coverage to
+$3.1 < |\eta| < 4.9$, housed in the same end-cap cryostats as the EMEC
+and HEC. The FCal consists of three longitudinal modules,
+approximately $10\,\lambda$ deep in total. The first module uses copper
+absorbers optimised for electromagnetic measurements. The second and
+third modules use tungsten absorbers, which provide the density needed
+to contain hadronic showers in the limited available space.
+
+The electromagnetic energy resolution is parameterized as:
 %
 \begin{equation}
 	\frac{\sigma_E}{E} \approx \frac{28.5\%}{\sqrt{E}} \oplus 3.5\%,
 	\label{eq:fcal_em_resolution}
 \end{equation}
 %
-and for hadronic energy the resolution is approximately
+and the hadronic energy resolution as:
 %
 \begin{equation}
 	\frac{\sigma_E}{E} \approx \frac{94\%}{\sqrt{E}} \oplus 7.5\%,
 	\label{eq:fcal_had_resolution}
 \end{equation}
 %
-as measured in test-beam campaigns at the CERN SPS. Together, the EMB, 
-EMEC, HEC, TileCal, and FCal provide the ATLAS detector with full 
-calorimetric coverage for jet reconstruction and 
-$E_{\text{T}}^{\text{miss}}$ measurement across the broad range of 
-physics processes accessed at the LHC.
-
-https://iopscience.iop.org/article/10.1088/1748-0221/8/05/P05006/pdf
+as measured in test-beam campaigns at the CERN SPS~\cite{TODO}.
+% https://iopscience.iop.org/article/10.1088/1748-0221/8/05/P05006/pdf
 
 % TODO: EXPAND THIS SECTION. NOTE THAT THE TRIGGER PARAGRAPH BELOW REFERS
 % TO L2 + EVENT FILTER WHICH WAS REPLACED BY THE HIGH LEVEL TRIGGER (HLT) IN RUN 2/3 -- UPDATE THIS.
 \section{Muon Spectrometer}
 
-The muon spectrometer is designed to measure the momentum and trajectory of muons, which pass through the calorimeters with minimal energy loss. It is based on the magnetic deflection of muon tracks due to the powerful magnets. The muon spectrometer is instrumented with separate trigger and high-precision tracking chambers. The spectrometer provides coverage over $|\eta| < 2.7$, using monitored drift tubes (MDT) and cathode strip chambers (CSC) for precision tracking, and resistive-plate chambers (RPC) and thin-gap chambers (TGC) for triggering.
+Muons are minimum-ionising particles that pass through the calorimeters with little energy loss and exit the detector largely intact. Unlike electrons and hadrons, they cannot be measured by the calorimeters alone. A dedicated outer tracking system is therefore required to measure their momentum and identify them as clean signatures. Precise muon reconstruction was a key design goal of ATLAS, motivated in part by Higgs boson searches in the $H \to ZZ \to 4\ell$ decay channel.
 
-\section{Trigger and Data Acquisition Systems} % EXPAND ON THIS SECTION IN INTRO AND IN OBJECT RECONSTRUCTION. FIRST GLANCE AT THE EVENT WHAT OBJECTS HAVE BEEN PRODUCED. PART OF RECONSTRUCTION. 
+The muon spectrometer~\cite{PERF-2007-01} uses a system of air-core toroid magnets to bend muon tracks for momentum measurement. One barrel toroid and two end-cap toroids provide the bending field, distinct from the solenoid used by the inner detector. Three concentric cylindrical layers of chambers in the barrel, at radii of approximately 5, 7.5, and 10\,m, together with end-cap wheel structures, provide coverage over $|\eta| < 2.7$. The curvature of the track across these three layers yields a sagitta measurement from which the muon momentum is derived.
 
-The ATLAS trigger and data acquisition (TDAQ) system is responsible for selecting events of physics interest from the 40MHz bunch crossing rate delivered by the LHC. It operates in three stages. The Level-1 (L1) trigger, implemented in custom hardware using coarse-granularity calorimeter and muon chamber information, reduces the event rate to approximately 75kHz. The Level-2 (L2) trigger then performs further selections, reducing the rate to approximately 3.5kHz. Finally, the event filter applies full offline-quality reconstruction algorithms to reduce the rate to approximately 200Hz for permanent storage at CERN.
+The spectrometer uses two classes of detector technology. Monitored drift tube (MDT) chambers provide precision tracking over $|\eta| < 2.7$, achieving a spatial resolution of approximately 35\,$\mu$m per chamber. Cathode strip chambers (CSC) are used in the innermost end-cap layer for $2.0 < |\eta| < 2.7$, where the higher particle flux demands faster response. Resistive plate chambers (RPC) in the barrel and thin-gap chambers (TGC) in the end-caps provide fast trigger signals within a few tens of nanoseconds, covering $|\eta| < 2.4$. The standalone transverse momentum resolution is approximately 10\% at 1\,TeV, while combined reconstruction with the inner detector significantly improves resolution at lower momenta.
 
-% TODO: ADD A BRIDGING SENTENCE CONNECTING THE TRIGGER (WHICH SELECTS EVENTS)
-% TO OBJECT RECONSTRUCTION (WHICH PROCESSES THEM).
+\section{Trigger and Data Acquisition Systems}
+
+The LHC delivers proton-proton bunch crossings at a rate of 40\,MHz~\cite{PERF-2007-01}. At LHC energies, the total inelastic cross-section is many orders of magnitude larger than the cross-sections for processes of physics interest. Higgs boson production, for example, is suppressed by a factor of approximately $10^9$ relative to the total multijet rate. The vast majority of collisions are therefore soft QCD processes with no hard-scatter content. Recording every collision is not feasible. Each event represents several megabytes of raw detector data, and storing output at the full 40\,MHz rate would require a data bandwidth far beyond what is technically achievable. A trigger system is therefore required to identify the small fraction of events containing signatures of physics interest and discard the rest in real time.
+
+The ATLAS trigger and data acquisition (TDAQ) system~\cite{PERF-2007-01} operates in two stages. The Level-1 (L1) trigger is implemented in custom hardware. It uses reduced-granularity information from the calorimeters and muon trigger chambers to search for candidate high-$p_T$ objects: electrons, photons, muons, jets, $\tau$-leptons, and events with large missing transverse energy. The L1 decision is formed within a fixed latency of 2.5\,$\mu$s and reduces the event rate to approximately 100\,kHz~\cite{TODO}. For each accepted event, the L1 system records the detector coordinates of candidate objects as regions of interest. These seed the second stage: the High Level Trigger (HLT). The HLT runs on a farm of commodity processors and applies software-based reconstruction algorithms using the full detector granularity. Inner detector tracking is included at this stage, enabling particle identification beyond what coarse calorimeter information alone can provide. The HLT reduces the output rate to approximately 1\,kHz for recording to permanent storage~\cite{TODO}.
+% https://arxiv.org/abs/2007.12539 -- The ATLAS trigger system for LHC Run 2
+
+The selection criteria applied at each stage are encoded in a trigger menu. The menu contains hundreds of distinct trigger chains, each targeting a specific physics signature, calibration dataset, or monitoring stream. Further offline reconstruction techniques are described in the following section.
 \section{Object Reconstruction}
 
 % TODO: ADD SUBSECTIONS FOR ELECTRONS, PHOTONS, MUONS, AND MET RECONSTRUCTION.
@@ -282,9 +407,10 @@ two~\cite{IDTR-2022-04}.
 	\label{fig:track_reco}
 \end{figure}
 
-Run3 track reco software: https://arxiv.org/abs/2308.09471
-Run 2 tracking in dense environments: https://arxiv.org/abs/1704.07983
-Kalman filter: https://www.sciencedirect.com/science/article/abs/pii/0168900287908874
+% https://arxiv.org/abs/2308.09471 -- ATLAS Run 3 track reconstruction software
+% https://arxiv.org/abs/1704.07983 -- ATLAS track reconstruction in dense environments (Run 2)
+% https://arxiv.org/abs/1611.10235 -- ATLAS primary vertex reconstruction (Run 1/2)
+% https://www.sciencedirect.com/science/article/abs/pii/0168900287908874 -- Frühwirth 1987, Kalman filter
 
 %--------------------------------------------------------------
 \subsection{Jet Reconstruction}
