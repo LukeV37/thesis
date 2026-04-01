@@ -5,32 +5,192 @@
 \chapter[THE STANDARD MODEL OF PARTICLE PHYSICS]{THE STANDARD MODEL OF PARTICLE PHYSICS}
 \endgroup
 
-\section{Outline}
+% ============================================================
+% REFERENCES FOR THIS CHAPTER
+% ------------------------------------------------------------
+% PDG Review of Particle Physics: Workman et al., PTEP 2022, 083C01
+%   https://pdg.lbl.gov
+% Glashow electroweak: Nucl. Phys. 22, 579 (1961)
+% Weinberg electroweak unification: PRL 19, 1264 (1967)
+%   https://arxiv.org/abs/... [no arXiv; DOI: 10.1103/PhysRevLett.19.1264]
+% Englert & Brout (SSB): PRL 13, 321 (1964)
+%   DOI: 10.1103/PhysRevLett.13.321
+% Higgs PRL letter: PRL 13, 508 (1964)
+%   DOI: 10.1103/PhysRevLett.13.508
+% Guralnik, Hagen & Kibble: PRL 13, 585 (1964)
+%   DOI: 10.1103/PhysRevLett.13.585
+% kappa-framework (LHC Higgs XS WG Yellow Report 3): arXiv:1307.1347
+% LHC Higgs XS WG Yellow Report 4: arXiv:1610.07922
+% ATLAS Higgs discovery: arXiv:1207.7214
+% CMS Higgs discovery: arXiv:1207.7235
+% ATLAS Run 2 coupling combination: arXiv:2207.00116
+% ATLAS Nature Higgs summary (10 years): arXiv:2207.00092
+% EW vacuum stability (Degrassi et al.): arXiv:1205.6497
+% ============================================================
+
+% ============================================================
+% SECTION 2.1 — THE STANDARD MODEL
+% ------------------------------------------------------------
+% OPENS WITH: What is the theoretical framework underlying all
+%             known fundamental interactions?
+% LEAVES OPEN: The SM gauge symmetry forbids explicit mass terms
+%              for W, Z bosons and fermions. How does nature
+%              generate these masses while preserving gauge invariance?
+% ============================================================
+
+\section{The Standard Model}
 
 \begin{itemize}
-  \item Standard model is huge success but there are open problems
-  \item QED and QCD
-  \item Feynman diagrams that describe VH and VBF bb/cc verticies with lagrangian
-  \item By finding deviations in the cross section and coupling constant we indirectly are searching for new physics
-  \item Higgs yukawa couplings to third and second generations fermions.
-  \item Why is this physics important? Why are these channels important?
-  \item Why is this important to stability of the universe? Higgs potential.
-  \item A few things beyond Higgs. The future of HEP research.
+  \item The SM describes the electromagnetic, weak, and strong interactions under the gauge symmetry group $\text{SU}(3)_C \times \text{SU}(2)_L \times \text{U}(1)_Y$. The full SM Lagrangian is~\cite{PDG2022}:
+  % Particle content: three generations of quarks and leptons (fermions, spin-1/2),
+  % four gauge bosons (spin-1), and the Higgs boson (spin-0).
+  % QED: U(1)_EM subgroup; massless photon; covariant derivative D_mu = d_mu + ieA_mu
+  % QCD: SU(3)_C sector; eight massless gluons; asymptotic freedom at high energy
 \end{itemize}
 
-\section{Introduction to the Standard Model}
+\begin{equation}
+  \mathcal{L}_{SM} =
+  \underbrace{-\frac{1}{4}F^{a}_{\mu\nu}F^{a\mu\nu}}_{\text{gauge kinetic}}
+  + \underbrace{i\bar{\psi} \gamma^\mu D_\mu \psi}_{\text{fermion kinetic}}
+  + \underbrace{|D_\mu\phi|^2 - V(\phi)}_{\text{Higgs sector}}
+  + \underbrace{y_{mn}\bar{\psi}_{Lm}\phi\psi_{Rn} + \text{h.c.}}_{\text{Yukawa}}
+  \label{eq:SMlagrangian}
+\end{equation}
+% Note on indices:
+% F^a_{\mu\nu}: a = gauge group generator index (summed over SU(3), SU(2), U(1)); mu,nu = Lorentz indices
+% psi: implicit sum over all fermion flavors; mu = Lorentz index on gamma matrix
+% D_mu phi: covariant derivative of Higgs doublet; |...|^2 = (D_mu phi)^dag (D^mu phi)
+% y_{mn}: 3x3 Yukawa matrix; m,n = generation indices (chosen to avoid clash with imaginary unit i)
+% Reference: PDG Review, Workman et al. PTEP 2022, 083C01 (Electroweak Model chapter)
 
-\lipsum[1]
+\begin{itemize}
+  \item Despite its precision, the SM does not describe gravity, dark matter, or dark energy, and leaves the origin of particle masses unexplained.
+  % References: PDG (Workman et al. 2022), Glashow 1961, Weinberg 1967
+\end{itemize}
 
-\section{QED and QCD}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/chapter2/SM.jpg}
+	\caption{The fundamental particles of the Standard Model, organised by generation and type.}
+	\label{fig:SM}
+\end{figure}
 
-\lipsum[1]
+\newpage
 
-\section{The Higgs Mechanism and Spontaneous Symmetry Breaking}
+% ============================================================
+% SECTION 2.2 — THE HIGGS MECHANISM
+% ------------------------------------------------------------
+% ANSWERS: The SM gauge symmetry forbids explicit mass terms.
+%          The Higgs mechanism generates masses dynamically
+%          through spontaneous symmetry breaking.
+% LEAVES OPEN: The Higgs mechanism predicts a new scalar boson.
+%              Has it been observed? What are its properties?
+% ============================================================
 
-\lipsum[1]
+\section{The Higgs Mechanism}
 
-\section{Higgs Production at the LHC}
+\begin{itemize}
+  \item A complex scalar doublet $\phi$ with potential $V(\phi) = \mu^2|\phi|^2 + \lambda|\phi|^4$ is introduced. For $\mu^2 < 0$, the minimum is a degenerate circle at $|\phi| = v/\sqrt{2}$, where $v \approx 246$ GeV is the vacuum expectation value.
+  \item The ground state spontaneously selects one minimum, breaking $\text{SU}(2)_L \times \text{U}(1)_Y \rightarrow \text{U}(1)_{EM}$. Three Goldstone bosons are absorbed by the $W^{\pm}$ and $Z$, giving them mass. The photon remains massless.
+  \item The remaining degree of freedom is the Higgs boson $h$, a real scalar representing oscillations about the minimum.
+  % W and Z masses arise from |D_mu phi|^2 after SSB:
+  %   m_W = \frac{1}{2} g v, \qquad m_Z = \frac{1}{2}\sqrt{g^2 + g'^2}\, v
+  % where g, g' are the SU(2)_L and U(1)_Y couplings. With v = 246 GeV: m_W ~ 80 GeV, m_Z ~ 91 GeV.
+  % References: Englert & Brout PRL 1964, Higgs PRL 1964, Guralnik/Hagen/Kibble PRL 1964
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/chapter2/higgs_potential.png}
+	\caption{The Higgs potential $V(\phi) = \mu^2|\phi|^2 + \lambda|\phi|^4$ for $\mu^2 < 0$.
+	Point A is the unstable maximum at $\phi = 0$. Point B is a stable minimum at $|\phi| = v/\sqrt{2}$.
+	The ground state spontaneously selects one minimum, breaking $\text{SU}(2)_L \times \text{U}(1)_Y \rightarrow \text{U}(1)_\text{EM}$.}
+	\label{fig:HiggsPotential}
+\end{figure}
+
+\newpage
+
+% ============================================================
+% SECTION 2.3 — YUKAWA COUPLINGS AND FERMION MASS GENERATION
+% ------------------------------------------------------------
+% ANSWERS: The Higgs mechanism gives mass to gauge bosons.
+%          Yukawa couplings extend this to give mass to fermions.
+% LEAVES OPEN: Yukawa couplings are free parameters in the SM.
+%              Are the observed coupling strengths consistent with
+%              SM predictions? Are second-generation couplings
+%              (charm, muon) accessible at the LHC?
+% ============================================================
+
+\section{Yukawa Couplings and Fermion Mass Generation}
+
+\begin{itemize}
+  \item Yukawa terms $\mathcal{L}_Y = -y_f \bar{\psi}_L \phi \psi_R + \text{h.c.}$ give each fermion a mass $m_f = y_f v/\sqrt{2}$ after SSB. The SM predicts coupling strength proportional to mass.
+  % Explicit fermion mass terms are forbidden by gauge invariance before SSB.
+  \item Third-generation couplings ($t$, $b$, $\tau$) have been measured and are consistent with the SM. Second-generation couplings ($c$, $\mu$) remain largely untested and are the target of ongoing analyses including this thesis.
+  % Deviations from y_f proportional to m_f would be a direct signal of BSM physics.
+  %   SOURCE: Figure 5 in ATLAS Nature paper arXiv:2207.00092
+  %     DOI: 10.1038/s41586-022-04893-w
+  %     "A detailed map of Higgs boson interactions by the ATLAS experiment
+  %      ten years after the discovery", Nature 607, 52-59 (2022)
+  %   SOURCE (alt): fig_05 from ATLAS paper HIGG-2021-23
+  %     https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2021-23/
+  %     (direct image: .../fig_05.png or .../fig_05.pdf)
+  %
+  %   WHAT IS PLOTTED:
+  %     x-axis: particle mass [GeV], log scale (~0.1 to ~200 GeV)
+  %     y-axis (upper): reduced coupling modifier, defined as
+  %       kappa_F * m_F / vev  for fermions (F = t, b, tau, mu, c)
+  %       sqrt(kappa_V) * m_V / vev  for vector bosons (W, Z)
+  %       log scale (~1e-4 to ~1)
+  %     y-axis (lower): kappa_F or kappa_V values directly (linear, ~0.8 to 1.4)
+  %     SM prediction: diagonal red line with unit slope on log-log axes,
+  %       encoding the fundamental prediction that Higgs coupling proportional to mass
+  %     Two scenarios shown: kappa_c = kappa_t (coloured circles) vs
+  %       kappa_c free-floating (grey crosses)
+  %     Particles shown: t, b, tau, mu, W, Z (and c as grey cross)
+  %
+  %   WHY THIS FIGURE: Makes the coupling-proportional-to-mass relationship
+  %     visually immediate. Also makes it obvious that second-generation entries
+  %     (charm, muon) are either absent or have large uncertainties compared to
+  %     the third generation --- directly motivating this analysis.
+  %
+  % Other references: Weinberg 1967, ATLAS coupling combination arXiv:2207.00116,
+  %                   kappa-framework arXiv:1307.1347
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{figures/chapter2/higgs_couplings.png}
+	\caption{Reduced Higgs boson coupling strength modifiers as a function of particle mass, measured
+	by ATLAS with the full Run 2 dataset~\cite{ATLASHiggsTenYears}. The red line shows the SM
+	prediction that the Higgs coupling scales linearly with mass. % TODO: replace cite key ATLASHiggsTenYears with correct key for arXiv:2207.00092
+	}
+	\label{fig:HiggsCouplings}
+\end{figure}
+
+\newpage
+
+% ============================================================
+% SECTION 2.4 — HIGGS PRODUCTION AND DECAY AT THE LHC
+% ------------------------------------------------------------
+% ANSWERS: The Higgs boson is predicted by the mechanism above.
+%          This section establishes that it has been discovered
+%          and describes how it is produced and measured at the LHC.
+% LEAVES OPEN: The SM makes specific predictions for all Higgs
+%              couplings. Are there BSM deviations? In particular,
+%              can we access second-generation Yukawa couplings?
+% ============================================================
+
+\section{Higgs Production and Decay at the LHC}
+
+% NOTE: Bare URL on line below needs to become a \cite{} once bib entry is added.
+% LHC Higgs XS WG Yellow Report 4: https://arxiv.org/abs/1610.07922
+% ATLAS discovery: https://arxiv.org/abs/1207.7214
+% CMS discovery: https://arxiv.org/abs/1207.7235
+
+% TODO: Add ATLAS and CMS discovery figures here (or move to Chapter 1 introduction
+%       if Chapter 1 serves as physics motivation). The H->yy invariant mass peak
+%       and H->ZZ*->4l mass spectrum are iconic figures that motivate the program.
 
 A landmark achievement in experimental particle physics was obtained at the LHC in 2012 with the discovery of the Higgs Boson. This particle is a quantization of the Higgs field which is responsible for mass generation in the standard model, which up until then was a crucial missing piece. The Higgs field has a wine bottle shape that leads to spontaneous symmetry breaking which is a crucial part of the Higgs mechanism giving rise to the mass of vector bosons. Since its discovery, many of the Higgs properties have been studied including its mass, spin, coupling to gauge bosons, and coupling to third generation fermions. As of date, all experimental observations are in line with the Standard Model predictions.
 
@@ -41,7 +201,7 @@ A landmark achievement in experimental particle physics was obtained at the LHC 
 	\label{fig:HiggsProduction}
 \end{figure}
 
-The Higgs boson has four unique production modes, shown in Figure \ref{fig:HiggsProduction}. In current LHC conditions with a center of mass energy at 13 TeV, the Hanbook of LHC Higgs cross section https://arxiv.org/abs/1610.07922 shows that $\sigma_{ggF} \approx 50 pb$, $\sigma_{VBF} \approx 4pb$, $\sigma_{VH} \approx 2.5 pb$, and $\sigma_{ttH} \approx 0.5 pb$. Each of these channels has their own unique backgrounds. The branching ratio of the Higgs boson decays is shown in Figure \ref{fig:HiggsBranchingRatios}. Notice the largest branching ratio is $H \rightarrow bb$ at around 58\%. Unfortunately, to take advantage of this channel an analysis will need to suppress the dominant hadronic multi-jet background at the LHC. Currently, ATLAS has focused large efforts on the VH channel, as it allows leptonic channels originating from the associated vector boson decay.
+The Higgs boson has four unique production modes, shown in Figure \ref{fig:HiggsProduction}. In current LHC conditions with a center of mass energy at 13 TeV, the Hanbook of LHC Higgs cross section \cite{LHCHiggsXSWG4} shows that $\sigma_{ggF} \approx 50 pb$, $\sigma_{VBF} \approx 4pb$, $\sigma_{VH} \approx 2.5 pb$, and $\sigma_{ttH} \approx 0.5 pb$. Each of these channels has their own unique backgrounds. The branching ratio of the Higgs boson decays is shown in Figure \ref{fig:HiggsBranchingRatios}. Notice the largest branching ratio is $H \rightarrow bb$ at around 58\%. Unfortunately, to take advantage of this channel an analysis will need to suppress the dominant hadronic multi-jet background at the LHC. Currently, ATLAS has focused large efforts on the VH channel, as it allows leptonic channels originating from the associated vector boson decay.
 
 \begin{figure}[h]
 	\centering
@@ -50,7 +210,76 @@ The Higgs boson has four unique production modes, shown in Figure \ref{fig:Higgs
 	\label{fig:HiggsBranchingRatios}
 \end{figure}
 
-\section{The Future of HEP Research}
+\begin{itemize}
+  \item ATLAS and CMS observed a new boson at $m_H \approx 125$ GeV in 2012 via the $H \rightarrow \gamma\gamma$ and $H \rightarrow ZZ^* \rightarrow 4\ell$ channels~\cite{ATLASDiscovery,CMSDiscovery}. Subsequent measurements confirmed spin-0 and CP-even quantum numbers.
+  % ~5 fb^-1 at 7 TeV + ~5 fb^-1 at 8 TeV; ATLAS arXiv:1207.7214, CMS arXiv:1207.7235
+  \item The VH production mode is experimentally favorable for hadronic Higgs decays: the leptonic $W$ or $Z$ decay provides a clean trigger and suppresses QCD multijet backgrounds.
+  % ggF largest cross section but no additional hard objects; VBF has two forward jets; ttH has ttbar pair
+  \item $H \rightarrow c\bar{c}$ has not yet been observed. This analysis targets $VH(H \rightarrow c\bar{c})$ as a direct probe of the charm Yukawa coupling.
+  \item FIGURE: ATLAS and CMS discovery plots ($H \rightarrow \gamma\gamma$ invariant mass peak,
+  %   $H \rightarrow ZZ^* \rightarrow 4\ell$ mass spectrum).
+  %   Move to Chapter 1 if that chapter serves as physics motivation.
+  %
+  %   ATLAS paper page (HIGG-2012-27): https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2012-27/
+  %     H->yy:    fig_004.png / fig_004.pdf  (diphoton invariant mass, combined 7+8 TeV)
+  %     H->ZZ*4l: fig_002.png / fig_002.pdf  (four-lepton invariant mass, 80-250 GeV range)
+  %     arXiv: 1207.7214
+  %
+  %   CMS paper page (HIG-12-028): https://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-12-028/
+  %     H->yy:    CMS-HIG-12-028_Figure_003.png / .pdf  (diphoton invariant mass with signal+background fit)
+  %     H->ZZ*4l: CMS-HIG-12-028_Figure_004.png / .pdf  (four-lepton invariant mass)
+  %     arXiv: 1207.7235
+  %
+  % SOURCE for cross section figure: LHC Higgs XS WG 2014
+  %   direct URL: https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHWGCrossSectionsFigures/7-14.xsec.pdf
+  %   Reference: LHC Higgs XS WG Yellow Report 4, arXiv:1610.07922
+\end{itemize}
 
-\lipsum[1]
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{figures/chapter2/Higgs_XS_vs_sqrts.pdf}
+	\caption{SM Higgs boson production cross sections as a function of centre-of-mass energy
+	$\sqrt{s}$ for $m_H = 125$ GeV~\cite{LHCHiggsXSWG4}. Gluon fusion ($pp \rightarrow H$)
+	dominates across all energies. Vector boson fusion ($pp \rightarrow qqH$), associated
+	production ($WH$, $ZH$), and $t\bar{t}H$ follow in decreasing order. Bands indicate
+	theoretical uncertainties.}
+	\label{fig:HiggsXSvsSqrts}
+\end{figure}
 
+\newpage
+
+% ============================================================
+% SECTION 2.5 — OPEN QUESTIONS
+% ------------------------------------------------------------
+% ANSWERS: The LHC has confirmed SM Higgs couplings to third-
+%          generation fermions and gauge bosons. But the SM
+%          itself has deeper unresolved problems that motivate
+%          a continued precision measurement program.
+% SETS UP: The thesis analysis as a contribution to this program.
+% ============================================================
+
+\section{Open Questions}
+
+\begin{itemize}
+  \item The SM does not describe gravity, dark matter, or the matter-antimatter asymmetry of the universe.
+  \item The hierarchy problem: quantum corrections drive $m_H$ toward the Planck scale, requiring fine-tuned cancellation unless new physics exists at the TeV scale.
+  \item EW vacuum stability: the measured $m_H$ and $m_t$ place the vacuum in a metastable region, suggesting the universe may reside in a false vacuum~\cite{Buttazzo:2013uya}.
+  % Yukawa coupling hierarchy (three generations, large mass spread) also unexplained by SM.
+  % HL-LHC will probe second-generation Yukawa couplings at O(10%) precision.
+  %\item FIGURE: EW vacuum stability phase diagram (top pole mass $M_t$ vs Higgs pole mass $M_h$),
+  %   showing stability, meta-stability, and instability regions. The right panel zooms into
+  %   the experimentally measured region, with 1, 2, 3$\sigma$ contours showing the measured
+  %   $M_h$ and $M_t$ values sit in the meta-stable region near the stability boundary.
+  %
+  %   SOURCE: Buttazzo et al., arXiv:1307.3536
+  %     "Investigating the near-criticality of the Higgs boson"
+  %     Buttazzo, Degrassi, Giardino, Giudice, Sala, Salvio, Strumia (2013)
+  %     Figure 3 (Left panel preferred; or use both Left+Right as a combined figure)
+  %     x-axis: Higgs pole mass $M_h$ in GeV (0-200 GeV, zoom 120-132 GeV)
+  %     y-axis: Top pole mass $M_t$ in GeV (0-200 GeV, zoom 168-180 GeV)
+  %     Regions: Stability (green), Meta-stability (yellow), Instability (red)
+  %     Dotted contours show instability scale $\Lambda_I$ in GeV
+  %     Full caption from paper: "SM phase diagram in terms of Higgs and top pole masses.
+  %       The plane is divided into regions of absolute stability, meta-stability, instability
+  %       of the SM vacuum, and non-perturbativity of the Higgs quartic coupling."
+\end{itemize}
