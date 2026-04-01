@@ -5,17 +5,74 @@
 \chapter[TOP POLARIMETRY]{TOP POLARIMETRY}
 \endgroup
 
-\section{Outline}
+% ============================================================
+% REFERENCES FOR THIS CHAPTER
+% ------------------------------------------------------------
+% PDG Review of Particle Physics: Workman et al., PTEP 2022, 083C01
+%   cite key: PDG2022
+% Afik & de Nova (tt entanglement theory): arXiv:2203.05582
+%   cite key: Afik:2022kwm
+% ATLAS tt entanglement observation: arXiv:2311.07288
+%   cite key: ATLAS:2023fsd
+% CMS tt entanglement observation: arXiv:2406.03976
+%   cite key: CMS:2024pts
+% Hadronic top polarimetry with ParticleNet: Dong et al. 2025
+%   cite key: Dong_2025
+% ============================================================
 
-\begin{itemize}
-  \item Top polarimetry motivation and results
-\end{itemize}
+\section{The Top Quark}
+
+The top quark is the heaviest known elementary particle, with a mass of
+$m_t \approx 173$~GeV~\cite{PDG2022}. This large mass corresponds to a Yukawa
+coupling close to unity, making the top quark the SM fermion most strongly
+coupled to the Higgs field. At the LHC with $\sqrt{s} = 13$--14~TeV, top
+quark pairs ($t\bar{t}$) are produced predominantly through gluon-gluon fusion,
+with a cross section of approximately 830~pb at $\sqrt{s} = 13$~TeV. The top
+quark decays to $Wb$ with a branching fraction near 100\%. Depending on the
+subsequent $W$ boson decay, $t\bar{t}$ events are classified as fully hadronic,
+semi-leptonic, or dileptonic. This analysis targets the semi-leptonic channel,
+$pp \rightarrow t\bar{t} \rightarrow \ell^\pm\nu 2b2j$, where one $W$ decays
+leptonically and the other hadronically.
+
+The top quark has a unique property among quarks. Its lifetime,
+$\tau_t \sim 5 \times 10^{-25}$~s, is shorter than the QCD hadronisation
+timescale by roughly an order of magnitude. The top quark therefore decays
+before it can bind into a hadronic state. As a result, its spin information
+is transferred directly to its decay products without being diluted by
+non-perturbative QCD effects. This makes the top quark the only quark whose
+spin state can be accessed experimentally through the angular distributions
+of its decay products.
+
 
 \section{Introduction to Spin Correlations}
 
-\lipsum[1]
+In $t\bar{t}$ production, quantum mechanics predicts specific correlations
+between the spins of the top and antitop quarks. These correlations arise
+from the production mechanism: the spin state of the $t\bar{t}$ pair is
+determined at the production vertex and depends on the initial state
+(gluon-gluon or $q\bar{q}$ annihilation) and the kinematics of the event.
+Because the top quark preserves its spin state through to its decay products,
+these correlations are observable as angular correlations between the decay
+products of the two top quarks.
+
+The spin correlations can be characterised by the angle $\theta$ between
+a spin analyser direction in the top quark rest frame and the top quark
+polarisation direction. The bottom quark and the down-type quark from the
+hadronic $W$ decay are the most powerful spin analysers in hadronic top
+decays, with analysing powers close to unity. This is exploited in the
+analysis strategy described in Section~\ref{sec:analysis}.
+
+Near the $t\bar{t}$ production threshold, the SM spin correlations are
+strong enough that the $t\bar{t}$ system can be characterised as a
+quantum-entangled spin state~\cite{Afik:2022kwm}. Recent measurements by
+ATLAS and CMS have observed this entanglement directly~\cite{ATLAS:2023fsd,CMS:2024pts},
+marking the first observation of quantum entanglement between particles
+produced at a hadron collider. This analysis builds on those results by
+developing transformer-based methods to probe spin correlations across a
+more inclusive phase space than previous hadronic polarimetry approaches.
 
 \section{Analysis}
+\label{sec:analysis}
 
 In this analysis, we aim to build upon the results from Hadronic top quark polarimetry with particle net \cite{Dong_2025} by using Transformers to target a more inclusive phase space. Reducing cuts during preselection will maximize the available statistics in data.
 
