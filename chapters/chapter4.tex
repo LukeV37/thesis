@@ -7,33 +7,31 @@
 
 \section{Introduction to B-Tagging}
 
-Heavy particles produced in high-energy collisions decay with significant branching fractions to heavy-flavor quarks: the top quark decays almost exclusively via $t \to Wb$, while the Higgs boson has sizable branching fractions to both $b\bar{b}$ and $c\bar{c}$ pairs. Identification of jets originating from b-quarks (b-jets) and c-quarks (c-jets) is therefore a critical task for the LHC physics program. The b quark undergoes weak decay $b \to cW^-$, with a rate governed by the CKM matrix element $V_{cb}$. Since $|V_{cb}|$ is small, the decay proceeds slowly relative to those of lighter quarks, resulting in a comparatively long B-hadron lifetime of $\sim$1.5~ps. This is sufficient for a B hadron produced at a typical LHC interaction point to travel several millimeters before decaying, giving rise to a secondary vertex spatially displaced from the primary interaction vertex.
+Heavy particles produced in high-energy collisions decay with significant branching fractions to heavy-flavor quarks. The top quark decays almost exclusively via $t \to Wb$, while the Higgs boson has sizable branching fractions to both $b\bar{b}$ and $c\bar{c}$ pairs. Identification of jets originating from b-quarks (b-jets) and c-quarks (c-jets) is therefore a critical task for the LHC physics program. The b quark undergoes weak decay $b \to cW^-$, with a rate governed by the CKM matrix element $V_{cb}$. Since $|V_{cb}|$ is small, the decay proceeds slowly relative to those of lighter quarks, resulting in a comparatively long B-hadron lifetime of $\sim$1.5~ps. This is sufficient for a B hadron produced at a typical LHC interaction point to travel several millimeters before decaying, giving rise to a secondary vertex spatially displaced from the primary interaction vertex, as illustrated in Figure~\ref{fig:b_jets}.
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/impact_parameters.png}
 		\caption{}
-		\label{fig:IP3D:d0}
+		\label{fig:b_jets:real_SV}
 	\end{subfigure}
   \hspace{0.1\textwidth}   % <-- space here
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/fake_SV.png}
 		\caption{}
-		\label{fig:IP3D:z0}
+		\label{fig:b_jets:fake_SV}
 	\end{subfigure}
-	\caption{https://www.hep.physik.uni-siegen.de/research/atlas/atlas-flavor-tagging}
-	\label{fig:IP3D}
+	\caption{(a) A $b$-quark travels a few mm before decaying yielding displaced tracks. (b) Various fake SV examples \textbf{A} high track multiplicity, \textbf{B} material interaction, \textbf{C} pile-up jets.}
+	\label{fig:b_jets}
 \end{figure}
+%https://www.hep.physik.uni-siegen.de/research/atlas/atlas-flavor-tagging
 
-The displacement of the secondary vertex can be characterized by the impact parameters of its associated tracks. The transverse impact parameter $d_0$ is the distance of closest approach between a track and the primary vertex in the transverse plane, while the longitudinal impact parameter $z_0$ is the corresponding distance along the beam axis (REFER TO THE FIGURE). Tracks originating from a displaced B-hadron decay will exhibit statistically significant non-zero values of $d_0$ and $z_0$, providing a powerful discriminant against light-flavor jets whose tracks are consistent with the primary vertex. Charm hadrons also undergo displaced decays, though with a shorter mean lifetime ($\sim$0.5~ps) and correspondingly smaller average displacement, making c-jets a more challenging background to reject than light-flavor jets.
+The displacement of the secondary vertex can be characterized by the impact parameters of its associated tracks. The transverse impact parameter $d_0$ is the distance of closest approach between a track and the primary vertex in the transverse plane, while the longitudinal impact parameter $z_0$ is the corresponding distance along the beam axis. Tracks originating from a displaced B-hadron decay will exhibit statistically significant non-zero values of $d_0$ and $z_0$, as shown in Figure~\ref{fig:IP3D}. Impact parameters providing a powerful discriminant against light-flavor jets whose tracks are consistent with the primary vertex. Charm hadrons also undergo displaced decays, though with a shorter mean lifetime ($\sim$0.5~ps) and correspondingly smaller average displacement, making c-jets a more challenging background to reject than light-flavor jets.
 
-Early ATLAS b-tagging algorithms exploited these displaced-vertex signatures by combining track impact parameter significances, inclusive secondary vertex properties, and decay chain topology into multivariate discriminants, progressing from boosted decision trees to shallow and then deep neural networks. The following section describes the subsequent transition to end-to-end architectures that process the full set of tracks within a jet simultaneously, enabling substantial improvements in both light-jet and c-jet rejection.
-
-
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{.3\textwidth}
 		\centering
@@ -41,20 +39,23 @@ Early ATLAS b-tagging algorithms exploited these displaced-vertex signatures by 
 		\caption{}
 		\label{fig:IP3D:d0}
 	\end{subfigure}
-  \hspace{0.1\textwidth}   % <-- space here
+	\hspace{0.1\textwidth}   % <-- space here
 	\begin{subfigure}{.3\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/z0_sig.png}
 		\caption{}
 		\label{fig:IP3D:z0}
 	\end{subfigure}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2017-013/}
+	\caption{$b$-jets have noticeably more significant impact parameters: $\frac{d_0}{\sigma(d_0)}$ (left) and $\frac{z_0}{\sigma(z_0)}$ (right)}
 	\label{fig:IP3D}
 \end{figure}
+%https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2017-013/
+
+Early ATLAS b-tagging algorithms exploited these displaced-vertex signatures by combining secondary vertex properties, track impact parameter significances, and other kinematic properties into multivariate discriminants. Previously, ATLAS relied on boosted decision trees and deep neural networks for $b$-tagging jets. However, recently ATLAS transitioned to graph and attention architectures that process the full set of tracks within a jet simultaneously, enabling substantial improvements in both light-jet and c-jet rejection. The following sections describe the improvements.
 
 \section{Overview of Architectures for Jet Tagging}
 
-Jet flavor identification at the LHC is a multi-class classification problem: given a jet, a tagger must discriminate between b-jets, c-jets, and light-flavor jets. Deep neural networks (DNNs) are well suited to this task, learning non-linear decision boundaries in high-dimensional feature spaces directly from MC-simulated training samples where truth-level flavor labels are available. Crucially, architectures that operate directly on the full set of tracks within a jet, treating the jet as a variable-length set of objects, preserve information that is inevitably lost when constructing fixed-size high-level summary variables. The following subsections describe the graph- and attention-based architectures that exploit this, and the performance gains they deliver in both b-jet and c-jet identification.
+Jet flavor identification at the LHC is a multi-class classification problem: given a jet, a tagger must discriminate between b-jets, c-jets, and light-flavor jets. Deep neural networks (DNNs) are well suited to this task, learning non-linear transformations in a high-dimensional feature space. Using supervised learning, the models are trained directly on simulated MC samples where truth-level flavor labels are available. Crucially, architectures that operate directly on the full set of tracks within a jet, treating the jet as a variable-length set of objects, preserve information that is inevitably lost when constructing fixed-size high-level summary variables. The following subsections describe the graph- and attention-based architectures that exploit this, and the performance gains they deliver in both b-jet and c-jet identification.
 
 \subsection{Graph Neural Networks and GN1}
 
@@ -73,7 +74,7 @@ implemented as MLPs. This is a natural fit for the tracks within a jet, which fo
 set with meaningful pairwise relationships such as angular separation or compatibility with a
 common decay vertex.
 
-https://pytorch-geometric.readthedocs.io/en/latest/notes/create\_gnn.html
+% https://pytorch-geometric.readthedocs.io/en/latest/notes/create\_gnn.html
 
 \texttt{GN1} represented a fundamental architectural shift, moving away from the paradigm of
 combining outputs of separately optimized low-level tagging algorithms towards a single
@@ -100,9 +101,10 @@ or discarded when constructing high-level summary variables.
 		\caption{}
 		\label{fig:IP3D:z0}
 	\end{subfigure}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
+	\caption{GN1 simplifies tagging process and bypasses manually optimized algorithms (left) by training directly on low level inputs (right).}
 	\label{fig:GN1_Inputs}
 \end{figure}
+% https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/
 
 \texttt{GN1} also introduced multi-task training with two auxiliary objectives alongside the
 primary jet-level $b$/$c$/light classification. The first predicts the truth origin of each
@@ -113,14 +115,15 @@ vertex and thereby performing implicit secondary vertex finding without a dedica
 algorithm. Together, these auxiliary objectives act as powerful regularizers, encouraging the
 network to build physically interpretable representations that generalize well across jet
 kinematics. The graph-based message passing combined with multi-task learning produced
-substantial improvements in both light-jet and $c$-jet rejection over \texttt{DL1r}.
+substantial improvements in both light-jet and $c$-jet rejection over \texttt{DL1r}, as shown in Figure~\ref{fig:GN1:ROC}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\linewidth]{figures/chapter4/GN1.png}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
+	\caption{The GN1 architecture takes combined inputs (jet+track features) and performs three predictions: (1) graph level jet flavor (2) node level track origin (3) edge level vertex sharing.}
 	\label{fig:GN1}
 \end{figure}
+%https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/
 
 \subsection{Attention Mechanism and Transformers and GN2}\label{sec:attention}
 
@@ -133,25 +136,14 @@ are given by:
 \begin{equation}
 	\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
 \end{equation}
-where softmax is BLAH BLAH BLAH...
-where $d_k$ is the dimension of the key vectors, introduced to prevent saturation of the softmax
-at large dot-product magnitudes. For a jet with $N$ tracks, this produces an $N \times N$
-attention matrix at each layer, where entry $(i,j)$ reflects how strongly track $i$ attends to
-track $j$ when updating its representation. A transformer encoder block consists of one such
+where softmax is $\sigma(z_i) = \frac{e^{z_{i}}}{\sum_{j=1}^k e^{z_{j}}} \ \ \ for\ i=1,2,\dots,k$
+and $d_k$ is the dimension of the key vectors introduced for numerical stability. For a jet with $N$ tracks, this produces an $N \times N$
+attention matrix at each layer as shown in Figure~\ref{fig:attention_weights}, where entry $(i,j)$ reflects how strongly track $i$ attends to
+track $j$ when updating its representation. A transformer encoder block, shown in Figure~\ref{fig:attention_encoder}, consists of one such
 self-attention operation followed by a position-wise feed-forward network, with residual
 connections and layer normalization around both. Multi-head attention extends this by running
 $h$ independent attention operations in parallel with separate learned projections, allowing the
 network to simultaneously capture different aspects of the track relationships.
-
-Compared to the message passing approach of \texttt{GN1}, self-attention offers several
-advantages for jet flavor tagging. In message passing, all neighboring tracks contribute to
-the node update through a fixed aggregation function, regardless of their relevance to the jet.
-Self-attention replaces this with a fully learned, input-dependent weighting, allowing the
-network to dynamically identify which track pairs are most discriminating on a per-jet basis.
-This enables the capture of long-range correlations across the full track ensemble without any
-locality bias. The learned attention weights also provide direct interpretability: they can be
-inspected to understand which track pairs the network considers most informative for a given
-tagging decision, as illustrated in Figure~\ref{fig:attention}.
 
 \begin{figure}[h]
 	\centering
@@ -168,9 +160,18 @@ tagging decision, as illustrated in Figure~\ref{fig:attention}.
 		\caption{}
 		\label{fig:attention_encoder}
 	\end{subfigure}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/}
+	\caption{Attention weights (a) determines how strongly track $i$ is correlated to track $j$. A transformer encoder block (b) takes a set as input, and outputs the same size set with each element dynamically updated according to its neighbors.}
 	\label{fig:attention}
 \end{figure}
+% https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2022-027/
+
+Compared to the message passing approach of \texttt{GN1}, self-attention offers several
+advantages for jet flavor tagging. In message passing, all neighboring tracks contribute to
+the node update through a fixed aggregation function, regardless of their relevance to the jet.
+Self-attention replaces this with a fully learned, input-dependent weighting, allowing the
+network to dynamically identify which track pairs are most discriminating on a per-jet basis.
+This enables the capture of long-range correlations across the full track ensemble without any
+locality bias.
 
 \texttt{GN2} extended \texttt{GN1} by replacing the message passing aggregation with a
 transformer encoder applied directly to the set of tracks within each jet. The multi-task
@@ -373,31 +374,29 @@ on high-level subjet discriminants rather than low-level tracks. By operating di
 \texttt{GN2X} exploits the full spatial and kinematic correlations between decay products of both
 $b$- and $c$-hadrons within the jet.
 
-\subsubsection{Mass Sculpting of Background}
+%\subsubsection{Mass Sculpting of Background}
 
-An important consideration when deploying any tagger is the potential for mass sculpting, 
-where correlations between the tagger score and the large-$R$ jet mass cause the background 
-mass distribution to resemble that of the signal after applying a discriminant cut. This is 
-particularly undesirable for data-driven background estimation techniques which rely on 
-smoothly-falling mass distributions.
+%An important consideration when deploying any tagger is the potential for mass sculpting, 
+%where correlations between the tagger score and the large-$R$ jet mass cause the background 
+%mass distribution to resemble that of the signal after applying a discriminant cut. This is 
+%particularly undesirable for data-driven background estimation techniques which rely on 
+%smoothly-falling mass distributions.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.5\linewidth]{figures/chapter4/mass_sculpting.png}
-	\caption{Large-$R$ jet mass distributions for $H(b\bar{b})$ and multijet samples, before 
-		and after applying a 70\% $H(b\bar{b})$ efficiency $D^{\text{GN2X}}_{Hbb}$ cut. Taken 
-		from~\cite{ATL-PHYS-PUB-2023-021}.}
-	\label{fig:mass_sculpting}
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.5\linewidth]{figures/chapter4/mass_sculpting.png}
+%	\caption{Large-$R$ jet mass distributions for $H(b\bar{b})$ and multijet samples, before 
+%		and after applying a 70\% $H(b\bar{b})$ efficiency $D^{\text{GN2X}}_{Hbb}$ cut. Taken 
+%		from~\cite{ATL-PHYS-PUB-2023-021}.}
+%	\label{fig:mass_sculpting}
+%\end{figure}
 
-Figure~\ref{fig:mass_sculpting} shows the large-$R$ jet mass distributions for $H(b\bar{b})$ 
-and multijet samples before and after applying a 70\% $H(b\bar{b})$ efficiency 
-$D^{\text{GN2X}}_{Hbb}$ cut. Close to the peak of the $H(b\bar{b})$ mass distribution, 
-the multijet mass shape remains largely unchanged, as desired. Some sculpting is observed 
-at high and low mass values, attributed to low training statistics in those 
-regions~\cite{ATL-PHYS-PUB-2023-021}.
-
-
+%Figure~\ref{fig:mass_sculpting} shows the large-$R$ jet mass distributions for $H(b\bar{b})$ 
+%and multijet samples before and after applying a 70\% $H(b\bar{b})$ efficiency 
+%$D^{\text{GN2X}}_{Hbb}$ cut. Close to the peak of the $H(b\bar{b})$ mass distribution, 
+%the multijet mass shape remains largely unchanged, as desired. Some sculpting is observed 
+%at high and low mass values, attributed to low training statistics in those 
+%regions~\cite{ATL-PHYS-PUB-2023-021}.
 
 \section{Calibration of B-Tagging Algorithms}
 
