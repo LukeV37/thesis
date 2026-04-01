@@ -69,32 +69,24 @@
 
 The Standard Model (SM) is the theoretical framework that describes all
 known fundamental particles and three of the four fundamental forces of
-nature. The SM organizes its particles into two broad categories: fermions and bosons.
+nature -- except gravity. The SM organizes its particles into two broad categories: fermions and bosons.
 Fermions are particles with half-integer spin and make up the matter
 content of the universe. Bosons are particles with integer spin and
 are responsible for mediating the fundamental forces.
 
 The fermions are divided into two families: quarks and leptons, each
-arranged into three generations of increasing mass. The first generation
-contains the lightest and most stable particles: the up and down quarks,
-the electron, and the electron neutrino. The second and third generations
-are heavier copies with otherwise identical quantum numbers. All ordinary
-matter is composed of first-generation particles, and the heavier
-generations are unstable and decay to first-generation particles. Why
-nature repeats this pattern exactly three times is not predicted by the SM
-and remains an open question.
-Quarks carry electric charge, weak charge, and color charge, and therefore
-interact with all three SM forces. Quarks are never observed in isolation
-and are always found confined inside composite particles called hadrons,
-such as the proton ($uud$) and neutron ($udd$). The leptons follow the
-same three-generation pattern, with the electron, muon, and tau each
-paired with a corresponding neutrino. Leptons carry electric and
-weak charge but no color charge. Neutrinos carry only weak charge and
-interact exclusively through the weak force.
+arranged into three generations of increasing mass. All ordinary matter is composed
+of the lightest and most stable first-generation particles. Quarks carry electric charge, weak charge, and color charge, and therefore
+interact with all three SM forces. Due to color confinement, quarks are never observed in isolation
+and are always found confined inside composite particles called hadrons.
+The leptons follow the same three-generation pattern, with the electron,
+muon, and tau each paired with a corresponding neutrino. Leptons carry
+electric and weak charge but no color charge. Neutrinos carry only weak
+charge and interact exclusively through the weak force.
 
 The force carriers are spin-1 gauge bosons. The massless photon mediates the
 electromagnetic force. The $W^\pm$ and $Z$ bosons mediate
-the weak force and are massive, at 80 and 92 GeV, respectively. Eight massless gluons mediate the strong force. The Higgs boson is distinct from the gauge bosons as it is the
+the weak force and are massive, at 80 and 91 GeV, respectively. Eight massless gluons mediate the strong force. The Higgs boson, with mass of 125 GeV, is distinct from the gauge bosons as it is the
 only spin-0 fundamental particle and does not mediate a force. Instead it
 plays a central role in mass generation, as described in
 Section~\ref{sec:higgs_mechanism}. The Standard Model is shown in
@@ -108,48 +100,58 @@ Figure~\ref{fig:SM}.
 \end{figure}
 
 In essence, the SM is a theory explaining the underlying symmetries of
-nature. A symmetry in physics is an invariance under some transformation.
-A classical example is translational symmetry, in which the outcome of an
-experiment does not depend on where in space it is performed. In the SM,
-the relevant symmetries are gauge symmetries, also called local symmetries.
-To understand the distinction between a global and a local symmetry,
-consider an analogy. Imagine a vector field $\vec{\psi}(x)$ spread across
-space, each pointing in some direction. A global symmetry $\alpha$ is like
+nature. A symmetry in physics is an invariance under some transformation. A classical example being translational symmetry, where physics does not
+depend on where an experiment is performed. In the SM, the relevant
+symmetries are gauge symmetries, also called local symmetries. To
+understand the distinction between a global and a local symmetry, consider a vector field $\vec{\psi}(x)$ spread across space. A global symmetry $\alpha$ is like
 rotating every vector by the same fixed angle simultaneously,
-$\vec{\psi}(x) \rightarrow \alpha \cdot \vec{\psi}(x)$. The relative
-relationships between all vectors are preserved, and the physics is
-unchanged. A gauge, or local, symmetry $\alpha(x)$ is more constraining.
-Each vector is allowed to be rotated by a different angle at each point in
-space independently, $\vec{\psi}(x) \rightarrow \alpha(x) \cdot \vec{\psi}(x)$.
-In the language of quantum field theory, this corresponds to a local phase
-rotation of the fermion field~\cite{Peskin:1995ev}:
+$\vec{\psi}(x) \rightarrow \alpha \cdot \vec{\psi}(x)$. A gauge, or
+local, symmetry $\alpha(x)$ is more constraining: each vector is rotated
+by a different angle at each point in space independently,
+$\vec{\psi}(x) \rightarrow \alpha(x) \cdot \vec{\psi}(x)$. In the
+language of quantum field theory, this corresponds to a local phase
+rotation, also called a U(1) transformation, of the fermion field~\cite{Peskin:1995ev}:
 \begin{equation}
     \psi(x) \rightarrow e^{i\alpha(x)}\psi(x).
     \label{eq:U1_gauge_transform}
 \end{equation}
 For the physics to remain consistent under this position-dependent
-transformation, a new field $A_\mu(x)$ must be introduced to compensate
-for the varying phase from point to point. This is achieved by replacing
-the ordinary derivative $\partial_\mu$ with the covariant derivative,
+transformation, a new field $A_\mu(x)$ must be introduced via the
+covariant derivative,
 \begin{equation}
     D_\mu = \partial_\mu + igA_\mu(x),
     \label{eq:covariant_derivative}
 \end{equation}
 where $g$ is the coupling strength. The field $A_\mu$ is precisely a gauge
-boson. In this way, the forces of nature emerge as a direct consequence of
-demanding local gauge invariance.
+boson. In this way, the
+forces of nature emerge as a local gauge
+symmetry.
 
-The SM is invariant under the gauge symmetry group
-$\text{SU}(3)_C \times \text{SU}(2)_L \times \text{U}(1)_Y$. Each factor
-corresponds to one of the SM forces. The $\text{SU}(3)_C$ symmetry governs
-the strong force, with the subscript $C$ denoting color charge. Its eight
-generators correspond to the eight gluons. The
-$\text{SU}(2)_L \times \text{U}(1)_Y$ symmetry governs the electroweak
-force, with $L$ indicating that the weak interaction acts only on
-left-handed fermions and $Y$ denoting hypercharge. Together these produce
-four gauge bosons: the $W^+$, $W^-$, $W^0$, and $B^0$. After electroweak
-symmetry breaking, these mix to form the physical $W^\pm$, $Z$, and
-$\gamma$.
+The SM Lagrangian is invariant under the gauge symmetry group
+$\text{SU}(3)_C \times \text{SU}(2)_L \times \text{U}(1)_Y$. The
+$\text{SU}(3)_C$ symmetry governs the strong force, with the subscript $C$
+denoting color charge; its generators, the Gell-Mann matrices,
+correspond to the eight gluons. The $\text{SU}(2)_L \times \text{U}(1)_Y$
+symmetry governs the electroweak force, with generators given by the three
+Pauli matrices and a single hypercharge generator $Y$. The subscript $L$
+indicates that the weak interaction acts only on left-handed fermions as experimentally observed by Wu (1956).
+% NOTE: Why does SU(2)_L only interact with left-handed fermions?
+% This is an experimental observation, not derived from a deeper principle.
+% The 1956 Wu experiment showed beta decay violates parity; subsequent work
+% established the weak interaction is V-A (vector minus axial-vector), which
+% projects onto left-handed chirality only. The SM encodes this by placing
+% left-handed fermions in SU(2)_L doublets (e.g. (nu_e, e^-)_L, (u,d)_L)
+% and right-handed fermions in singlets (e_R, u_R, d_R). Singlets do not
+% transform under SU(2)_L, so the W bosons do not appear in their covariant
+% derivative — right-handed fermions are simply invisible to the weak force.
+% Note: the weak force couples to chirality (the gamma^5 eigenvalue), which
+% coincides with helicity only for massless particles.
+% Right-handed neutrinos do not appear in the SM at all as a consequence.
+% The SM offers no explanation for WHY the weak force is chiral — it is an input. 
+Together these produce four gauge bosons: the $W^+$, $W^-$, $W^0$, and
+$B^0$. After electroweak symmetry breaking, discussed in
+Section~\ref{sec:higgs_mechanism}, these mix to form the physical
+$W^\pm$, $Z$, and $\gamma$.
 
 The dynamics of all SM particles and their interactions are encoded in the
 SM Lagrangian density~\cite{PDG2022}:
@@ -169,30 +171,8 @@ SM Lagrangian density~\cite{PDG2022}:
 % y_{mn}: 3x3 Yukawa matrix; m,n = generation indices (chosen to avoid clash with imaginary unit i)
 % Reference: PDG Review, Workman et al. PTEP 2022, 083C01 (Electroweak Model chapter)
 
-The gauge kinetic term $-\frac{1}{4}F^a_{\mu\nu}F^{a\mu\nu}$ describes
-how the gauge fields propagate and self-interact. The field strength tensor
-$F^a_{\mu\nu}$ encodes the derivatives and self-couplings of each gauge
-field. The fermion kinetic term $i\bar{\psi}\gamma^\mu D_\mu\psi$ describes
-how fermions propagate and interact with the gauge fields. The ordinary
-derivative is replaced by the covariant derivative $D_\mu$, which
-automatically inserts the correct interaction vertex between a fermion and
-a gauge boson. This substitution is the mathematical implementation of
-local gauge invariance. The Higgs sector $|D_\mu\phi|^2 - V(\phi)$
-describes the Higgs field, its self-interaction potential, and its
-couplings to the gauge bosons. The potential $V(\phi)$ drives the
-spontaneous symmetry breaking discussed in
-Section~\ref{sec:higgs_mechanism}. Finally, the Yukawa term
-$y_{ij}\bar{\psi}_{Li}\phi\psi_{Rj}$ couples the fermions to the Higgs
-field. After symmetry breaking, this term generates the fermion masses
-discussed in Section~\ref{sec:yukawa}.
-
-Despite its precision, the SM does not describe gravity, does not account
-for dark matter or dark energy, and provides no explanation for the
-observed matter-antimatter asymmetry of the universe. These open questions
-are discussed in Section~\ref{sec:open_questions}.
+The gauge kinetic term $-\frac{1}{4}F^a_{\mu\nu}F^{a\mu\nu}$ governs the propagation and self-interactions of all gauge bosons, where the index $a$ runs over all generators of the gauge group. The fermion kinetic term $i\bar{\psi}\gamma^\mu D_\mu\psi$ describes how fermions propagate and couple to the gauge fields through the covariant derivative $D_\mu$. The Higgs sector $|D_\mu\phi|^2 - V(\phi)$ contains the Higgs field and its couplings to the gauge bosons; the potential $V(\phi)$ drives the spontaneous symmetry breaking discussed in Section~\ref{sec:higgs_mechanism}. Finally, the Yukawa term $y_{ij}\bar{\psi}_{Li}\phi\psi_{Rj}$ couples fermions to the Higgs field, generating fermion masses after symmetry breaking, as discussed in Section~\ref{sec:yukawa}.
 % References: PDG (Workman et al. 2022), Glashow 1961, Weinberg 1967
-
-\newpage
 
 % ============================================================
 % SECTION 2.2 — THE HIGGS MECHANISM
@@ -227,15 +207,32 @@ are discussed in Section~\ref{sec:open_questions}.
 %   - Optional: show W and Z mass formulae m_W = gv/2, m_Z = sqrt(g^2+g'^2)v/2
 % ------------------------------------------------------------
 
-\begin{itemize}
-  \item A complex scalar doublet $\phi$ with potential $V(\phi) = \mu^2|\phi|^2 + \lambda|\phi|^4$ is introduced. For $\mu^2 < 0$, the minimum is a degenerate circle at $|\phi| = v/\sqrt{2}$, where $v \approx 246$ GeV is the vacuum expectation value.
-  \item The ground state spontaneously selects one minimum, breaking $\text{SU}(2)_L \times \text{U}(1)_Y \rightarrow \text{U}(1)_{EM}$. Three Goldstone bosons are absorbed by the $W^{\pm}$ and $Z$, giving them mass. The photon remains massless.
-  \item The remaining degree of freedom is the Higgs boson $h$, a real scalar representing oscillations about the minimum.
-  % W and Z masses arise from |D_mu phi|^2 after SSB:
-  %   m_W = \frac{1}{2} g v, \qquad m_Z = \frac{1}{2}\sqrt{g^2 + g'^2}\, v
-  % where g, g' are the SU(2)_L and U(1)_Y couplings. With v = 246 GeV: m_W ~ 80 GeV, m_Z ~ 91 GeV.
-  % References: Englert & Brout PRL 1964, Higgs PRL 1964, Guralnik/Hagen/Kibble PRL 1964
-\end{itemize}
+The gauge symmetry of the SM places a strict constraint on the Lagrangian.
+Explicit mass terms for the gauge bosons, of the form $m_W^2 W_\mu W^\mu$,
+break gauge invariance and are therefore forbidden. The theory thus predicts
+that the $W$ and $Z$ bosons should be massless, analogous to the photon.
+However, the $W$ and $Z$ bosons are experimentally observed to be massive
+at 80 and 91 GeV respectively. This contradiction points to a missing
+mechanism, one that generates gauge boson masses without introducing
+explicit mass terms and without breaking the gauge invariance the SM is
+built upon.
+
+The resolution is provided by the Higgs mechanism~\cite{Englert:1964et, Higgs:1964pj, Guralnik:1964eu}.
+% DUMMY CITE KEYS — correct later:
+%   Englert:1964et  — Englert & Brout, PRL 13, 321 (1964)
+%   Higgs:1964pj    — Higgs, PRL 13, 508 (1964)
+%   Guralnik:1964eu — Guralnik, Hagen & Kibble, PRL 13, 585 (1964)
+A complex scalar field $\phi$, called the Higgs field, is introduced with
+the potential $V(\phi) = \mu^2|\phi|^2 + \lambda|\phi|^4$, shown in
+Figure~\ref{fig:HiggsPotential}. For $\mu^2 < 0$, the origin is an
+unstable maximum and the true minima form a degenerate ring at
+$|\phi| = v/\sqrt{2}$, where $v \approx 246$ GeV is the vacuum expectation
+value (vev). The field must settle into one point on this ring. The ground
+state spontaneously selects one minimum, breaking
+$\text{SU}(2)_L \times \text{U}(1)_Y \rightarrow \text{U}(1)_{EM}$.
+Importantly, the Lagrangian itself retains its full symmetry. It is only
+the ground state that breaks it, hence the term spontaneous symmetry
+breaking (SSB).
 
 \begin{figure}[h]
 	\centering
@@ -245,6 +242,18 @@ are discussed in Section~\ref{sec:open_questions}.
 	The ground state spontaneously selects one minimum, breaking $\text{SU}(2)_L \times \text{U}(1)_Y \rightarrow \text{U}(1)_\text{EM}$.}
 	\label{fig:HiggsPotential}
 \end{figure}
+
+Breaking three of the four electroweak generators produces three massless
+Goldstone bosons. These are absorbed by the $W^+$, $W^-$, and $Z$ bosons
+as their longitudinal polarisation modes, giving them mass. The resulting
+masses $m_W = gv/2$ and $m_Z = \sqrt{g^2 + g'^2}\,v/2$ are determined
+entirely by the vev and reproduce the observed values. The photon
+corresponds to the unbroken $\text{U}(1)_{EM}$ generator and remains
+massless. The remaining physical degree of freedom in the scalar doublet
+is the Higgs boson $h$, a real scalar particle representing oscillations
+about the potential minimum. While the Higgs mechanism accounts for gauge
+boson masses, fermion masses require a further ingredient, discussed in
+Section~\ref{sec:yukawa}.
 
 \newpage
 
@@ -386,7 +395,8 @@ A landmark achievement in experimental particle physics was obtained at the LHC 
 	\caption{% TODO: Add caption. Suggest: "Feynman diagrams for the four main
 	% Higgs boson production modes at the LHC: gluon-gluon fusion (ggF),
 	% vector boson fusion (VBF), associated production (VH), and top quark
-	% associated production (ttH)."}
+	% associated production (ttH)."
+	}
 	\label{fig:HiggsProduction}
 \end{figure}
 
@@ -398,7 +408,8 @@ The Higgs boson has four unique production modes, shown in Figure \ref{fig:Higgs
 	\includegraphics[width=0.4\linewidth]{figures/chapter2/Higgs_Branching_Ratios.png}
 	\caption{% TODO: Add caption. Suggest: "SM Higgs boson branching ratios as a
 	% function of m_H~\cite{LHCHiggsXSWG4}. The dominant decay is H->bb at ~58%.
-	% The H->cc branching ratio is ~2.9% and has not yet been observed directly."}
+	% The H->cc branching ratio is ~2.9% and has not yet been observed directly."
+	}
 	\label{fig:HiggsBranchingRatios}
 \end{figure}
 
@@ -475,6 +486,9 @@ The Higgs boson has four unique production modes, shown in Figure \ref{fig:Higgs
 
 \begin{itemize}
   \item The SM does not describe gravity, dark matter, or the matter-antimatter asymmetry of the universe.
+  % NOTE: Three-generation structure — the SM contains exactly three generations of quarks and leptons
+  % of increasing mass, but provides no explanation for why this pattern repeats exactly three times.
+  % This is flagged in Section 2.1 as an open question.
   \item The hierarchy problem: quantum corrections drive $m_H$ toward the Planck scale, requiring fine-tuned cancellation unless new physics exists at the TeV scale. The dominant contribution to these corrections comes from the top quark loop, which enters with a coefficient proportional to $y_t^2$. Because $y_t \approx 1$ is so large compared to all other SM fermion Yukawa couplings, the top quark is responsible for the largest single quantum correction to the Higgs mass. This is why many BSM theories targeting the hierarchy problem, such as supersymmetry, predict a top quark superpartner near the TeV scale.
   \item EW vacuum stability: the measured $m_H$ and $m_t$ place the vacuum in a metastable region, suggesting the universe may reside in a false vacuum~\cite{Buttazzo:2013uya}.
   % Yukawa coupling hierarchy (three generations, large mass spread) also unexplained by SM.
