@@ -37,8 +37,8 @@ information needed to reconstruct the full event topology.
 	\label{fig:detector_slice}
 \end{figure}
 
-As illustrated in Figure~\ref{fig:detector_slice}, each particle species
-exploits this architecture differently. \textbf{Electrons}~\cite{EGAM-2018-01} leave a curved
+As illustrated in Figure~\ref{fig:detector_slice}, differnt types of particles 
+are captured differently. \textbf{Electrons}~\cite{EGAM-2018-01} leave a curved
 track in the inner detector and deposit their full energy in the EM
 calorimeter via a narrow electromagnetic shower. \textbf{Photons}~\cite{EGAM-2018-01} produce
 an identical EM shower but leave no track, as they carry no electric charge.
@@ -53,7 +53,7 @@ behind, reconstructed as missing transverse energy $E_{\text{T}}^{\text{miss}}$.
 % MENTION THE MOTIVATION OF TRACKER AND CALORIMETER. IT IS DESIGNED IN SUCH A WAY TO IDENTIFY PARTILCES THAT ARE PRODUCES: eLECTRONS, PHOTONS, MUONS, HADRONS (JETS). tRACKER DOES NOT CAPTURE ENERGY, BUT CALO DOES STOP ENERGY
 % eVERY SINGLE PHYSICS ANALYSIS REQUIRES FULL UNDERSTANDING OF EVENT TOPOLOGY OF VARIOUS OBJECTS. sINCE THESE PRODUCTION OF THESE PHYSICS PROCDUCTIONS IS AT DIFFERENT RATES, CROSS SECTIONS, AND BRANCHING RATIOS. sOME OF THESE EVENTS ARE QUITE RARE SO TRIGGER BECOMES SUPER IMPORTANT. tRIGGER PLAYS A HUGE PART IN
 
-https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/PERF-2007-01/
+% ATLAS DETECTOR PAPER: https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/PERF-2007-01/
 
 \subsection{Detector Coordinate System}
 
@@ -84,10 +84,7 @@ The angular separation between two objects is expressed as:
 	\label{eq:deltaR}
 \end{equation}
 %
-which is the standard metric for object matching and isolation. The detector
-is divided into a central barrel region and two end-cap regions, with
-transverse momentum and energy denoted $p_{\text{T}}$ and $E_{\text{T}}$
-respectively.
+which is the standard metric for object matching and isolation.
 
 % HEAVY OBJECTS SUCH AS TOP QUARKS TEND TO HAVE HIGH $p_T$ DECAY PRODUCTS
 % AND ARE BIASED TOWARD THE CENTRAL REGION ($\eta \approx 0$) WHILE PILEUP
@@ -134,7 +131,7 @@ as close as 50.5\,mm from the beam axis in the barrel. Its fine granularity
 and proximity to the interaction point enable precise track impact parameter
 measurements. These are essential for reconstructing displaced secondary
 vertices from $b$-hadron decays, which is critical for $b$-jet
-identification and $\tau$-lepton tagging.
+identification and $\tau$-tagging.
 
 The detector consists of 1744 silicon pixel modules arranged in three
 concentric barrel layers and two end-caps of three disks each. The barrel
@@ -151,8 +148,8 @@ and Run 2 at a radius of 33\,mm. The IBL improves impact parameter
 resolution and displaced vertex reconstruction, directly enhancing
 $b$-tagging performance.
 
-IBL: https://cds.cern.ch/record/1291633 \\
-Commissioning and calibration: https://arxiv.org/pdf/1004.5293
+%IBL: https://cds.cern.ch/record/1291633 \\
+%Commissioning and calibration: https://arxiv.org/pdf/1004.5293
 
 \subsection{Semiconductor Tracker -- SCT}
 
@@ -165,7 +162,7 @@ Unlike pixels, strip sensors measure position in only one dimension. A strip is 
 The TRT is the outermost component of the tracking system, covering radii from
 554\,mm to 1082\,mm. It consists of 298,304 proportional drift tubes (straws)
 of 4\,mm diameter. The barrel is divided into three rings of 32 modules each,
-with straws arranged axially and interleaved with polypropylene fibres. In the
+with straws arranged axially and interleaved with polypropylene fibers. In the
 end-cap regions, the straws are oriented radially. Each straw provides a
 drift-time measurement with an intrinsic accuracy of 130\,$\mu$m. All charged
 tracks with $p_{\text{T}} > 0.5$\,GeV and $|\eta| < 2.0$ traverse at least 36
@@ -189,8 +186,7 @@ The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid
 magnet, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}. Unlike
 the inner detector, which measures particle trajectories
 non-destructively, the calorimeters are designed to stop particles
-completely and absorb their total energy. This is achieved through a
-\textit{sampling} design. Dense absorber material initiates a shower of
+completely and absorb their total energy. Dense absorber material initiates a shower of
 secondary particles. An interleaved active medium then collects a
 representative sample of the deposited energy. The calorimeters respond
 to both charged and neutral particles, making them essential for
@@ -208,11 +204,11 @@ The system provides full azimuthal coverage over $|\eta| < 4.9$ and is
 divided into three regions: the electromagnetic (EM) calorimeter, the
 hadronic calorimeter, and the forward calorimeter (FCal). The total
 depth exceeds 10 hadronic interaction lengths $\lambda$, ensuring shower
-containment and limiting punch-through into the muon spectrometer.
+containment and minimizing hadronic leakage into the muon spectrometer.
 
 The majority of ATLAS calorimeters use liquid argon (LAr) as the active
 medium. LAr was chosen for its intrinsic linear response, stable
-behaviour over time, and radiation hardness. These properties are
+behavior over time, and radiation hardness. These properties are
 critical given the high particle flux at the LHC. It is used in the
 electromagnetic barrel and end-cap calorimeters, the hadronic end-cap,
 and the forward calorimeter. The hadronic barrel calorimeter (TileCal)
@@ -296,7 +292,7 @@ The LAr forward calorimeter (FCal) extends coverage to
 $3.1 < |\eta| < 4.9$, housed in the same end-cap cryostats as the EMEC
 and HEC. The FCal consists of three longitudinal modules,
 approximately $10\,\lambda$ deep in total. The first module uses copper
-absorbers optimised for electromagnetic measurements. The second and
+absorbers optimized for electromagnetic measurements. The second and
 third modules use tungsten absorbers, which provide the density needed
 to contain hadronic showers in the limited available space.
 
@@ -331,7 +327,7 @@ The spectrometer uses two classes of detector technology. Monitored drift tube (
 
 The LHC delivers proton-proton bunch crossings at a rate of 40\,MHz~\cite{PERF-2007-01}. At LHC energies, the total inelastic cross-section is many orders of magnitude larger than the cross-sections for processes of physics interest. Higgs boson production, for example, is suppressed by a factor of approximately $10^9$ relative to the total multijet rate. The vast majority of collisions are therefore soft QCD processes with no hard-scatter content. Recording every collision is not feasible. Each event represents several megabytes of raw detector data, and storing output at the full 40\,MHz rate would require a data bandwidth far beyond what is technically achievable. A trigger system is therefore required to identify the small fraction of events containing signatures of physics interest and discard the rest in real time.
 
-The ATLAS trigger and data acquisition (TDAQ) system~\cite{PERF-2007-01} operates in two stages. The Level-1 (L1) trigger is implemented in custom hardware. It uses reduced-granularity information from the calorimeters and muon trigger chambers to search for candidate high-$p_T$ objects: electrons, photons, muons, jets, $\tau$-leptons, and events with large missing transverse energy. The L1 decision is formed within a fixed latency of 2.5\,$\mu$s and reduces the event rate to approximately 100\,kHz~\cite{TODO}. For each accepted event, the L1 system records the detector coordinates of candidate objects as regions of interest. These seed the second stage: the High Level Trigger (HLT). The HLT runs on a farm of commodity processors and applies software-based reconstruction algorithms using the full detector granularity. Inner detector tracking is included at this stage, enabling particle identification beyond what coarse calorimeter information alone can provide. The HLT reduces the output rate to approximately 1\,kHz for recording to permanent storage~\cite{TODO}.
+The ATLAS trigger and data acquisition (TDAQ) system~\cite{PERF-2007-01} operates in two stages. The Level-1 (L1) trigger is implemented in custom hardware. It uses reduced-granularity information from the calorimeters and muon trigger chambers to search for candidate high-$p_T$ objects: electrons, photons, muons, jets, $\tau$-leptons, and events with large missing transverse energy. The L1 decision is formed within a fixed latency of 2.5\,$\mu$s and reduces the event rate to approximately 100\,kHz~\cite{TODO}. For each accepted event, the L1 system records the detector coordinates of candidate objects as regions of interest. These seed the second stage: the High Level Trigger (HLT). The HLT runs software-based reconstruction algorithms using the full detector granularity. Inner detector tracking is included at this stage, enabling particle identification beyond what coarse calorimeter information alone can provide. The HLT reduces the output rate to approximately 1\,kHz for recording to permanent storage~\cite{TODO}.
 % https://arxiv.org/abs/2007.12539 -- The ATLAS trigger system for LHC Run 2
 
 The selection criteria applied at each stage are encoded in a trigger menu. The menu contains hundreds of distinct trigger chains, each targeting a specific physics signature, calibration dataset, or monitoring stream. Further offline reconstruction techniques are described in the following section.
@@ -339,73 +335,65 @@ The selection criteria applied at each stage are encoded in a trigger menu. The 
 
 % TODO: ADD SUBSECTIONS FOR ELECTRONS, PHOTONS, MUONS, AND MET RECONSTRUCTION.
 % CURRENTLY ONLY TRACK AND JET RECONSTRUCTION ARE COVERED.
-The raw output of the ATLAS detector consists of millions of digitized electronic signals read out across hundreds of millions of channels in the tracking, calorimeter, and muon systems. The central challenge of event reconstruction is the conversion of  these digital signals into physically meaningful four-vectors representing the particles produced in the hard-scatter interaction. Each reconstructed object is the product of algorithms that aggregate information across multiple subsystems, resolve ambiguities from overlapping signals, and suppress backgrounds from pile-up and electronic noise.
+Raw detector output consists of digitized signals across the tracking, calorimeter, and muon systems. The goal of event reconstruction is to convert these signals into the physics objects used in every ATLAS analysis. This section describes two foundational algorithms. Track reconstruction converts inner detector signals into charged-particle trajectories. Jet reconstruction groups calorimeter and tracking information into proxies for hard-scatter partons. Both provide inputs to downstream identification of $b$-jets, electrons, photons, muons, and missing transverse energy.
 
-EGAM-2018-01: https://arxiv.org/abs/1908.00005
-EGAM-2023-01: https://arxiv.org/abs/2308.13362
-
-MUON-2018-03: https://arxiv.org/abs/2012.00578
-
-ETMiss: https://arxiv.org/abs/2402.05858
+% EGAM-2018-01: https://arxiv.org/abs/1908.00005
+% EGAM-2023-01: https://arxiv.org/abs/2308.13362
+% MUON-2018-03: https://arxiv.org/abs/2012.00578
+% ETMiss: https://arxiv.org/abs/2402.05858
 
 %--------------------------------------------------------------
 \subsection{Track Reconstruction}
 %--------------------------------------------------------------
 
-https://acts-project.github.io/tracking.html
-https://cds.cern.ch/record/2766886
-https://www.sciencedirect.com/science/article/abs/pii/0168900287908874
-
-Track reconstruction is the process of inferring the trajectories of charged particles 
-from the discrete space-point measurements, or \textit{hits}, left in the silicon pixel 
-and strip layers of the inner detector~\cite{IDTR-2022-04}. A single charged particle 
-traversing the ID produces a sequence of $\mathcal{O}(10)$ hits across the pixel and 
-SCT layers, and the task is to correctly associate hits belonging to the same particle 
-into a \textit{track candidate} in the presence of $\mathcal{O}(10^3)$ additional hits 
-per event from pile-up interactions, $\delta$-rays, and detector noise.
-
-Reconstruction proceeds inside-out. First, three-dimensional space-points are formed 
-from individual channel hits, exploiting the stereo geometry of the SCT to resolve 
-two-dimensional positions from pairs of strip measurements. Track candidates are seeded 
-from triplets of space-points in the pixel and first SCT layers, each defining an 
-initial helix hypothesis parameterized by the five track parameters
+Charged particles traversing the inner detector deposit ionisation signals
+across the pixel and strip layers. Track reconstruction converts these raw
+signals into measurements of charged-particle trajectories, each
+parameterised by five quantities:
 %
 \begin{equation}
 	\boldsymbol{\tau} = (d_0,\, z_0,\, \phi,\, \theta,\, q/p),
 	\label{eq:track_params}
 \end{equation}
 %
-where $d_0$ and $z_0$ are the transverse and longitudinal impact parameters with 
-respect to the primary vertex, $\phi$ and $\theta$ are the azimuthal and polar angles 
-at the point of closest approach, and $q/p$ is the signed inverse momentum.
+where $d_0$ and $z_0$ are the transverse and longitudinal impact parameters
+with respect to the primary vertex, $\phi$ and $\theta$ are the azimuthal
+and polar angles at the point of closest approach, and $q/p$ is the signed
+inverse momentum. Reconstructed tracks form the basis of 
+primary vertex reconstruction, $b$-jet identification, and the Particle Flow jet algorithm.
 
-Each seed is extended outward through successive detector layers using a 
-\textbf{Kalman filter}~\cite{Fruhwirth:1987fm}, which provides an optimal recursive 
-estimate of the track parameters in the presence of measurement noise and stochastic 
-energy losses from material interactions. At each layer the filter alternates between 
-a \textit{prediction} step, propagating the current state estimate forward accounting 
-for the magnetic field and energy loss, and an \textit{update} step, incorporating the 
-new measurement to refine the state and its covariance. This naturally accounts for 
-multiple scattering without biasing the track parameter estimates. Competing candidates 
-that share hits are resolved by an ambiguity solver that scores each candidate on its 
-number of hits, fit quality $\chi^2/n_{\text{dof}}$, and number of holes (expected 
-but missing hits). The final tracks are required to satisfy quality criteria on the 
-minimum number of hits and maximum $|d_0|$ and $|z_0|$ to suppress fake tracks from 
-random hit combinations. For Run~3, the reconstruction software was significantly 
-optimized to handle the higher pile-up environment of $\langle\mu\rangle \approx 50$, 
-achieving a factor of two improvement in processing speed while maintaining 
-reconstruction efficiency and reducing the fake-track rate by more than a factor of 
-two~\cite{IDTR-2022-04}.
+Track Reconstruction in Run 3 employs two complementary strategies, as illustrated in
+Figure~\ref{fig:track_reco_chain}. \textbf{Primary tracking} proceeds
+inside-out. Raw channel signals are converted into three-dimensional space-points.
+Triplets of space-points in the innermost layers seed track candidates,
+which are extended outward through successive layers using a Kalman
+filter~\cite{Fruhwirth:1987fm} that accounts for the magnetic field,
+energy loss, and multiple Coulomb scattering. An ambiguity solver scores
+competing candidates on hit count and fit quality, rejecting fakes and
+resolving shared-hit conflicts. Accepted tracks are extended into the TRT
+and globally refit. \textbf{Back-tracking} proceeds outside-in, seeding
+from TRT segments and extending inward
+through the silicon detectors, recovering tracks from photon conversions
+and long-lived particle decays.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter3/ATLAS_track_reconstruction.png}
-	\caption{Schematic overview of the ATLAS inner detector track reconstruction 
-		chain, illustrating the inside-out seeding from pixel and SCT space-points, 
-		Kalman-filter track extension, ambiguity resolution, and TRT extension 
-		stages~\cite{IDTR-2022-04}.}
-	\label{fig:track_reco}
+	\includegraphics[width=0.85\linewidth]{figures/chapter3/track_reconstruction_run3.png}
+	\caption{The ATLAS track reconstruction chain~\cite{2308.09471}.
+		Primary tracking (top) proceeds inside-out from space-point
+		formation through seed finding, Kalman-filter track extension,
+		ambiguity resolution, and TRT refit. Back-tracking (bottom)
+		proceeds outside-in, seeding from TRT segments and extending inward.}
+	\label{fig:track_reco_chain}
 \end{figure}
+% https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/IDTR-2022-04/
+
+Reconstructed tracks serve as inputs to primary vertex
+reconstruction~\cite{1611.10235}. The hard-scatter primary vertex is
+selected as the vertex with the largest $\sum p_{\mathrm{T}}^2$ of
+associated tracks. Correct vertex-track association underpins pile-up
+suppression in all downstream reconstruction, including the Particle Flow
+algorithm described in Section~\ref{sec:jet_reco}.
 
 % https://arxiv.org/abs/2308.09471 -- ATLAS Run 3 track reconstruction software
 % https://arxiv.org/abs/1704.07983 -- ATLAS track reconstruction in dense environments (Run 2)
@@ -414,33 +402,54 @@ two~\cite{IDTR-2022-04}.
 
 %--------------------------------------------------------------
 \subsection{Jet Reconstruction}
+\label{sec:jet_reco}
 %--------------------------------------------------------------
 
-https://opendata.atlas.cern/docs/documentation/physic\_objects/jets\_reco/
-https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/PERF-2014-07/
-https://arxiv.org/abs/0802.1189
+Quarks and gluons produced in hard-scatter interactions cannot be observed directly
+due to color confinement, and instead fragment and hadronize into collimated sprays
+of stable particles known as \textit{jets}. Jets serve as proxies for hard-scatter
+partons and are central to a wide range of ATLAS analyses. A jet algorithm must be
+infrared- and collinear-safe (IRC-safe), meaning insensitive to soft wide-angle
+radiation and to the collinear splitting of hard partons~\cite{0802.1189, 0906.1833}.
+Jet reconstruction in ATLAS proceeds in stages: calorimeter signals are first grouped
+into topological clusters, optionally combined with inner detector tracks via the
+Particle Flow algorithm, and then clustered into jets.
 
-Quarks and gluons produced in hard-scatter interactions cannot be observed directly 
-due to color confinement, and instead fragment and hadronize into collimated sprays 
-of stable particles known as \textit{jets}. A jet algorithm must be both infrared- and 
-collinear-safe — that is, insensitive to soft wide-angle radiation and to the collinear 
-splitting of hard partons~\cite{Cacciari:2008gp, Salam:2009jx}.
+%--------------------------------------------------------------
+\subsubsection{The Anti-$k_t$ Algorithm}
+%--------------------------------------------------------------
 
+All jets in ATLAS are reconstructed using the \textit{anti-}$k_t$
+algorithm~\cite{0802.1189}, which clusters inputs according to the distance measure
+%
+\begin{equation}
+	d_{ij} = \min\!\left(k_{ti}^{-2},\, k_{tj}^{-2}\right)
+	\frac{\Delta R_{ij}^2}{R^2},
+	\label{eq:antikt}
+\end{equation}
+%
+where $k_{ti}$ is the transverse momentum of object $i$, $\Delta R_{ij}$ is their
+angular separation, and $R$ is the radius parameter. Hard particles dominate the
+clustering, causing soft particles to accumulate around them and producing
+geometrically regular, cone-like jets in the $\eta$--$\phi$ plane leading to IRC-safe
+clustering behavior. In ATLAS, small-R jets use $R = 0.4$ and large-R jets use $R = 1.0$.
+
+%--------------------------------------------------------------
 \subsubsection{Topological Clustering}
+%--------------------------------------------------------------
 
-The starting point for calorimeter-based jet reconstruction is the formation of 
-\textit{topological clusters} (topo-clusters)~\cite{PERF-2014-07}, which suppress 
-electronic noise and pile-up by grouping calorimeter cells according to their 
-signal-to-noise ratio $\varsigma = |E_{\text{cell}}| / \sigma_{\text{noise}}$. Cluster 
-formation proceeds via a seeded growth algorithm in which cells with $\varsigma > 4$ 
-are designated as seeds, neighboring cells with $\varsigma > 2$ are iteratively 
-added, and a final ring of adjacent cells with $\varsigma > 0$ is included to capture 
-the full shower extent. This \textit{4-2-0} thresholding scheme is illustrated in 
-Figure~\ref{fig:topo_cluster} for a simulated dijet event in the FCal. Topo-clusters 
-are calibrated at the electromagnetic scale and may be further corrected to the 
-hadronic scale using Local Cell Weighting (LCW), which classifies clusters as 
-electromagnetic or hadronic based on their shower shape and applies corrections for 
-non-compensation, out-of-cluster losses, and dead material.
+The baseline inputs to jet reconstruction are \textit{topological clusters}
+(topo-clusters)~\cite{1603.02934}, which group calorimeter cells according to their
+signal significance $\varsigma = |E_{\text{cell}}|/\sigma_{\text{noise}}$. Cluster
+formation follows a seeded growth algorithm: cells with $\varsigma > 4$ seed clusters,
+neighboring cells with $\varsigma > 2$ are iteratively added, and a final ring of
+cells with $\varsigma > 0$ captures the full shower extent. This \textit{4-2-0}
+thresholding scheme suppresses electronic noise and pile-up while retaining genuine
+shower energy, as illustrated in Figure~\ref{fig:topo_cluster}. Topo-clusters are
+formed at the electromagnetic energy scale and may be further corrected to the hadronic
+scale using Local Cell Weighting (LCW), which classifies each cluster as
+electromagnetic or hadronic based on shower shape and applies scale corrections
+accordingly.
 
 \begin{figure}[h]
 	\centering
@@ -462,54 +471,64 @@ non-compensation, out-of-cluster losses, and dead material.
 		\caption{}
 		\label{fig:topo:final}
 	\end{subfigure}
-	\caption{Stages of topo-cluster formation in the first module (FCAL0) of the FCal 
-		calorimeter for a simulated dijet event. Shown are cells with 
-		$|\varsigma_{\text{cell}}^{\text{EM}}| > 4$ seeding clusters (a), cells with 
-		$|\varsigma_{\text{cell}}^{\text{EM}}| > 2$ controlling cluster growth (b), and 
-		all clustered cells with topo-cluster boundaries (c). Electronic noise is modeled 
-		but pile-up is not included~\cite{PERF-2014-07}.}
+	\caption{Stages of topo-cluster formation in the forward calorimeter (FCAL0) for a
+		simulated dijet event. Seed cells ($|\varsigma| > 4$, left), growth cells
+		($|\varsigma| > 2$, center), and all clustered cells with cluster boundaries
+		($|\varsigma| > 0$, right) are shown~\cite{1603.02934}. Electronic noise is
+		modeled but pile-up is not included.}
 	\label{fig:topo_cluster}
 \end{figure}
 
+%--------------------------------------------------------------
 \subsubsection{Particle Flow and UFO Jets}
+%--------------------------------------------------------------
 
-A significant limitation of calorimeter-only jet reconstruction is the relatively 
-coarse hadronic energy resolution of $\sigma_E/E \sim 50\%/\sqrt{E}$, whereas the 
-inner detector provides superior momentum resolution for charged particles below 
-approximately 100\,GeV. The \textbf{Particle Flow} (PFlow) 
-algorithm~\cite{PERF-2015-09} exploits this complementarity by matching inner detector 
-tracks to topo-clusters, subtracting the expected calorimeter deposition of matched 
-charged particles, and replacing it with the track four-momentum. The resulting 
-\textit{particle flow objects} (PFOs) combine tracks for charged particles with 
-residual topo-clusters for neutral particles, yielding improved jet energy and angular 
-resolution over calorimeter-only inputs.
+Calorimeter-only reconstruction is limited by hadronic energy resolution at low
+transverse momenta, where inner detector tracking provides a more precise measurement
+for charged particles. The \textbf{Particle Flow} (PFlow)
+algorithm~\cite{1703.10485} exploits this by matching inner detector tracks to
+topo-clusters, subtracting the expected calorimeter deposit cell-by-cell, and
+retaining the track momentum for matched charged particles. The resulting
+\textit{particle flow objects} (PFOs) combine charged-particle tracks with residual
+topo-clusters for neutral particles, yielding improved jet energy and angular
+resolution. The algorithm is summarised in Figure~\ref{fig:ATLAS:particles}. Since
+tracks are required to originate from the hard-scatter primary vertex, PFlow also
+inherits the pile-up suppression described in Section~\ref{sec:track_reco}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter3/ATLAS_pflow.png}
-	\caption{https://atlas.cern/Resources/Schematics}
+	\includegraphics[width=\linewidth]{figures/chapter3/ATLAS_pflow.png}
+	\caption{Flow diagram of the ATLAS Particle Flow algorithm~\cite{1703.10485}.
+		Tracks are matched to topo-clusters, the expected calorimeter deposit is
+		subtracted cell-by-cell, and outputs are tracks for charged particles and
+		residual clusters for neutral particles.}
 	\label{fig:ATLAS:particles}
 \end{figure}
 
-For large-radius jets used in boosted topology searches, \textbf{Unified Flow Objects} 
-(UFOs)~\cite{ATL-PHYS-PUB-2021-038} extend this paradigm by combining PFOs with 
-additional inner detector tracks not associated to the primary vertex, improving 
-sensitivity to the internal substructure of highly boosted $W$, $Z$, Higgs, and top 
-quark decays. UFO jets are the preferred large-radius jet input for boosted object 
-taggers in ATLAS Run~3 analyses.
+For large-radius jets used in boosted topology searches, \textbf{Unified Flow Objects}
+(UFOs)~\cite{2009.04986} extend PFlow by combining PFOs with additional inner detector
+tracks, improving sensitivity to the substructure of highly boosted $W$, $Z$, Higgs,
+and top quark decays. UFO jets with $R = 1.0$ are the standard large-radius jet input
+for boosted object taggers in ATLAS Run~3 analyses.
 
-In both cases jets are reconstructed using the \textit{anti-}$k_t$ 
-algorithm~\cite{Cacciari:2008gp}, which clusters objects according to the distance 
-measure
-%
-\begin{equation}
-	d_{ij} = \min\!\left(k_{ti}^{-2},\, k_{tj}^{-2}\right) 
-	\frac{\Delta R_{ij}^2}{R^2},
-	\label{eq:antikt}
-\end{equation}
-%
-where $k_{ti}$ is the transverse momentum of object $i$, $\Delta R_{ij}$ is their 
-angular separation, and $R$ is the radius parameter. Small-radius jets use $R = 0.4$ 
-and large-radius jets use $R = 1.0$. The anti-$k_t$ algorithm produces geometrically 
-regular jets in the $\eta$--$\phi$ plane and its infrared and collinear safety 
-properties make it well-suited for comparison with fixed-order QCD calculations.
+%--------------------------------------------------------------
+\subsubsection{Jet Energy Calibration}
+%--------------------------------------------------------------
+
+Reconstructed jets are defined at the \textit{electromagnetic energy scale}, from which a sequential calibration chain restores the jet energy scale (JES) to the stable-particle level~\cite{1703.09665}. An area-based correction first subtracts the
+average energy density from pile-up interactions. A simulation-based correction then
+accounts for detector non-uniformity, fragmentation effects, and out-of-cone energy
+losses. Finally, \textit{in situ} techniques balance the jet $p_{\mathrm{T}}$ against
+a well-measured reference object (a photon, $Z$ boson, or multijet system) to validate
+and correct the JES in data. Calibrated jets form the inputs to all downstream
+reconstruction and analysis steps described in this thesis.
+
+% References for Jet Reconstruction section:
+% https://arxiv.org/abs/0802.1189 -- Cacciari, Salam, Soyez (2008): anti-kt algorithm
+% https://arxiv.org/abs/0906.1833 -- Salam (2009): Towards Jetography; IRC safety review
+% https://arxiv.org/abs/1603.02934 -- ATLAS topological cell clustering (PERF-2014-07), Run 1
+% https://arxiv.org/abs/1703.10485 -- ATLAS Particle Flow jet reconstruction (PERF-2015-09)
+% https://arxiv.org/abs/2009.04986 -- ATLAS large-R jet optimisation; introduces UFO jets
+% https://arxiv.org/abs/1703.09665 -- ATLAS jet energy scale at 13 TeV (PERF-2016-04)
+% https://arxiv.org/abs/2303.17312 -- New techniques for jet calibration with ATLAS (Run 3)
+% https://opendata.atlas.cern/docs/documentation/physic_objects/jets_reco/ -- ATLAS open data jets documentation
