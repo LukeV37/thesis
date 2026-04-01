@@ -416,26 +416,7 @@ into topological clusters, optionally combined with inner detector tracks via th
 Particle Flow algorithm, and then clustered into jets.
 
 %--------------------------------------------------------------
-\subsubsection{The Anti-$k_t$ Algorithm}
-%--------------------------------------------------------------
-
-All jets in ATLAS are reconstructed using the \textit{anti-}$k_t$
-algorithm~\cite{0802.1189}, which clusters inputs according to the distance measure
-%
-\begin{equation}
-	d_{ij} = \min\!\left(k_{ti}^{-2},\, k_{tj}^{-2}\right)
-	\frac{\Delta R_{ij}^2}{R^2},
-	\label{eq:antikt}
-\end{equation}
-%
-where $k_{ti}$ is the transverse momentum of object $i$, $\Delta R_{ij}$ is their
-angular separation, and $R$ is the radius parameter. Hard particles dominate the
-clustering, causing soft particles to accumulate around them and producing
-geometrically regular, cone-like jets in the $\eta$--$\phi$ plane leading to IRC-safe
-clustering behavior. In ATLAS, small-R jets use $R = 0.4$ and large-R jets use $R = 1.0$.
-
-%--------------------------------------------------------------
-\subsubsection{Topological Clustering}
+\subsubsection{Topological Clustering -- Step 1}
 %--------------------------------------------------------------
 
 The baseline inputs to jet reconstruction are \textit{topological clusters}
@@ -480,7 +461,7 @@ accordingly.
 \end{figure}
 
 %--------------------------------------------------------------
-\subsubsection{Particle Flow and UFO Jets}
+\subsubsection{Particle Flow and UFO Jets -- Step 2}
 %--------------------------------------------------------------
 
 Calorimeter-only reconstruction is limited by hadronic energy resolution at low
@@ -510,6 +491,25 @@ For large-radius jets used in boosted topology searches, \textbf{Unified Flow Ob
 tracks, improving sensitivity to the substructure of highly boosted $W$, $Z$, Higgs,
 and top quark decays. UFO jets with $R = 1.0$ are the standard large-radius jet input
 for boosted object taggers in ATLAS Run~3 analyses.
+
+%--------------------------------------------------------------
+\subsubsection{The Anti-$k_t$ Algorithm -- Step 3}
+%--------------------------------------------------------------
+
+All jets in ATLAS are reconstructed using the \textit{anti-}$k_t$
+algorithm~\cite{0802.1189}, which clusters inputs according to the distance measure
+%
+\begin{equation}
+	d_{ij} = \min\!\left(k_{ti}^{-2},\, k_{tj}^{-2}\right)
+	\frac{\Delta R_{ij}^2}{R^2},
+	\label{eq:antikt}
+\end{equation}
+%
+where $k_{ti}$ is the transverse momentum of object $i$, $\Delta R_{ij}$ is their
+angular separation, and $R$ is the radius parameter. Hard particles dominate the
+clustering, causing soft particles to accumulate around them and producing
+geometrically regular, cone-like jets in the $\eta$--$\phi$ plane leading to IRC-safe
+clustering behavior. In ATLAS, small-R jets use $R = 0.4$ and large-R jets use $R = 1.0$.
 
 %--------------------------------------------------------------
 \subsubsection{Jet Energy Calibration}
