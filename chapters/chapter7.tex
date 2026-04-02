@@ -13,104 +13,347 @@
 %   cite key: PDG2022
 % Afik & de Nova (tt entanglement theory): arXiv:2203.05582
 %   cite key: Afik:2022kwm
+% Afik & de Nova (entanglement and quantum tomography with top quarks at the LHC): arXiv:2003.02280
+%   Eur.Phys.J.Plus 136 (2021) 907
+%   cite key: Afik:2020onf
 % ATLAS tt entanglement observation: arXiv:2311.07288
 %   cite key: ATLAS:2023fsd
 % CMS tt entanglement observation: arXiv:2406.03976
 %   cite key: CMS:2024pts
 % Hadronic top polarimetry with ParticleNet: Dong et al. 2025
 %   cite key: Dong_2025
+% Czakon & Mitov (ttbar NNLO+NNLL cross section): arXiv:1112.5675
+%   Comput.Phys.Commun. 185 (2014) 2930
+%   cite key: Czakon:2014xsa
 % ============================================================
 
-\section{The Top Quark}
+\section{The Top Quark and Spin Correlations}
 
-The top quark is the heaviest known elementary particle, with a mass of
-$m_t \approx 173$~GeV~\cite{PDG2022}. This large mass corresponds to a Yukawa
-coupling close to unity, making the top quark the SM fermion most strongly
-coupled to the Higgs field. At the LHC with $\sqrt{s} = 13$--14~TeV, top
-quark pairs ($t\bar{t}$) are produced predominantly through gluon-gluon fusion,
-with a cross section of approximately 830~pb at $\sqrt{s} = 13$~TeV. The top
-quark decays to $Wb$ with a branching fraction near 100\%. Depending on the
-subsequent $W$ boson decay, $t\bar{t}$ events are classified as fully hadronic,
-semi-leptonic, or dileptonic. This analysis targets the semi-leptonic channel,
-$pp \rightarrow t\bar{t} \rightarrow \ell^\pm\nu 2b2j$, where one $W$ decays
-leptonically and the other hadronically.
+The top quark is the heaviest known elementary particle, with a mass of $m_t \approx 173$~GeV~\cite{PDG2022}. Its large mass corresponds to a Yukawa coupling close to unity, making it the SM fermion most strongly coupled to the Higgs field. At the LHC, top quark pairs are produced predominantly through gluon-gluon fusion with a cross section of approximately 830~pb at $\sqrt{s} = 13$~TeV~\cite{Czakon:2014xsa}. The top quark decays to $Wb$ with a branching fraction near 100\%, giving rise to fully hadronic, semi-leptonic, and dileptonic final states. The top quark decays before it can bind into a hadronic state, as its lifetime $\tau_t \sim 5 \times 10^{-25}$~s is shorter than the QCD hadronization timescale by roughly an order of magnitude. As a result, its spin information is transferred directly to its decay products, making the top quark the only quark whose spin state is experimentally accessible.
 
-The top quark has a unique property among quarks. Its lifetime,
-$\tau_t \sim 5 \times 10^{-25}$~s, is shorter than the QCD hadronisation
-timescale by roughly an order of magnitude. The top quark therefore decays
-before it can bind into a hadronic state. As a result, its spin information
-is transferred directly to its decay products without being diluted by
-non-perturbative QCD effects. This makes the top quark the only quark whose
-spin state can be accessed experimentally through the angular distributions
-of its decay products.
+The $t\bar{t}$ spin system can be treated as a two-qubit quantum state, with the spin density matrix encoding the full quantum state of the pair~\cite{Afik:2020onf}. Deviations from SM predictions in the spin correlations would signal new physics, and the system provides a unique probe of quantum information at energy scales far beyond any previous test. These correlations are observable as angular correlations between the decay products of the two top quarks. Near the $t\bar{t}$ production threshold, the spin correlations are strong enough that the system is quantum-entangled. Recent measurements by ATLAS and CMS have directly observed this entanglement~\cite{ATLAS:2023fsd,CMS:2024pts}, marking the first observation of quantum entanglement at a hadron collider.
 
+The spin correlations are characterized by the angle $\theta$ between a decay product direction and the top quark polarization direction. The analyzing power $\alpha$ quantifies the sensitivity of a given decay product to the top quark spin. The charged lepton has $\alpha = 1$, while in hadronic top decays the down-type quark from the $W$ decay has $\alpha_d \approx 1.0$ and the bottom quark has $\alpha_b \approx 0.4$~\cite{PDG2022}. The angle $\cos\theta$ is computed via a two-step boost: the top quark unit vector $\hat{p}_{t}^{t\bar{t}}$ is evaluated in the $t\bar{t}$ CM frame, and the spin analyzer quark unit vector $\hat{p}_{q}^{t}$ is evaluated in the top quark rest frame:
+\begin{equation}
+	\cos\theta = \hat{p}_{t}^{t\bar{t}} \cdot \hat{p}_{q}^{t},
+	\label{eq:costheta}
+\end{equation}
+where $\hat{p}_{t}^{t\bar{t}}$ receives a single boost to the CM frame, and $\hat{p}_{q}^{t}$ receives two sequential boosts: first to the CM frame, then to the top quark rest frame.
 
-\section{Introduction to Spin Correlations}
-
-In $t\bar{t}$ production, quantum mechanics predicts specific correlations
-between the spins of the top and antitop quarks. These correlations arise
-from the production mechanism: the spin state of the $t\bar{t}$ pair is
-determined at the production vertex and depends on the initial state
-(gluon-gluon or $q\bar{q}$ annihilation) and the kinematics of the event.
-Because the top quark preserves its spin state through to its decay products,
-these correlations are observable as angular correlations between the decay
-products of the two top quarks.
-
-The spin correlations can be characterised by the angle $\theta$ between
-a spin analyser direction in the top quark rest frame and the top quark
-polarisation direction. The bottom quark and the down-type quark from the
-hadronic $W$ decay are the most powerful spin analysers in hadronic top
-decays, with analysing powers close to unity. This is exploited in the
-analysis strategy described in Section~\ref{sec:analysis}.
-
-Near the $t\bar{t}$ production threshold, the SM spin correlations are
-strong enough that the $t\bar{t}$ system can be characterised as a
-quantum-entangled spin state~\cite{Afik:2022kwm}. Recent measurements by
-ATLAS and CMS have observed this entanglement directly~\cite{ATLAS:2023fsd,CMS:2024pts},
-marking the first observation of quantum entanglement between particles
-produced at a hadron collider. This analysis builds on those results by
-developing transformer-based methods to probe spin correlations across a
-more inclusive phase space than previous hadronic polarimetry approaches.
-
-\section{Analysis}
+\section{Event Simulation and Reconstruction}
 \label{sec:analysis}
 
-In this analysis, we aim to build upon the results from Hadronic top quark polarimetry with particle net \cite{Dong_2025} by using Transformers to target a more inclusive phase space. Reducing cuts during preselection will maximize the available statistics in data.
+This analysis targets the semi-leptonic channel, $pp \rightarrow t\bar{t} \rightarrow \ell^{\pm}\nu 2b2j$, where one $W$ boson decays leptonically and the other hadronically. The leptonic side provides a clean trigger through the charged lepton and missing transverse energy. The hadronic top quark decay is captured in a single boosted large-$R$ jet, which contains the full hadronic decay. This rich substructure is the primary target for the regression model. An inclusive phase space is targeted to maximize available statistics.
 
-We start by generating three samples for semi-leptonics top pair production, $pp \rightarrow t\bar{t} \rightarrow \ell^{\pm}\nu2b2j$ within the Standard Model at the $\sqrt{s}=14$ TeV LHC. The sample used for training is generated with unpolarized top quarks. The samples used for evaluation are left and right-handed polarized hadronic top quarks. At generation level, a $p_{T,top}>200$ GeV is used to simulate boosted phase space. Pythia8 is used to simulate shower and hadronization effects. At generator level, validation plots are shown in the Figure \ref{fig:gen_val}.
+Three samples of semi-leptonic $t\bar{t}$ events are generated with MadGraph5 at $\sqrt{s} = 14$~TeV. An unpolarized sample is used for training. Left- and right-handed polarized samples are used for evaluation, generated with the following syntax:
+
+\begin{center}
+\begin{BVerbatim}
+generate p p > t t~ > b j j , t~ > b~ l- vl~
+generate p p > t{L} t~ > b j j , t~ > b~ l- vl~
+generate p p > t{R} t~ > b j j , t~ > b~ l- vl~
+\end{BVerbatim}
+\end{center}
+
+A generator-level requirement of $p_{T,top} > 200$~GeV is applied to simulate a boosted topology. Pythia8 is used for parton showering and hadronization. Generator-level validation is shown in Figure~\ref{fig:gen_val}. The characteristic asymmetry in $\cos\theta$ between the left- and right-handed samples confirms the correct implementation of top quark polarization.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{figures/chapter7/gen_val.png}
-	\caption{Parton level validation plots}
+	\includegraphics[width=0.8\linewidth]{figures/chapter7/gen_val.png}
+	\caption{Generator-level validation plots for unpolarized (U), left-handed (L), and right-handed (R) $t\bar{t}$ samples. Shown are the $\cos\theta$ distributions for the down quark (left) and bottom quark (center), and the top quark $p_T$ (right).}
+	% TODO body text: The characteristic asymmetry between L and R samples confirms the correct implementation of top quark polarization at generator level.
 	\label{fig:gen_val}
 \end{figure}
 
-Event reconstruction begins by requiring the lepton from anti-top to be with $p_T>30$ GeV, $|\eta|<3$, and isolated. Isolation is defined by no other final state particles within $\Delta R<0.1$. The lepton is removed from subsequent jet clustering. Next, the neutrino from anti-top must have MET$>30$ GeV. The neutrino from anti-top and all other final state neutrinos are removed from subsequent jet clustering. Large-R jets are clustered using  Cambridge-Aachen algorithm with jet radius $R=1.5$, $p_T>250$ GeV, $|\eta|<3$, and the event must contain exactly one large-R jet to suppress contamination from ISR/FSR. The constituents of the large-R jet are removed from subsequent clustering. All remaining hadronic activity is clustered using anti-$k_t$ clustering algorithm with radius $R=0.4$ and $p_T>10$ GeV. Small-R jets are b-tagged by tracing the truth b-Hadron from anti-top. The event is required to have one b-jet with $p_T>30$ GeV, $|\eta|<3$, and $0.3<\Delta R(\text{b-jet},\ell)<3.0$. At reconstruction level, validation plots are shown in the Figure \ref{fig:reco_val}. Additionally, constituents of the large-R jet with $p_T<400$ MeV and neutral particles are cut from the dataset to simulate detector conditions.
+Events are reconstructed by first identifying the lepton and neutrino from the anti-top decay. The lepton is required to have $p_T > 30$~GeV and $|\eta| < 3$, and must be isolated with no final state particles within $\Delta R < 0.1$. The neutrino is identified via missing transverse energy with MET $> 30$~GeV. Both are removed before jet clustering. Large-$R$ jets are clustered using the Cambridge-Aachen algorithm with $R = 1.5$, and must satisfy $p_T > 250$~GeV and $|\eta| < 3$. Exactly one large-$R$ jet is required to suppress ISR/FSR contamination. The large-$R$ jet constituents are then removed, and the remaining hadronic activity is clustered into small-$R$ jets using the anti-$k_t$ algorithm with $R = 0.4$. At least one $b$-tagged small-$R$ jet is required with $p_T > 30$~GeV, $|\eta| < 3$, and $0.3 < \Delta R(b\text{-jet}, \ell) < 3.0$. Large-$R$ jet constituents are required to have $p_T > 400$~MeV and be charged, to simulate detector conditions. The full event selection and event yields are summarized in Table~\ref{tab:cutflow}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{figures/chapter7/reco_val.png}
-	\caption{Reco level validation plots}
+	\includegraphics[width=0.8\linewidth]{figures/chapter7/reco_val.png}
+	\caption{Reconstruction-level validation plots after event selection for unpolarized (U), left-handed (L), and right-handed (R) samples. Shown are the $\cos\theta$ distributions for the down quark (left) and bottom quark (center), and the $\Delta R$ between the large-$R$ jet and the truth top quark (right).}
+	% TODO body text: The preserved asymmetry in cos theta after reconstruction confirms that spin information survives the event selection.
 	\label{fig:reco_val}
 \end{figure}
 
-The kinematics of both the top quark and the hadronic decay products (particularly down and bottom quark) are needed to calculate $cos\theta$. The top quark truth label is represented by a vector in the $t\bar{t}_{CM}$ frame. The truth label of the bottom/down quark is represented by a vector in the top quark rest frame. Taking the dot product between the top quark $t\bar{t}_{CM}$ frame vector and the bottom/down quark vector in the top quark rest frame, we can extract meaningful information regarding the spin of the $t\bar{t}$ system. The model is trained to predict these vectors directly. To adhere to the naturalness of the problem, cosine similarity is used as the loss function. As opposed to other loss functions, such as mean squared error, cosine similarity has no "edge" defects or boundaries and allows the model to directly minimize the angle between the predicted and true vector.
+\begin{table}[h]
+	\centering
+	\caption{Event selection cutflow for 1M generated semi-leptonic $t\bar{t}$ events.}
+	\label{tab:cutflow}
+	\resizebox{0.7\textwidth}{!}{%
+	\begin{tabular}{llr}
+		\toprule
+		Object & Cut & Remaining Events \\
+		\midrule
+		Baseline & --- & 1{,}000{,}000 \\
+		\addlinespace
+		Lepton & $p_T > 30$~GeV, $|\eta| < 3$, Isolation $\Delta R > 0.1$ & 368{,}942 \\
+		\addlinespace
+		Missing $E_T$ & MET $> 30$~GeV & 297{,}470 \\
+		\addlinespace
+		Large-$R$ Jet & Exactly one: $p_T > 250$~GeV, $|\eta| < 3$ & 164{,}002 \\
+		\addlinespace
+		Small-$R$ Jets & \begin{tabular}[t]{@{}l@{}}B-tagged:\\ \quad $p_T > 30$~GeV, $|\eta| < 3$,\\ \quad $0.3 < \Delta R(\ell, j) < 3.0$; \\ Else: $p_T > 10$~GeV\end{tabular} & 120{,}492 \\
+		\bottomrule
+	\end{tabular}%
+	}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption{Spin analyzing power $\alpha$ at reconstruction level, using truth quark directions after event selection, for left- and right-handed polarized samples.}
+	\label{tab:reco_alpha}
+	\resizebox{0.3\textwidth}{!}{%
+	\begin{tabular}{lcc}
+		\toprule
+		Quark & $\alpha_L$ & $\alpha_R$ \\
+		\midrule
+		Down   & $0.9976$ & $1.0047$ \\
+		Bottom & $0.3286$ & $0.4413$ \\
+		\bottomrule
+	\end{tabular}%
+	}
+\end{table}
+
+Reconstruction-level validation is shown in Figure~\ref{fig:reco_val}. The $\cos\theta$ asymmetry is preserved after event selection, confirming that spin information survives reconstruction. The reconstruction-level spin analyzing power is shown in Table~\ref{tab:reco_alpha}. The values are consistent with generator-level expectations, with $\alpha_d \approx 1.0$ and $\alpha_b \approx 0.4$.
+
+\section{Transformer Regression Model}
+% ============================================================
+% TODO: REWRITE THIS SECTION - existing text is rough/informal
+% ------------------------------------------------------------
+% KEY POINTS TO COVER:
+%   1. Motivation: to compute cos theta we need to predict two boosted unit
+%      vectors: p_t^{ttbar} (top quark in CM frame) and p_q^t (quark in top
+%      quark rest frame). The model predicts these directly from reco objects.
+%   2. Two separate regression tasks:
+%      - Top quark direction: trained with MSE loss
+%      - Quark direction (bottom or down): trained with cosine similarity loss
+%   3. Cosine similarity loss motivation (already partially written):
+%      - Unit vectors live on the sphere; cosine sim minimizes angle directly
+%      - MSE has edge defects: -1 and +1 are far apart as scalars but nearby
+%        on the sphere. CosSim is naturally invariant to this.
+%      - Unit sphere figure (fig:unit_sphere) illustrates this.
+%   4. Event representation as a set of objects:
+%      - Large-R jet + constituents (point-cloud-like substructure)
+%      - Lepton, MET, small-R jets
+%      - Variable-length inputs padded to fixed max size for batching
+%   5. Transformer architecture motivation:
+%      - Attention mechanism extracts correlations between all objects
+%      - Computationally efficient and parallelizable
+%      - Naturally handles set-structured input
+%      - Can exploit large-R jet substructure (point-cloud)
+%      - Allows model to learn top quark direction using full event context
+%   6. Comparison to prior work (Dong_2025, ParticleNet):
+%      - ParticleNet targeted boosted regime with tight cuts
+%      - This approach uses Transformers to target a more inclusive phase space
+%      - Reducing preselection cuts maximizes available statistics in data
+% ============================================================
+
+Computing $\cos\theta$ requires two boosted unit vectors: the top quark direction $\hat{p}_t^{t\bar{t}}$ in the $t\bar{t}$ CM frame, and the spin analyzer quark direction $\hat{p}_q^t$ in the top quark rest frame. Both are predicted directly from reconstructed event objects using a Transformer regression model. Prior work on hadronic top polarimetry~\cite{Dong_2025} used a ParticleNet-based model applied to a restricted boosted phase space, and reconstructed the hadronic $W$ decay through explicit subjet declustering into three distinct subjets within the large-$R$ jet, highly suppressing statistics. This work avoids explicit subjet reconstruction by processing the full large-$R$ jet substructure directly, and targets a more inclusive phase space to maximize the number of usable events.
+
+The event is encoded as a set of particle-level objects: the large-$R$ jet constituents, lepton, missing transverse energy, and small-$R$ jets, padded to a fixed maximum size for batched training. The Transformer architecture is a natural choice for set-structured input of this kind. The self-attention mechanism learns correlations across all objects simultaneously, without requiring a fixed input geometry, and naturally exploits the point-cloud substructure of the large-$R$ jet constituents, analogous to Transformer-based flavor taggers processing sets of tracks.
+
+Two separate regression targets are defined. The top quark direction in the $t\bar{t}$ CM frame is predicted as a four-vector and trained with MSE loss. The spin analyzer quark direction in the top quark rest frame is predicted as a unit three-vector and trained with cosine similarity loss. MSE is not well suited to unit vector regression: it measures straight-line distance in Cartesian space rather than angle, and does not respect the geometry of the sphere. Cosine similarity directly minimizes the angle between the predicted and true directions on the unit sphere, with no such artifact. This is illustrated in Figure~\ref{fig:unit_sphere}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.3\linewidth]{figures/chapter7/unit_sphere.png}
-	\caption{Unit sphere with A1 representing truth vector and A2 representing model prediction.}
+	\caption{Illustration of the cosine similarity loss on the unit sphere. The model is trained to minimize the angle between the truth direction $A_1$ and the predicted direction $A_2$. All directions map continuously onto the sphere, avoiding edge defects.}
 	\label{fig:unit_sphere}
 \end{figure}
 
-An event can be modeled as a set of objects: large-R jet+constituents, lepton, MET, small-R jets. For variable entries such as large-R jet constituents and small-R jets, a maximum fixed number is enforced such that events can be padded and batched for training. Transformers are a natural fit for this problem. The attention mechanism provides a computationally efficient, parallelizable architecture to extract correlations between a set of objects. This allows the model to effectively learn the direction of the top quark in the $t\bar{t}_{CM}$ frame by utilizing the context of the entire event. Additionally, the model extracts correlations from the "point-cloud-like" data structure of the constituents of the large-R jet.
+The model is trained on an unpolarized $t\bar{t}$ sample spanning the full phase space after event selection. Two distinct effects limit the spin information available in a given event. First, some large-$R$ jets only partially capture the hadronic decay, reducing the substructure information available to the model. Second, and more fundamentally, the strength of $t\bar{t}$ spin correlations depends on the production kinematics. Near the production threshold, spin correlations are strongest and the $\cos\theta$ distribution is most asymmetric. Far from threshold, correlations weaken and the $\cos\theta$ distribution approaches uniformity regardless of reconstruction quality. The inclusive phase space therefore contains a mixture of events with varying spin sensitivity. The cosine similarity between the predicted and true quark directions provides a per-event quality score that reflects both effects: events with high cosine similarity form a purer subset in which the spin signal is recoverable, as examined in Section~\ref{sec:results}.
 
 \section{Results}
+\label{sec:results}
 
-\lipsum[1]
+\subsection{Regression Performance}
+% ============================================================
+% TODO: ADD PROSE FOR THIS SUBSECTION
+% ------------------------------------------------------------
+% KEY POINTS TO COVER:
+%   1. Top quark regression (fig:top_regression, MSE):
+%      - Good performance visible as narrow diagonal band in 2D plots
+%      - 1D distributions of predicted vs true momentum components agree well
+%   2. Bottom quark regression (fig:bottom_regression, cosSim):
+%      - Better performance than down quark, reflected in R^2 values
+%      - Reason: b-jet is unambiguously identified in the event
+%   3. Down quark regression (fig:down_regression, cosSim):
+%      - Harder problem due to jet combinatorial ambiguity (which jet is the
+%        down-type quark from W decay?)
+%      - Broader spread in 2D plots compared to bottom quark
+%   4. Predicted analyzing power table (tab:analysing_power):
+%      - Compare predicted alpha to reco-level truth values (tab:reco_alpha)
+%      - Both bottom and down show significant degradation from truth values
+%      - Down quark: predicted alpha ~0.4 vs truth ~1.0
+%      - Bottom quark: predicted alpha ~0.2 vs truth ~0.4
+%      - Degradation is expected given the difficulty of the inclusive phase space
+% ============================================================
+
+\begin{table}[h]
+	\centering
+	\caption{Predicted spin analyzing power $\alpha$ from the model for the down and bottom quarks, for left- and right-handed polarized samples.}
+	\label{tab:analysing_power}
+	\resizebox{0.3\textwidth}{!}{%
+	\begin{tabular}{lcc}
+		\toprule
+		Quark & Pred $\alpha_L$ & Pred $\alpha_R$ \\
+		\midrule
+		Down   & $0.402$  & $0.2333$ \\
+		Bottom & $0.213$  & $0.2316$ \\
+		\bottomrule
+	\end{tabular}%
+	}
+\end{table}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/chapter7/top_predictions_mse.png}
+	\caption{Regression performance for the top quark direction in the $t\bar{t}_{CM}$ frame, trained using MSE loss. Upper row: 1D distributions of predicted (blue) and true (red) momentum components $(p_x, p_y, p_z, E)$. Lower row: 2D truth vs.\ predicted correlations.}
+	% TODO body text: A narrow diagonal band in the 2D plots indicates good regression performance.
+	\label{fig:top_regression}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/chapter7/bottom_predictions_cosSim.png}
+	\caption{Regression performance for the bottom quark direction vector in the top quark rest frame, trained using cosine similarity loss. Upper row: 1D distributions of predicted and true unit vector components $(p_x, p_y, p_z)$. Lower row: 2D truth vs.\ predicted correlations.}
+	% TODO body text: The bottom quark direction is more easily predicted than the down quark, as reflected in the R^2 values, due to unambiguous b-jet identification.
+	\label{fig:bottom_regression}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/chapter7/down_predictions_cosSim.png}
+	\caption{Regression performance for the down quark direction vector in the top quark rest frame, trained using cosine similarity loss. Upper row: 1D distributions of predicted and true unit vector components $(p_x, p_y, p_z)$. Lower row: 2D truth vs.\ predicted correlations.}
+	\label{fig:down_regression}
+\end{figure}
+
+\subsection{Extraction of $\cos\theta$}
+% ============================================================
+% TODO: ADD PROSE FOR THIS SUBSECTION
+% ------------------------------------------------------------
+% KEY POINTS TO COVER:
+%   1. cos theta distributions (fig:costheta_cossim):
+%      - Despite degraded regression performance, L/R asymmetry is visible
+%        in the reconstructed cos theta distributions
+%      - Bottom quark shows a peak near -1 in the cosine similarity distribution
+%        that is absent for the down quark -- model artifact, worth noting
+%      - Down quark cosine similarity is broader/flatter, consistent with
+%        harder regression problem
+%   2. Signal purity cuts - bottom quark (fig:bottom_purity_scan):
+%      - A cut on cosine similarity selects events where the predicted direction
+%        is close to the truth label
+%      - At loose cut: broad cos theta distribution, low alpha
+%      - As cut tightens (medium, tight): distribution sharpens, alpha increases
+%      - Purity scan (rightmost panel): fitted alpha approaches ~0.4 as expected
+%   3. Signal purity cuts - down quark (fig:down_purity_scan):
+%      - Same procedure applied to down quark
+%      - Fitted alpha approaches ~1.0 as expected at high purity
+%   4. Key message: despite degraded overall performance on the inclusive
+%      phase space, the spin signal is demonstrably recoverable by tightening
+%      the cosine similarity cut. This validates the approach.
+% ============================================================
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/bottom_cosTheta.png}
+		\label{fig:bottom_costheta}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/down_cosTheta.png}
+		\label{fig:down_costheta}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/bottom_cosSim.png}
+		\label{fig:bottom_cossim}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/down_cosSim.png}
+		\label{fig:down_cossim}
+	\end{subfigure}
+	\caption{Reconstructed $\cos\theta$ distributions (top row) and cosine similarity between true and predicted directions (bottom row), for the bottom quark (left) and down quark (right), for left-handed (L) and right-handed (R) polarized samples.}
+	% TODO body text: A peak near -1 in the bottom quark cosine similarity distribution, absent in the down quark case, indicates a model artifact specific to the bottom quark regression.
+	\label{fig:costheta_cossim}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/bottom_cosTheta_cosSim_loose.png}
+		\label{fig:bottom_loose}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/bottom_cosTheta_cosSim_medium.png}
+		\label{fig:bottom_medium}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/bottom_cosTheta_cosSim_tight.png}
+		\label{fig:bottom_tight}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/bottom_purity_scan.png}
+		\label{fig:bottom_purity}
+	\end{subfigure}
+	\caption{Reconstructed $\cos\theta$ distributions for the bottom quark spin analyzer at increasing cosine similarity cut thresholds (loose, medium, tight), and the fitted analyzing power $\alpha$ as a function of signal purity (rightmost panel).}
+	% TODO body text: A cut on cosine similarity selects events where the model prediction is close to the truth. As purity increases, alpha approaches the expected value of ~0.4.
+	\label{fig:bottom_purity_scan}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/down_cosTheta_cosSim_loose.png}
+		\label{fig:down_loose}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/down_cosTheta_cosSim_medium.png}
+		\label{fig:down_medium}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/down_cosTheta_cosSim_tight.png}
+		\label{fig:down_tight}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter7/down_purity_scan.png}
+		\label{fig:down_purity}
+	\end{subfigure}
+	\caption{Reconstructed $\cos\theta$ distributions for the down quark spin analyzer at increasing cosine similarity cut thresholds (loose, medium, tight), and the fitted analyzing power $\alpha$ as a function of signal purity (rightmost panel).}
+	% TODO body text: As purity increases, alpha approaches the expected value of ~1.0 for the down quark.
+	\label{fig:down_purity_scan}
+\end{figure}
 
 \section{Conclusion}
+% ============================================================
+% TODO: WRITE CONCLUSION
+% ------------------------------------------------------------
+% KEY POINTS TO COVER:
+%   1. Summary: first demonstration of Transformer regression for hadronic
+%      top polarimetry targeting an inclusive phase space
+%   2. The spin signal is extractable even with loose selection -- demonstrated
+%      by the purity scan recovering expected alpha values (~0.4 bottom, ~1.0 down)
+%   3. Performance is limited primarily by the difficulty of identifying the
+%      down-type quark from hadronic W decay (jet combinatorics)
+%   4. The bottom quark regression shows a model artifact (peak near -1 in
+%      cosine similarity) that warrants further investigation
+%   5. Outlook / next steps:
+%      - Refine the phase space (tighter preselection may improve model performance)
+%      - Improve down-type quark identification (e.g. jet flavor tagging, W mass window)
+%      - Extend to real detector data at the LHC
+%      - Apply to entanglement measurement in semi-leptonic channel
+% ============================================================
 
 \lipsum[1]
 
