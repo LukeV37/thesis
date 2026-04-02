@@ -6,27 +6,25 @@
 \endgroup
 
 % ============================================================
-% MASTER TODO LIST FOR THIS CHAPTER
+% REMAINING TODO LIST FOR THIS CHAPTER
 % ------------------------------------------------------------
-% PROSE TO WRITE:
-%   [ ] Section 2.2 — Higgs Mechanism (currently bullet points)
-%   [ ] Section 2.3 — Yukawa Couplings (currently bullet points)
-%   [ ] Section 2.4 — Rewrite opening paragraph (duplicates Sec 2.2)
-%   [ ] Section 2.4 — Convert bottom bullet points to prose
-%   [ ] Section 2.5 — Open Questions (currently bullet points)
-%
-% FIGURES:
-%   [ ] fig:HiggsProduction    — add caption (see TODO comment inline)
-%   [ ] fig:HiggsBranchingRatios — add caption (see TODO comment inline)
-%
 % BIB ENTRIES NEEDED (cite keys used in text, not yet in references.bib):
 %   [ ] PDG2022          — Workman et al., PTEP 2022, 083C01
 %   [ ] Peskin:1995ev    — Peskin & Schroeder, QFT textbook (1995)
-%   [ ] ATLASHiggsTenYears / fix key — arXiv:2207.00092
-%   [ ] ATLASDiscovery   — arXiv:1207.7214
-%   [ ] CMSDiscovery     — arXiv:1207.7235
+%   [ ] ATLASHiggsTenYears — arXiv:2207.00092, Nature 607 (2022) 52-59
+%   [ ] ATLASDiscovery   — arXiv:1207.7214, PLB 716 (2012) 1-29
+%   [ ] CMSDiscovery     — arXiv:1207.7235, PLB 716 (2012) 30-61
 %   [ ] LHCHiggsXSWG4   — arXiv:1610.07922
-%   [ ] Buttazzo:2013uya — arXiv:1307.3536
+%   [ ] LHCHiggsXSWG3   — arXiv:1307.1347
+%   [ ] ATLASSpinCP      — arXiv:1307.1432, PLB 726 (2013) 120-144
+%   [ ] CMSSpinCP        — arXiv:1411.3441, PRD 92, 012004 (2015)
+%   [ ] BSMCharmCouplings — replace with relevant BSM reference(s)
+%   [ ] Wu:1957          — C.S. Wu et al., PR 105, 1413 (1957)
+%   [ ] Planck:2018vyg   — arXiv:1807.06209, A&A 641, A6 (2020)
+%   [ ] Sakharov:1967dj  — JETP Lett. 5, 24 (1967), no arXiv
+%   [ ] Fukuda:1998mi    — arXiv:hep-ex/9807003, PRL 81, 1562 (1998)
+%   [ ] Ahmad:2002jz     — arXiv:nucl-ex/0204008, PRL 89, 011301 (2002)
+%   [ ] Giudice:2008bi   — arXiv:0801.2562, Kane & Pierce (eds.), World Scientific (2008)
 % ============================================================
 
 % ============================================================
@@ -86,7 +84,7 @@ charge and interact exclusively through the weak force.
 
 The force carriers are spin-1 gauge bosons. The massless photon mediates the
 electromagnetic force. The $W^\pm$ and $Z$ bosons mediate
-the weak force and are massive, at 80 and 91 GeV, respectively. Eight massless gluons mediate the strong force. The Higgs boson, with mass of 125 GeV, is distinct from the gauge bosons as it is the
+the weak force and are massive, at 80 and 91 GeV, respectively. Eight massless gluons mediate the strong force. The Higgs boson, with mass of 125 GeV~\cite{PDG2022}, is distinct from the gauge bosons as it is the
 only spin-0 fundamental particle and does not mediate a force. Instead it
 plays a central role in mass generation, as described in
 Section~\ref{sec:higgs_mechanism}. The Standard Model is shown in
@@ -134,7 +132,8 @@ denoting color charge; its generators, the Gell-Mann matrices,
 correspond to the eight gluons. The $\text{SU}(2)_L \times \text{U}(1)_Y$
 symmetry governs the electroweak force, with generators given by the three
 Pauli matrices and a single hypercharge generator $Y$. The subscript $L$
-indicates that the weak interaction acts only on left-handed fermions as experimentally observed by Wu (1956).
+indicates that the weak interaction acts only on left-handed fermions as experimentally observed by Wu et al.~\cite{Wu:1957}.
+% DUMMY CITE KEY — Wu:1957: C.S. Wu et al., Phys. Rev. 105, 1413 (1957)
 % NOTE: Why does SU(2)_L only interact with left-handed fermions?
 % This is an experimental observation, not derived from a deeper principle.
 % The 1956 Wu experiment showed beta decay violates parity; subsequent work
@@ -250,8 +249,9 @@ giving the $W^+$, $W^-$, and $Z$ bosons mass~\cite{Peskin:1995ev}. The remaining
 mixture of $W^0$ and $B^0$ corresponds to the unbroken $\text{U}(1)_{EM}$
 generator and becomes the massless photon $\gamma$. The resulting masses
 $m_W = gv/2$ and $m_Z = \sqrt{g^2 + g'^2}\,v/2$ are determined entirely
-by the VEV and reproduce the observed values~\cite{PDG2022}. One physical particle emerges from this process: the Higgs boson $h$.
-It represents oscillations of the field about the potential minimum and was observed at $m_h \approx 125$~GeV~\cite{ATLASDiscovery, CMSDiscovery}.
+by the VEV and reproduce the observed values~\cite{PDG2022}. One physical particle emerges from this process: the Higgs boson $h$,
+representing oscillations of the field about the potential minimum.
+Its discovery and properties are discussed in Section~\ref{sec:higgs_production}.
 While the Higgs mechanism accounts for gauge boson masses,
 fermion masses require a further ingredient, discussed in
 Section~\ref{sec:yukawa}.
@@ -322,8 +322,7 @@ predict enhanced second-generation couplings, making them sensitive probes
 of new physics~\cite{BSMCharmCouplings}.
 % DUMMY CITE KEY — BSMCharmCouplings: replace with relevant BSM reference(s)
 This thesis targets the charm Yukawa coupling directly
-through the $VH(H \rightarrow c\bar{c})$ and $\text{VBF}(H \rightarrow c\bar{c})$ channels,
-described in Sections~\ref{sec:VH_analysis} and~\ref{sec:VBF_analysis} respectively.
+through the $VH(H \rightarrow c\bar{c})$ and $\text{VBF}(H \rightarrow c\bar{c})$ channels.
 
 % ============================================================
 % SECTION 2.4 — HIGGS PRODUCTION AND DECAY AT THE LHC
@@ -511,5 +510,5 @@ Beyond these open problems, the LHC opens an entirely new frontier: probing
 quantum mechanical phenomena such as spin entanglement at collider energies.
 Top quark pair production provides a uniquely clean system for this, as the
 top quark decays before hadronization and its spin information is preserved
-in its decay products. This thesis contributes to this program through top
-polarimetry, described in Chapter~\ref{chap:top_polarimetry}.
+in its decay products. This thesis introduces a new machine learning approach to top polarimetry
+to target top quark entanglement at the LHC, described in Chapter~\ref{chap:top_polarimetry}.
