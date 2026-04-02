@@ -124,7 +124,7 @@ where $\oplus$ denotes addition in quadrature. The first term grows with
 $p_{\text{T}}$ as high-momentum tracks curve less; the second is a constant
 term from alignment and calibration uncertainties.
 
-\subsection{Pixel Detector}
+\subsubsection{Pixel Detector}
 
 The Pixel detector is the innermost component of the ID. It is positioned
 as close as 50.5\,mm from the beam axis in the barrel. Its fine granularity
@@ -151,13 +151,13 @@ $b$-tagging performance.
 %IBL: https://cds.cern.ch/record/1291633 \\
 %Commissioning and calibration: https://arxiv.org/pdf/1004.5293
 
-\subsection{Semiconductor Tracker -- SCT}
+\subsubsection{Semiconductor Tracker -- SCT}
 
 The SCT extends precision silicon tracking to intermediate radii, providing additional measurements that complement the Pixel detector in track reconstruction. It consists of 4088 silicon strip modules arranged in four concentric barrel layers and two end-caps of nine disks each. The barrel layers span radii from 299\,mm to 514\,mm and the end-cap disks extend from 275\,mm to 560\,mm.
 
 Unlike pixels, strip sensors measure position in only one dimension. A strip is a long thin conductor, and a hit identifies which strip fired but not where along its length the particle crossed. To recover the second coordinate, each SCT module pairs two strip sensors at an angle. One sensor is oriented parallel to the beam axis, the other is rotated by 40\,mrad. Combining hits from both sensors yields a two-dimensional space point. The strip pitch is approximately 80\,$\mu$m, giving an intrinsic accuracy of 17\,$\mu$m in $R\phi$ and 580\,$\mu$m in $z$. The poorer $z$ resolution relative to the Pixel detector is a direct consequence of this geometry. Strip sensors are cheaper to produce per unit area than pixel sensors, making them well suited to the larger radii of the SCT where lower track density makes coarser granularity acceptable. A hit is registered when the signal exceeds a threshold of 1\,fC, and the detector has approximately 6.3 million readout channels in total.
 
-\subsection{Transition Radiation Tracker -- TRT}
+\subsubsection{Transition Radiation Tracker -- TRT}
 
 The TRT is the outermost component of the tracking system, covering radii from
 554\,mm to 1082\,mm. It consists of 298,304 proportional drift tubes (straws)
@@ -215,7 +215,7 @@ and the forward calorimeter. The hadronic barrel calorimeter (TileCal)
 uses scintillating plastic tiles instead, which is more cost-effective
 at the larger radii where the radiation environment is less severe.
 
-\subsection{Electromagnetic Calorimeter}
+\subsubsection{Electromagnetic Calorimeter}
 
 Electrons and photons lose energy in matter primarily through
 bremsstrahlung and pair production, producing compact cascades known as
@@ -246,7 +246,7 @@ in shower sampling. The constant term $b \approx 0.17\%$ encodes
 non-uniformities and calibration uncertainties, and dominates at high
 energy.
 
-\subsection{Hadronic Calorimeter}
+\subsubsection{Hadronic Calorimeter}
 
 Hadronic showers are broader and deeper than electromagnetic showers,
 and exhibit larger intrinsic fluctuations in energy deposition. The
@@ -279,7 +279,7 @@ where the large stochastic term reflects the irreducible fluctuations
 in hadronic shower development. The constant term encodes calibration
 uncertainties and non-compensation effects.
 
-\subsection{Forward Calorimeter}
+\subsubsection{Forward Calorimeter}
 
 The region close to the beam axis is exposed to an extremely high
 particle flux, demanding a compact, high-density detector design.
