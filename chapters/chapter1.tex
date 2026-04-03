@@ -181,4 +181,18 @@ In HEP, a DNN is typically trained on simulated signal and background MC samples
 
 \section{Outline}
 
-Complete outline of the thesis detailing the content from each chapter
+This thesis presents three original contributions to the ATLAS physics program, connected by a common thread of machine learning applied to jet physics. The supporting background is covered in Chapters~\ref{chap:sm} through~\ref{chap:atlas}, and the three analysis chapters follow.
+
+\begin{itemize}
+    \item \textbf{Chapter~\ref{chap:sm} -- The Standard Model:} Reviews the theoretical foundations of the Standard Model, including the particle content, gauge symmetries, the Higgs mechanism for mass generation, and Higgs production and decay at the LHC. The open questions motivating the LHC physics program are discussed.
+
+    \item \textbf{Chapter~\ref{chap:atlas} -- The ATLAS Detector:} Describes the ATLAS detector subsystems, including the inner tracking system, calorimeters, and muon spectrometer, together with the trigger and data acquisition system. Track and jet reconstruction algorithms used throughout the analyses are introduced.
+
+    \item \textbf{Chapter~\ref{chap:jet_tagging} -- Jet Tagging using Deep Learning:} Presents the ATLAS heavy-flavor jet identification program. Graph neural network and Transformer-based taggers (GN1, GN2, GN2X) are described, including their performance on small-$R$ and large-$R$ jets. The chapter concludes with the calibration of these algorithms in data, including the $t\bar{t}$ mistag calibration of GN2X, which is a direct personal contribution.
+
+    \item \textbf{Chapter~\ref{chap:higgs} -- Standard Model Hadronic Higgs Analysis:} Describes contributions to two ATLAS Higgs analyses targeting $H \to b\bar{b}$ and $H \to c\bar{c}$ decays. In the associated production ($VH$) channel, a new low-$p_\mathrm{T}$ signal region is introduced that achieves the first $5\sigma$ observation of $Z \to c\bar{c}$ and improves the $H \to c\bar{c}$ upper limit by $\sim$4\%. In the vector boson fusion (VBF) channel, the first $3\sigma$ evidence for $VBF\,H \to b\bar{b}$ and the first upper limit on $VBF\,H \to c\bar{c}$ are reported.
+
+    \item \textbf{Chapter~\ref{chap:pileup} -- Pileup Mitigation at the HL-LHC:} Investigates machine learning approaches for suppressing pileup contamination under HL-LHC conditions ($\langle\mu\rangle = 200$). An open-source simulated dataset is introduced to enable reproducible benchmarking. Two novel architectures are presented: PUMiNet, an event-wide attention model, and PhyGHT, a hypergraph Transformer. Both are validated by reconstructing the Higgs boson, W boson, and top quark mass peaks.
+
+    \item \textbf{Chapter~\ref{chap:top_polarimetry} -- Top Polarimetry:} Presents a proof-of-concept study of hadronic top quark polarimetry in the semi-leptonic $t\bar{t}$ channel. A Transformer regression model predicts the top quark and spin analyzer quark directions simultaneously, enabling reconstruction of the spin-sensitive observable $\cos\theta$. The model is trained on unpolarized $t\bar{t}$ and evaluated on polarized samples, demonstrating that spin information is recoverable without polarization-dependent training data.
+\end{itemize}
