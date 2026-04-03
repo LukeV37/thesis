@@ -6,42 +6,60 @@
 \chapter[INTRODUCTION]{INTRODUCTION}\label{chap:intro}
 \endgroup
 
-\section{Outline}
-
-\begin{itemize}
-  \item general introduction, brief history of QM and particle physics
-  \item Explain HEP research focus during my time as PhD such higgs theory and analysis.
-  \item How does this research fit into global picture.
-  \item Modern statistical analysis methods in HEP (ML: Adversarial, Graph, Attention).
-  \item HL-LHC mention/motivation
-\end{itemize}
-
 \section{Extremely Brief History of Particle Physics}
 
-\lipsum[1]
+% Paragraph 1 -- Quantum Foundations
+\begin{itemize}
+  \item Classical physics fails to explain blackbody radiation and the photoelectric effect
+  \item Planck and Einstein introduce quantization of energy
+  \item Bohr model, de Broglie wave-particle duality, Heisenberg uncertainty principle, Schrodinger equation
+  \item Dirac equation (1928) unifies QM with special relativity, predicts antimatter
+  \item Anderson confirms the positron (1932), validating quantum field theory
+\end{itemize}
+
+% Paragraph 2 -- From Particle Zoo to the Quark Model
+\begin{itemize}
+  \item Accelerators produce a flurry of hadrons ``particle zoo''
+  \item Gell-Mann's Eightfold Way (1961) organizes hadrons via SU(3) symmetry
+  \item Predicts the $\Omega^-$ baryon as last missing piece, confirmed experimentally in 1964
+  \item Quark model (Gell-Mann and Zweig, 1964) explains hadrons as composites of up, down, and strange quarks
+\end{itemize}
+
+% Paragraph 3 -- The Standard Model
+\begin{itemize}
+  \item QED (Feynman, Schwinger, Tomonaga, 1940s--50s) first complete quantum field theory, agrees with experiment to extraordinary precision
+  \item Electroweak unification (Glashow, Weinberg, Salam, 1967--68) and QCD (Gross, Politzer, Wilczek, 1973) complete the Standard Model
+  \item Higgs mechanism (Brout, Englert, Higgs, 1964) accounts for electroweak symmetry breaking and particle masses
+  \item W and Z bosons (CERN, 1983), top quark (Tevatron, 1995), Higgs boson (LHC, 2012) confirm the SM experimentally
+  \item SM is remarkably successful yet leaves open questions (dark matter, gravity, matter-antimatter asymmetry), motivating continued LHC program
+\end{itemize}
 
 \section{Collider Experiments}
 
-\subsection{The Large Hadron Collider}
+% Paragraph 1 -- Brief History
+\begin{itemize}
+  \item Cyclotron (Lawrence, 1930) -- first practical particle accelerator, fixed-target
+  \item LEP (CERN, 1989--2000) -- $e^+e^-$ collider, precision electroweak measurements, W and Z boson properties
+  \item Tevatron (Fermilab, 1987--2011) -- $p\bar{p}$ collider at 1.96 TeV, top quark discovery (1995), immediate predecessor to LHC
+\end{itemize}
 
-The Large Hadron Collider (LHC)%~\cite{Evans:2008zzb} 
-is a proton--proton synchrotron 
-operating at CERN, near Geneva, Switzerland, and is currently the highest-energy particle 
-collider ever constructed. The primary physics motivation for the LHC was the experimental 
-confirmation of the Brout--Englert--Higgs mechanism of electroweak symmetry breaking, the 
-discovery of which was announced in July 2012 by the ATLAS and CMS 
+\subsubsection{The Large Hadron Collider}
+
+The Large Hadron Collider (LHC)%~\cite{Evans:2008zzb}
+is a proton--proton synchrotron
+operating at CERN, near Geneva, Switzerland, and is currently the highest-energy particle
+collider ever constructed. The primary physics motivation for the LHC was the experimental
+confirmation of the Brout--Englert--Higgs mechanism of electroweak symmetry breaking, the
+discovery of which was announced in July 2012 by the ATLAS and CMS
 collaborations%~\cite{HIGG-2012-27, CMS-HIG-12-028}
-. Beyond the Higgs boson, the LHC 
-program pursues a broad range of open questions in the Standard Model and beyond, 
-including searches for supersymmetric partners, dark matter candidates, and precision 
-measurements of the top quark and gauge sector. With detector systems reading out hundreds 
-of millions of channels at 40\,MHz and data pipelines processing petabytes of collision 
-data per year, the LHC experimental program represents one of the largest and most 
-complex data science endeavors ever undertaken.
+. Beyond the Higgs boson, the LHC
+program pursues a broad range of open questions in the Standard Model and beyond,
+including searches for supersymmetric partners, dark matter candidates, and precision
+measurements of the top quark and gauge bosons.
 
-https://cds.cern.ch/record/1129806
-https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2012-27/
-https://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-12-028/index.html
+%https://cds.cern.ch/record/1129806
+%https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2012-27/
+%https://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-12-028/index.html
 
 \begin{figure}[h]
 	\centering
@@ -51,39 +69,24 @@ https://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-12-0
 	\label{fig:CERN_complex}
 \end{figure}
 
-Protons are sourced from hydrogen gas by stripping electrons with a strong electric field, 
-after which a linear accelerator (LINAC\,4) brings them to 160\,MeV. They are then injected 
-into the Proton Synchrotron Booster (PSB), which accelerates them to 2\,GeV, before passing 
-into the Proton Synchrotron (PS) at 26\,GeV and subsequently the Super Proton Synchrotron 
-(SPS) at 450\,GeV, as illustrated in Figure~\ref{fig:CERN_complex}. Finally, two 
-counter-rotating beams are injected into the LHC ring, where superconducting NbTi dipole 
-magnets operating at 1.9\,K and a peak field of 8.33\,T bend the beams around the 
-26.7\,km circumference. Radio-frequency (RF) cavities operating at 400\,MHz accelerate 
-the protons to a Lorentz factor of $\gamma \approx 7000$, corresponding to a velocity of 
-$v \approx 0.9999991\,c$ and a centre-of-mass energy of $\sqrt{s} = 13.6$\,TeV during 
-Run~3, representing the world's highest centre-of-mass energy. The beams are structured 
-into bunches spaced 25\,ns apart and are brought to collision at four interaction points 
-around the ring, housing the ATLAS, CMS, ALICE, and LHCb experiments.
+The CERN accelerator complex, illustrated in Figure~\ref{fig:CERN_complex}, feeds two
+counter-rotating proton beams into the 26.7\,km LHC ring, where they are accelerated to
+a centre-of-mass energy of $\sqrt{s} = 13.6$\,TeV during Run~3. The beams are brought to
+collision at four interaction points housing the ATLAS, CMS, ALICE, and LHCb experiments.
 
-\subsection{The Future of Collider Experiments and the HL-LHC}
+\subsubsection{The High-Luminosity LHC and Future Colliders}
 
-\lipsum[1]
+% Paragraph -- HL-LHC + FCC mention
+\begin{itemize}
+  \item Why luminosity matters -- more collisions give access to rarer processes and enable precision measurements
+  \item HL-LHC target: 10x luminosity increase over nominal LHC, collecting 3000\,fb$^{-1}$
+  \item Major challenge: pileup at $\langle\mu\rangle \approx 200$ simultaneous interactions per bunch crossing
+  \item Requires significant detector and trigger upgrades across all four experiments (ITk, HGTD, etc.)
+  %\item Many of the projects discussed in this thesis are directly motivated by HL-LHC conditions
+  \item Beyond HL-LHC: the Future Circular Collider (FCC) proposes a 100\,km ring at CERN capable of reaching 100\,TeV, representing the next energy frontier
+\end{itemize}
 
-\subsection{Upgraded Tracking System} % MOVE TO HL-LHC Introduction section or PILEUP section
 
-For the High-Luminosity LHC (HL-LHC), the ATLAS inner detector will be replaced entirely by the all-silicon Inner Tracker (ITk)~\cite{}. The HL-LHC will deliver instantaneous luminosities of up to $7 \times 10^{34}$\,cm$^{-2}$s$^{-1}$\cite{2105.10367}, resulting in an average of $\langle\mu\rangle \approx 200$ simultaneous $pp$ interactions per bunch crossing  (pile-up). The integrated luminosity is expected to reach 4000 $fb^{-1}$ by the end of the HL-LHC program, a significant increase from around 350 $fb^{-1}$ obtained in Run 3. As the current inner detector is inadequate for this radiation environment and track density, the TRT and SCT are fully decommissioned and replaced by the upgraded ITk. The ITk extends the tracking acceptance to $|\eta| < 4.0$, as illustrated in Figure~\ref{fig:ATLAS_ITk}, significantly improving forward track reconstruction for physics processes with boosted topologies and forward jets.
-
-Strips: https://cds.cern.ch/record/2257755 \\
-Upgrade Pixels: https://arxiv.org/abs/2105.10367
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/chapter3/ATLAS_tracker.png}
-	\caption{https://atlas.cern/Resources/Schematics}
-	\label{fig:ATLAS_ITk}
-\end{figure}
-
-The ITk comprises two subsystems. The ITk Pixel detector forms the innermost region, consisting of five barrel layers and multiple end-cap rings extending to $|z| = 2850$mm, as shown in Figure~\ref{fig:ATLAS_tracker}. With 5 billion readout channels, it provides high-granularity space-point measurements close to the interaction point, retaining excellent vertex resolution in the high pile-up environment. The ITk Strip detector surrounds the pixel system, consisting of four barrel layers extending to $|\eta| < 2.5$ and six end-cap discs on each side covering $1.1 < |\eta| < 4.0$. The strip detectors have 50 million readout channels, and strip modules use short strips of 24.1mm and 48.2mm length in the barrel and end-cap, respectively.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/chapter1/LHC-and-HL-LHC-Schedule.png}
@@ -110,13 +113,42 @@ The ITk comprises two subsystems. The ITk Pixel detector forms the innermost reg
 
 \section{Statistical Methods in High Energy Physics}
 
-\lipsum[1]
+% https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2012-27/
+% https://cds.cern.ch/record/1471016/plots
 
-\subsection{Frequentist Approach -- A Counting Game}
+% Paragraph 1 -- Counting Experiments and Histograms
+\begin{itemize}
+  \item HEP analyses are fundamentally counting experiments -- observed data compared to MC simulation in histograms
+  \item Signal process sits on top of a smooth background; discovery relies on identifying an excess
+  \item The $H\to\gamma\gamma$ diphoton mass spectrum (ATLAS and CMS, 2012) shows a narrow peak over a smooth background
+\end{itemize}
 
-\lipsum[1]
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter1/ATLAS_higgs.png}
+		\label{fig:ATLAS_higgs}
+	\end{subfigure}\hfill
+	\hspace{0.1\textwidth}   % <-- space here
+	\begin{subfigure}[c]{.4\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter1/CMS_higgs.png}
+		\label{fig:CMS_higgs}
+	\end{subfigure}\hfill
+	\caption{Histograms of the $H\to \gamma \gamma$ channel for ATLAS (left) and CMS (right) in 2012 used to discovery the Higgs boson.}
+	\label{fig:higgs_discovery}
+\end{figure}
 
-\subsection{Likelihood Fits}
+\subsubsection{Likelihood Fits}
+
+% Paragraph 2 -- Likelihood Fits and Signal Strength
+\begin{itemize}
+  \item Signal strength $\mu$ is the parameter of interest: $\mu=0$ is background-only, $\mu=1$ is the SM prediction
+  \item Likelihood function $\mathcal{L}(\mu,\theta)$ is the product of Poisson terms over histogram bins, comparing data to signal+background prediction
+  \item $\mu$ is extracted by maximising $\mathcal{L}$
+  \item Nuisance parameters $\theta$ encode systematic uncertainties (e.g. jet energy scale, luminosity); constrained by Gaussian terms in the likelihood
+\end{itemize}
 
 In order to measure signal strength, $\mu$, we perform a statistical procedure to match the theoretical modeling, MC, to real world data. A likelihood function $\mathcal{L}(\mu,\theta)$ is constructed as the product of Poisson probability terms over the bins of the input distributions where $x_i$ is data counted in bin i and $s_i$ and $b_i$ are signal and background predictions, respectively. The parameter of interest (POI), or signal strength $\mu$, is extracted by maximising the likelihood function $\mathcal{L}$. The effects of systematic uncertainties are quantified as $\theta$, also called Nuissance Parameters NP, and are often assumed to be constrained by gaussian distributions. $\alpha_j$ is known as the global measurement data. Usually assumed mean=0 and var=1. The likelihood fit function is shown below.
 
@@ -124,61 +156,67 @@ In order to measure signal strength, $\mu$, we perform a statistical procedure t
 	\mathcal{L}(\mu,\theta|x)=\prod_i Pois(x_i|\mu \cdot s_i(\theta)+b_i(\theta)) \prod_j C(\alpha_j|\theta_j)
 \end{equation}
 
-\subsection{Neural Networks}
+\subsubsection{Significance and Limits}
 
-Modern experimental high energy physics relies on advnaced data science techniques to perform efficient data analysis. Neural networks have become a very common practice for various data anlaysis techniques. Artificial neurons are the basic computational units of a neural network. Each neuron computes a weighted sum of its inputs and passes the result through a non-linear activation function,
-producing a scalar output. By arranging neurons into layers and stacking multiple layers in
-sequence, one obtains a deep neural network (DNN) capable of learning hierarchical
-representations of the input data. The first layer receives the raw input features; each
-subsequent layer operates on the activations of the previous one, progressively extracting more
-abstract structure. Given sufficient depth and width, such networks are universal function
-approximators %~\cite{Hornik1989}, 
-and when trained by minimizing a suitable loss function via
-stochastic gradient descent and back-propagation, they can learn highly non-linear decision
-boundaries directly from data.
+% Paragraph 3 -- Significance and Limits
+\begin{itemize}
+  \item Frequentist hypothesis testing: null hypothesis $H_0$ (background-only) vs.\ alternative hypothesis $H_1$ (signal+background)
+  \item Profile likelihood ratio test statistic $q_\mu$ used to distinguish the two hypotheses
+  \item p-value: probability of observing a result at least as extreme as the data under $H_0$; $5\sigma$ ($p < 2.87\times10^{-7}$) is the threshold for discovery in HEP
+  \item When no excess is observed, set a 95\% confidence level (CL) upper limit on $\mu$ to exclude signal models
+  \item The three-panel figure (signal strength, significance, and 95\% CL limit scanned vs.\ Higgs mass) illustrates all three outcomes simultaneously
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[c]{.33\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter1/higgs_mu.png}
+		\label{fig:ATLAS_higgs}
+	\end{subfigure}\hfill
+	\begin{subfigure}[c]{.33\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter1/higgs_significance.png}
+		\label{fig:CMS_higgs}
+	\end{subfigure}\hfill
+	\begin{subfigure}[c]{.33\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/chapter1/higgs_limit.png}
+		\label{fig:CMS_higgs}
+	\end{subfigure}\hfill
+	\caption{Statistical metrics used to discover the higgs boson. The signal strength, $\mu$, (left) the significance (center) and the 95\% confidence limit (right) scanned versus the possible higgs mass.}
+	\label{fig:higgs_discovery}
+\end{figure}
+
+\subsubsection{Neural Networks}
+
+% Paragraph 4 -- Neural Networks as Classifiers
+\begin{itemize}
+  \item Modern HEP analyses use DNNs as signal-vs-background classifiers to maximally separate signal from background
+  \item Artificial neuron: weighted sum of inputs passed through a non-linear activation function (e.g.\ ReLU)
+  \item Deep networks stack many layers to learn hierarchical, non-linear representations of input features
+  \item Trained via stochastic gradient descent and back-propagation to minimise a binary cross-entropy loss
+  \item NN output score (discriminant) is used as the histogram input to the likelihood fit, connecting classification directly to the statistical analysis
+\end{itemize}
+
+Modern HEP analyses rely on deep neural networks (DNNs) as signal-vs-background classifiers. As illustrated in Figure~\ref{fig:NN}, the fundamental unit is an artificial neuron, which computes a weighted sum of its inputs and passes the result through a non-linear activation function to produce a scalar output. By stacking many such layers in sequence, a DNN learns hierarchical representations of the input data and, given sufficient depth and width, can approximate any function%~\cite{Hornik1989}. In HEP, a DNN is typically trained via stochastic gradient descent to minimise a binary cross-entropy loss, producing an output score that discriminates signal from background. This score then serves as the histogram input to the likelihood fit described above, directly connecting the classifier to the statistical analysis.
 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[c]{.4\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/artificial_neuron.png}
-		\caption{}
-		\label{fig:IP3D:d0}
 	\end{subfigure}
 	\hspace{0.1\textwidth}   % <-- space here
 	\begin{subfigure}[c]{.3\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figures/chapter4/simple_neural_network.png}
-		\caption{}
-		\label{fig:IP3D:z0}
 	\end{subfigure}
-	\caption{}
-	\label{fig:IP3D}
+	\caption{An artificial neuron (left) can be combined to form a neural network (right).}
+	\label{fig:NN}
 \end{figure}
 
-The network consisted of several hidden layers with rectified linear unit (ReLU) activations.
-The feed-forward architecture allowed the network to learn non-linear combinations of the input.
-The fundamental limitation of NNs, however, remained the same: the
-inputs were fixed-size vectors of high-level summary statistics, and any information not
-captured by those summaries was discarded before reaching the classifier.
 
-The Deep Sets architecture %~\cite{Zaheer2017} 
-is a permutation-invariant network designed to
-operate on unordered sets of objects. A shared transformation $\Phi$ is applied independently
-to each object, and the resulting representations are aggregated via a permutation-invariant
-operation such as a sum or mean, before being passed to a final network $F$. This is
-well-motivated for jet inputs, where the tracks and vertices within a jet have no natural
-ordering.
+\section{Outline}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.5\linewidth]{figures/chapter4/DIPs.png}
-	\caption{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2020-014/}
-	\label{fig:RNN}
-\end{figure}
-
-\texttt{DL1d} applied this approach to variable length set of tracks as input, producing learned embeddings of each jet that were combined with the high-level
-jet variables for the final classification. The removal of the ordering dependence, combined with
-a richer treatment of vertex-level inputs, yielded further gains in tagging performance,
-particularly at low $b$-jet efficiency working points where the purity of the selected sample is
-most critical.
+Complete outline of the thesis detailing the content from each chapter
