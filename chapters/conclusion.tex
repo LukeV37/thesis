@@ -5,8 +5,16 @@
 \chapter[CONCLUSION]{CONCLUSION}
 \endgroup
 
-\section{Outline}
+This thesis presented three contributions to the ATLAS physics program, united by the application of machine learning to jet physics problems at the LHC and HL-LHC. Together, they span the full lifecycle of a measurement: from calibrating the tools, to making discoveries, to preparing for the next generation of physics.
 
 \begin{itemize}
-  \item One day there will be conclusions...
+    \item \textbf{Heavy-flavor jet tagging and calibration:} The transition from classical multivariate taggers to graph neural network and Transformer-based architectures (GN1, GN2, GN2X) delivered substantial improvements in b-jet and c-jet identification. The $t\bar{t}$ mistag calibration of GN2X in data validated the boosted tagger performance and provided the scale factors required to use it in ATLAS analyses. This work directly enables the Higgs measurements in Chapter~\ref{chap:higgs} and underpins the flavor tagging performance across the ATLAS Run~3 program.
+
+    \item \textbf{Higgs boson Yukawa coupling measurements:} Two analyses targeting hadronic Higgs decays advanced the measurement of the Higgs Yukawa sector. In the $VH$ channel, the addition of a new low-$p_\mathrm{T}$ signal region achieved the first $5\sigma$ observation of $Z \to c\bar{c}$ and improved the upper limit on $H \to c\bar{c}$ by $\sim$4\%. In the VBF channel, a full analysis from sample production through statistical combination reported the first $3\sigma$ evidence for $VBF\,H \to b\bar{b}$ and the first upper limit on $VBF\,H \to c\bar{c}$. These results represent direct measurements of the Higgs couplings to second- and third-generation quarks.
+
+    \item \textbf{Pileup mitigation for the HL-LHC:} At $\langle\mu\rangle = 200$, traditional pileup rejection algorithms degrade severely. PUMiNet and PhyGHT, an event-wide attention model and a hypergraph Transformer respectively, were shown to recover the Higgs boson, W boson, and top quark mass peaks under HL-LHC pileup conditions. An open-source simulated dataset was released alongside this work to enable reproducible benchmarking by the broader machine learning community. This study provides a foundation for the pileup mitigation strategies that will be needed when the HL-LHC begins operations.
+
+    \item \textbf{Hadronic top quark polarimetry:} A proof-of-concept study demonstrated that top quark spin information can be extracted in the semi-leptonic $t\bar{t}$ channel without polarization-dependent training data. A Transformer regression model trained on unpolarized $t\bar{t}$ was evaluated on left- and right-handed polarized samples, recovering a measurable L/R asymmetry in $\cos\theta$ for both the bottom quark and the down quark spin analyzers. A cosine similarity-based purity cut was shown to recover the analyzing power $\beta$ toward truth-level expectations. This establishes a new avenue for hadronic top polarimetry that, with full ATLAS simulation and real LHC data, could contribute to measurements of $t\bar{t}$ spin correlations and quantum entanglement.
 \end{itemize}
+
+The common thread across these contributions is the use of modern graph and attention-based neural network architectures to extract physics information from variable-length, set-structured inputs --- tracks within a jet, particles within an event, or jet constituents within a boosted decay. Each contribution pushed the state of the art in its domain while building toward the shared goal of precision Higgs and top quark physics at the LHC and HL-LHC.
