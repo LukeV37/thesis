@@ -165,7 +165,8 @@ For the $VH, H \rightarrow c\bar{c}$ process, the observed (expected) upper limi
 \label{sec:VBF_analysis}
 
 The vector-boson fusion (VBF) production mode has the second-largest Higgs boson production cross section at the LHC, approximately 3.8 pb at $\sqrt{s} = 13$ TeV, significantly larger than the VH production mode. 
-However, unlike VH, the VBF process is fully hadronic. The two initial-state quarks each radiate a virtual vector boson that fuses to produce the Higgs boson, with the scattered quarks fragmenting into two energetic forward jets with large pseudorapidity separation and high dijet invariant mass. 
+However, unlike VH, the VBF process is fully hadronic.
+The two initial-state quarks each radiate a virtual vector boson that fuses to produce the Higgs boson, with the scattered quarks fragmenting into two energetic forward jets with large pseudorapidity separation and high dijet invariant mass. 
 With the Higgs boson also decaying hadronically into either $b\bar{b}$ or $c\bar{c}$, the entire final state consists of jets, as illustrated in Figure~\ref{fig:VBF_Diagrams}, making non-resonant QCD multijet production the overwhelming dominant background at approximately 99\% of the total. 
 Unlike the VH channel, where the leptonic decay of the associated vector boson provides an immediate trigger handle that suppresses QCD backgrounds, the VBF channel has no such leptonic foothold. 
 This makes the VBF analysis considerably more challenging and necessitates a dedicated strategy to extract the Higgs signal from an enormous QCD background.
@@ -185,7 +186,8 @@ Key improvements over previous work include enhanced multivariate techniques and
 
 \subsection{Event Simulation and Selection}
 
-Simulated VBF signal events are generated at NLO in QCD and ggF events are generated at NNLO using POWHEG BOX v2. PYTHIA 8 is used for parton showering and hadronization. 
+Simulated VBF signal events are generated at NLO in QCD and ggF events are generated at NNLO using POWHEG BOX v2.
+PYTHIA 8 is used for parton showering and hadronization. 
 Although ggF can produce events with a VBF-like topology via gluon radiation into forward jets, its kinematic distribution closely resembles that of the background, resulting in weak sensitivity to the ggF contribution specifically. 
 The signal-strength modifiers $\mu_{bb}$ and $\mu_{cc}$ are therefore defined inclusively, scaling both VBF and ggF contributions together. 
 The dominant background, non-resonant QCD multijet production, accounts for approximately 99\% of the total and is estimated using a data-driven method, as MC simulation of QCD multijet processes lacks the accuracy needed for reliable background modeling. 
@@ -363,9 +365,11 @@ Systematic uncertainties affecting both the normalization and shape of the fitte
 \end{figure}
 
 Six signal regions per channel (SR1--SR6) are defined by successive cuts on the ANN output score, as shown in Figure~\ref{fig:ANN_Scores}, and are ordered by decreasing signal purity ranging from 2\% to 0.02\%. 
-The least pure region, SR6, serves as a control region. The dominant background from non-resonant QCD multijet production is estimated using a data-driven method. 
+The least pure region, SR6, serves as a control region.
+The dominant background from non-resonant QCD multijet production is estimated using a data-driven method. 
 The background $M_{h_1 h_2}$ shape in the high-score signal regions (SR1--SR5) is taken from SR6, which is both signal-depleted and populated by a much larger number of events. 
-This makes SR6 an effective constraint on the multijet background shape in the high-score regions. This approach is directly enabled by the ANN decorrelation, which ensures the $M_{h_1 h_2}$ shape is independent of the classifier score. 
+This makes SR6 an effective constraint on the multijet background shape in the high-score regions.
+This approach is directly enabled by the ANN decorrelation, which ensures the $M_{h_1 h_2}$ shape is independent of the classifier score. 
 The background normalization is freely adjusted in each signal region through unconstrained per-region scale factors, while the shape is controlled by floating per-bin normalizations correlated across all regions within a channel, giving 90 such parameters in total.
 
 \begin{figure}[h]
@@ -512,7 +516,8 @@ A breakdown of the contributions from each uncertainty source to the total uncer
 Both measurements are dominated by statistical uncertainty. 
 The leading systematic contributions come from the non-resonant background bias uncertainty and limited MC sample sizes, with detector uncertainties, particularly those related to jets, contributing at a smaller level.
 
-The $H \rightarrow c\bar{c}$ result is further interpreted in the kappa framework, where $\mu_{cc}$ is expressed in terms of the charm Yukawa coupling modifier $\kappa_c$, defined through $\kappa_c^2 = \Gamma_c / \Gamma_c^{\text{SM}}$, with $\Gamma_c$ the partial decay width into a charm quark pair. Assuming all other couplings take their SM values and only SM decays contribute, the signal strength relates to $\kappa_c$ as:
+The $H \rightarrow c\bar{c}$ result is further interpreted in the kappa framework, where $\mu_{cc}$ is expressed in terms of the charm Yukawa coupling modifier $\kappa_c$, defined through $\kappa_c^2 = \Gamma_c / \Gamma_c^{\text{SM}}$, with $\Gamma_c$ the partial decay width into a charm quark pair.
+Assuming all other couplings take their SM values and only SM decays contribute, the signal strength relates to $\kappa_c$ as:
 \begin{equation}
 	\mu^{cc} = \frac{\kappa_c^2}{1 + B^{\text{SM}}_{H \rightarrow c\bar{c}}(\kappa_c^2 - 1)}
 \end{equation}
@@ -538,7 +543,10 @@ Background modeling uncertainties are treated as uncorrelated, while theory unce
 	\label{fig:vbf_hbb_combinations_summary}
 \end{figure}
 
-The $H \rightarrow b\bar{b}$ combination yields a signal strength of $\mu_{bb} = 0.87 \pm 0.28$, with an observed (expected) significance of 3.2 (3.6) standard deviations above the background-only hypothesis. This constitutes the first evidence for $H \rightarrow b\bar{b}$ in the VBF production mode. The three analyses are found to be mutually consistent, with a p-value of 65\% for compatibility among all three signal-strength measurements, and 95\% between the Run-2 and Run-3 VBF results alone. The combined signal strength measurements are summarized in Figure~\ref{fig:vbf_hbb_combinations_summary}.
+The $H \rightarrow b\bar{b}$ combination yields a signal strength of $\mu_{bb} = 0.87 \pm 0.28$, with an observed (expected) significance of 3.2 (3.6) standard deviations above the background-only hypothesis.
+This constitutes the first evidence for $H \rightarrow b\bar{b}$ in the VBF production mode.
+The three analyses are found to be mutually consistent, with a p-value of 65\% for compatibility among all three signal-strength measurements, and 95\% between the Run-2 and Run-3 VBF results alone.
+The combined signal strength measurements are summarized in Figure~\ref{fig:vbf_hbb_combinations_summary}.
 
 \begin{figure}[h]
 	\centering

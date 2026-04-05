@@ -105,7 +105,8 @@ The second variable, $R_{pT}$, is the ratio of the scalar $p_{\rm T}$ sum of har
 	R_{pT} = \frac{\sum_k p^{trk_k}_T (PV_0)}{p^{jet}_T}
 \end{equation}
 
-JVT combines corrJVF and $R_{pT}$ into a single discriminant using a 2D k-nearest-neighbor (kNN) likelihood with $k=100$ neighbors, assigning each jet a probability of originating from the hard scatter based on its position in the corrJVF--$R_{pT}$ plane. The distributions of $R_{pT}$ and corrJVF are shown in Figure~\ref{fig:JVTvars}, and the resulting JVT score is shown in Figure~\ref{fig:JVTscore}, both reproduced on the simulated di-Higgs dataset.
+JVT combines corrJVF and $R_{pT}$ into a single discriminant using a 2D k-nearest-neighbor (kNN) likelihood with $k=100$ neighbors, assigning each jet a probability of originating from the hard scatter based on its position in the corrJVF--$R_{pT}$ plane.
+The distributions of $R_{pT}$ and corrJVF are shown in Figure~\ref{fig:JVTvars}, and the resulting JVT score is shown in Figure~\ref{fig:JVTscore}, both reproduced on the simulated di-Higgs dataset.
 
 \begin{figure}[ht]
 	\centering
@@ -658,7 +659,10 @@ This residual distortion means that $E_{frac}$ and $M_{frac}$ alone are not a co
 	\label{fig:WmassCollections}
 \end{figure}
 
-To extrapolate the corrections derived on track jets to calorimeter jets, a $\Delta R$ matching scheme is applied, associating each track jet $W$ candidate to the nearest calorimeter jet, as shown in Figure~\ref{fig:Wmass:deltaR}. The reconstructed $W$ mass is then evaluated across four jet collections from the \texttt{DAOD\_FTAG1} derivation: \texttt{PFlow}, \texttt{EMTopo}, \texttt{Truth}, and \texttt{DressedWZ}, as shown in Figure~\ref{fig:Wmass:jet_types}. Notably, the reconstructed $W$ mass already agrees closely with the truth value without applying any $E_{frac}$ or $M_{frac}$ corrections, indicating that pileup mitigation is already performed during the ATLAS derivation procedure. This is an important finding: a direct implementation of the proposed corrections on top of existing ATLAS jet collections would double-count pileup suppression, and integration into the ATLAS software framework would therefore require replacing the existing mitigation step rather than supplementing it.
+To extrapolate the corrections derived on track jets to calorimeter jets, a $\Delta R$ matching scheme is applied, associating each track jet $W$ candidate to the nearest calorimeter jet, as shown in Figure~\ref{fig:Wmass:deltaR}.
+The reconstructed $W$ mass is then evaluated across four jet collections from the \texttt{DAOD\_FTAG1} derivation: \texttt{PFlow}, \texttt{EMTopo}, \texttt{Truth}, and \texttt{DressedWZ}, as shown in Figure~\ref{fig:Wmass:jet_types}.
+Notably, the reconstructed $W$ mass already agrees closely with the truth value without applying any $E_{frac}$ or $M_{frac}$ corrections, indicating that pileup mitigation is already performed during the ATLAS derivation procedure.
+This is an important finding: a direct implementation of the proposed corrections on top of existing ATLAS jet collections would double-count pileup suppression, and integration into the ATLAS software framework would therefore require replacing the existing mitigation step rather than supplementing it.
 
 \section{Conclusion}
 

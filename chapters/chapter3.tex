@@ -7,7 +7,11 @@
 
 \section{Introduction to the ATLAS Detector}
 
-The ATLAS (\underline{A} \underline{T}oroidal \underline{L}HC \underline{A}pparatu\underline{S}) detector~\cite{PERF-2007-01} is a general-purpose particle detector designed to reconstruct the full final state of $pp$ collisions across a broad physics program. It is situated at a designated interaction point on the LHC, approximately 100\,m below ground near the CERN campus. As shown in Figure~\ref{fig:ATLAS_detector}, the detector is 44\,m in length, 25\,m in diameter, and weighs approximately 7000 tonnes. It is composed of several concentric subsystems arranged around the interaction point: the inner tracking system, the electromagnetic and hadronic calorimeters, and the muon spectrometer. Each subsystem is designed to measure specific properties of the particles produced in the collision, as described in the following sections.
+The ATLAS (\underline{A} \underline{T}oroidal \underline{L}HC \underline{A}pparatu\underline{S}) detector~\cite{PERF-2007-01} is a general-purpose particle detector designed to reconstruct the full final state of $pp$ collisions across a broad physics program.
+It is situated at a designated interaction point on the LHC, approximately 100\,m below ground near the CERN campus.
+As shown in Figure~\ref{fig:ATLAS_detector}, the detector is 44\,m in length, 25\,m in diameter, and weighs approximately 7000 tonnes.
+It is composed of several concentric subsystems arranged around the interaction point: the inner tracking system, the electromagnetic and hadronic calorimeters, and the muon spectrometer.
+Each subsystem is designed to measure specific properties of the particles produced in the collision, as described in the following sections.
 
 \begin{figure}[h]
 	\centering
@@ -19,16 +23,13 @@ The ATLAS (\underline{A} \underline{T}oroidal \underline{L}HC \underline{A}ppara
 
 \subsection{General Purpose Detector Design}
 
-A general-purpose detector is designed around the physics objects it must
-measure. Two subsystems form the foundation of this design. The
-\textbf{inner tracker} measures the momenta of charged particles by recording
-their curved trajectories in a solenoidal magnetic field. It must do so
-\textit{non-destructively}, using thin silicon layers that minimally perturb
-the particles passing through. The \textbf{calorimeters} take the opposite
-approach, and are designed to stop particles completely and absorb their
-total energy. Unlike the tracker, the calorimeters respond to both charged
-and neutral particles. Together, these two systems provide the complementary
-information needed to reconstruct the full event topology.
+A general-purpose detector is designed around the physics objects it must measure. 
+Two subsystems form the foundation of this design. 
+The \textbf{inner tracker} measures the momenta of charged particles by recording their curved trajectories in a solenoidal magnetic field. 
+It must do so \textit{non-destructively}, using thin silicon layers that minimally perturb the particles passing through. 
+The \textbf{calorimeters} take the opposite approach, and are designed to stop particles completely and absorb their total energy. 
+Unlike the tracker, the calorimeters respond to both charged and neutral particles. 
+Together, these two systems provide the complementary information needed to reconstruct the full event topology.
 
 \begin{figure}[h]
 	\centering
@@ -37,18 +38,14 @@ information needed to reconstruct the full event topology.
 	\label{fig:detector_slice}
 \end{figure}
 
-As illustrated in Figure~\ref{fig:detector_slice}, differnt types of particles 
-are captured differently. \textbf{Electrons}~\cite{EGAM-2018-01} leave a curved
-track in the inner detector and deposit their full energy in the EM
-calorimeter via a narrow electromagnetic shower. \textbf{Photons}~\cite{EGAM-2018-01} produce
-an identical EM shower but leave no track, as they carry no electric charge.
-\textbf{Muons}~\cite{MUON-2018-03} are minimum-ionising and pass through the calorimeters
-largely unimpeded. They leave matched tracks in both the inner detector and
-the outermost muon spectrometer. \textbf{Jets} leave tracks from their
-charged constituents and deposit energy across both the EM and hadronic
-calorimeters. \textbf{Neutrinos} escape the detector entirely. Their
-presence is inferred from the transverse momentum imbalance they leave
-behind, reconstructed as missing transverse energy $E_{\text{T}}^{\text{miss}}$.
+As illustrated in Figure~\ref{fig:detector_slice}, differnt types of particles are captured differently. 
+\textbf{Electrons}~\cite{EGAM-2018-01} leave a curved track in the inner detector and deposit their full energy in the EM calorimeter via a narrow electromagnetic shower. 
+\textbf{Photons}~\cite{EGAM-2018-01} produce an identical EM shower but leave no track, as they carry no electric charge.
+\textbf{Muons}~\cite{MUON-2018-03} are minimum-ionising and pass through the calorimeters largely unimpeded. 
+They leave matched tracks in both the inner detector and the outermost muon spectrometer. 
+\textbf{Jets} leave tracks from their charged constituents and deposit energy across both the EM and hadronic calorimeters. 
+\textbf{Neutrinos} escape the detector entirely. 
+Their presence is inferred from the transverse momentum imbalance they leave behind, reconstructed as missing transverse energy $E_{\text{T}}^{\text{miss}}$.
 
 % MENTION THE MOTIVATION OF TRACKER AND CALORIMETER. IT IS DESIGNED IN SUCH A WAY TO IDENTIFY PARTILCES THAT ARE PRODUCES: eLECTRONS, PHOTONS, MUONS, HADRONS (JETS). tRACKER DOES NOT CAPTURE ENERGY, BUT CALO DOES STOP ENERGY
 % eVERY SINGLE PHYSICS ANALYSIS REQUIRES FULL UNDERSTANDING OF EVENT TOPOLOGY OF VARIOUS OBJECTS. sINCE THESE PRODUCTION OF THESE PHYSICS PROCDUCTIONS IS AT DIFFERENT RATES, CROSS SECTIONS, AND BRANCHING RATIOS. sOME OF THESE EVENTS ARE QUITE RARE SO TRIGGER BECOMES SUPER IMPORTANT. tRIGGER PLAYS A HUGE PART IN
@@ -57,17 +54,12 @@ behind, reconstructed as missing transverse energy $E_{\text{T}}^{\text{miss}}$.
 
 \subsection{Detector Coordinate System}
 
-ATLAS uses a right-handed coordinate system with its origin at the
-interaction point ($z=0$). The $z$-axis points along the beam direction,
-the $x$-axis points toward the center of the LHC ring, and the $y$-axis
-points upward. The azimuthal angle $\phi$ is measured around the beam axis
-in the transverse plane, and the polar angle $\theta$ is measured from the
-positive $z$-axis. The polar angle $\theta$ transforms nonlinearly under
-longitudinal Lorentz boosts, making it an inconvenient coordinate.
-Rapidity, $y = \frac{1}{2}\ln\frac{E+p_z}{E-p_z}$, transforms with a
-simple additive shift, so rapidity \textit{differences} between particles
-are invariant. Since computing $y$ requires knowledge of the particle mass,
-it is approximated by the pseudorapidity:
+ATLAS uses a right-handed coordinate system with its origin at the interaction point ($z=0$). 
+The $z$-axis points along the beam direction, the $x$-axis points toward the center of the LHC ring, and the $y$-axis points upward. 
+The azimuthal angle $\phi$ is measured around the beam axis in the transverse plane, and the polar angle $\theta$ is measured from the positive $z$-axis. 
+The polar angle $\theta$ transforms nonlinearly under longitudinal Lorentz boosts, making it an inconvenient coordinate.
+Rapidity, $y = \frac{1}{2}\ln\frac{E+p_z}{E-p_z}$, transforms with a simple additive shift, so rapidity \textit{differences} between particles are invariant. 
+Since computing $y$ requires knowledge of the particle mass, it is approximated by the pseudorapidity:
 %
 \begin{equation}
 	\eta = -\ln\tan\left(\frac{\theta}{2}\right),
@@ -75,8 +67,7 @@ it is approximated by the pseudorapidity:
 \end{equation}
 %
 which is purely geometric and equals $y$ in the massless limit.
-Particle production is approximately uniform in $\eta$, which is why
-detector subsystems are segmented uniformly in $\eta$ rather than $\theta$.
+Particle production is approximately uniform in $\eta$, which is why detector subsystems are segmented uniformly in $\eta$ rather than $\theta$.
 The angular separation between two objects is expressed as:
 %
 \begin{equation}
@@ -92,14 +83,9 @@ which is the standard metric for object matching and isolation.
 
 \section{The Tracking System}
 
-The ATLAS Inner Detector (ID) reconstructs the trajectories of charged
-particles while minimally perturbing them. Every 25\,ns, hundreds of charged
-particles emerge from the interaction point within $|\eta| < 2.5$, demanding
-fine detector granularity and radiation-hard sensors. As shown in
-Figure~\ref{fig:ATLAS_tracker}, the ID comprises three complementary
-subdetectors arranged concentrically outward from the beam axis: the silicon
-Pixel detector, the Semiconductor Tracker (SCT), and the Transition Radiation
-Tracker (TRT).
+The ATLAS Inner Detector (ID) reconstructs the trajectories of charged particles while minimally perturbing them. 
+Every 25\,ns, hundreds of charged particles emerge from the interaction point within $|\eta| < 2.5$, demanding fine detector granularity and radiation-hard sensors. 
+As shown in Figure~\ref{fig:ATLAS_tracker}, the ID comprises three complementary subdetectors arranged concentrically outward from the beam axis: the silicon Pixel detector, the Semiconductor Tracker (SCT), and the Transition Radiation Tracker (TRT).
 
 \begin{figure}[h]
 	\centering
@@ -108,11 +94,10 @@ Tracker (TRT).
 	\label{fig:ATLAS_tracker}
 \end{figure}
 
-The system is immersed in a 2\,T solenoidal magnetic field. This curves
-charged-particle trajectories in the transverse plane, allowing momenta to
-be inferred from the radius of curvature. The ID provides full azimuthal
-coverage over $|\eta| < 2.5$ with a nominal $p_{\text{T}}$ threshold of
-0.5\,GeV. The momentum resolution is parameterized as:
+The system is immersed in a 2\,T solenoidal magnetic field. 
+This curves charged-particle trajectories in the transverse plane, allowing momenta to be inferred from the radius of curvature. 
+The ID provides full azimuthal coverage over $|\eta| < 2.5$ with a nominal $p_{\text{T}}$ threshold of 0.5\,GeV. 
+The momentum resolution is parameterized as:
 %
 \begin{equation}
 	\frac{\sigma_{p_T}}{p_T} = 0.05\%\cdot p_{\text{T}}\,[\text{GeV}]
@@ -120,78 +105,68 @@ coverage over $|\eta| < 2.5$ with a nominal $p_{\text{T}}$ threshold of
 	\label{eq:id_momentum_res}
 \end{equation}
 %
-where $\oplus$ denotes addition in quadrature. The first term grows with
-$p_{\text{T}}$ as high-momentum tracks curve less; the second is a constant
-term from alignment and calibration uncertainties.
+where $\oplus$ denotes addition in quadrature. 
+The first term grows with $p_{\text{T}}$ as high-momentum tracks curve less; the second is a constant term from alignment and calibration uncertainties.
 
 \subsubsection{Pixel Detector}
 
-The Pixel detector is the innermost component of the ID. It is positioned
-as close as 50.5\,mm from the beam axis in the barrel. Its fine granularity
-and proximity to the interaction point enable precise track impact parameter
-measurements. These are essential for reconstructing displaced secondary
-vertices from $b$-hadron decays, which is critical for $b$-jet
-identification and $\tau$-tagging.
+The Pixel detector is the innermost component of the ID. 
+It is positioned as close as 50.5\,mm from the beam axis in the barrel. 
+Its fine granularity and proximity to the interaction point enable precise track impact parameter measurements. 
+These are essential for reconstructing displaced secondary vertices from $b$-hadron decays, which is critical for $b$-jet identification and $\tau$-tagging.
 
-The detector consists of 1744 silicon pixel modules arranged in three
-concentric barrel layers and two end-caps of three disks each. The barrel
-layers span radii from 50.5\,mm to 122.5\,mm and the end-cap disks span
-88.8\,mm to 149.6\,mm. Each pixel measures 50\,$\mu$m $\times$ 400\,$\mu$m
-in $R\phi$ and $z$ respectively, providing two-dimensional space-point
-measurements at each layer. The intrinsic accuracy is 10\,$\mu$m in $R\phi$
-and 115\,$\mu$m in $z$. The detector has approximately 80.4 million readout
-channels in total.
+The detector consists of 1744 silicon pixel modules arranged in three concentric barrel layers and two end-caps of three disks each. 
+The barrel layers span radii from 50.5\,mm to 122.5\,mm and the end-cap disks span 88.8\,mm to 149.6\,mm. 
+Each pixel measures 50\,$\mu$m $\times$ 400\,$\mu$m in $R\phi$ and $z$ respectively, providing two-dimensional space-point measurements at each layer. 
+The intrinsic accuracy is 10\,$\mu$m in $R\phi$ and 115\,$\mu$m in $z$. 
+The detector has approximately 80.4 million readout channels in total.
 
-The innermost barrel layer is the Insertable B-Layer
-(IBL)~\cite{Abbott:2018ikt}, added during Long Shutdown 1 between Run 1
-and Run 2 at a radius of 33\,mm. The IBL improves impact parameter
-resolution and displaced vertex reconstruction, directly enhancing
-$b$-tagging performance.
+The innermost barrel layer is the Insertable B-Layer (IBL)~\cite{Abbott:2018ikt}, added during Long Shutdown 1 between Run 1 and Run 2 at a radius of 33\,mm. 
+The IBL improves impact parameter resolution and displaced vertex reconstruction, directly enhancing $b$-tagging performance.
 
 %IBL: https://cds.cern.ch/record/1291633 \\
 %Commissioning and calibration: https://arxiv.org/pdf/1004.5293
 
 \subsubsection{Semiconductor Tracker -- SCT}
 
-The SCT extends precision silicon tracking to intermediate radii, providing additional measurements that complement the Pixel detector in track reconstruction. It consists of 4088 silicon strip modules arranged in four concentric barrel layers and two end-caps of nine disks each. The barrel layers span radii from 299\,mm to 514\,mm and the end-cap disks extend from 275\,mm to 560\,mm.
+The SCT extends precision silicon tracking to intermediate radii, providing additional measurements that complement the Pixel detector in track reconstruction. 
+It consists of 4088 silicon strip modules arranged in four concentric barrel layers and two end-caps of nine disks each. 
+The barrel layers span radii from 299\,mm to 514\,mm and the end-cap disks extend from 275\,mm to 560\,mm.
 
-Unlike pixels, strip sensors measure position in only one dimension. A strip is a long thin conductor, and a hit identifies which strip fired but not where along its length the particle crossed. To recover the second coordinate, each SCT module pairs two strip sensors at an angle. One sensor is oriented parallel to the beam axis, the other is rotated by 40\,mrad. Combining hits from both sensors yields a two-dimensional space point. The strip pitch is approximately 80\,$\mu$m, giving an intrinsic accuracy of 17\,$\mu$m in $R\phi$ and 580\,$\mu$m in $z$. The poorer $z$ resolution relative to the Pixel detector is a direct consequence of this geometry. Strip sensors are cheaper to produce per unit area than pixel sensors, making them well suited to the larger radii of the SCT where lower track density makes coarser granularity acceptable. A hit is registered when the signal exceeds a threshold of 1\,fC, and the detector has approximately 6.3 million readout channels in total.
+Unlike pixels, strip sensors measure position in only one dimension. 
+A strip is a long thin conductor, and a hit identifies which strip fired but not where along its length the particle crossed. 
+To recover the second coordinate, each SCT module pairs two strip sensors at an angle.
+One sensor is oriented parallel to the beam axis, the other is rotated by 40\,mrad. 
+Combining hits from both sensors yields a two-dimensional space point. 
+The strip pitch is approximately 80\,$\mu$m, giving an intrinsic accuracy of 17\,$\mu$m in $R\phi$ and 580\,$\mu$m in $z$. 
+The poorer $z$ resolution relative to the Pixel detector is a direct consequence of this geometry. 
+Strip sensors are cheaper to produce per unit area than pixel sensors, making them well suited to the larger radii of the SCT where lower track density makes coarser granularity acceptable. 
+A hit is registered when the signal exceeds a threshold of 1\,fC, and the detector has approximately 6.3 million readout channels in total.
 
 \subsubsection{Transition Radiation Tracker -- TRT}
 
-The TRT is the outermost component of the tracking system, covering radii from
-554\,mm to 1082\,mm. It consists of 298,304 proportional drift tubes (straws)
-of 4\,mm diameter. The barrel is divided into three rings of 32 modules each,
-with straws arranged axially and interleaved with polypropylene fibers. In the
-end-cap regions, the straws are oriented radially. Each straw provides a
-drift-time measurement with an intrinsic accuracy of 130\,$\mu$m. All charged
-tracks with $p_{\text{T}} > 0.5$\,GeV and $|\eta| < 2.0$ traverse at least 36
-straws, except in the transition region between the barrel and end-caps
-($0.8 < |\eta| < 1.0$), where this decreases to a minimum of 22. The large
-number of measurements contributes to the overall track momentum resolution.
+The TRT is the outermost component of the tracking system, covering radii from 554\,mm to 1082\,mm. 
+It consists of 298,304 proportional drift tubes (straws) of 4\,mm diameter. 
+The barrel is divided into three rings of 32 modules each, with straws arranged axially and interleaved with polypropylene fibers. 
+In the end-cap regions, the straws are oriented radially. 
+Each straw provides a drift-time measurement with an intrinsic accuracy of 130\,$\mu$m. 
+All charged tracks with $p_{\text{T}} > 0.5$\,GeV and $|\eta| < 2.0$ traverse at least 36 straws, except in the transition region between the barrel and end-caps ($0.8 < |\eta| < 1.0$), where this decreases to a minimum of 22. 
+The large number of measurements contributes to the overall track momentum resolution.
 
-The TRT also provides electron identification through transition radiation.
-Transition radiation is emitted when a charged particle crosses a boundary of
-changing dielectric constant, producing X-ray photons. The number of photons
-produced is proportional to the Lorentz factor $\gamma = E/mc^2$. Electrons
-have a much higher $\gamma$ than pions at the same momentum due to their
-smaller mass, so they produce significantly more transition radiation than
-hadrons. These photons are absorbed by the Xe-based gas mixture and registered
-as high-threshold hits. The fraction of high-threshold hits along a track
-provides discrimination between electrons and pions.
+The TRT also provides electron identification through transition radiation. 
+Transition radiation is emitted when a charged particle crosses a boundary of changing dielectric constant, producing X-ray photons. 
+The number of photons produced is proportional to the Lorentz factor $\gamma = E/mc^2$. 
+Electrons have a much higher $\gamma$ than pions at the same momentum due to their smaller mass, so they produce significantly more transition radiation than hadrons. 
+These photons are absorbed by the Xe-based gas mixture and registered as high-threshold hits. 
+The fraction of high-threshold hits along a track provides discrimination between electrons and pions.
 
 \section{The Calorimeter System}
 
-The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid
-magnet, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}. Unlike
-the inner detector, which measures particle trajectories
-non-destructively, the calorimeters are designed to stop particles
-completely and absorb their total energy. Dense absorber material initiates a shower of
-secondary particles. An interleaved active medium then collects a
-representative sample of the deposited energy. The calorimeters respond
-to both charged and neutral particles, making them essential for
-reconstructing photons, jets, and missing transverse energy
-$E_{\text{T}}^{\text{miss}}$.
+The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}. 
+Unlike the inner detector, which measures particle trajectories non-destructively, the calorimeters are designed to stop particles completely and absorb their total energy. 
+Dense absorber material initiates a shower of secondary particles. 
+An interleaved active medium then collects a representative sample of the deposited energy. 
+The calorimeters respond to both charged and neutral particles, making them essential for reconstructing photons, jets, and missing transverse energy $E_{\text{T}}^{\text{miss}}$.
 
 \begin{figure}[h]
 	\centering
@@ -200,38 +175,25 @@ $E_{\text{T}}^{\text{miss}}$.
 	\label{fig:ATLAS_calorimeter}
 \end{figure}
 
-The system provides full azimuthal coverage over $|\eta| < 4.9$ and is
-divided into three regions: the electromagnetic (EM) calorimeter, the
-hadronic calorimeter, and the forward calorimeter (FCal). The total
-depth exceeds 10 hadronic interaction lengths $\lambda$, ensuring shower
-containment and minimizing hadronic leakage into the muon spectrometer.
+The system provides full azimuthal coverage over $|\eta| < 4.9$ and is divided into three regions: the electromagnetic (EM) calorimeter, the hadronic calorimeter, and the forward calorimeter (FCal). 
+The total depth exceeds 10 hadronic interaction lengths $\lambda$, ensuring shower containment and minimizing hadronic leakage into the muon spectrometer.
 
-The majority of ATLAS calorimeters use liquid argon (LAr) as the active
-medium. LAr was chosen for its intrinsic linear response, stable
-behavior over time, and radiation hardness. These properties are
-critical given the high particle flux at the LHC. It is used in the
-electromagnetic barrel and end-cap calorimeters, the hadronic end-cap,
-and the forward calorimeter. The hadronic barrel calorimeter (TileCal)
-uses scintillating plastic tiles instead, which is more cost-effective
-at the larger radii where the radiation environment is less severe.
+The majority of ATLAS calorimeters use liquid argon (LAr) as the active medium. 
+LAr was chosen for its intrinsic linear response, stable behavior over time, and radiation hardness. 
+These properties are critical given the high particle flux at the LHC. 
+It is used in the electromagnetic barrel and end-cap calorimeters, the hadronic end-cap, and the forward calorimeter. 
+The hadronic barrel calorimeter (TileCal) uses scintillating plastic tiles instead, which is more cost-effective at the larger radii where the radiation environment is less severe. 
 
 \subsubsection{Electromagnetic Calorimeter}
 
-Electrons and photons lose energy in matter primarily through
-bremsstrahlung and pair production, producing compact cascades known as
-electromagnetic showers. Lead is used as the absorber material because
-its short radiation length ($X_0 = 0.56$\,cm) allows full shower
-containment within a manageable depth. Fine spatial granularity is also
-required to resolve nearby clusters and identify individual photons.
+Electrons and photons lose energy in matter primarily through bremsstrahlung and pair production, producing compact cascades known as electromagnetic showers. 
+Lead is used as the absorber material because its short radiation length ($X_0 = 0.56$\,cm) allows full shower containment within a manageable depth. 
+Fine spatial granularity is also required to resolve nearby clusters and identify individual photons.
 
-The lead absorber plates and LAr electrodes are shaped into an accordion
-fold, alternating between axial and radial orientations in the barrel
-and end-caps respectively. This eliminates uninstrumented gaps in $\phi$,
-ensuring every particle traverses active material regardless of azimuthal
-angle. The calorimeter is divided into the LAr electromagnetic barrel
-(EMB), covering $|\eta| < 1.475$, and the LAr electromagnetic end-cap
-(EMEC), covering $1.375 < |\eta| < 3.2$. The total active thickness
-exceeds $22\,X_0$ in the barrel and $24\,X_0$ in the end-caps.
+The lead absorber plates and LAr electrodes are shaped into an accordion fold, alternating between axial and radial orientations in the barrel and end-caps respectively. 
+This eliminates uninstrumented gaps in $\phi$, ensuring every particle traverses active material regardless of azimuthal angle. 
+The calorimeter is divided into the LAr electromagnetic barrel (EMB), covering $|\eta| < 1.475$, and the LAr electromagnetic end-cap (EMEC), covering $1.375 < |\eta| < 3.2$. 
+The total active thickness exceeds $22\,X_0$ in the barrel and $24\,X_0$ in the end-caps.
 
 The energy resolution of the EMB is parameterized as:
 %
@@ -240,11 +202,9 @@ The energy resolution of the EMB is parameterized as:
 	\label{eq:em_resolution}
 \end{equation}
 %
-where $\oplus$ denotes addition in quadrature. The stochastic term
-$a \approx 10\%\,\sqrt{\text{GeV}}$ reflects statistical fluctuations
-in shower sampling. The constant term $b \approx 0.17\%$ encodes
-non-uniformities and calibration uncertainties, and dominates at high
-energy.
+where $\oplus$ denotes addition in quadrature. 
+The stochastic term $a \approx 10\%\,\sqrt{\text{GeV}}$ reflects statistical fluctuations in shower sampling. 
+The constant term $b \approx 0.17\%$ encodes non-uniformities and calibration uncertainties, and dominates at high energy.
 
 \subsubsection{Hadronic Calorimeter}
 

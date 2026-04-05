@@ -82,7 +82,8 @@ generate p p > t{R} t~ > b j j , t~ > b~ l- vl~
 \end{center}
 %
 A generator-level requirement of $p_{T,top} > 200$~GeV is applied to simulate a boosted topology. 
-Pythia8 is used for parton showering and hadronization. Generator-level validation is shown in Figure~\ref{fig:gen_val}. 
+Pythia8 is used for parton showering and hadronization.
+Generator-level validation is shown in Figure~\ref{fig:gen_val}. 
 The characteristic asymmetry in $\cos\theta$ between the left- and right-handed samples confirms the correct implementation of top quark polarization.
 
 \begin{table}[h]
@@ -145,7 +146,8 @@ The full event selection and event yields are summarized in Table~\ref{tab:cutfl
 	}
 \end{table}
 
-Reconstruction-level validation is shown in Figure~\ref{fig:reco_val}. The $\cos\theta$ asymmetry is preserved after event selection, confirming that spin information survives reconstruction. 
+Reconstruction-level validation is shown in Figure~\ref{fig:reco_val}.
+The $\cos\theta$ asymmetry is preserved after event selection, confirming that spin information survives reconstruction. 
 The reconstruction-level spin analyzing power is shown in Table~\ref{tab:reco_alpha}. 
 The values are consistent with generator-level expectations, with $\beta_d \approx 1.0$ and $\beta_b \approx 0.4$.
 
@@ -194,13 +196,16 @@ Two separate regression targets are defined.
 The top quark direction in the $t\bar{t}$ CM frame is predicted as a four-vector and trained with MSE loss. 
 The spin analyzer quark direction in the top quark rest frame is predicted as a unit three-vector and trained with cosine similarity loss. 
 MSE is not well suited to unit vector regression: it measures straight-line distance in Cartesian space rather than angle, and does not respect the geometry of the sphere. 
-Cosine similarity directly minimizes the angle between the predicted and true directions on the unit sphere, with no such artifact. This is illustrated in Figure~\ref{fig:unit_sphere}. 
+Cosine similarity directly minimizes the angle between the predicted and true directions on the unit sphere, with no such artifact.
+This is illustrated in Figure~\ref{fig:unit_sphere}. 
 The two targets are optimized jointly using a combined loss:
 \begin{equation}
 	\mathcal{L} = \alpha \cdot \mathcal{L}_{\mathrm{MSE}} + \beta \cdot \mathcal{L}_{\mathrm{CosSim}},
 	\label{eq:combined_loss}
 \end{equation}
-with $\alpha = 1$ and $\beta = 10^6$. The large value of $\beta$ compensates for the order-of-magnitude difference in raw loss values between the two terms, and prioritizes the quark direction as the more important learning objective. Training both targets simultaneously within a single forward pass forces the model to learn the two sequential boosts required to compute $\cos\theta$.
+with $\alpha = 1$ and $\beta = 10^6$.
+The large value of $\beta$ compensates for the order-of-magnitude difference in raw loss values between the two terms, and prioritizes the quark direction as the more important learning objective.
+Training both targets simultaneously within a single forward pass forces the model to learn the two sequential boosts required to compute $\cos\theta$.
 
 \begin{figure}[h]
 	\centering

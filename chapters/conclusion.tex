@@ -5,7 +5,8 @@
 \chapter[CONCLUSION]{CONCLUSION}
 \endgroup
 
-This thesis presented three contributions to the ATLAS physics program, united by the application of machine learning to jet physics problems at the LHC and HL-LHC. Together, they span the full lifecycle of a measurement: from calibrating the tools, to making discoveries, to preparing for the next generation of physics.
+This thesis presented three contributions to the ATLAS physics program, united by the application of machine learning to jet physics problems at the LHC and HL-LHC.
+Together, they span the full lifecycle of a measurement: from calibrating the tools, to making discoveries, to preparing for the next generation of physics.
 
 \begin{itemize}
     \item \textbf{Heavy-flavor jet tagging and calibration:} The transition from classical multivariate taggers to graph neural network and Transformer-based architectures (GN1, GN2, GN2X) delivered substantial improvements in b-jet and c-jet identification. The $t\bar{t}$ mistag calibration of GN2X in data validated the boosted tagger performance and provided the scale factors required to use it in ATLAS analyses. This work directly enables the Higgs measurements in Chapter~\ref{chap:higgs} and underpins the flavor tagging performance across the ATLAS Run~3 program.
@@ -17,4 +18,5 @@ This thesis presented three contributions to the ATLAS physics program, united b
     \item \textbf{Hadronic top quark polarimetry:} A proof-of-concept study demonstrated that top quark spin information can be extracted in the semi-leptonic $t\bar{t}$ channel without polarization-dependent training data. A Transformer regression model trained on unpolarized $t\bar{t}$ was evaluated on left- and right-handed polarized samples, recovering a measurable L/R asymmetry in $\cos\theta$ for both the bottom quark and the down quark spin analyzers. A cosine similarity-based purity cut was shown to recover the analyzing power $\beta$ toward truth-level expectations. This establishes a new avenue for hadronic top polarimetry that, with full ATLAS simulation and real LHC data, could contribute to measurements of $t\bar{t}$ spin correlations and quantum entanglement.
 \end{itemize}
 
-The common thread across these contributions is the use of modern graph and attention-based neural network architectures to extract physics information from variable-length, set-structured inputs --- tracks within a jet, particles within an event, or jet constituents within a boosted decay. Each contribution pushed the state of the art in its domain while building toward the shared goal of precision Higgs and top quark physics at the LHC and HL-LHC.
+The common thread across these contributions is the use of modern graph and attention-based neural network architectures to extract physics information from variable-length, set-structured inputs --- tracks within a jet, particles within an event, or jet constituents within a boosted decay.
+Each contribution pushed the state of the art in its domain while building toward the shared goal of precision Higgs and top quark physics at the LHC and HL-LHC.
