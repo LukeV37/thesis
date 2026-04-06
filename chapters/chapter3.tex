@@ -21,7 +21,32 @@ Each subsystem is designed to measure specific properties of the particles produ
 \end{figure}
 % https://atlas.cern/Resources/Schematics
 
-\subsection{General Purpose Detector Design}
+\subsection{Detector Coordinate System}
+
+ATLAS uses a right-handed coordinate system with its origin at the interaction point ($z=0$). 
+The $z$-axis points along the beam direction, the $x$-axis points toward the center of the LHC ring, and the $y$-axis points upward. 
+The azimuthal angle $\phi$ is measured around the beam axis in the transverse plane, and the polar angle $\theta$ is measured from the positive $z$-axis. 
+The polar angle $\theta$ transforms nonlinearly under longitudinal Lorentz boosts, making it an inconvenient coordinate.
+Rapidity, $y = \frac{1}{2}\ln\frac{E+p_z}{E-p_z}$, transforms with a simple additive shift, so rapidity \textit{differences} between particles are invariant. 
+Since computing $y$ requires knowledge of the particle mass, it is approximated by the pseudorapidity:
+%
+\begin{equation}
+	\eta = -\ln\tan\left(\frac{\theta}{2}\right),
+	\label{eq:pseudorapidity}
+\end{equation}
+%
+which is purely geometric and equals $y$ in the massless limit.
+Particle production is approximately uniform in $\eta$, which is why detector subsystems are segmented uniformly in $\eta$ rather than $\theta$.
+The angular separation between two objects is expressed as:
+%
+\begin{equation}
+	\Delta R = \sqrt{(\Delta\eta)^2 + (\Delta\phi)^2},
+	\label{eq:deltaR}
+\end{equation}
+%
+which is the standard metric for object matching and isolation.
+
+\section{General Purpose Detector Design}
 
 A general-purpose detector is designed around the physics objects it must measure. 
 Two subsystems form the foundation of this design. 
@@ -53,36 +78,13 @@ Their presence is inferred from the transverse momentum imbalance they leave beh
 
 % ATLAS DETECTOR PAPER: https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/PERF-2007-01/
 
-\subsection{Detector Coordinate System}
 
-ATLAS uses a right-handed coordinate system with its origin at the interaction point ($z=0$). 
-The $z$-axis points along the beam direction, the $x$-axis points toward the center of the LHC ring, and the $y$-axis points upward. 
-The azimuthal angle $\phi$ is measured around the beam axis in the transverse plane, and the polar angle $\theta$ is measured from the positive $z$-axis. 
-The polar angle $\theta$ transforms nonlinearly under longitudinal Lorentz boosts, making it an inconvenient coordinate.
-Rapidity, $y = \frac{1}{2}\ln\frac{E+p_z}{E-p_z}$, transforms with a simple additive shift, so rapidity \textit{differences} between particles are invariant. 
-Since computing $y$ requires knowledge of the particle mass, it is approximated by the pseudorapidity:
-%
-\begin{equation}
-	\eta = -\ln\tan\left(\frac{\theta}{2}\right),
-	\label{eq:pseudorapidity}
-\end{equation}
-%
-which is purely geometric and equals $y$ in the massless limit.
-Particle production is approximately uniform in $\eta$, which is why detector subsystems are segmented uniformly in $\eta$ rather than $\theta$.
-The angular separation between two objects is expressed as:
-%
-\begin{equation}
-	\Delta R = \sqrt{(\Delta\eta)^2 + (\Delta\phi)^2},
-	\label{eq:deltaR}
-\end{equation}
-%
-which is the standard metric for object matching and isolation.
 
 % HEAVY OBJECTS SUCH AS TOP QUARKS TEND TO HAVE HIGH $p_T$ DECAY PRODUCTS
 % AND ARE BIASED TOWARD THE CENTRAL REGION ($\eta \approx 0$) WHILE PILEUP
 % AND SOFTER PROCESSES TEND TO BE UNIFORMLY DISTRIBUTED IN $\eta$.
 
-\section{The Tracking System}
+\subsection{The Tracking System}
 
 The ATLAS Inner Detector (ID) reconstructs the trajectories of charged particles while minimally perturbing them. 
 Every 25\,ns, hundreds of charged particles emerge from the interaction point within $|\eta| < 2.5$, demanding fine detector granularity and radiation-hard sensors. 
@@ -162,7 +164,7 @@ Electrons have a much higher $\gamma$ than pions at the same momentum due to the
 These photons are absorbed by the Xe-based gas mixture and registered as high-threshold hits. 
 The fraction of high-threshold hits along a track provides discrimination between electrons and pions.
 
-\section{The Calorimeter System}
+\subsection{The Calorimeter System}
 
 The ATLAS calorimeter system~\cite{PERF-2007-01} surrounds the solenoid magnet, as illustrated in Figure~\ref{fig:ATLAS_calorimeter}. 
 Unlike the inner detector, which measures particle trajectories non-destructively, the calorimeters are designed to stop particles completely and absorb their total energy. 
@@ -260,7 +262,7 @@ as measured in test-beam campaigns at the CERN SPS~\cite{TODO}.
 
 % TODO: EXPAND THIS SECTION. NOTE THAT THE TRIGGER PARAGRAPH BELOW REFERS
 % TO L2 + EVENT FILTER WHICH WAS REPLACED BY THE HIGH LEVEL TRIGGER (HLT) IN RUN 2/3 -- UPDATE THIS.
-\section{Muon Spectrometer}
+\subsection{Muon Spectrometer}
 
 Muons are minimum-ionising particles that pass through the calorimeters with little energy loss and exit the detector largely intact. 
 Unlike electrons and hadrons, they cannot be measured by the calorimeters alone. 
@@ -278,7 +280,7 @@ Cathode strip chambers (CSC) are used in the innermost end-cap layer for $2.0 < 
 Resistive plate chambers (RPC) in the barrel and thin-gap chambers (TGC) in the end-caps provide fast trigger signals within a few tens of nanoseconds, covering $|\eta| < 2.4$. 
 The standalone transverse momentum resolution is approximately 10\% at 1\,TeV, while combined reconstruction with the inner detector significantly improves resolution at lower momenta.
 
-\section{Trigger and Data Acquisition Systems}
+\subsection{Trigger and Data Acquisition Systems}
 
 The LHC delivers proton-proton bunch crossings at a rate of 40\,MHz~\cite{PERF-2007-01}. 
 At LHC energies, the total inelastic cross-section is many orders of magnitude larger than the cross-sections for processes of physics interest. 
