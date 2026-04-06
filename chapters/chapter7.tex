@@ -45,7 +45,7 @@ Recent measurements by ATLAS and CMS have directly observed this entanglement~\c
 The spin correlations are characterized by the angle $\theta$ between a decay product direction and the top quark polarization direction. 
 The analyzing power $\beta$ quantifies the sensitivity of a given decay product to the top quark spin. 
 The charged lepton has $\beta = 1$, while in hadronic top decays the down-type quark from the $W$ decay has $\beta_d \approx 1.0$ and the bottom quark has $\beta_b \approx 0.4$~\cite{PDG2022}. 
-The angle $\cos\theta$ is computed via a two-step boost: the top quark unit vector $\hat{p}_{t}^{t\bar{t}}$ is evaluated in the $t\bar{t}$ CM frame, and the spin analyzer quark unit vector $\hat{p}_{q}^{t}$ is evaluated in the top quark rest frame:
+The angle $\cos\theta$ is computed via a two-step boost: the top quark unit vector $\hat{p}_{t}^{t\bar{t}}$ is evaluated in the $t\bar{t}$ CM frame, and the quark unit vector $\hat{p}_{q}^{t}$ is evaluated in the top quark rest frame:
 \begin{equation}
 	\cos\theta = \hat{p}_{t}^{t\bar{t}} \cdot \hat{p}_{q}^{t},
 	\label{eq:costheta}
@@ -183,7 +183,7 @@ The values are consistent with generator-level expectations, with $\beta_d \appr
 %      - Reducing preselection cuts maximizes available statistics in data
 % ============================================================
 
-Computing $\cos\theta$ requires two boosted unit vectors: the top quark direction $\hat{p}_t^{t\bar{t}}$ in the $t\bar{t}$ CM frame, and the spin analyzer quark direction $\hat{p}_q^t$ in the top quark rest frame. 
+Computing $\cos\theta$ requires two boosted unit vectors: the top quark direction $\hat{p}_t^{t\bar{t}}$ in the $t\bar{t}$ CM frame, and the quark direction $\hat{p}_q^t$ in the top quark rest frame. 
 Both are predicted directly from reconstructed event objects using a Transformer regression model. 
 Prior work on hadronic top polarimetry~\cite{Dong_2025} used a ParticleNet-based model applied to a restricted boosted phase space, and reconstructed the hadronic $W$ decay through explicit subjet declustering into three distinct subjets within the large-$R$ jet, highly suppressing statistics. 
 This work avoids explicit subjet reconstruction by processing the full large-$R$ jet substructure directly, and targets a more inclusive phase space to maximize the number of usable events.
@@ -194,7 +194,7 @@ The self-attention mechanism learns correlations across all objects simultaneous
 
 Two separate regression targets are defined. 
 The top quark direction in the $t\bar{t}$ CM frame is predicted as a four-vector and trained with MSE loss. 
-The spin analyzer quark direction in the top quark rest frame is predicted as a unit three-vector and trained with cosine similarity loss. 
+The quark direction in the top quark rest frame is predicted as a unit three-vector and trained with cosine similarity loss. 
 MSE is not well suited to unit vector regression: it measures straight-line distance in Cartesian space rather than angle, and does not respect the geometry of the sphere. 
 Cosine similarity directly minimizes the angle between the predicted and true directions on the unit sphere, with no such artifact.
 This is illustrated in Figure~\ref{fig:unit_sphere}. 
@@ -296,7 +296,7 @@ The cosine similarity loss again produces smooth 1D distributions with no edge a
 
 The predicted unit vectors from the model are combined to reconstruct $\cos\theta$ via Equation~\ref{eq:costheta}. 
 The resulting distributions for the bottom and down quarks are shown in Figure~\ref{fig:costheta_cossim}, alongside the cosine similarity between the predicted and true quark directions. 
-Despite the degraded regression performance on the inclusive phase space, a visible L/R asymmetry in $\cos\theta$ is present for both analyzers, confirming that the model captures spin information. 
+Despite the degraded regression performance on the inclusive phase space, a visible L/R asymmetry in $\cos\theta$ is present for both quarks, confirming that the model captures spin information. 
 The cosine similarity distribution for the down quark is broad and approximately uniform, consistent with the harder regression problem. 
 Both the $\cos\theta$ and cosine similarity distributions for the bottom quark show a peak near $-1$, which is absent in the down quark case. 
 This feature is unique to the bottom quark regression and hints at a reconstruction or modeling issue.
@@ -317,8 +317,8 @@ This feature is unique to the bottom quark regression and hints at a reconstruct
 	}
 \end{table}
 
-The predicted analyzing powers extracted from the full sample are shown in Table~\ref{tab:analysing_power}. 
-Both analyzers show significant degradation relative to the reconstruction-level truth values in Table~\ref{tab:reco_alpha}. 
+The predicted spin analyzing powers extracted from the full sample are shown in Table~\ref{tab:analysing_power}. 
+Both quarks show significant degradation relative to the reconstruction-level truth values in Table~\ref{tab:reco_alpha}. 
 Importantly, the model was trained exclusively on unpolarized $t\bar{t}$ and evaluated on polarized samples, so extracting any spin signal at all represents a non-trivial generalization. 
 These results serve as a proof of concept that hadronic top polarimetry is achievable in the semi-leptonic channel using a Transformer regression approach.
 
@@ -351,7 +351,7 @@ The same procedure applied to the down quark is shown in Figure~\ref{fig:down_pu
 		\includegraphics[width=\linewidth]{figures/chapter7/bottom_purity_scan.png}
 		\label{fig:bottom_purity}
 	\end{subfigure}
-	\caption{Reconstructed $\cos\theta$ distributions for the bottom quark spin analyzer at increasing cosine similarity cut thresholds (loose, medium, tight), and the fitted analyzing power $\beta$ as a function of signal purity (rightmost panel).}
+	\caption{Reconstructed $\cos\theta$ distributions for the bottom quark at increasing cosine similarity cut thresholds (loose, medium, tight), and the fitted spin analyzing power $\beta$ as a function of signal purity (rightmost panel).}
 	% TODO body text: A cut on cosine similarity selects events where the model prediction is close to the truth. As purity increases, alpha approaches the expected value of ~0.4.
 	\label{fig:bottom_purity_scan}
 \end{figure}
@@ -378,7 +378,7 @@ The same procedure applied to the down quark is shown in Figure~\ref{fig:down_pu
 		\includegraphics[width=\linewidth]{figures/chapter7/down_purity_scan.png}
 		\label{fig:down_purity}
 	\end{subfigure}
-	\caption{Reconstructed $\cos\theta$ distributions for the down quark spin analyzer at increasing cosine similarity cut thresholds (loose, medium, tight), and the fitted analyzing power $\beta$ as a function of signal purity (rightmost panel).}
+	\caption{Reconstructed $\cos\theta$ distributions for the down quark at increasing cosine similarity cut thresholds (loose, medium, tight), and the fitted spin analyzing power $\beta$ as a function of signal purity (rightmost panel).}
 	% TODO body text: As purity increases, alpha approaches the expected value of ~1.0 for the down quark.
 	\label{fig:down_purity_scan}
 \end{figure}
@@ -386,20 +386,17 @@ The same procedure applied to the down quark is shown in Figure~\ref{fig:down_pu
 \section{Conclusion}
 
 This chapter presented a proof-of-concept study of hadronic top quark polarimetry in the semi-leptonic $t\bar{t}$ channel using a Transformer regression model. 
-Two spin analyzers were studied: the bottom quark as a cross-check and the down quark as the primary analysis target. 
+Two decay products were studied: the bottom quark as a cross-check and the down quark as the primary analysis target. 
 The model was trained on unpolarized $t\bar{t}$ and evaluated on left- and right-handed polarized samples, demonstrating that spin information can be extracted without polarization-dependent training data.
 
-Despite significant degradation in the predicted analyzing power relative to truth-level expectations, a measurable L/R asymmetry in $\cos\theta$ is recovered for both analyzers. 
+Despite significant degradation in the predicted spin analyzing power relative to truth-level expectations, a measurable L/R asymmetry in $\cos\theta$ is recovered for both quarks. 
 The purity scan demonstrates that $\beta$ approaches the expected truth values of $\approx 0.4$ for the bottom quark and $\approx 1.0$ for the down quark as the cosine similarity cut is tightened, confirming that the spin signal is present and recoverable within the inclusive sample. 
-The primary limitation on overall performance is the combinatorial ambiguity in identifying the down-type quark from the hadronic $W$ decay, where the absence of a discriminating physics signature makes the regression harder.
+The primary limitation on overall performance is the implicit identification of the down-type quark from the hadronic $W$ decay, where the absence of a discriminating physics signature makes the regression harder.
 
 A persistent peak near $-1$ is observed in both the $\cos\theta$ and cosine similarity distributions for the bottom quark, which remains under tight purity cuts. 
 This indicates that the model has converged to a biased minimum in that region of phase space rather than a reconstruction failure, and warrants further investigation. 
 No equivalent artifact is observed for the down quark.
-
-Several avenues exist for improving the approach. 
-The down-type quark identification could be improved by constraining the hadronic $W$ candidate to a mass window or by incorporating jet flavor information. 
-The bottom quark artifact should be diagnosed and resolved before applying the model to data. 
+ 
 The next steps are to extend the study to full ATLAS detector simulation and ultimately to apply the method to real LHC data, where it could contribute to measurements of $t\bar{t}$ spin correlations and quantum entanglement in the semi-leptonic channel.
 
 
