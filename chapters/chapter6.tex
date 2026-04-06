@@ -8,10 +8,27 @@
 \section{Key Contributions}
 
 \begin{itemize}
-  \item At the HL-LHC, pileup will begin to dominate the event, and we investigate machine learning methods for the task of pileup mitigation. 
-  \item Mitigating pileup will maximize the discovery potential of the ATLAS detector at HL-LHC conditions and benefit the entire experiment.
-  \item An open source simulated dataset is created to foster interdisciplinary collaboration between computer science and experimental HEP.
-  \item We define a novel regression task to predict the energy and mass fractions of each jet in the event, and we demonstrate the effectiveness of this approach by reconstructing the mass of Higgs Boson, Top Quark, and W Boson.
+    \item An open-source simulated dataset at $\langle\mu\rangle = 60$ and
+    $\langle\mu\rangle = 200$ is released to enable reproducible benchmarking
+    of pileup mitigation algorithms at HL-LHC conditions.
+
+    \item A novel regression task is defined to predict the energy and mass
+    correction fractions, $E_\text{frac}$ and $M_\text{frac}$, for each jet
+    in the event, enabling event-wide pileup mitigation without hard per-particle
+    classification.
+
+    \item PUMiNet, an event-wide attention model, processes jets and their
+    associated tracks simultaneously using self- and cross-attention to predict
+    $E_\text{frac}$ and $M_\text{frac}$ for each jet.
+
+    \item PhyGHT, a physics-guided hypergraph Transformer, extends this framework
+    with a distance-aware graph attention network, an explicit pileup suppression gate,
+    and hypergraph attention aggregation, outperforming all baselines including PUMiNet
+    across all metrics.
+
+    \item Both models are validated on physics analyses, recovering the Higgs boson,
+    top quark, and W boson mass peaks under HL-LHC pileup conditions where
+    traditional algorithms such as PUPPI degrade severely.
 \end{itemize}
 
 \section{Pileup Mitigation at the Current and Upgraded HL-LHC}

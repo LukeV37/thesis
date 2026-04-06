@@ -8,9 +8,20 @@
 \section{Key Contributions}
 
 \begin{itemize}
-  \item Contributed to two ATLAS Higgs analyses of the Higgs decaying to b/c quarks.
-  \item For the Higgs production mode with associated vector boson, I ran studies in the CC, single lepton channel to include a new low $p_T$ region $75 GeV < p_T < 150 GeV$ which ultimately increased the constraining power on the background and for the first time allowed for $5\sigma$ for the $Z\rightarrow cc$ process and decreased the limit for $H\rightarrow c\bar{c}$ by $\sim$4\%.
-  \item For the Higgs production mode of Vector Boson Fusion, I assisted in nearly every part of the analysis, from sample production, flavor tagging optimization, adversarial neural network classifier, region definitions, fit studies, and fit combinations. For the first time, this analysis measured $3\sigma$ in the VBF $H\rightarrow bb$ channel and reported a limit on the VBF $H\rightarrow cc$ process. 
+    \item \textbf{$VH$, $H \rightarrow c\bar{c}$ channel:} A new low-$p_\mathrm{T}$ signal
+    region ($75 < p_\mathrm{T} < 150$\,GeV) was introduced in the single-lepton channel,
+    contributing to the first ATLAS observation of $Z \rightarrow c\bar{c}$ at 5.2 standard
+    deviations and improving the expected $H \rightarrow c\bar{c}$ upper limit by $\sim$4\% in the single-lepton channel.
+    The analysis sets an observed upper limit of 11.5 times the SM prediction, corresponding
+    to $|\kappa_c| < 4.2$ at 95\% CL.
+
+    \item \textbf{$VBF$, $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$:} Contributions
+    include sample production, adversarial neural network classifier development, and
+    statistical combination with the VH analysis.
+    The combined VBF $H \rightarrow b\bar{b}$ result achieves the first evidence for this
+    process at 3.2 standard deviations.
+    The first upper limit on VBF $H \rightarrow c\bar{c}$ is reported at $\mu_{cc} < 41$
+    at 95\% CL.
 \end{itemize}
 
 \section{Motivation for \texorpdfstring{$H \rightarrow b\bar{b}$}{H→bb} and \texorpdfstring{$H \rightarrow c\bar{c}$}{H→cc} Measurements at the LHC}
@@ -25,10 +36,8 @@ Many BSM models allow $\kappa_c$ to be enhanced well beyond its SM value, making
 
 Despite having a smaller production cross section than the VBF mode, the VH channel has yielded the most sensitive ATLAS measurements of both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ to date, owing to the powerful background suppression afforded by the leptonic trigger strategy.
 
-\section{Associated Higgs Production with Vector Boson Decaying to B/C Quarks}
+\section{\texorpdfstring{Associated Production $VH$, $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$}{Associated Production VH, H→bb and H→cc}}
 \label{sec:VH_analysis}
-
-TODO: Add latex notation for the title
 
 The associated production of the Higgs boson with a vector boson ($VH$, $V = W, Z$) provides a uniquely clean environment for studying hadronic Higgs decays. 
 The leptonic decay of the vector boson provides the critical trigger handle that suppresses QCD multijet backgrounds and makes both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ experimentally accessible. 
@@ -61,7 +70,7 @@ The analysis is further segmented into multiple $p_\mathrm{T}^V$ intervals acros
 	\label{fig:VH_regions}
 \end{figure}
 
-TODO: explain motivation for different regions
+%TODO: explain motivation for different regions
 
 I joined this analysis at a mature stage, with the majority of signal and control regions already finalized. 
 Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_\mathrm{T}$ signal region, $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$, in the single-lepton CC channel. 
@@ -161,7 +170,7 @@ The combined $VH, H \rightarrow b\bar{b}$ measurement has an observed (expected)
 Individually, the $WH, H \rightarrow b\bar{b}$ and $ZH, H \rightarrow b\bar{b}$ processes have observed (expected) significances of 5.3 (5.5) and 4.9 (5.6) standard deviations respectively, marking the first observation of the $WH, H \rightarrow b\bar{b}$ process. 
 For the $VH, H \rightarrow c\bar{c}$ process, the observed (expected) upper limit at 95\% confidence level is 11.5 (10.6) times the Standard Model prediction, corresponding to a constraint on the charm Yukawa coupling modifier of $|\kappa_c| < 4.2$ at 95\% CL.
 
-\section{Vector Boson Fusion Higgs Production Decaying to B/C Quarks}
+\section{\texorpdfstring{Vector Boson Fusion VBF, $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$}{Vector Boson Fusion VBF, H→bb and H→cc}}
 \label{sec:VBF_analysis}
 
 The vector-boson fusion (VBF) production mode has the second-largest Higgs boson production cross section at the LHC, approximately 3.8 pb at $\sqrt{s} = 13$ TeV, significantly larger than the VH production mode. 
