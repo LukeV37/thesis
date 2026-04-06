@@ -2,7 +2,7 @@
 \clearpage% Manually insert \clearpage
 \let\clearpage\relax% Remove \clearpage functionality
 \vspace*{-16pt}% Insert needed vertical retraction
-\chapter[THE STANDARD MODEL OF PARTICLE PHYSICS]{THE STANDARD MODEL OF PARTICLE PHYSICS}
+\chapter[THE STANDARD MODEL OF PARTICLE PHYSICS]{THE STANDARD MODEL OF PARTICLE PHYSICS}\label{chap:sm}
 \endgroup
 
 % ============================================================
@@ -65,14 +65,14 @@
 
 \section{The Standard Model}
 
-The Standard Model (SM) is the theoretical framework that describes all known fundamental particles and three of the four fundamental forces of nature -- except gravity. 
+The Standard Model (SM) is the theoretical framework that describes all known fundamental particles and three of the four fundamental forces of nature except gravity. 
 The SM organizes its particles into two broad categories: fermions and bosons. 
 Fermions are particles with half-integer spin and make up the matter content of the universe. 
 Bosons are particles with integer spin and are responsible for mediating the fundamental forces.
 
 The fermions are divided into two families: quarks and leptons, each arranged into three generations of increasing mass. 
 All ordinary matter is composed of the lightest and most stable first-generation particles. 
-Quarks carry electric charge, weak charge, and color charge, and therefore interact with all three SM forces. 
+Quarks carry electric charge, weak charge, and color charge, and therefore interact via all three SM forces.
 Due to color confinement, quarks are never observed in isolation and are always found confined inside composite particles called hadrons.
 The leptons follow the same three-generation pattern, with the electron, muon, and tau each paired with a corresponding neutrino. 
 Leptons carry electric and weak charge but no color charge. 
@@ -100,7 +100,7 @@ In the SM, the relevant symmetries are gauge symmetries, also called local symme
 To understand the distinction between a global and a local symmetry, consider a vector field $\vec{\psi}(x)$ spread across space. 
 A global symmetry $\alpha$ is like rotating every vector by the same fixed angle simultaneously, $\vec{\psi}(x) \rightarrow \alpha \cdot \vec{\psi}(x)$. 
 A gauge, or local, symmetry $\alpha(x)$ is more constraining: each vector is rotated by a different angle at each point in space independently, $\vec{\psi}(x) \rightarrow \alpha(x) \cdot \vec{\psi}(x)$. 
-In the language of quantum field theory, this corresponds to a local phase rotation, also called a U(1) transformation, of the fermion field~\cite{Peskin:1995ev}:
+In the language of quantum field theory, this corresponds to a local phase rotation, also called a U(1) transformation, of the fermion field:%~\cite{Peskin:1995ev}
 \begin{equation}
     \psi(x) \rightarrow e^{i\alpha(x)}\psi(x).
     \label{eq:U1_gauge_transform}
@@ -191,15 +191,11 @@ Finally, the Yukawa term $y_{ij}\bar{\psi}_{Li}\phi\psi_{Rj}$ couples fermions t
 % ------------------------------------------------------------
 
 The gauge symmetry of the SM places a strict constraint on the Lagrangian in which explicit mass terms for the gauge bosons, of the form $m_W^2 W_\mu W^\mu$, break gauge invariance and are therefore forbidden. 
-The theory therefore predicts that the $W$ and $Z$ bosons should be massless, analogous to the photon.
+The theory predicts that the $W$ and $Z$ bosons should be massless, analogous to the photon.
 However, the $W$ and $Z$ bosons are experimentally observed to be massive at 80 and 91 GeV, respectively. 
 This contradiction points to a missing mechanism, one that generates gauge boson masses without introducing explicit mass terms and without breaking the gauge invariance the SM is built upon.
 
-The solution is provided by the Brout-Englert-Higgs mechanism~\cite{Englert:1964et, Higgs:1964pj, Guralnik:1964eu}.
-% DUMMY CITE KEYS — correct later:
-%   Englert:1964et  — Englert & Brout, PRL 13, 321 (1964)
-%   Higgs:1964pj    — Higgs, PRL 13, 508 (1964)
-%   Guralnik:1964eu — Guralnik, Hagen & Kibble, PRL 13, 585 (1964)
+The solution is provided by the Brout-Englert-Higgs mechanism~\cite{EnglertBrout1964, Higgs1964}.
 This mechanism introduces a complex scalar field $\phi$, called the Higgs field, with the potential $V(\phi) = \mu^2|\phi|^2 + \lambda|\phi|^4$, as shown in Figure~\ref{fig:HiggsPotential}. 
 For $\mu^2 < 0$, the origin is an unstable maximum and the true minima form a degenerate ring at $|\phi| = v/\sqrt{2}$, where $v \approx 246$~GeV is the vacuum expectation value (VEV). 
 The system must settle into a single point on this ring, spontaneously breaking $\text{SU}(2)_L \times \text{U}(1)_Y \rightarrow \text{U}(1)_{EM}$ and leaving electromagnetism as the unbroken symmetry of the vacuum.
@@ -215,10 +211,10 @@ This is the essence of spontaneous symmetry breaking (SSB): the Lagrangian retai
 \end{figure}
 
 Before SSB, the four gauge fields $W^+$, $W^-$, $W^0$, and $B^0$ generated by $\text{SU}(2)_L \times \text{U}(1)_Y$ do not directly become the physical particles observed in experiment. 
-After SSB, three of the four electroweak generators are broken, each producing a massless Goldstone boson that is absorbed as a longitudinal polarization mode by $W^+$, $W^-$, and a mixture of $W^0$ and $B^0$, giving the $W^+$, $W^-$, and $Z$ bosons mass~\cite{Peskin:1995ev}. 
+After SSB, three of the four electroweak generators are broken, each producing a massless Goldstone boson that is absorbed as a longitudinal polarization mode by $W^+$, $W^-$, and a mixture of $W^0$ and $B^0$, giving the $W^+$, $W^-$, and $Z$ bosons mass.%~\cite{Peskin:1995ev} 
 The remaining orthogonal mixture of $W^0$ and $B^0$ corresponds to the unbroken $\text{U}(1)_{EM}$ generator and becomes the massless photon $\gamma$. 
 The resulting masses $m_W = gv/2$ and $m_Z = \sqrt{g^2 + g'^2}\,v/2$ are determined entirely by the VEV and reproduce the observed values~\cite{PDG2022}. 
-One physical particle emerges from this process: the Higgs boson $h$, representing oscillations of the field about the potential minimum.
+One physical particle emerges from this process: the Higgs boson, $h$, representing oscillations of the field about the potential minimum.
 Its discovery and properties are discussed in Section~\ref{sec:higgs_production}.
 While the Higgs mechanism accounts for gauge boson masses, fermion masses require a further ingredient, discussed in Section~\ref{sec:yukawa}.
 
@@ -255,7 +251,7 @@ While the Higgs mechanism accounts for gauge boson masses, fermion masses requir
 % ------------------------------------------------------------
 
 Just as gauge invariance forbids explicit mass terms for the gauge bosons, it also forbids explicit mass terms for fermions. 
-Fermion masses are instead generated through Yukawa interactions, where each fermion couples to the Higgs field via the term $\mathcal{L}_Y = -y_f \bar{\psi}_L \phi \psi_R + \text{h.c.}$~\cite{Peskin:1995ev}.
+Fermion masses are instead generated through Yukawa interactions, where each fermion couples to the Higgs field via the term $\mathcal{L}_Y = -y_f \bar{\psi}_L \phi \psi_R + \text{h.c.}$.%~\cite{Peskin:1995ev}
 After SSB, each fermion obtains a mass $m_f = y_f v/\sqrt{2}$, proportional to the VEV, and the SM predicts that the Higgs coupling to any fermion is directly proportional to its mass.
 
 The $\kappa$-framework provides a convenient way to test this prediction~\cite{LHCHiggsXSWG3}.
@@ -280,7 +276,7 @@ The charm quark appears with large uncertainties and the muon coupling is only w
 These couplings remain largely untested. 
 Many BSM models predict enhanced second-generation couplings, making them sensitive probes of new physics~\cite{BSMCharmCouplings}.
 % DUMMY CITE KEY — BSMCharmCouplings: replace with relevant BSM reference(s)
-This thesis targets the charm Yukawa coupling directly through the $VH(H \rightarrow c\bar{c})$ and $\text{VBF}(H \rightarrow c\bar{c})$ channels.
+This thesis contributes to efforts dedicated to measure the charm Yukawa coupling through the $VH(H \rightarrow c\bar{c})$ and $\text{VBF}(H \rightarrow c\bar{c})$ channels, described in Sections~\ref{sec:VH_analysis} and~\ref{sec:VBF_analysis}.
 
 % ============================================================
 % SECTION 2.4 — HIGGS PRODUCTION AND DECAY AT THE LHC
@@ -373,7 +369,6 @@ The $H \rightarrow c\bar{c}$ branching ratio is 2.9\% and has not yet been obser
 Both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ are overwhelmed by QCD multijet backgrounds in inclusive searches.
 The VH production mode provides trigger level suppression through lepton or MET requirements through the associated $W$ or $Z$ boson and strongly suppresses QCD backgrounds.
 The VBF mode provides an additional handle through its characteristic signature of two energetic forward jets.
-This thesis targets $H \rightarrow c\bar{c}$ in both the VH and VBF channels, described in Sections~\ref{sec:VH_analysis} and~\ref{sec:VBF_analysis}.
 
 \begin{table}[h]
 	\centering
@@ -437,8 +432,7 @@ It provides no explanation for the three-generation structure of quarks and lept
 Gravity is not incorporated into the SM framework. 
 The SM offers no candidate for dark matter, which accounts for approximately 27\% of the energy content of the universe~\cite{Planck:2018vyg}. 
 The observed matter-antimatter asymmetry of the universe also remains unexplained~\cite{Sakharov:1967dj}. 
-In the neutrino sector, the SM predicts massless neutrinos and includes only left-handed neutrino states. 
-However, neutrino oscillation experiments have conclusively demonstrated that neutrinos have nonzero mass~\cite{Fukuda:1998mi, Ahmad:2002jz}, in direct contradiction with the SM. 
+In the neutrino sector, the SM predicts massless neutrinos, however, neutrino oscillation experiments have conclusively demonstrated that neutrinos have nonzero mass~\cite{Fukuda:1998mi, Ahmad:2002jz}, in direct contradiction with the SM. 
 The SM contains no right-handed neutrinos, leaving no natural mechanism to generate their masses. 
 The hierarchy problem presents a further theoretical tension: quantum corrections drive $m_H$ toward the Planck scale ($\sim 10^{19}$~GeV), requiring fine-tuned cancellations absent new physics at the TeV scale~\cite{Giudice:2008bi}.
 % DUMMY CITE KEYS — correct later:
