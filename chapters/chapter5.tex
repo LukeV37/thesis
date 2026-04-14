@@ -588,6 +588,79 @@ The upper limit on $\mu_{cc}$ and the $\kappa_c$ scans are shown in Figure~\ref{
 	\label{fig:kappa_c_scans}
 \end{figure}
 
+\section{CMS Comparison}
+\label{sec:CMS_comparison}
+
+CMS has published results in the VBF $H \to b\bar{b}$, VH $H \to c\bar{c}$, and $t\bar{t}H$ $H \to c\bar{c}$ channels; a VBF $H \to c\bar{c}$ search has not yet been performed.
+This section compares the CMS measurements to the ATLAS results described above.
+
+\subsection{\texorpdfstring{VBF, $H \rightarrow b\bar{b}$}{VBF, H→bb}}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[c]{.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/chapter5/CMS_SR_VBFHbb.png}
+        \label{fig:CMS_SR_VBFHbb}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[c]{.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/chapter5/CMS_mu_VBFHbb.png}
+        \label{fig:CMS_mu_VBFHbb}
+    \end{subfigure}
+    \caption{CMS VBF $H \to b\bar{b}$ results using 90.8~fb$^{-1}$ at $\sqrt{s} = 13$~TeV~\cite{CMS_VBFHbb}.
+    Left: $S/(S+B)$-weighted $m_{b\bar{b}}$ distribution in the signal region.
+    Right: best-fit signal strengths for the inclusive, VBF-only ($qqH$), and $Z \to b\bar{b}$ processes.}
+    \label{fig:CMS_VBFHbb}
+\end{figure}
+
+CMS has searched for VBF $H \to b\bar{b}$ using 90.8~fb$^{-1}$ at $\sqrt{s} = 13$~TeV, as shown in Figure~\ref{fig:CMS_VBFHbb}~\cite{CMS_VBFHbb}.
+A key difference in methodology is that CMS treats the gluon-gluon fusion (ggH) contribution as a background, constraining its rate to the SM expectation, and defines the signal strength $\mu^{qqH}_{Hb\bar{b}}$ to scale only the VBF (qqH) component.
+ATLAS instead treats ggH inclusively, with $\mu_{bb}$ scaling both the VBF and ggF contributions simultaneously.
+The CMS VBF-only signal strength is $\mu^{qqH}_{Hb\bar{b}} = 1.01^{+0.55}_{-0.46}$, with an observed (expected) significance of 2.4 (2.7) standard deviations.
+Considering inclusive Higgs production, CMS measures $\mu^{\text{incl.}}_{Hb\bar{b}} = 0.99^{+0.48}_{-0.41}$, corresponding to an observed (expected) significance of 2.6 (2.9) standard deviations.
+Neither result reaches the evidence threshold.
+The ATLAS combination of Run-2 and Run-3 VBF results achieves an observed (expected) significance of 3.2 (3.6) standard deviations, constituting the first evidence for $H \to b\bar{b}$ in the VBF production mode.
+
+\subsection{\texorpdfstring{Combined $H \rightarrow c\bar{c}$}{Combined H→cc}}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[c]{.55\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/chapter5/CMS_comb.pdf}
+        \label{fig:CMS_comb}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[c]{.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/chapter5/CMS_kappa.pdf}
+        \label{fig:CMS_kappa}
+    \end{subfigure}
+    \caption{CMS results combining the $VH(H\to c\bar{c})$ and
+    $t\bar{t}H(H\to c\bar{c})$ searches with 138~fb$^{-1}$ at $\sqrt{s} = 13$~TeV~\cite{CMS-PAS-HIG-24-018}.
+    Left: 95\% CL upper limits on $\mu_{H\to c\bar{c}}$; the combined observed (expected) limit
+    is 9.3 (5.6).
+    Right: profile likelihood scans of $|\kappa_c|$; the $t\bar{t}H$ channel constrains
+    $|\kappa_c| < 3.0$ and the combination constrains $|\kappa_c| < 3.5$ at 95\% CL.}
+    \label{fig:CMS_results}
+\end{figure}
+
+Both ATLAS and CMS have searched for $H \to c\bar{c}$ in the $VH$ production mode, while each experiment has also pursued a distinct additional channel.
+ATLAS has performed the first search in the VBF mode, as described in Section~\ref{sec:VBF_analysis}.
+CMS has searched in the $t\bar{t}H$ mode, where the top quark pair provides a complementary experimental signature~\cite{CMS-PAS-HIG-24-018}.
+In the VH channel, the CMS observed (expected) upper limit is $\mu_{H\to c\bar{c}} < 14\ (7.6)$, compared to $\mu_{H\to c\bar{c}} < 11.5\ (10.6)$ from ATLAS.
+The CMS $t\bar{t}H$ channel yields an observed (expected) limit of $\mu_{H\to c\bar{c}} < 7.8\ (8.7)$.
+Combining both channels, CMS sets $\mu_{H\to c\bar{c}} < 9.3\ (5.6)$, corresponding to $|\kappa_c| < 3.5$ at 95\% CL, as shown in Figure~\ref{fig:CMS_results}.
+The ATLAS VH+VBF combination sets $|\kappa_c| < 4.7\ (3.9\ \text{expected})$ at 95\% CL.
+The CMS constraint is currently more stringent, driven by the $t\bar{t}H$ channel.
+The ATLAS VBF result contributes limited standalone sensitivity to $\kappa_c$ but provides the first experimental probe of $H \to c\bar{c}$ in that production mode.
+
+%CMS VH: https://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-21-008/
+%CMS VBF Hbb: https://cds.cern.ch/record/2866620
+%CMS ttH: https://cds.cern.ch/record/2929444
+
 \section{Conclusion}
 
 This chapter has presented two complementary ATLAS analyses targeting hadronic Higgs decays: the VH associated production analysis and the VBF analysis, both studying $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ simultaneously.
