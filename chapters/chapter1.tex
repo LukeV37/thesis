@@ -8,7 +8,7 @@
 
 \section{Extremely Brief History of Particle Physics}
 
-``I think I can safely say that nobody understands quantum mechanics'' said Richard Feynman~\cite{Feynman1967}, a man who understood it better than almost anyone. 
+``I think I can safely say that nobody understands quantum mechanics,'' said Richard Feynman~\cite{Feynman1967}, a man who understood it better than almost anyone.
 Classical mechanics had no such problem: objects move, forces push, and apples fall on physicists.
 However, the classical framework began to unravel in 1901 when Planck showed that quantizing the energy emitted from a black body resolved the ultraviolet catastrophe~\cite{Planck1901}. 
 Einstein reinforced this picture in 1905 by using quantization to explain the photoelectric effect~\cite{Einstein1905}. 
@@ -30,10 +30,9 @@ The SM is remarkably successful in describing the fundamental constituents of ma
 \section{Collider Experiments}
 
 The development of collider experiments through the latter half of the twentieth century was driven by the need to probe matter at ever smaller scales and higher energies.
-The Large Electron-Positron Collider (LEP), operating at CERN from 1989 to 2000, collided electrons and positrons at center-of-mass energies up to 209\,GeV and delivered precision measurements of the W and Z boson properties, providing stringent tests of the electroweak sector of the SM~\cite{LEP2006}.
+The Large Electron-Positron Collider (LEP), operating at CERN from 1989 to 2000, collided electrons and positrons at center-of-mass energies up to 209\,GeV and delivered precision measurements of the W and Z boson properties, providing stringent tests of the electroweak sector of the SM~\cite{LEP2006,LEP-W2013}.
 The Tevatron at Fermilab, a proton-antiproton collider operating at $\sqrt{s} = 1.96$\,TeV from 1987 to 2011, pushed the energy frontier further and notably achieved the discovery of the top quark in 1995~\cite{CDF1995}.
 These experiments established the experimental and technological foundations upon which the Large Hadron Collider was built.
-% LEP2006: https://arxiv.org/abs/hep-ex/0509008
 
 \subsubsection{The Large Hadron Collider}
 
@@ -68,9 +67,9 @@ Run~3, which began in 2022, operates at $\sqrt{s} = 13.6$\,TeV and continues to 
 \subsubsection{The High-Luminosity LHC and Future Colliders}
 
 Collider experiments must collect large datasets to reduce the statistical uncertainty of rare physics processes. 
-These colliders set the rate of collisions to produce a key figure of merit called instantaneous luminosity $\mathcal{L}$. 
+The collision rate per unit cross-sectional area per unit time defines the instantaneous luminosity $\mathcal{L}$.
 The integrated luminosity, $\int \mathcal{L}\,dt$, sets the total size of the dataset. 
-The High-Luminosity LHC (HL-LHC) is a major upgrade of the LHC program targeting a tenfold increase in instantaneous luminosity over the nominal LHC design, with the goal of collecting 3000\,fb$^{-1}$ of integrated luminosity by the mid-2040s~\cite{Zerlauth:2024PD}. 
+The High-Luminosity LHC (HL-LHC)~\cite{Zerlauth:2024PD} is a major upgrade of the LHC program targeting a tenfold increase in instantaneous luminosity over the nominal LHC design, with the goal of collecting 3000\,fb$^{-1}$ of integrated luminosity by the mid-2040s. 
 The LHC and HL-LHC run schedule is shown in Figure~\ref{fig:LHC_schedule}.
 
 \begin{figure}[h]
@@ -80,9 +79,11 @@ The LHC and HL-LHC run schedule is shown in Figure~\ref{fig:LHC_schedule}.
 	\label{fig:LHC_schedule}
 \end{figure}
 
-% TODO: add physics motivation for the HL-LHC such as diHiggs and FCC as a new energy frontier and BSM
-
-The primary challenge of the HL-LHC is the significant increase in pileup, with an average of $\langle\mu\rangle \approx 200$ simultaneous proton-proton interactions per bunch crossing, compared to $\langle\mu\rangle \approx 60$ during Run~3.
+The large dataset enables precision Higgs physics. 
+Di-Higgs production ($HH$) directly probes the Higgs self-coupling and the shape of the Higgs potential. 
+Rare processes such as $H\to\mu\mu$ and $t\bar{t}H$ production become accessible with high precision.
+The HL-LHC also pushes the discovery reach for new heavy particles and dark matter candidates by providing increased statistics.
+However, the primary challenge of the HL-LHC is the significant increase in pileup, with an average of $\langle\mu\rangle \approx 200$ simultaneous proton-proton interactions per bunch crossing, compared to $\langle\mu\rangle \approx 60$ during Run~3.
 This is illustrated in Figure~\ref{fig:PhoenixDisplay}, which shows the dramatic increase in track density in the ATLAS inner detector between these two conditions. 
 To cope with this environment, all four LHC experiments require significant detector and trigger upgrades. 
 For ATLAS, this includes the replacement of the inner tracker with the all-silicon Inner Tracker (ITk) and the addition of the High-Granularity Timing Detector (HGTD) to provide precise timing information that separates pileup vertices.
@@ -101,12 +102,12 @@ For ATLAS, this includes the replacement of the inner tracker with the all-silic
 		\caption{$\langle\mu\rangle = 200$ (HL-LHC conditions)}
 		\label{fig:PhoenixDisplay_mu200}
 	\end{subfigure}
-	\caption{Phoenix event displays~\cite{phoenix} of the ATLAS inner tracking system showing signal (blue) and background (red) particles with $p_T > 1.0$\,GeV. Run~3 (left) and HL-LHC (right) conditions shows dramatic increase in pileup.}
+	\caption{Phoenix event displays of the ATLAS inner tracker showing signal (blue) and background (red) particles with $p_\mathrm{T} > 1.0$\,GeV at Run~3 and HL-LHC pileup conditions.}
 	\label{fig:PhoenixDisplay}
 \end{figure}
 
-Looking further ahead, the Future Circular Collider (FCC) proposes a 100\,km tunnel at CERN capable of reaching a center-of-mass energy of 100\,TeV in a proton-proton mode, representing the next energy frontier beyond the HL-LHC~\cite{FCC2019}.
-% FCC2019: https://doi.org/10.1140/epjst/e2019-900088-6
+Looking further ahead, the Future Circular Collider (FCC-hh) proposes a 100\,km tunnel at CERN operating at $\sqrt{s} = 100$\,TeV in proton-proton mode~\cite{FCC2019}.
+This extends the direct discovery reach to $\sim$30\,TeV and greatly enhances sensitivity to di-Higgs production, triple gauge couplings, and high-mass BSM processes.
 
 \section{Statistical Methods in High Energy Physics}
 
@@ -116,7 +117,7 @@ Looking further ahead, the Future Circular Collider (FCC) proposes a 100\,km tun
 Measurements in experimental high energy physics are fundamentally counting experiments. 
 Collision data is collected and sorted into histograms of some discriminating variable, and the observed counts in each bin are compared to predictions from Monte Carlo (MC) simulations of signal and background processes. 
 A signal process typically appears as a localized excess over a smoothly varying background, a search strategy often referred to as ``bump hunting.''
-A classic example is the $H \to \gamma\gamma$ diphoton mass spectrum, shown in Figure~\ref{fig:higgs_discovery}, where both ATLAS and CMS observed a narrow peak near $m_{\gamma\gamma} = 125$\,GeV over a smooth background in 2012, providing the experimental confirmation of the Higgs boson.
+A classic example is the $H \to \gamma\gamma$ diphoton mass spectrum, shown in Figure~\ref{fig:higgs_discovery}, where both ATLAS and CMS observed a narrow peak near $m_{\gamma\gamma} = 125$\,GeV over a smooth background in 2012, providing the experimental confirmation of the Higgs boson~\cite{ATLAS-Higgs2012,CMS-Higgs2012}.
 
 \begin{figure}[h]
 	\centering
@@ -137,7 +138,7 @@ A classic example is the $H \to \gamma\gamma$ diphoton mass spectrum, shown in F
 
 \subsubsection{Likelihood Fits}
 
-To extract physics results from these histograms, a likelihood fit is performed to match the MC prediction to the observed data, as shown in the equation below:
+To extract physics results from these histograms, a likelihood fit is performed to match the MC prediction to the observed data:
 %
 \begin{equation}
 	\mathcal{L}(\mu,\theta \mid x) = \prod_i \mathrm{Pois}\!\left(x_i \mid \mu \cdot s_i(\theta) + b_i(\theta)\right) \prod_j C(\alpha_j \mid \theta_j)
@@ -156,10 +157,9 @@ The constraint term $C(\alpha_j \mid \theta_j)$ is the likelihood of observing $
 
 Once the likelihood fit is performed, the results are interpreted using frequentist hypothesis testing. 
 Two competing hypotheses are considered: the null hypothesis $H_0$, which assumes only background processes are present, and the alternative hypothesis $H_1$, which assumes a signal is present on top of the background. 
-A statistical test is performed to either accept the null hypothesis or reject it. 
-Importantly, in frequentist statistics we never directly accept the alternative hypothesis, therefore, rejecting $H_0$ simply means the data are inconsistent with background alone, not that $H_1$ is proven to be true.
+A statistical test is performed: either $H_0$ is rejected in favour of a discovery, or it is not, and a limit is set. 
+Importantly, rejecting $H_0$ means the data are inconsistent with background alone; it does not prove $H_1$ to be true.
 
-The desired outcome of a search is either a discovery or an exclusion limit. 
 A discovery is claimed when the data show a significant excess over the background-only prediction, quantified by the $p$-value defined as the probability of observing a result at least as extreme as the data under $H_0$. 
 In particle physics, the threshold for discovery is set at $5\sigma$, corresponding to $p < 2.87 \times 10^{-7}$, an intentionally stringent standard given the history of false excesses in the field. 
 An intermediate threshold of $3\sigma$ is used to indicate evidence for discovery. 
@@ -185,8 +185,8 @@ A limit is a quantitative statement that constrains the parameter space of new p
 	\label{fig:higgs_stats}
 \end{figure}
 
-Figure~\ref{fig:higgs_stats} illustrates all three outcomes for the 2012 Higgs boson search by ATLAS, scanning across possible Higgs boson masses. 
-The left panel shows the measured signal strength $\mu$, the center panel shows the local significance with the clear $5\sigma$ excess near 125\,GeV, and the right panel shows the 95\% CL upper limit on $\mu$, which falls below 1 at that mass, confirming the discovery.
+All three statistical outcomes for the 2012 ATLAS Higgs boson search are shown in Figure~\ref{fig:higgs_stats}, each scanned versus possible Higgs boson mass.
+The signal strength, local significance, and upper limit all show a consistent excess near 125\,GeV, confirming the discovery.
 
 \subsubsection{Neural Networks}
 
@@ -216,18 +216,18 @@ This discriminant score is then histogrammed and passed into the likelihood fit 
 \section{Outline}
 
 This thesis presents original contributions to the ATLAS physics program, connected by a common thread of machine learning applied to jet physics.
-The supporting background is covered in Chapters~\ref{chap:sm} through~\ref{chap:atlas}, and the three analysis chapters follow.
+The supporting background is covered in Chapters~\ref{chap:sm} through~\ref{chap:atlas}, and the analysis chapters follow.
 
-\begin{itemize}
-    \item \textbf{Chapter~\ref{chap:sm} -- The Standard Model:} Reviews the theoretical foundations of the Standard Model, including the particle content, gauge symmetries, the Higgs mechanism for mass generation, and Higgs production and decay at the LHC. The open questions motivating the LHC physics program are discussed.
+Chapter~\ref{chap:sm} reviews the theoretical foundations of the Standard Model, including the Standard Model particles, gauge symmetries, the Higgs mechanism, and Higgs production and decay at the LHC.
+Chapter~\ref{chap:atlas} describes the ATLAS detector subsystems and the track and jet reconstruction algorithms used throughout the analyses.
 
-    \item \textbf{Chapter~\ref{chap:atlas} -- The ATLAS Detector:} Describes the ATLAS detector subsystems, including the inner tracking system, calorimeters, and muon spectrometer, together with the trigger and data acquisition system. Track and jet reconstruction algorithms used throughout the analyses are introduced.
-
-    \item \textbf{Chapter~\ref{chap:jet_tagging} -- Jet Tagging using Deep Learning:} Presents the ATLAS heavy-flavor jet identification program. Graph neural network and Transformer-based taggers (GN1, GN2, GN2X) are described, including their performance on small-$R$ and large-$R$ jets. The chapter concludes with the calibration of these algorithms in data, including the $t\bar{t}$ mistag calibration of GN2X, which is a direct personal contribution.
-
-    \item \textbf{Chapter~\ref{chap:higgs} -- Standard Model Hadronic Higgs Analysis:} Describes contributions to two ATLAS Higgs analyses targeting $H \to b\bar{b}$ and $H \to c\bar{c}$ decays. In the associated production ($VH$) channel, a new low-$p_\mathrm{T}$ signal region is introduced that achieves the first $5\sigma$ observation of $Z \to c\bar{c}$ and improves the $H \to c\bar{c}$ upper limit by $\sim$4\%. In the vector boson fusion (VBF) channel, the first $3\sigma$ evidence for $VBF\,H \to b\bar{b}$ and the first upper limit on $VBF\,H \to c\bar{c}$ are reported.
-
-    \item \textbf{Chapter~\ref{chap:pileup} -- Pileup Mitigation at the HL-LHC:} Investigates machine learning approaches for suppressing pileup contamination under HL-LHC conditions ($\langle\mu\rangle = 200$). An open-source simulated dataset is introduced to enable reproducible benchmarking. Two novel architectures are presented: PUMiNet, an event-wide attention model, and PhyGHT, a hypergraph Transformer. Both are validated by reconstructing the Higgs boson, W boson, and top quark mass peaks.
-
-    \item \textbf{Chapter~\ref{chap:top_polarimetry} -- Top Polarimetry:} Presents a proof-of-concept study of hadronic top quark polarimetry in the semi-leptonic $t\bar{t}$ channel. A Transformer regression model predicts the top quark and spin analyzing quark directions simultaneously, enabling reconstruction of the spin-sensitive observable $\cos\theta$. The model is trained on unpolarized $t\bar{t}$ and evaluated on polarized samples, demonstrating that spin information is recoverable without polarization-dependent training data.
-\end{itemize}
+Chapter~\ref{chap:jet_tagging} presents the ATLAS heavy-flavor jet identification program.
+Graph neural network and Transformer-based taggers (GN1, GN2, GN2X) are described, including their calibration in data.
+The $t\bar{t}$ mistag calibration of GN2X is a direct personal contribution.
+Chapter~\ref{chap:higgs} describes contributions to two ATLAS Higgs analyses targeting $H \to b\bar{b}$ and $H \to c\bar{c}$ decays.
+In the $VH$ channel, a new low-$p_\mathrm{T}$ signal region achieves the first $5\sigma$ observation of $Z \to c\bar{c}$ and improves the $H \to c\bar{c}$ upper limit by $\sim$4\%.
+In the VBF channel, the first $3\sigma$ evidence for $VBF\,H \to b\bar{b}$ and the first upper limit on $VBF\,H \to c\bar{c}$ are reported.
+Chapter~\ref{chap:pileup} investigates machine learning approaches for pileup suppression under HL-LHC conditions ($\langle\mu\rangle = 200$).
+Two novel architectures are presented: PUMiNet, an event-wide attention model, and PhyGHT, a hypergraph Transformer, both validated by reconstructing Higgs boson, W boson, and top quark mass peaks.
+Chapter~\ref{chap:top_polarimetry} presents a proof-of-concept study of hadronic top quark polarimetry in the semi-leptonic $t\bar{t}$ channel.
+A Transformer regression model reconstructs the spin-sensitive observable $\cos\theta$ and demonstrates that spin information is recoverable without polarization-dependent training data.
