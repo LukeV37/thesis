@@ -6,54 +6,6 @@
 \endgroup
 
 % ============================================================
-% REMAINING TODO LIST FOR THIS CHAPTER
-% ------------------------------------------------------------
-% BIB ENTRIES NEEDED (cite keys used in text, not yet in references.bib):
-%   [ ] PDG2022          — Workman et al., PTEP 2022, 083C01
-%   [ ] Peskin:1995ev    — Peskin & Schroeder, QFT textbook (1995)
-%   [ ] ATLASHiggsTenYears — arXiv:2207.00092, Nature 607 (2022) 52-59
-%   [ ] ATLASDiscovery   — arXiv:1207.7214, PLB 716 (2012) 1-29
-%   [ ] CMSDiscovery     — arXiv:1207.7235, PLB 716 (2012) 30-61
-%   [ ] LHCHiggsXSWG4   — arXiv:1610.07922
-%   [ ] LHCHiggsXSWG3   — arXiv:1307.1347
-%   [ ] ATLASSpinCP      — arXiv:1307.1432, PLB 726 (2013) 120-144
-%   [ ] CMSSpinCP        — arXiv:1411.3441, PRD 92, 012004 (2015)
-%   [ ] BSMCharmCouplings — replace with relevant BSM reference(s)
-%   [ ] Wu:1957          — C.S. Wu et al., PR 105, 1413 (1957)
-%   [ ] Planck:2018vyg   — arXiv:1807.06209, A&A 641, A6 (2020)
-%   [ ] Sakharov:1967dj  — JETP Lett. 5, 24 (1967), no arXiv
-%   [ ] Fukuda:1998mi    — arXiv:hep-ex/9807003, PRL 81, 1562 (1998)
-%   [ ] Ahmad:2002jz     — arXiv:nucl-ex/0204008, PRL 89, 011301 (2002)
-%   [ ] Giudice:2008bi   — arXiv:0801.2562, Kane & Pierce (eds.), World Scientific (2008)
-% ============================================================
-
-% ============================================================
-% REFERENCES FOR THIS CHAPTER
-% ------------------------------------------------------------
-% PDG Review of Particle Physics: Workman et al., PTEP 2022, 083C01
-%   https://pdg.lbl.gov
-% Glashow electroweak: Nucl. Phys. 22, 579 (1961)
-% Weinberg electroweak unification: PRL 19, 1264 (1967)
-%   https://arxiv.org/abs/... [no arXiv; DOI: 10.1103/PhysRevLett.19.1264]
-% Englert & Brout (SSB): PRL 13, 321 (1964)
-%   DOI: 10.1103/PhysRevLett.13.321
-% Higgs PRL letter: PRL 13, 508 (1964)
-%   DOI: 10.1103/PhysRevLett.13.508
-% Guralnik, Hagen & Kibble: PRL 13, 585 (1964)
-%   DOI: 10.1103/PhysRevLett.13.585
-% kappa-framework (LHC Higgs XS WG Yellow Report 3): arXiv:1307.1347
-% LHC Higgs XS WG Yellow Report 4: arXiv:1610.07922
-% ATLAS Higgs discovery: arXiv:1207.7214
-% CMS Higgs discovery: arXiv:1207.7235
-% ATLAS Run 2 coupling combination: arXiv:2207.00116
-% ATLAS Nature Higgs summary (10 years): arXiv:2207.00092
-% EW vacuum stability (Degrassi et al.): arXiv:1205.6497
-% Peskin & Schroeder, An Introduction to Quantum Field Theory,
-%   Addison-Wesley (1995), Chapter 4 -- gauge invariance, covariant derivative
-%   cite key: Peskin:1995ev
-% ============================================================
-
-% ============================================================
 % SECTION 2.1 — THE STANDARD MODEL
 % ------------------------------------------------------------
 % OPENS WITH: What is the theoretical framework underlying all
@@ -80,7 +32,7 @@ Neutrinos carry only weak charge and interact exclusively through the weak force
 
 The force carriers are spin-1 gauge bosons. 
 The massless photon mediates the electromagnetic force. 
-The $W^\pm$ and $Z$ bosons mediate the weak force and are massive, at 80 and 91 GeV, respectively. 
+The $W^\pm$ and $Z$ bosons mediate the weak force and are massive, at 80 and 91 GeV, respectively~\cite{PDG2022}.
 Eight massless gluons mediate the strong force. 
 The Higgs boson, with mass of 125 GeV~\cite{PDG2022}, is distinct from the gauge bosons as it is the only spin-0 fundamental particle and does not mediate a force. 
 Instead it plays a central role in mass generation, as described in Section~\ref{sec:higgs_mechanism}. 
@@ -95,12 +47,12 @@ The Standard Model is shown in Figure~\ref{fig:SM}.
 
 In essence, the SM is a theory explaining the underlying symmetries of nature. 
 A symmetry in physics is an invariance under some transformation. 
-A classical example being translational symmetry, where physics does not depend on where an experiment is performed. 
+A classical example is translational symmetry, where physics does not depend on where an experiment is performed. 
 In the SM, the relevant symmetries are gauge symmetries, also called local symmetries. 
 To understand the distinction between a global and a local symmetry, consider a vector field $\vec{\psi}(x)$ spread across space. 
 A global symmetry $\alpha$ is like rotating every vector by the same fixed angle simultaneously, $\vec{\psi}(x) \rightarrow \alpha \cdot \vec{\psi}(x)$. 
 A gauge, or local, symmetry $\alpha(x)$ is more constraining: each vector is rotated by a different angle at each point in space independently, $\vec{\psi}(x) \rightarrow \alpha(x) \cdot \vec{\psi}(x)$. 
-In the language of quantum field theory, this corresponds to a local phase rotation, also called a U(1) transformation, of the fermion field:%~\cite{Peskin:1995ev}
+In the language of quantum field theory~\cite{Peskin:1995ev}, this corresponds to a local phase rotation, also called a U(1) transformation, of the fermion field:
 \begin{equation}
     \psi(x) \rightarrow e^{i\alpha(x)}\psi(x).
     \label{eq:U1_gauge_transform}
@@ -116,22 +68,8 @@ In this way, the forces of nature emerge as a local gauge symmetry.
 
 The SM Lagrangian is invariant under the gauge symmetry group $\text{SU}(3)_C \times \text{SU}(2)_L \times \text{U}(1)_Y$. 
 The $\text{SU}(3)_C$ symmetry governs the strong force, with the subscript $C$ denoting color charge; its generators, the Gell-Mann matrices, correspond to the eight gluons. 
-The $\text{SU}(2)_L \times \text{U}(1)_Y$ symmetry governs the electroweak force, with generators given by the three Pauli matrices and a single hypercharge generator $Y$. 
+The $\text{SU}(2)_L \times \text{U}(1)_Y$ symmetry governs the electroweak force, with generators given by the three Pauli matrices and a single hyper-charge generator $Y$~\cite{Glashow1961, Weinberg1967}.
 The subscript $L$ indicates that the weak interaction acts only on left-handed fermions as experimentally observed by Wu et al.~\cite{Wu:1957}.
-% DUMMY CITE KEY — Wu:1957: C.S. Wu et al., Phys. Rev. 105, 1413 (1957)
-% NOTE: Why does SU(2)_L only interact with left-handed fermions?
-% This is an experimental observation, not derived from a deeper principle.
-% The 1956 Wu experiment showed beta decay violates parity; subsequent work
-% established the weak interaction is V-A (vector minus axial-vector), which
-% projects onto left-handed chirality only. The SM encodes this by placing
-% left-handed fermions in SU(2)_L doublets (e.g. (nu_e, e^-)_L, (u,d)_L)
-% and right-handed fermions in singlets (e_R, u_R, d_R). Singlets do not
-% transform under SU(2)_L, so the W bosons do not appear in their covariant
-% derivative — right-handed fermions are simply invisible to the weak force.
-% Note: the weak force couples to chirality (the gamma^5 eigenvalue), which
-% coincides with helicity only for massless particles.
-% Right-handed neutrinos do not appear in the SM at all as a consequence.
-% The SM offers no explanation for WHY the weak force is chiral — it is an input. 
 Together these produce four gauge bosons: the $W^+$, $W^-$, $W^0$, and $B^0$. 
 After electroweak symmetry breaking, discussed in Section~\ref{sec:higgs_mechanism}, these mix to form the physical $W^\pm$, $Z$, and $\gamma$.
 
@@ -144,18 +82,11 @@ The dynamics of all SM particles and their interactions are encoded in the SM La
   + \underbrace{y_{ij}\bar{\psi}_{Li}\phi\psi_{Rj} + \text{h.c.}}_{\text{Yukawa}}
   \label{eq:SMlagrangian}
 \end{equation}
-% Note on indices:
-% F^a_{\mu\nu}: a = gauge group generator index (summed over SU(3), SU(2), U(1)); mu,nu = Lorentz indices
-% psi: implicit sum over all fermion flavors; mu = Lorentz index on gamma matrix
-% D_mu phi: covariant derivative of Higgs doublet; |...|^2 = (D_mu phi)^dag (D^mu phi)
-% y_{mn}: 3x3 Yukawa matrix; m,n = generation indices (chosen to avoid clash with imaginary unit i)
-% Reference: PDG Review, Workman et al. PTEP 2022, 083C01 (Electroweak Model chapter)
 
 The gauge kinetic term $-\frac{1}{4}F^a_{\mu\nu}F^{a\mu\nu}$ governs the propagation and self-interactions of all gauge bosons, where the index $a$ runs over all generators of the gauge group. 
 The fermion kinetic term $i\bar{\psi}\gamma^\mu D_\mu\psi$ describes how fermions propagate and couple to the gauge fields through the covariant derivative $D_\mu$. 
 The Higgs sector $|D_\mu\phi|^2 - V(\phi)$ contains the Higgs field and its couplings to the gauge bosons; the potential $V(\phi)$ drives the spontaneous symmetry breaking discussed in Section~\ref{sec:higgs_mechanism}. 
 Finally, the Yukawa term $y_{ij}\bar{\psi}_{Li}\phi\psi_{Rj}$ couples fermions to the Higgs field, generating fermion masses after symmetry breaking, as discussed in Section~\ref{sec:yukawa}.
-% References: PDG (Workman et al. 2022), Glashow 1961, Weinberg 1967
 
 % ============================================================
 % SECTION 2.2 — THE HIGGS MECHANISM
@@ -169,33 +100,12 @@ Finally, the Yukawa term $y_{ij}\bar{\psi}_{Li}\phi\psi_{Rj}$ couples fermions t
 
 \section{The Higgs Mechanism and Gauge Boson Mass Generation}
 \label{sec:higgs_mechanism}
-
-% ------------------------------------------------------------
-% OUTLINE FOR THIS SECTION:
-% Para 1 — The mass problem
-%   - SM gauge invariance forbids explicit mass terms for W, Z
-%   - Explicit m_W^2 W_mu W^mu breaks gauge invariance
-%   - Yet W (~80 GeV) and Z (~91 GeV) are observed to be massive
-% Para 2 — The Higgs potential and spontaneous symmetry breaking
-%   - Introduce complex scalar doublet phi with V(phi) = mu^2|phi|^2 + lambda|phi|^4
-%   - For mu^2 < 0: unstable at origin, degenerate ring of minima at |phi| = v/sqrt(2)
-%   - v ~ 246 GeV is the vacuum expectation value
-%   - Field settles into one minimum: SSB of SU(2)_L x U(1)_Y -> U(1)_EM
-%   - Reference figure: Higgs potential (fig:HiggsPotential)
-% Para 3 — Consequences of SSB: gauge boson masses and the Higgs boson
-%   - Three broken generators -> three Goldstone bosons
-%   - Goldstone bosons absorbed by W+, W-, Z -> longitudinal modes -> mass
-%   - Photon corresponds to unbroken generator -> remains massless
-%   - Remaining physical DOF: real scalar Higgs boson h
-%   - Optional: show W and Z mass formulae m_W = gv/2, m_Z = sqrt(g^2+g'^2)v/2
-% ------------------------------------------------------------
-
 The gauge symmetry of the SM places a strict constraint on the Lagrangian in which explicit mass terms for the gauge bosons, of the form $m_W^2 W_\mu W^\mu$, break gauge invariance and are therefore forbidden. 
 The theory predicts that the $W$ and $Z$ bosons should be massless, analogous to the photon.
-However, the $W$ and $Z$ bosons are experimentally observed to be massive at 80 and 91 GeV, respectively. 
+However, the $W$ and $Z$ bosons are experimentally observed to be massive at 80 and 91 GeV, respectively~\cite{PDG2022}.
 This contradiction points to a missing mechanism, one that generates gauge boson masses without introducing explicit mass terms and without breaking the gauge invariance the SM is built upon.
 
-The solution is provided by the Brout-Englert-Higgs mechanism~\cite{EnglertBrout1964, Higgs1964}.
+The solution is provided by the Brout-Englert-Higgs mechanism~\cite{EnglertBrout1964, Higgs1964, Guralnik1964}.
 This mechanism introduces a complex scalar field $\phi$, called the Higgs field, with the potential $V(\phi) = \mu^2|\phi|^2 + \lambda|\phi|^4$, as shown in Figure~\ref{fig:HiggsPotential}. 
 For $\mu^2 < 0$, the origin is an unstable maximum and the true minima form a degenerate ring at $|\phi| = v/\sqrt{2}$, where $v \approx 246$~GeV is the vacuum expectation value (VEV). 
 The system must settle into a single point on this ring, spontaneously breaking $\text{SU}(2)_L \times \text{U}(1)_Y \rightarrow \text{U}(1)_{EM}$ and leaving electromagnetism as the unbroken symmetry of the vacuum.
@@ -211,7 +121,7 @@ This is the essence of spontaneous symmetry breaking (SSB): the Lagrangian retai
 \end{figure}
 
 Before SSB, the four gauge fields $W^+$, $W^-$, $W^0$, and $B^0$ generated by $\text{SU}(2)_L \times \text{U}(1)_Y$ do not directly become the physical particles observed in experiment. 
-After SSB, three of the four electroweak generators are broken, each producing a massless Goldstone boson that is absorbed as a longitudinal polarization mode by $W^+$, $W^-$, and a mixture of $W^0$ and $B^0$, giving the $W^+$, $W^-$, and $Z$ bosons mass.%~\cite{Peskin:1995ev} 
+After SSB, three of the four electroweak generators are broken, each producing a massless Goldstone boson that is absorbed as a longitudinal polarization mode by $W^+$, $W^-$, and a mixture of $W^0$ and $B^0$, giving the $W^+$, $W^-$, and $Z$ bosons mass~\cite{Peskin:1995ev}.
 The remaining orthogonal mixture of $W^0$ and $B^0$ corresponds to the unbroken $\text{U}(1)_{EM}$ generator and becomes the massless photon $\gamma$. 
 The resulting masses $m_W = gv/2$ and $m_Z = \sqrt{g^2 + g'^2}\,v/2$ are determined entirely by the VEV and reproduce the observed values~\cite{PDG2022}. 
 One physical particle emerges from this process: the Higgs boson, $h$, representing oscillations of the field about the potential minimum.
@@ -232,30 +142,11 @@ While the Higgs mechanism accounts for gauge boson masses, fermion masses requir
 \section{Yukawa Couplings and Fermion Mass Generation}
 \label{sec:yukawa}
 
-% ------------------------------------------------------------
-% OUTLINE FOR THIS SECTION:
-% Para 1 — Fermion mass generation via Yukawa interactions
-%   - Gauge invariance also forbids explicit fermion mass terms before SSB
-%   - Yukawa term: L_Y = -y_f psi_L phi psi_R + h.c.
-%   - After SSB: m_f = y_f * v / sqrt(2)
-%   - Key SM prediction: Higgs coupling to any fermion proportional to its mass
-% Para 2 — Experimental status of Yukawa couplings
-%   - Third-generation (t, b, tau) measured, consistent with SM
-%   - Top quark special: m_t ~ 173 GeV -> y_t ~ 1, strongest Higgs coupling
-%   - Introduce kappa-framework: kappa_f = y_f / y_f^SM as BSM probe
-%   - Reference figure: ATLAS coupling vs mass plot (fig:HiggsCouplings)
-% Para 3 — Second-generation gap and thesis motivation
-%   - Charm and muon Yukawa couplings largely unmeasured
-%   - Many BSM models predict enhanced kappa_c
-%   - VH(H->cc) analysis in this thesis directly probes y_c
-% ------------------------------------------------------------
-
 Just as gauge invariance forbids explicit mass terms for the gauge bosons, it also forbids explicit mass terms for fermions. 
-Fermion masses are instead generated through Yukawa interactions, where each fermion couples to the Higgs field via the term $\mathcal{L}_Y = -y_f \bar{\psi}_L \phi \psi_R + \text{h.c.}$.%~\cite{Peskin:1995ev}
+Fermion masses are instead generated through Yukawa interactions, where each fermion couples to the Higgs field via the term $\mathcal{L}_Y = -y_f \bar{\psi}_L \phi \psi_R + \text{h.c.}$~\cite{Peskin:1995ev}.
 After SSB, each fermion obtains a mass $m_f = y_f v/\sqrt{2}$, proportional to the VEV, and the SM predicts that the Higgs coupling to any fermion is directly proportional to its mass.
 
 The $\kappa$-framework provides a convenient way to test this prediction~\cite{LHCHiggsXSWG3}.
-% DUMMY CITE KEY — LHCHiggsXSWG3: LHC Higgs XS WG Yellow Report 3, arXiv:1307.1347
 Each coupling modifier $\kappa_f$ is defined as the ratio of the measured coupling to the SM prediction, so that $\kappa_f = 1$ corresponds to the SM.
 Figure~\ref{fig:HiggsCouplings} shows the measured coupling modifiers as a function of particle mass. 
 The red line shows the SM prediction. 
@@ -266,7 +157,7 @@ Third-generation couplings to the top quark, bottom quark, and tau lepton have b
 	\includegraphics[width=0.6\linewidth]{figures/chapter2/higgs_couplings.png}
 	\caption{Reduced Higgs boson coupling strength modifiers as a function of particle mass, measured
 		by ATLAS with the full Run 2 dataset~\cite{ATLASHiggsTenYears}. The red line shows the SM
-		prediction that the Higgs coupling scales linearly with mass. % TODO: replace cite key ATLASHiggsTenYears with correct key for arXiv:2207.00092
+		prediction that the Higgs coupling scales linearly with mass.
 	}
 	\label{fig:HiggsCouplings}
 \end{figure}
@@ -274,9 +165,8 @@ Third-generation couplings to the top quark, bottom quark, and tau lepton have b
 The second-generation couplings tell a different story. 
 The charm quark appears with large uncertainties and the muon coupling is only weakly constrained. 
 These couplings remain largely untested. 
-Many BSM models predict enhanced second-generation couplings, making them sensitive probes of new physics~\cite{BSMCharmCouplings}.
-% DUMMY CITE KEY — BSMCharmCouplings: replace with relevant BSM reference(s)
-This thesis contributes to efforts dedicated to measure the charm Yukawa coupling through the $VH(H \rightarrow c\bar{c})$ and $\text{VBF}(H \rightarrow c\bar{c})$ channels, described in Sections~\ref{sec:VH_analysis} and~\ref{sec:VBF_analysis}.
+Many BSM models predict enhanced second-generation couplings, making them sensitive probes of new physics.
+This thesis contributes to efforts dedicated to measuring the charm Yukawa coupling through the $VH(H \rightarrow c\bar{c})$ and $\text{VBF}(H \rightarrow c\bar{c})$ channels, described in Sections~\ref{sec:VH_analysis} and~\ref{sec:VBF_analysis}.
 
 % ============================================================
 % SECTION 2.4 — HIGGS PRODUCTION AND DECAY AT THE LHC
@@ -291,46 +181,10 @@ This thesis contributes to efforts dedicated to measure the charm Yukawa couplin
 
 \section{Higgs Production and Decay at the LHC}
 \label{sec:higgs_production}
-
-% ------------------------------------------------------------
-% OUTLINE FOR THIS SECTION:
-% Para 1 — Discovery
-%   - Higgs boson discovered by ATLAS and CMS in 2012 at sqrt(s) = 7-8 TeV
-%   - Observed in H->yy and H->ZZ*->4l channels
-%   - m_H ~ 125 GeV confirmed; spin-0, CP-even quantum numbers
-%   - All coupling measurements to date consistent with SM
-% Para 2 — Production modes
-%   - Four main mechanisms: ggF, VBF, VH, ttH (reference fig:HiggsProduction)
-%   - Cross sections at 13 TeV: ggF ~50 pb, VBF ~4 pb, VH ~2.5 pb, ttH ~0.5 pb
-%   - Reference fig:HiggsXSvsSqrts for energy dependence
-%   - Clean up "Hanbook" typo -> cite LHCHiggsXSWG4 properly
-% Para 3 — Decay channels and VH strategy
-%   - Branching ratios: H->bb ~58%, H->cc ~2.9%, others (reference fig:HiggsBranchingRatios)
-%   - H->bb and H->cc overwhelmed by QCD multijet background in inclusive searches
-%   - VH production provides leptonic W/Z decay as trigger -> suppresses background
-%   - H->cc not yet observed; VH(H->cc) is the charm Yukawa target of this thesis
-% ------------------------------------------------------------
-
-% NOTE: Bare URL on line below needs to become a \cite{} once bib entry is added.
-% LHC Higgs XS WG Yellow Report 4: https://arxiv.org/abs/1610.07922
-% ATLAS discovery: https://arxiv.org/abs/1207.7214
-% CMS discovery: https://arxiv.org/abs/1207.7235
-
-% TODO: Add ATLAS and CMS discovery figures here (or move to Chapter 1 introduction
-%       if Chapter 1 serves as physics motivation). The H->yy invariant mass peak
-%       and H->ZZ*->4l mass spectrum are iconic figures that motivate the program.
-
-% ~5 fb^-1 at 7 TeV + ~5 fb^-1 at 8 TeV
-% ATLASDiscovery — arXiv:1207.7214, Phys. Lett. B 716 (2012) 1-29
-% CMSDiscovery   — arXiv:1207.7235, Phys. Lett. B 716 (2012) 30-61
-% ATLASHiggsTenYears — arXiv:2207.00092, Nature 607 (2022) 52-59
-The Higgs boson was discovered by ATLAS and CMS in 2012 using approximately 10~fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 7$--8~TeV~\cite{ATLASDiscovery, CMSDiscovery}.
+The Higgs boson was discovered by ATLAS and CMS in 2012 using approximately 10~fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 7$--8~TeV~\cite{ATLAS-Higgs2012,CMS-Higgs2012}.
 The observation was made in two decay channels: $H \rightarrow \gamma\gamma$ and $H \rightarrow ZZ^* \rightarrow 4\ell$, the latter known as the golden channel due to its clean four-lepton final state and excellent mass resolution.
-The Higgs boson mass was measured to be $m_H \approx 125$~GeV.
+The Higgs boson mass was measured to be $m_H \approx 125$~GeV~\cite{ATLAS-Higgs2012,CMS-Higgs2012}.
 Subsequent measurements confirmed spin-0 and CP-even quantum numbers~\cite{ATLASSpinCP, CMSSpinCP}.
-% DUMMY CITE KEYS — correct later:
-%   ATLASSpinCP — arXiv:1307.1432, PLB 726 (2013) 120-144
-%   CMSSpinCP   — arXiv:1411.3441, PRD 92, 012004 (2015)
 All coupling measurements to date are consistent with SM predictions~\cite{ATLASHiggsTenYears}.
 
 \begin{figure}[h]
@@ -338,13 +192,10 @@ All coupling measurements to date are consistent with SM predictions~\cite{ATLAS
 	\includegraphics[width=\linewidth]{figures/chapter2/Higgs_Production.png}
 	\caption{Feynman diagrams for the four main Higgs boson production modes at the LHC:
 	gluon-gluon fusion (ggF), vector boson fusion (VBF), associated production (VH),
-	and top quark associated production ($t\bar{t}H$). The coupling modifiers
-	$\kappa_t$ and $\kappa_V$ parameterize possible deviations from SM predictions.}
+	and top quark associated production ($t\bar{t}H$).}
 	\label{fig:HiggsProduction}
 \end{figure}
 
-% LHCHiggsXSWG4 — LHC Higgs XS WG Yellow Report 4, arXiv:1610.07922
-% ggF largest cross section but no additional hard objects at LO; VBF has two forward jets; VH has leptonic V; ttH has ttbar pair
 The four main Higgs boson production modes at the LHC are shown in Figure~\ref{fig:HiggsProduction}. 
 At $\sqrt{s} = 13$~TeV, gluon-gluon fusion (ggF) has the largest cross section at $\sigma_{ggF} \approx 50$~pb, followed by vector boson fusion (VBF) at $\sigma_{VBF} \approx 4$~pb, associated production (VH) at $\sigma_{VH} \approx 2.5$~pb, and top quark associated production ($t\bar{t}H$) at $\sigma_{t\bar{t}H} \approx 0.5$~pb~\cite{LHCHiggsXSWG4}.
 The cross sections as a function of center-of-mass energy are shown in Figure~\ref{fig:HiggsXSvsSqrts}.
@@ -361,21 +212,18 @@ Each production mode presents distinct experimental signatures and backgrounds.
 	\label{fig:HiggsXSvsSqrts}
 \end{figure}
 
-% TODO: remove the word targeting everywhere. Switch it up a bit man!
 
-The SM Higgs boson branching ratios are summarised in Table~\ref{tab:HiggsBranchingRatios}.
+The SM Higgs boson branching ratios are summarized in Table~\ref{tab:HiggsBranchingRatios}.
 The dominant decay is $H \rightarrow b\bar{b}$ at 58\%, followed by $H \rightarrow WW^*$ at 21\%.
 The $H \rightarrow c\bar{c}$ branching ratio is 2.9\% and has not yet been observed directly.
 Both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ are overwhelmed by QCD multijet backgrounds in inclusive searches.
-The VH production mode provides trigger level suppression through lepton or MET requirements through the associated $W$ or $Z$ boson and strongly suppresses QCD backgrounds.
+The VH production mode suppresses QCD backgrounds at trigger level via lepton or MET requirements from the associated $W$ or $Z$ boson decay.
 The VBF mode provides an additional handle through its characteristic signature of two energetic forward jets.
 
 \begin{table}[h]
 	\centering
 	\caption{SM Higgs boson decay branching ratios and relative uncertainties~\cite{LHCHiggsXSWG4}.}
 	\label{tab:HiggsBranchingRatios}
-	% To resize the table, change the first argument of \resizebox.
-	% e.g. 0.5\textwidth for half width, 0.8\textwidth for 80%, \textwidth for full width.
 	\resizebox{0.5\textwidth}{!}{%
 		\begin{tabular}{lcc}
 			\toprule
@@ -406,42 +254,14 @@ The VBF mode provides an additional handle through its characteristic signature 
 
 \section{Limitations and Open Questions of the Standard Model}
 \label{sec:open_questions}
-
-% ------------------------------------------------------------
-% OUTLINE FOR THIS SECTION:
-% Para 1 — Hierarchy problem
-%   - Large disparity between electroweak scale (~100 GeV) and Planck scale (~10^19 GeV)
-%   - Quantum corrections drive m_H to Planck scale without fine-tuned cancellation
-%   - Top quark loop is the dominant correction (coefficient ~ y_t^2 ~ 1)
-%   - BSM theories (e.g. SUSY) predict top partner near TeV scale to cancel correction
-% Para 2 — EW vacuum stability
-%   - Measured m_H ~ 125 GeV and m_t ~ 173 GeV place SM vacuum in metastable region
-%   - Universe may reside in a false vacuum (cite Buttazzo et al.)
-%   - Optional: include EW vacuum stability phase diagram (fig commented out below)
-% Para 3 — Other open questions and connection to thesis
-%   - SM has no explanation for matter-antimatter asymmetry, dark matter, dark energy
-%   - Three-generation structure unexplained (flagged in Section 2.1)
-%   - Connect to thesis contributions:
-%       * VH(H->cc): direct probe of unmeasured charm Yukawa coupling
-%       * Pileup mitigation: enabling precision measurements at HL-LHC
-%       * Top polarimetry: probing quantum entanglement in tt̄ production
-% ------------------------------------------------------------
-
 The SM is remarkably successful, yet it leaves several fundamental questions unanswered. 
 It provides no explanation for the three-generation structure of quarks and leptons, nor for the large mass hierarchies between generations.
 Gravity is not incorporated into the SM framework. 
-The SM offers no candidate for dark matter, which accounts for approximately 27\% of the energy content of the universe~\cite{Planck:2018vyg}. 
-The observed matter-antimatter asymmetry of the universe also remains unexplained~\cite{Sakharov:1967dj}. 
-In the neutrino sector, the SM predicts massless neutrinos, however, neutrino oscillation experiments have conclusively demonstrated that neutrinos have nonzero mass~\cite{Fukuda:1998mi, Ahmad:2002jz}, in direct contradiction with the SM. 
+The SM offers no candidate for dark matter, which accounts for approximately 27\% of the energy content of the universe~\cite{Planck:CosmParams2020}. 
+The observed matter-antimatter asymmetry of the universe also remains unexplained.
+In the neutrino sector, the SM predicts massless neutrinos; however, neutrino oscillation experiments have conclusively demonstrated that neutrinos have nonzero mass~\cite{SuperK:AtmNeutrino1998, SNO:SolarNeutrino2002}, in direct contradiction with the SM. 
 The SM contains no right-handed neutrinos, leaving no natural mechanism to generate their masses. 
-The hierarchy problem presents a further theoretical tension: quantum corrections drive $m_H$ toward the Planck scale ($\sim 10^{19}$~GeV), requiring fine-tuned cancellations absent new physics at the TeV scale~\cite{Giudice:2008bi}.
-% DUMMY CITE KEYS — correct later:
-%   Planck:2018vyg  — arXiv:1807.06209, A&A 641, A6 (2020)
-%   Sakharov:1967dj — JETP Lett. 5, 24 (1967), no arXiv
-%   Fukuda:1998mi   — arXiv:hep-ex/9807003, PRL 81, 1562 (1998)
-%   Ahmad:2002jz    — arXiv:nucl-ex/0204008, PRL 89, 011301 (2002)
-%   Giudice:2008bi  — arXiv:0801.2562, Kane & Pierce (eds.), World Scientific (2008)
-
-Beyond these open problems, the LHC opens an entirely new frontier: probing quantum mechanical phenomena such as spin entanglement at collider energies.
+The hierarchy problem presents a further theoretical tension: quantum corrections drive $m_H$ toward the Planck scale ($\sim 10^{19}$~GeV), requiring fine-tuned cancellations absent new physics at the TeV scale.
+Beyond these open problems, the LHC opens an entirely new frontier: probing quantum mechanical phenomena such as top quark entanglement at collider energies.
 Top quark pair production provides a uniquely clean system for this, as the top quark decays before hadronization and its spin information is preserved in its decay products. 
-This thesis introduces a new machine learning approach to top polarimetry to target top quark entanglement at the LHC, described in Chapter~\ref{chap:top_polarimetry}.
+This thesis introduces a new machine learning approach to top polarimetry to extract top quark spin correlations at the LHC, described in Chapter~\ref{chap:top_polarimetry}.
