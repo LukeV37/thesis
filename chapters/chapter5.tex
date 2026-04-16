@@ -42,9 +42,9 @@ Despite having a smaller production cross section than the VBF mode, the VH chan
 The associated production of the Higgs boson with a vector boson ($VH$, $V = W, Z$) provides a uniquely clean environment for studying hadronic Higgs decays. 
 The leptonic decay of the vector boson provides the critical trigger handle that suppresses QCD multijet backgrounds and makes both $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ experimentally accessible. 
 The $W$ boson is reconstructed via its decays to an electron, muon, or $\tau$-lepton and a neutrino, while the $Z$ boson is reconstructed from electron or muon pairs, or identified through large missing transverse energy in the $Z \rightarrow \nu\nu$ case. 
-These signatures define the 0-, 1-, and 2-lepton analysis channels, and the analysis uses 140 fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 13$ TeV collected by the ATLAS detector during Run 2. 
+These signatures define the 0-, 1-, and 2-lepton analysis channels, and the analysis uses 140 fb$^{-1}$ of proton-proton collision data at $\sqrt{s} = 13$ TeV collected by the ATLAS detector during Run 2~\cite{VH}. 
 The dominant residual backgrounds are $t\bar{t}$ and $V$+jets production, which are separated from signal using Boosted Decision Trees (BDTs) trained on kinematic and flavor-tagging variables. 
-Events are further categorized by lepton multiplicity, vector boson $p_\mathrm{T}$, and BDT score, and the analysis ultimately constrains the coupling modifiers $\kappa_b$ and $\kappa_c$ and their ratio $|\kappa_c/\kappa_b|$ within the $\kappa$-framework.
+Events are further categorized by lepton multiplicity, vector boson $p_\mathrm{T}$, and BDT score, and the analysis ultimately constrains the coupling modifiers $\kappa_b$ and $\kappa_c$ and their ratio $|\kappa_c/\kappa_b|$ within the $\kappa$-framework~\cite{LHCHiggsXSWG4}.
 
 \subsection{Fit Regions}
 
@@ -54,7 +54,8 @@ C-tagging is performed using the DL1r c-jet discriminant with two working points
 This gives three tagging configurations for the $H \rightarrow c\bar{c}$ signal regions: tight-tight ($C_T C_T$), tight-loose ($C_T C_L$), and tight-non-tagged ($C_T N$), where $N$ denotes a non-tagged jet. 
 Loose-non-tagged ($C_L N$) events are used exclusively as control regions. 
 Signal regions are binned in BDT score to maximally separate signal from background, while control regions constrain the floating normalization factors for the dominant $t\bar{t}$ and $V$+jets backgrounds. 
-The analysis is further segmented into multiple $p_\mathrm{T}^V$ intervals across all three lepton channels, providing additional sensitivity to the signal across a wide kinematic range in both boosted and resolved cases.
+The analysis is further segmented into multiple $p_\mathrm{T}^V$ intervals across all three lepton channels, providing additional sensitivity across a wide kinematic range.
+Together, this region design tightly constrains the dominant nuisance parameters and normalization factors, minimizing systematic uncertainties in the global likelihood fit.
 
 %\begin{figure}
 %	\centering
@@ -70,11 +71,9 @@ The analysis is further segmented into multiple $p_\mathrm{T}^V$ intervals acros
 	\label{fig:VH_regions}
 \end{figure}
 
-%TODO: explain motivation for different regions
 
-I joined this analysis at a mature stage, with the majority of signal and control regions already finalized. 
-Under the guidance of Yanhui Ma, a postdoc in our group, I studied the impact of including a new low $p_\mathrm{T}$ signal region, $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$, in the single-lepton CC channel. 
-A key challenge in this region was that the $C_T N$ and $C_L N$ tagging configurations have very high event statistics but low signal-to-background ratios, causing large pulls on the experimental uncertainties in the fit. 
+The contribution to this analysis focused on introducing a new low-$p_\mathrm{T}$ signal region, $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$, in the single-lepton $H \rightarrow c\bar{c}$ channel, added to a fit model with the majority of signal and control regions already finalized.
+A key challenge in this region was that the $C_T N$ and $C_L N$ tagging configurations have very high event statistics but low signal-to-background ratios, causing large pulls on the experimental uncertainties in the fit.
 These configurations were therefore removed from the low $p_\mathrm{T}$ region to stabilize the fit model. 
 However, removing these regions left insufficient constraining power to freely float the $W$+lf ($W$ boson produced in association with light-flavor jets) normalization factor in the $75~\text{GeV} < p_\mathrm{T}^V < 150~\text{GeV}$ interval. 
 Instead, the $W$+lf normalization was assigned a 20\% Gaussian prior for this $p_\mathrm{T}^V$ bin, while remaining freely floating at higher $p_\mathrm{T}^V$. 
@@ -158,7 +157,7 @@ With the fit model validated on blinded data, the analysis was unblinded and the
 \end{align}
 
 Both results are in good agreement with the Standard Model prediction. 
-The $VZ, Z \rightarrow b\bar{b}$ process is observed with a significance greater than 10 standard deviations, while the $VZ, Z \rightarrow c\bar{c}$ process yields an observed (expected) significance of 5.2 (5.3) standard deviations, marking the first observation of this process by ATLAS. 
+The $VZ, Z \rightarrow b\bar{b}$ process is observed with a significance greater than 10 standard deviations, while the $VZ, Z \rightarrow c\bar{c}$ process yields an observed (expected) significance of 5.2 (5.3) standard deviations, marking the first observation of this process by ATLAS~\cite{VH}. 
 The inclusion of the new low $p_\mathrm{T}$ single-lepton region was a crucial contribution to achieving this $5\sigma$ threshold.
 
 With the methodology validated through the VZ channel, the final unblinded VH measurement yields signal strengths of:
@@ -173,7 +172,7 @@ For the $VH, H \rightarrow c\bar{c}$ process, the observed (expected) upper limi
 \section{\texorpdfstring{Vector Boson Fusion VBF, $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$}{Vector Boson Fusion VBF, H→bb and H→cc}}
 \label{sec:VBF_analysis}
 
-The vector-boson fusion (VBF) production mode has the second-largest Higgs boson production cross section at the LHC, approximately 3.8 pb at $\sqrt{s} = 13$ TeV, significantly larger than the VH production mode. 
+The vector-boson fusion (VBF) production mode has the second-largest Higgs boson production cross section at the LHC, approximately 3.8 pb at $\sqrt{s} = 13$ TeV, significantly larger than the VH production mode~\cite{VBF}. 
 However, unlike VH, the VBF process is fully hadronic.
 The two initial-state quarks each radiate a virtual vector boson that fuses to produce the Higgs boson, with the scattered quarks fragmenting into two energetic forward jets with large pseudorapidity separation and high dijet invariant mass. 
 With the Higgs boson also decaying hadronically into either $b\bar{b}$ or $c\bar{c}$, the entire final state consists of jets, as illustrated in Figure~\ref{fig:VBF_Diagrams}, making non-resonant QCD multijet production the overwhelming dominant background at approximately 99\% of the total. 
@@ -243,6 +242,7 @@ Finally, events containing isolated electrons or muons are vetoed to ensure orth
 
 The selected events are split into three analysis channels based on the flavor tagging outcome of the two Higgs candidate jets: a $H \rightarrow b\bar{b}$ channel using Run-3 data only, and two $H \rightarrow c\bar{c}$ channels covering Run-2 and Run-3 separately, each requiring both jets to be $c$-tagged. 
 The $H \rightarrow b\bar{b}$ measurement is restricted to Run-3 data to allow a direct combination with the previous Run-2 VBF $H \rightarrow b\bar{b}$ analysis, avoiding any overlap in the datasets used.
+Event yields for each analysis channel after the full selection are summarized in Figure~\ref{fig:event_yields}.
 
 \begin{figure}[h]
 	\centering
@@ -259,19 +259,21 @@ Since QCD multijet production cannot be reliably modeled by simulation, backgrou
 A direct consequence of this approach is that the background training sample contains no events in the signal mass window, leaving a gap precisely where signal events are concentrated. 
 Without special treatment, the network could trivially exploit the absence of background events in the signal window as a discriminating feature, making the classifier score correlated with $M_{h1h2}$. 
 This would invalidate the data-driven background estimation, which relies on transferring the background $M_{h1h2}$ shape from the low-score control region to the high-score signal regions. 
-To prevent this, an adversarial neural network (ANN) is employed, in which a secondary adversary network is trained simultaneously to penalize any correlation between the classifier output and $M_{h1h2}$.
+To prevent this, an adversarial neural network (ANN) is employed~\cite{massDecorr,ANN}, in which a secondary adversary network is trained simultaneously to penalize any correlation between the classifier output and $M_{h1h2}$.
 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{.4\textwidth}
 		\centering
 		\includegraphics[width=1\textwidth]{figures/chapter5/ANN.png}
+		\phantomcaption
 		\label{fig:ANN_architecture}
 	\end{subfigure}%
   \hspace{0.05\textwidth}
 	\begin{subfigure}{.4\textwidth}
 		\centering
 		\includegraphics[width=1\textwidth]{figures/chapter5/tab_02.png}
+		\phantomcaption
 		\label{fig:ANN_features}
 	\end{subfigure}
 	\caption{The adversarial neural network architecture (left) and input features (right) used in the VBF analysis.}
@@ -348,7 +350,7 @@ Signal yields are extracted using a binned profile likelihood fit to the $M_{h_1
 The fit uses 5 GeV bins spanning $50 < M_{h_1 h_2} < 200$ GeV, giving 30 bins per region. 
 The $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ signal yields are each scaled by an independent signal strength modifier, $\mu_{bb}$ and $\mu_{cc}$, defined as the ratio of the observed yield to the Standard Model expectation. 
 Since both VBF and ggF production contribute to the selected events, these modifiers are inclusive in production mode and scale both contributions simultaneously. 
-Since $H \rightarrow b\bar{b}$ production contributes meaningfully to the $H \rightarrow c\bar{c}$ signal regions, as seen in Figure~\ref{fig:postfit_run3_cc}, both modifiers are treated as free parameters. 
+Since $H \rightarrow b\bar{b}$ production contributes meaningfully to the $H \rightarrow c\bar{c}$ signal regions, both modifiers are treated as free parameters. 
 The modifiers are the parameters of interest (POIs) and are determined by maximizing the likelihood. 
 Systematic uncertainties affecting both the normalization and shape of the fitted distributions are incorporated as nuisance parameters (NPs).
 
@@ -373,7 +375,8 @@ Systematic uncertainties affecting both the normalization and shape of the fitte
 	\label{fig:ANN_Scores}
 \end{figure}
 
-Six signal regions per channel (SR1--SR6) are defined by successive cuts on the ANN output score, as shown in Figure~\ref{fig:ANN_Scores}, and are ordered by decreasing signal purity ranging from 2\% to 0.02\%. 
+Six signal regions per channel (SR1--SR6) are defined by successive cuts on the ANN output score, shown in Figure~\ref{fig:ANN_Scores}, and ordered by decreasing signal purity from 2\% to 0.02\%.
+Post-fit $M_{h_1 h_2}$ distributions in each region are shown in Figures~\ref{fig:postfit_run3_cc} and~\ref{fig:postfit_run3_bb}.
 The least pure region, SR6, serves as a control region.
 The dominant background from non-resonant QCD multijet production is estimated using a data-driven method. 
 The background $M_{h_1 h_2}$ shape in the high-score signal regions (SR1--SR5) is taken from SR6, which is both signal-depleted and populated by a much larger number of events. 
@@ -527,7 +530,7 @@ A VBF-only fit, with the ggF contribution fixed to its SM prediction, yields a n
 \subsection{Combinations}
 
 Two combinations are performed using these results together with previously published analyses. 
-The first combines the Run-3 $H \rightarrow b\bar{b}$ measurement with the Run-2 VBF result and a Run-2 photon-associated VBF (VBF+$\gamma$) result, motivated by the fact that the Run-2 result was statistically limited and fell just short of the $3\sigma$ evidence threshold. 
+The first combines the Run-3 $H \rightarrow b\bar{b}$ measurement with the Run-2 VBF result and a Run-2 photon-associated (VBF+$\gamma$) result, motivated by the fact that the Run-2 result was statistically limited and fell just short of the $3\sigma$ evidence threshold. 
 The second combines the $H \rightarrow c\bar{c}$ result with Run-2 VH-channel results, where the VH channel holds the tightest existing ATLAS constraint on $H \rightarrow c\bar{c}$; adding the orthogonal VBF channel improves the expected sensitivity further. 
 For the $H \rightarrow b\bar{b}$ combination, the $H \rightarrow c\bar{c}$ channels are excluded and $\mu_{cc}$ is fixed to 1, while for the $H \rightarrow c\bar{c}$ combination $\mu_{bb}$ is also allowed to float. 
 For both combinations, jet-related experimental uncertainties are correlated across analyses, except for those from flavor tagging where different algorithms are used. 
@@ -541,7 +544,7 @@ Background modeling uncertainties are treated as uncorrelated, while theory unce
 \end{figure}
 
 The $H \rightarrow b\bar{b}$ combination yields a signal strength of $\mu_{bb} = 0.87 \pm 0.28$, with an observed (expected) significance of 3.2 (3.6) standard deviations above the background-only hypothesis.
-This constitutes the first evidence for $H \rightarrow b\bar{b}$ in the VBF production mode.
+This constitutes the first evidence for $H \rightarrow b\bar{b}$ in the VBF production mode~\cite{VBF}.
 The three analyses are found to be mutually consistent, with a p-value of 65\% for compatibility among all three signal-strength measurements, and 95\% between the Run-2 and Run-3 VBF results alone.
 The combined signal strength measurements are summarized in Figure~\ref{fig:vbf_hbb_combinations_summary}.
 
@@ -609,19 +612,19 @@ This section compares the CMS measurements to the ATLAS results described above.
         \includegraphics[width=\linewidth]{figures/chapter5/CMS_mu_VBFHbb.png}
         \label{fig:CMS_mu_VBFHbb}
     \end{subfigure}
-    \caption{CMS VBF $H \to b\bar{b}$ results using 90.8~fb$^{-1}$ at $\sqrt{s} = 13$~TeV~\cite{CMS_VBFHbb}.
+    \caption{CMS VBF $H \to b\bar{b}$ results using 90.8~fb$^{-1}$ at $\sqrt{s} = 13$~TeV~\cite{CMS_VBF}.
     Left: $S/(S+B)$-weighted $m_{b\bar{b}}$ distribution in the signal region.
     Right: best-fit signal strengths for the inclusive, VBF-only ($qqH$), and $Z \to b\bar{b}$ processes.}
     \label{fig:CMS_VBFHbb}
 \end{figure}
 
-CMS has searched for VBF $H \to b\bar{b}$ using 90.8~fb$^{-1}$ at $\sqrt{s} = 13$~TeV, as shown in Figure~\ref{fig:CMS_VBFHbb}~\cite{CMS_VBFHbb}.
+CMS has searched for VBF $H \to b\bar{b}$ using 90.8~fb$^{-1}$ at $\sqrt{s} = 13$~TeV, as shown in Figure~\ref{fig:CMS_VBFHbb}~\cite{CMS_VBF}.
 A key difference in methodology is that CMS treats the gluon-gluon fusion (ggH) contribution as a background, constraining its rate to the SM expectation, and defines the signal strength $\mu^{qqH}_{Hb\bar{b}}$ to scale only the VBF (qqH) component.
 ATLAS instead treats ggH inclusively, with $\mu_{bb}$ scaling both the VBF and ggF contributions simultaneously.
 The CMS VBF-only signal strength is $\mu^{qqH}_{Hb\bar{b}} = 1.01^{+0.55}_{-0.46}$, with an observed (expected) significance of 2.4 (2.7) standard deviations.
 Considering inclusive Higgs production, CMS measures $\mu^{\text{incl.}}_{Hb\bar{b}} = 0.99^{+0.48}_{-0.41}$, corresponding to an observed (expected) significance of 2.6 (2.9) standard deviations.
 Neither result reaches the evidence threshold.
-The ATLAS combination of Run-2 and Run-3 VBF results achieves an observed (expected) significance of 3.2 (3.6) standard deviations, constituting the first evidence for $H \to b\bar{b}$ in the VBF production mode.
+The ATLAS combination of Run-2 and Run-3 VBF results achieves an observed (expected) significance of 3.2 (3.6) standard deviations, constituting the first evidence for $H \to b\bar{b}$ in the VBF production mode across both experiments.
 
 \subsection{\texorpdfstring{Combined $H \rightarrow c\bar{c}$}{Combined H→cc}}
 
@@ -639,7 +642,7 @@ The ATLAS combination of Run-2 and Run-3 VBF results achieves an observed (expec
         \label{fig:CMS_kappa}
     \end{subfigure}
     \caption{CMS results combining the $VH(H\to c\bar{c})$ and
-    $t\bar{t}H(H\to c\bar{c})$ searches with 138~fb$^{-1}$ at $\sqrt{s} = 13$~TeV~\cite{CMS-PAS-HIG-24-018}.
+    $t\bar{t}H(H\to c\bar{c})$ searches with 138~fb$^{-1}$ at $\sqrt{s} = 13$~TeV~\cite{CMS_ttH}.
     Left: 95\% CL upper limits on $\mu_{H\to c\bar{c}}$; the combined observed (expected) limit
     is 9.3 (5.6).
     Right: profile likelihood scans of $|\kappa_c|$; the $t\bar{t}H$ channel constrains
@@ -649,8 +652,8 @@ The ATLAS combination of Run-2 and Run-3 VBF results achieves an observed (expec
 
 Both ATLAS and CMS have searched for $H \to c\bar{c}$ in the $VH$ production mode, while each experiment has also pursued a distinct additional channel.
 ATLAS has performed the first search in the VBF mode, as described in Section~\ref{sec:VBF_analysis}.
-CMS has searched in the $t\bar{t}H$ mode, where the top quark pair provides a complementary experimental signature~\cite{CMS-PAS-HIG-24-018}.
-In the VH channel, the CMS observed (expected) upper limit is $\mu_{H\to c\bar{c}} < 14\ (7.6)$, compared to $\mu_{H\to c\bar{c}} < 11.5\ (10.6)$ from ATLAS.
+CMS has searched in the $t\bar{t}H$ mode, where the top quark pair provides a complementary experimental signature~\cite{CMS_ttH}.
+In the VH channel, the CMS observed (expected) upper limit is $\mu_{H\to c\bar{c}} < 14\ (7.6)$~\cite{CMS_VH}, compared to $\mu_{H\to c\bar{c}} < 11.5\ (10.6)$ from ATLAS.
 The CMS $t\bar{t}H$ channel yields an observed (expected) limit of $\mu_{H\to c\bar{c}} < 7.8\ (8.7)$.
 Combining both channels, CMS sets $\mu_{H\to c\bar{c}} < 9.3\ (5.6)$, corresponding to $|\kappa_c| < 3.5$ at 95\% CL, as shown in Figure~\ref{fig:CMS_results}.
 The ATLAS VH+VBF combination sets $|\kappa_c| < 4.7\ (3.9\ \text{expected})$ at 95\% CL.
@@ -663,15 +666,16 @@ The ATLAS VBF result contributes limited standalone sensitivity to $\kappa_c$ bu
 
 \section{Conclusion}
 
-This chapter has presented two complementary ATLAS analyses targeting hadronic Higgs decays: the VH associated production analysis and the VBF analysis, both studying $H \rightarrow b\bar{b}$ and $H \rightarrow c\bar{c}$ simultaneously.
+Together, the VH and VBF analyses provide complementary probes of hadronic Higgs decays across two distinct production modes, each presenting unique experimental challenges.
 
-In the VH analysis, the inclusion of a new low $p_\mathrm{T}$ signal region in the single lepton $H \rightarrow c\bar{c}$ channel improved the expected $H \rightarrow c\bar{c}$ limit by approximately 4\% and contributed to the first observation of $Z \rightarrow c\bar{c}$ by ATLAS with a significance of 5.2 standard deviations. 
+In the VH analysis, the inclusion of a new low-$p_\mathrm{T}$ signal region in the single-lepton $H \rightarrow c\bar{c}$ channel improved the expected $H \rightarrow c\bar{c}$ limit by approximately 4\% and contributed to the first ATLAS observation of $Z \rightarrow c\bar{c}$ at 5.2 standard deviations.
 The VH $H \rightarrow b\bar{b}$ measurement achieves a combined significance of 7.4 (8.0) standard deviations, while the $H \rightarrow c\bar{c}$ search sets an observed (expected) 95\% CL upper limit of 11.5 (10.6) times the SM prediction, corresponding to $|\kappa_c| < 4.2$.
 
-In the VBF analysis, an adversarial neural network classifier was developed to separate signal from the overwhelming QCD multijet background while preserving the $M_{h_1 h_2}$ shape needed for data driven background estimation. 
-The fit to Run 2 and Run 3 data yields $\mu_{bb} = 0.97^{+0.57}_{-0.50}$, consistent with the SM, and sets an observed (expected) 95\% CL upper limit of $\mu_{cc} < 41$ (28). 
-When combined with previous results, the $H \rightarrow b\bar{b}$ combination achieves a significance of 3.2 (3.6) standard deviations, constituting the first evidence for $H \rightarrow b\bar{b}$ in the VBF production mode. 
-The $H \rightarrow c\bar{c}$ combination sets the most stringent expected ATLAS constraint on the charm Yukawa coupling to date, with an observed (expected) constraint of $|\kappa_c| < 4.7$ (3.9) at 95\% CL.
+In the VBF analysis, an adversarial neural network classifier was developed to separate signal from the overwhelming QCD multijet background while preserving the $M_{h_1 h_2}$ shape needed for data-driven background estimation.
+The fit to Run 2 and Run 3 data yields $\mu_{bb} = 0.97^{+0.57}_{-0.50}$, consistent with the SM, and sets an observed (expected) 95\% CL upper limit of $\mu_{cc} < 41$ (28).
+When combined with previous results, the $H \rightarrow b\bar{b}$ combination constitutes the first evidence for $H \rightarrow b\bar{b}$ in the VBF production mode at 3.2 (3.6) standard deviations, and the $H \rightarrow c\bar{c}$ combination sets the most stringent expected ATLAS constraint on the charm Yukawa coupling to date at $|\kappa_c| < 4.7$ (3.9 expected).
+
+These results demonstrate that hadronic Higgs decays are now accessible across multiple production modes, with the VBF channel opening a new experimental frontier for both $H \rightarrow b\bar{b}$ and the first direct probe of $H \rightarrow c\bar{c}$ in VBF production.
 
 
 
