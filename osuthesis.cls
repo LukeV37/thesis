@@ -490,7 +490,7 @@ by committee members or Oklahoma State University.}
         \settowidth{\mylengtha}{Title of Study:~~}
         \setlength{\mylengthb}{\textwidth}
         \addtolength{\mylengthb}{-\mylengtha}
-        \mbox{Title of Study:~~#3}
+        Title of Study:~~\parbox[t]{\mylengthb}{#3}
            \par
         %
         Major Field:~~#4 \par
