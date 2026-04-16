@@ -251,7 +251,7 @@ Identifying these boosted jets is crucial for the Higgs program at the LHC, wher
 The previous state-of-the-art tagger, DXbb~\cite{DXbb}, combined flavor-tagging discriminants from individual variable-radius (VR) subjets in a feed-forward neural network, limiting its ability to exploit correlations between the decay products of both $b$- and $c$-hadrons within the jet.
 
 Building upon the transformer architecture of \texttt{GN2}, \texttt{GN2X} extends this approach to large-$R$ jet tagging by operating directly on charged particle tracks associated with the large-$R$ jet, reconstructed from Unified Flow Objects (UFOs)~\cite{ATLASLargeRJet}. 
-Up to 100 tracks are used as input, with each track feature described in~\ref{fig:GN1_Inputs:features} which includes impact parameter significances, track kinematics, and hit-level quantities. 
+Up to 100 tracks are used as input, with each track feature described in Figure~\ref{fig:GN1_Inputs:features} which includes impact parameter significances, track kinematics, and hit-level quantities.
 Track representations are processed through a transformer encoder consisting of 6 encoder blocks with 8 attention heads, and a global jet-level representation is formed via an attention-weighted sum over the final track representations.
 
 \texttt{GN2X} produces four probability scores via a softmax output layer: $p_{Hbb}$, $p_{Hcc}$, $p_{\text{top}}$, and $p_{\text{QCD}}$~\cite{GN2}.
