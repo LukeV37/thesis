@@ -10,21 +10,18 @@
 \begin{itemize}
     \item An open-source simulated dataset at $\langle\mu\rangle = 60$ and
     $\langle\mu\rangle = 200$ is released to enable reproducible benchmarking
-    of pileup mitigation algorithms at HL-LHC conditions.
+    of pileup mitigation algorithms at HL-LHC conditions.\footnote{Code available here: \url{https://github.com/LukeV37/Dataset_Production}}
 
     \item A novel regression task is defined to predict the energy and mass
     correction fractions, $E_\text{frac}$ and $M_\text{frac}$, for each jet
-    in the event, enabling event-wide pileup mitigation without hard per-particle
-    classification.
+    in the event, enabling event-wide pileup mitigation.
 
-    \item PUMiNet, an event-wide attention model, processes jets and their
+    \item \textbf{PUMiNet}, an event-wide attention model, processes jets and their
     associated tracks simultaneously using self- and cross-attention to predict
     $E_\text{frac}$ and $M_\text{frac}$ for each jet.
 
-    \item PhyGHT, a physics-guided hypergraph Transformer, extends this framework
-    with a distance-aware graph attention network, an explicit pileup suppression gate,
-    and hypergraph attention aggregation, outperforming all baselines including PUMiNet
-    across all metrics.
+    \item \textbf{PhyGHT}, a physics-guided hypergraph Transformer, extends this framework
+    with hypergraph attention aggregation and Particle Suppression Gate to outperform all baselines including PUMiNet.
 
     \item Both models are validated on physics analyses, recovering the Higgs boson,
     top quark, and W boson mass peaks under HL-LHC pileup conditions where
@@ -162,9 +159,9 @@ This limitation directly motivates the event-aware ML approaches developed in th
 
 \subsection{CMS PUPPI Benchmark}
 
-While JVT operates at the jet level by tagging entire jets to vertices, the Pileup Per Particle Identification algorithm (PUPPI)~\cite{PUPPI} takes a fundamentally different approach by operating at the individual particle level. 
-The core physics insight is that particles produced in a hard-scatter parton shower exhibit a collinear structure in $\eta$-$\phi$ space, a consequence of the collinear singularity of QCD, whereas pileup particles are spatially diffuse and uncorrelated with the hard scatter. 
-Rather than tagging jets to vertices after clustering, PUPPI assigns each particle a continuous weight between zero and one indicating the probability it originated from the hard scatter, then rescales each particle's four-momentum by that weight prior to jet clustering.
+While JVT operates at the jet level by tagging entire jets to vertices, PUPPI~\cite{PUPPI} takes a fundamentally different approach by operating at the individual particle level.
+Hard-scatter particles exhibit a collinear structure in $\eta$-$\phi$ space while pileup particles are spatially diffuse.
+PUPPI exploits this distinction by assigning each particle a continuous weight between zero and one indicating the probability it originated from the hard scatter, then rescales each particle's four-momentum by that weight prior to jet clustering.
 
 To probe this local collinear structure, PUPPI defines a shape parameter $\alpha_i$ for each particle $i$ by summing the $p_{\rm T}$-weighted inverse distances to neighboring particles within a cone $R_{\rm min} < \Delta R_{ij} \leq R_0$:
 
@@ -300,7 +297,11 @@ The updated track embeddings are then aggregated per jet by summing over the $N_
     \hat{\mathcal{T}}(\mathcal{J}_i) = \sum_{t=1}^{N_T(\mathcal{J}_i)} \mathcal{T}_{t}^{\prime}
     \label{eq:reduction}
 \end{equation}
-The aggregated track features are concatenated with the original jet features and passed through a non-linear transformation to produce track-reinforced jet embeddings $\hat{\mathcal{J}} = \text{ReLU}([\mathcal{J}, \hat{\mathcal{T}}]W + b)$, where $W$ and $b$ are trainable parameters.
+The aggregated track features are concatenated with the original jet features and passed through a non-linear transformation to produce track-reinforced jet embeddings:
+\begin{equation}
+    \hat{\mathcal{J}} = \text{ReLU}([\mathcal{J}, \hat{\mathcal{T}}]W + b),
+\end{equation}
+where $W$ and $b$ are trainable parameters.
 
 The second component captures global track correlations across the entire event. 
 Rather than processing tracks jet by jet, all tracks are flattened into a single set $t \in \mathbb{R}^{N_T \times y}$, where $N_T$ is the total number of tracks in the event. 
@@ -308,8 +309,11 @@ A self-encoder is applied to this global track set, enabling every track to atte
 This produces a global track representation that encodes event-wide context unavailable to any per-jet processing step.
 
 The third component integrates the global track context into the jet representations and then models correlations between jets. 
-First, a cross-encoder allows the track-reinforced jet embeddings $\hat{\mathcal{J}}$ to attend to the global track embeddings $\hat{t}$, infusing each jet with information from all tracks in the event: $\mathcal{J}_{\text{cross}} = \text{Cross-Encoder}(\hat{\mathcal{J}},\hat{t},\hat{t})$. 
-A final self-encoder then allows jets to attend to one another, capturing event-level correlations such as momentum conservation: $\mathcal{J}_{\text{final}} = \text{Self-Encoder}(\mathcal{J}_{\text{cross}},\mathcal{J}_{\text{cross}},\mathcal{J}_{\text{cross}})$. 
+First, a cross-encoder allows the track-reinforced jet embeddings $\hat{\mathcal{J}}$ to attend to the global track embeddings $\hat{t}$, infusing each jet with information from all tracks in the event: $\mathcal{J}^{\prime} = \text{Cross-Encoder}(\hat{\mathcal{J}},\hat{t},\hat{t})$.
+A final self-encoder then allows jets to attend to one another, capturing event-level correlations such as momentum conservation:
+\begin{equation}
+    \mathcal{J}_{\text{final}} = \text{Self-Encoder}(\mathcal{J}^{\prime},\mathcal{J}^{\prime},\mathcal{J}^{\prime}).
+\end{equation} 
 The resulting jet representations are passed to a regression head that produces the $(E_{frac}^{pred}, M_{frac}^{pred})$ predictions for each jet.
 
 \subsection{Energy and Mass Regression Results}\label{sec:puminet_results}
@@ -351,8 +355,8 @@ The resulting jet representations are passed to a regression head that produces 
 \label{fig:RegressionResults}
 \end{figure}
 
-PUMiNet is evaluated on the di-Higgs dataset described in Section~\ref{sec:dataset}, using a held-out test sample of 20k events at both $\langle\mu\rangle=60$ and $\langle\mu\rangle=200$. 
-Each encoder block is stacked three times to achieve a deeper representation of jets, and the model is trained for 50 epochs using the AdamW optimiser with a learning rate that decays by a factor of 0.1 after the $25^{\text{th}}$ epoch on an NVIDIA RTX 3090. 
+Each encoder block is stacked three times to achieve a deeper representation of jets, and the model is trained for 50 epochs using the AdamW optimiser with a learning rate that decays by a factor of 0.1 after the $25^{\text{th}}$ epoch on an NVIDIA RTX 3090.
+PUMiNet is evaluated on the di-Higgs dataset described in Section~\ref{sec:dataset}, using a test sample of 20k events at both $\langle\mu\rangle=60$ and $\langle\mu\rangle=200$. 
 The model is evaluated using the $R^2$ coefficient of determination as a regression metric.
 
 Figure~\ref{fig:RegressionResults} shows the predicted versus truth distributions for $E_{frac}$ and $M_{frac}$ at both pileup conditions. 
@@ -471,7 +475,7 @@ While PUMiNet relies on standard self-attention to implicitly learn the distinct
 First, a Distance-Aware Graph Attention Network (DA-GAT) injects spatial distance in the $(\eta,\phi)$ plane as a structural bias, exploiting the fact that signal tracks from a hard scatter are typically collinear while pileup tracks are diffusely distributed. 
 Second, a Pileup Suppression Gate (PSG) explicitly predicts a signal probability for each track and filters pileup contributions before jet aggregation. 
 Third, a hypergraph attention mechanism replaces the sum-based track aggregation of PUMiNet with a dynamic, attention-weighted aggregation from tracks to jets. 
-PhyGHT is evaluated on a semi-leptonic $t\bar{t}$ dataset, providing a complementary benchmark to the di-Higgs results presented for PUMiNet.
+PhyGHT is trained and evaluated on a semi-leptonic $t\bar{t}$ dataset, providing a complementary benchmark to the di-Higgs results presented for PUMiNet.
 
 \begin{figure*}[h]
 	\centering
@@ -482,7 +486,7 @@ PhyGHT is evaluated on a semi-leptonic $t\bar{t}$ dataset, providing a complemen
 
 The full pipeline is illustrated in Figure~\ref{fig:PhyGHTarchitecture} and proceeds in four sequential stages. 
 In the first stage, a DA-GAT processes each track's local neighborhood in $(\eta,\phi)$ space, computing attention coefficients modulated by the angular distance $\Delta R_{ij}$ between track pairs. 
-This geometric bias suppresses attention to distant pileup tracks while preserving sensitivity to the collinear signal topology. 
+This geometric bias preserves sensitivity to the collinear signal topology. 
 In the second stage, a transformer encoder is applied across all tracks simultaneously, allowing each track to incorporate global context such as event-wide pileup density and momentum conservation. 
 The locally and globally encoded representations are then fused before being passed to the PSG. 
 In the third stage, the PSG passes each track's representation through a small MLP to produce a scalar signal probability $\hat{s}_i \in [0,1]$, which is applied element-wise to suppress pileup tracks before aggregation: $\tilde{z}_i = \hat{s}_i \odot z_i$. 
@@ -672,7 +676,7 @@ This chapter reframes pileup mitigation as a regression problem, predicting per-
 An open-source simulated dataset is released to support reproducible benchmarking and collaboration between the high-energy physics and machine learning communities.
 
 Two event-wide neural network architectures are developed and evaluated.
-PUMiNet uses a hierarchy of self- and cross-attention encoders to capture local track correlations within jets and global correlations between jets across the full event, achieving $R^2=0.912$ for energy and $R^2=0.720$ for mass at $\langle\mu\rangle=200$ on the di-Higgs dataset, with only marginal degradation compared to $\langle\mu\rangle=60$.
+PUMiNet uses self- and cross-attention encoders to capture local track correlations within jets and global correlations between jets across the full event, achieving $R^2=0.912$ for energy and $R^2=0.720$ for mass at $\langle\mu\rangle=200$ on the di-Higgs dataset, with only marginal degradation compared to $\langle\mu\rangle=60$.
 PhyGHT extends this with explicit physics priors, including geometric distance-aware encoding, a pileup suppression gate, and hypergraph attention aggregation, and outperforms all baselines including PUMiNet across all metrics, with the largest gains in mass correction.
 Both models recover the Higgs boson and top quark mass peaks under HL-LHC pileup conditions where PUPPI and JVT struggle.
 
