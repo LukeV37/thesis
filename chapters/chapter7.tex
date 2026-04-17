@@ -2,9 +2,18 @@
 \clearpage% Manually insert \clearpage
 \let\clearpage\relax% Remove \clearpage functionality
 \vspace*{-16pt}% Insert needed vertical retraction
-\chapter[TOP POLARIMETRY]{TOP POLARIMETRY}
+\chapter[HADRONIC TOP QUARK POLARIMETRY]{HADRONIC TOP QUARK POLARIMETRY}
 \label{chap:top_polarimetry}
 \endgroup
+
+\section{Key Contributions}
+
+\begin{itemize}
+    \item A Transformer regression model is developed to extract the hadronic $\cos\theta$ asymmetry from boosted large-$R$ jets in the semi-leptonic $t\bar{t}$ channel, targeting a hadronic channel for quantum entanglement measurement of the $t\bar{t}$ spin system.
+    \item The model is trained exclusively on unpolarized $t\bar{t}$ and evaluated on left- and right-handed polarized samples, demonstrating that spin information is extractable without polarization-dependent training data.
+	\item A cosine similarity loss is introduced for unit vector regression of quark directions on the unit sphere, avoiding the edge artifacts that arise with mean squared error.
+    \item A measurable L/R asymmetry in $\cos\theta$ is recovered for both the down and bottom quarks, serving as a proof of concept that hadronic top quark polarimetry is achievable with a Transformer-based approach in the semi-leptonic channel.
+\end{itemize}
 
 \section{The Top Quark and Spin Correlations}
 
@@ -18,6 +27,7 @@ The $t\bar{t}$ spin system can be treated as a two-qubit quantum state, with the
 Deviations from SM predictions in the spin correlations would signal new physics, and the system provides a unique probe of quantum information at energy scales far beyond any previous test. 
 These correlations are observable as angular correlations between the decay products of the two top quarks.
 The spin correlations manifest as an asymmetry in the $\cos\theta$ distributions of the decay products: the degree of asymmetry directly encodes the spin-spin correlation coefficients $C_{ij}$ of the spin density matrix~\cite{Afik_2021,Afik_2022}, which are the observables from which quantum entanglement is inferred.
+
 Near the $t\bar{t}$ production threshold, the spin correlations are strong enough that the system is quantum-entangled. 
 Recent measurements by ATLAS and CMS have directly observed this entanglement~\cite{ATLAS_entanglement,CMS_entanglement}, marking the first observation of quantum entanglement at a hadron collider.
 Both experiments have also observed an excess of $t\bar{t}$ events near the production threshold, consistent with a toponium resonance~\cite{CMS_toponium,ATLAS_toponium}.
@@ -25,7 +35,13 @@ This near-threshold region is precisely where spin correlations are strongest an
 
 The spin correlations are characterized by the angle $\theta$ between a decay product direction and the top quark polarization direction. 
 The analyzing power $\beta$ quantifies the sensitivity of a given decay product to the top quark spin. 
-The charged lepton has $\beta = 1$, while in hadronic top decays the down-type quark from the $W$ decay has $\beta_d \approx 1.0$ and the bottom quark has $\beta_b \approx 0.4$~\cite{PDG2022}. 
+The differential decay rate is given by:
+\begin{equation}
+    \frac{1}{\sigma}\frac{d\sigma}{d\cos\theta} = \frac{1}{2}(1 - \beta\cos\theta),
+    \label{eq:decay_rate}
+\end{equation}
+where $\beta$ is the spin analyzing power of the decay product.
+The charged lepton has $\beta_\ell = 1$, while in hadronic top decays the down-type quark from the $W$ decay has $\beta_d \approx 1.0$, the up-type quark has $\beta_u \approx 0.3$, and the bottom quark has $\beta_b \approx 0.4$~\cite{PDG2022}.
 The angle $\cos\theta$ is computed via a two-step boost: the top quark unit vector $\hat{p}_{t}^{t\bar{t}}$ is evaluated in the $t\bar{t}$ CM frame, and the quark unit vector $\hat{p}_{q}^{t}$ is evaluated in the top quark rest frame:
 \begin{equation}
 	\cos\theta = \hat{p}_{t}^{t\bar{t}} \cdot \hat{p}_{q}^{t},
@@ -38,7 +54,7 @@ where $\hat{p}_{t}^{t\bar{t}}$ receives a single boost to the CM frame, and $\ha
 
 This analysis targets the semi-leptonic channel, $pp \rightarrow t\bar{t} \rightarrow \ell^{\pm}\nu 2b2j$, where one $W$ boson decays leptonically and the other hadronically. 
 The leptonic side provides a clean trigger through the charged lepton and missing transverse energy. 
-The hadronic top quark decay is captured in a single boosted large-$R$ jet, which contains the full hadronic decay. 
+The hadronic top quark decay products are captured within a single boosted large-$R$ jet.
 This rich substructure is the primary target for the regression model. 
 An inclusive phase space is targeted to maximize available statistics.
 
@@ -154,11 +170,11 @@ This is illustrated in Figure~\ref{fig:unit_sphere}.
 
 The two targets are optimized jointly using a combined loss:
 \begin{equation}
-	\mathcal{L} = \alpha \cdot \mathcal{L}_{\mathrm{MSE}} + \beta \cdot \mathcal{L}_{\mathrm{CosSim}},
+	\mathcal{L} = \alpha \cdot \mathcal{L}_{\mathrm{MSE}} + \lambda \cdot \mathcal{L}_{\mathrm{CosSim}},
 	\label{eq:combined_loss}
 \end{equation}
-with $\alpha = 1$ and $\beta = 10^6$.
-The large value of $\beta$ compensates for the order-of-magnitude difference in raw loss values between the two terms, and prioritizes the quark direction as the more important learning objective.
+with $\alpha = 1$ and $\lambda = 10^6$.
+The large value of $\lambda$ compensates for the order-of-magnitude difference in raw loss values between the two terms, and prioritizes the quark direction as the more important learning objective.
 Training both targets simultaneously within a single forward pass forces the model to learn the two sequential boosts required to compute $\cos\theta$.
 The model is trained on an unpolarized $t\bar{t}$ sample spanning the full phase space after event selection. 
 
@@ -168,8 +184,8 @@ The model is trained on an unpolarized $t\bar{t}$ sample spanning the full phase
 \subsection{Regression Performance}
 
 The model predicts the unit vector direction of either the bottom quark or the down quark in the top quark rest frame, in addition to the top quark direction in the $t\bar{t}$ CM frame, via the combined loss. 
-The bottom quark is used as a cross-check. B-jets carry a distinctive physics signature arising from the long lifetime of b-hadrons, which travel a measurable distance before decaying and produce a displaced secondary vertex. 
-This allows b-jets to be unambiguously identified through b-tagging. Light jets have no such distinguishing signature, and the down-type quark from the hadronic $W$ decay must be identified from among several kinematically similar light jets. 
+The bottom quark is used as a cross-check, and its distinctive signature allows it to be unambiguously identified through b-tagging.
+Light jets have no such distinguishing signature, and the down-type quark from the hadronic $W$ decay must be identified from among several kinematically similar light jets. 
 The down quark regression therefore presents a harder problem, subject to both the absence of a discriminating physics signature and jet combinatorial ambiguity.
 
 \begin{figure}[h]
@@ -192,7 +208,7 @@ The 1D distributions of predicted and true components agree well, confirming tha
 
 The bottom quark regression performance is shown in Figure~\ref{fig:bottom_regression}. 
 As expected from unambiguous b-jet identification, this regression achieves better performance than the down quark. 
-The 1D distributions of the predicted unit vector components are symmetric and well-centered around the truth values, with no pile-up near the boundaries at $\pm 1$. 
+The 1D distributions of the predicted unit vector components are symmetric and well-centered around the truth values, with no accumulation near the boundaries at $\pm 1$. 
 This confirms that the cosine similarity loss avoids the edge defects that would arise with MSE: directions near $\pm 1$ map continuously on the unit sphere, so the loss correctly penalizes angular deviation without distorting the boundary region.
 
 \begin{figure}[h]
@@ -239,6 +255,7 @@ The predicted unit vectors from the model are combined to reconstruct $\cos\thet
 The resulting distributions for the bottom and down quarks are shown in Figure~\ref{fig:costheta_cossim}, alongside the cosine similarity between the predicted and true quark directions. 
 Despite the degraded regression performance on the inclusive phase space, a visible L/R asymmetry in $\cos\theta$ is present for both quarks, confirming that the model captures spin information.
 This L/R asymmetry is precisely the observable signal used in entanglement measurements of the $t\bar{t}$ system: the hadronic $\cos\theta$ asymmetry demonstrated here, combined with the leptonic asymmetry accessible via the charged lepton, provides the spin-spin correlations needed to characterize the full two-qubit quantum state. 
+
 The cosine similarity distribution for the down quark is broad and approximately uniform, consistent with the harder regression problem. 
 Both the $\cos\theta$ and cosine similarity distributions for the bottom quark show a peak near $-1$, which is absent in the down quark case. 
 This feature is unique to the bottom quark regression and hints at a reconstruction or modeling issue.
@@ -252,8 +269,8 @@ This feature is unique to the bottom quark regression and hints at a reconstruct
 			\toprule
 			Quark & Pred $\beta_L$ & Pred $\beta_R$ \\
 			\midrule
-			Down   & $0.402$  & $0.2333$ \\
-			Bottom & $0.213$  & $0.2316$ \\
+			Down   & $0.402$  & $0.233$ \\
+			Bottom & $0.213$  & $0.232$ \\
 			\bottomrule
 		\end{tabular}%
 	}
