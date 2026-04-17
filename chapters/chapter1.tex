@@ -115,7 +115,8 @@ This extends the direct discovery reach to $\sim$30\,TeV and greatly enhances se
 % https://cds.cern.ch/record/1471016/plots
 
 Measurements in experimental high energy physics are fundamentally counting experiments. 
-Collision data is collected and sorted into histograms of some discriminating variable, and the observed counts in each bin are compared to predictions from Monte Carlo (MC) simulations of signal and background processes. 
+Collision data is collected and sorted into histograms of some discriminating variable.
+The observed counts in each bin are compared to predictions from Monte Carlo (MC) simulations of signal and background processes.
 A signal process typically appears as a localized excess over a smoothly varying background, a search strategy often referred to as ``bump hunting.''
 A classic example is the $H \to \gamma\gamma$ diphoton mass spectrum, shown in Figure~\ref{fig:higgs_discovery}, where both ATLAS and CMS observed a narrow peak near $m_{\gamma\gamma} = 125$\,GeV over a smooth background in 2012, providing the experimental confirmation of the Higgs boson~\cite{ATLAS-Higgs2012,CMS-Higgs2012}.
 
@@ -230,4 +231,4 @@ In the VBF channel, the first $3\sigma$ evidence for $VBF\,H \to b\bar{b}$ and t
 Chapter~\ref{chap:pileup} investigates machine learning approaches for pileup suppression under HL-LHC conditions ($\langle\mu\rangle = 200$).
 Two novel architectures are presented: PUMiNet, an event-wide attention model, and PhyGHT, a hypergraph Transformer, both validated by reconstructing Higgs boson, W boson, and top quark mass peaks.
 Chapter~\ref{chap:top_polarimetry} presents a proof-of-concept study of hadronic top quark polarimetry in the semi-leptonic $t\bar{t}$ channel.
-A Transformer regression model reconstructs the spin-sensitive observable $\cos\theta$ and demonstrates that spin information is recoverable without polarization-dependent training data.
+A Transformer regression model reconstructs the spin-sensitive observable $\cos\theta$ and demonstrates that spin information is recoverable without polarization-dependent training data. Crucially, a model trained solely on unpolarized large-$R$ jets from hadronic top decays successfully exploits the $\cos\theta$ asymmetry to distinguish left- and right-handed polarized top quarks.
