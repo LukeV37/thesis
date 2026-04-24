@@ -522,10 +522,10 @@ by committee members or Oklahoma State University.}
           #2 \par}
         \par\rule{0in}{0.5in}\par
         %
-        \settowidth{\mylengtha}{Thesis:~~}
+        \settowidth{\mylengtha}{Dissertation:~~}
         \setlength{\mylengthb}{\textwidth}
         \addtolength{\mylengthb}{-\mylengtha}
-        \mbox{Thesis:~~\parbox[t]{\mylengthb}{\ssp \MakeUppercase{\@title} \par\null}}
+        \mbox{Dissertation:~~\parbox[t]{\mylengthb}{\ssp \MakeUppercase{\@title} \par\null}}
            \par
         %
         Major Field:~~#3 \par
